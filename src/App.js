@@ -72,7 +72,7 @@ const App = () => {
           <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
           <p>Registrate o haz login para poder subir y votar recursos</p>
           <div>
-            <button type="button">Registrarme Entrar</button>
+            <button type="button">Registrarme</button>
             <button type="button">Entrar</button>
           </div>
           <div>
