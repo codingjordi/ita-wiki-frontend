@@ -1,4 +1,6 @@
-# React + TypeScript + Vite
+# Ita Wiki Frontend
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -48,3 +50,14 @@ export default tseslint.config({
   },
 })
 ```
+
+## Additional facilities
+
+- [jsdom](https://www.npmjs.com/package/jsdom)
+- [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom)
+- [@testing-library/react](https://testing-library.com/)
+- [@testing-library/user-event](https://github.com/testing-library/user-ev)
+- [vitest](https://vitest.dev/)
+- [@vitest/coverage-v8](https://www.npmjs.com/package/@vitest/coverage-v8)
+- [@vitest/ui](https://vitest.dev/guide/ui)
+- [Tailwindcss](https://tailwindcss.com/)
