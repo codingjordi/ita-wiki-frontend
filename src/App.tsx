@@ -1,6 +1,6 @@
-import { FC } from 'react'
-import './App.css'
-import GItHubLogin from './components/github-login/GItHubLogin'
+import { FC } from "react";
+import "./App.css";
+import GItHubLogin from "./components/github-login/GItHubLogin";
 import folder from "./assets/new-folder-dynamic-color.svg";
 import puzzle from "./assets/puzzle-dynamic-color.svg";
 import ok from "./assets/thumb-up-dynamic-color.svg";
@@ -14,9 +14,23 @@ import php from "./assets/logo-php 1.svg";
 import dataScience from "./assets/data-science.svg";
 import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
+import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
+import { auth, gitHubProvider } from "./api/firebase";
 
 const App: FC = () => {
-  const handlerClick = () => { }
+  const handlerClick = () => {
+    signInWithPopup(auth, gitHubProvider)
+      .then((result) => {
+        console.log("result", result.user.providerData[0]);
+        globalThis.localStorage.setItem(
+          "user",
+          JSON.stringify(result.user.providerData[0])
+        );
+      })
+      .catch((error) => {
+        console.log("error", error.message);
+      });
+  };
   return (
     <>
       <header>
@@ -33,35 +47,61 @@ const App: FC = () => {
           </button>
           <ul>
             <li>
-              <i><img src={node} alt="Node" width={29} height={19.36} /></i>
+              <i>
+                <img src={node} alt="Node" width={29} height={19.36} />
+              </i>
               <span>Node</span>
             </li>
             <li>
-              <i><img src={react} alt="React" width={29} height={19.36} /></i>
+              <i>
+                <img src={react} alt="React" width={29} height={19.36} />
+              </i>
               <span>React</span>
             </li>
             <li>
-              <i><img src={angular} alt="Angular" width={29} height={19.36} /></i>
+              <i>
+                <img src={angular} alt="Angular" width={29} height={19.36} />
+              </i>
               <span>Angular</span>
             </li>
             <li>
-              <i><img src={javascript} alt="Javascript" width={29} height={19.36} /></i>
+              <i>
+                <img
+                  src={javascript}
+                  alt="Javascript"
+                  width={29}
+                  height={19.36}
+                />
+              </i>
               <span>Javascript</span>
             </li>
             <li>
-              <i><img src={java} alt="Java" width={29} height={19.36} /></i>
+              <i>
+                <img src={java} alt="Java" width={29} height={19.36} />
+              </i>
               <span>Java</span>
             </li>
             <li>
-              <i><img src={php} alt="Fullstack PHP" width={29} height={19.36} /></i>
+              <i>
+                <img src={php} alt="Fullstack PHP" width={29} height={19.36} />
+              </i>
               <span>Fullstack PHP</span>
             </li>
             <li>
-              <i><img src={dataScience} alt="Data Science" width={29} height={19.36} /></i>
+              <i>
+                <img
+                  src={dataScience}
+                  alt="Data Science"
+                  width={29}
+                  height={19.36}
+                />
+              </i>
               <span>Data Science</span>
             </li>
             <li>
-              <i><img src={bbdd} alt="BBDD" width={29} height={19.36} /></i>
+              <i>
+                <img src={bbdd} alt="BBDD" width={29} height={19.36} />
+              </i>
               <span>BBDD</span>
             </li>
           </ul>
@@ -69,20 +109,24 @@ const App: FC = () => {
       </header>
       <main>
         <aside>listado techs</aside>
-        <section >
-          <article style={{
-            display: 'flex',
-            flexDirection: 'column',
-            maxWidth: '320px',
-            padding: '1rem'
-          }}>
+        <section>
+          <article
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              maxWidth: "320px",
+              padding: "1rem",
+            }}
+          >
             <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
             <p>Registrate o haz login para poder subir y votar recursos</p>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              maxWidth: '320px'
-            }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                maxWidth: "320px",
+              }}
+            >
               <GItHubLogin onClick={handlerClick} />
               <label htmlFor="terms">
                 <input name="terms" type="checkbox" /> Acepto términos legales
@@ -117,7 +161,7 @@ const App: FC = () => {
         </section>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
