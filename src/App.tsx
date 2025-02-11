@@ -16,16 +16,28 @@ import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
 import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
 import { auth, gitHubProvider } from "./api/firebase";
+import { useUserCtx } from "./hooks/useUserCtx";
 
 const App: FC = () => {
+  const { user, setUser } = useUserCtx();
+
   const handlerClick = () => {
     signInWithPopup(auth, gitHubProvider)
       .then((result) => {
+        const data = result.user.providerData[0];
+
         console.log("result", result.user.providerData[0]);
+
         globalThis.localStorage.setItem(
           "user",
           JSON.stringify(result.user.providerData[0])
         );
+        setUser(() => ({
+          uid: data.uid,
+          displayName: data.displayName,
+          photoURL: data.photoURL,
+        }));
+        console.log("useraa: ", user);
       })
       .catch((error) => {
         console.log("error", error.message);
