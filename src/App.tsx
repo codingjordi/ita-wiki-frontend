@@ -102,15 +102,15 @@ const App: FC = () => {
             style={{
               display: "flex",
               flexDirection: "column",
-              maxWidth: "320px",
+              maxWidth: "375px",
               padding: "1rem",
             }}
           >
             <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
-            {user ? <article id={user.uid} className="flex justify-center items-center gap-2 p-4 bg-amber-300">
-              <img src={user.photoURL} alt="Avatar usuario" width={64} height={64} />
-              <strong style={{ textTransform: 'uppercase' }}>{user.displayName}</strong>
-              <button type="button" onClick={signOut}>Exit</button>
+            {user ? <article id={user.uid} className="flex justify-evenly items-center gap-4 mt-4 py-2 px-4 rounded-md bg-black text-white">
+              <img src={user.photoURL} alt="Avatar usuario" width={64} height={64} className="rounded-full border-2 border-white" />
+              <small className="font-bold" style={{ textTransform: 'uppercase' }}>{user.displayName}</small>
+              <button className="bg-white text-red-500 text-sm font-bold active:scale-95 py-1 px-4 rounded-sm border-2 border-black" type="button" onClick={signOut}>Exit</button>
             </article> :
               <div>
                 <p>Registrate o haz login para poder subir y votar recursos</p>
