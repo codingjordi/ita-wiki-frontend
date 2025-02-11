@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GithubAuthProvider } from "firebase/auth";
+import { getAuth, GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { User } from "../types";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -14,4 +15,26 @@ export const app = initializeApp(firebaseConfig);
 
 export const gitHubProvider = new GithubAuthProvider();
 
-export const auth = getAuth();
+export const auth = getAuth(app);
+
+export const signInWithGitHub = (callback: (arg0: () => User) => void) => {
+  signInWithPopup(auth, gitHubProvider)
+    .then((result) => {
+      const newUser = {
+        uid: result.user.providerData[0].uid,
+        displayName: result.user.providerData[0].displayName,
+        photoURL: result.user.providerData[0].photoURL,
+      } as User
+
+      globalThis.localStorage.setItem(
+        "user",
+        JSON.stringify(newUser)
+      );
+
+      callback(() => newUser)
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log("error", error.message);
+    });
+}
