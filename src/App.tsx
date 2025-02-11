@@ -1,5 +1,4 @@
 import { FC } from "react";
-import "./App.css";
 import GItHubLogin from "./components/github-login/GItHubLogin";
 import folder from "./assets/new-folder-dynamic-color.svg";
 import puzzle from "./assets/puzzle-dynamic-color.svg";
@@ -14,35 +13,12 @@ import php from "./assets/logo-php 1.svg";
 import dataScience from "./assets/data-science.svg";
 import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
-import { signInWithPopup, GithubAuthProvider } from "firebase/auth";
-import { auth, gitHubProvider } from "./api/firebase";
-import { useUserCtx } from "./hooks/useUserCtx";
+import { useUser } from "./hooks/useUser";
 
 const App: FC = () => {
-  const { user, setUser } = useUserCtx();
 
-  const handlerClick = () => {
-    signInWithPopup(auth, gitHubProvider)
-      .then((result) => {
-        const data = result.user.providerData[0];
+  const { signIn, signOut, user } = useUser()
 
-        console.log("result", result.user.providerData[0]);
-
-        globalThis.localStorage.setItem(
-          "user",
-          JSON.stringify(result.user.providerData[0])
-        );
-        setUser(() => ({
-          uid: data.uid,
-          displayName: data.displayName,
-          photoURL: data.photoURL,
-        }));
-        console.log("useraa: ", user);
-      })
-      .catch((error) => {
-        console.log("error", error.message);
-      });
-  };
   return (
     <>
       <header>
@@ -131,19 +107,28 @@ const App: FC = () => {
             }}
           >
             <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
-            <p>Registrate o haz login para poder subir y votar recursos</p>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                maxWidth: "320px",
-              }}
-            >
-              <GItHubLogin onClick={handlerClick} />
-              <label htmlFor="terms">
-                <input name="terms" type="checkbox" /> Acepto términos legales
-              </label>
-            </div>
+            {user ? <article id={user.uid} className="flex justify-center items-center gap-2 p-4 bg-amber-300">
+              <img src={user.photoURL} alt="Avatar usuario" width={64} height={64} />
+              <strong style={{ textTransform: 'uppercase' }}>{user.displayName}</strong>
+              <button type="button" onClick={signOut}>Exit</button>
+            </article> :
+              <div>
+                <p>Registrate o haz login para poder subir y votar recursos</p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    maxWidth: "320px",
+                  }}
+                >
+                  <GItHubLogin onClick={signIn} />
+                  <label htmlFor="terms">
+                    <input name="terms" type="checkbox" /> Acepto términos legales
+                  </label>
+                </div>
+              </div>
+            }
+
           </article>
           <div>
             <div>
