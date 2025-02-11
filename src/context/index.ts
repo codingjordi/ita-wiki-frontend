@@ -1,12 +1,12 @@
 import { createContext } from "react";
-interface User {
-  uid: string;
-  displayName: string;
-  photoURL: string;
+import { User } from "../types";
+export interface PropsContext {
+  user: User;
+  saveUser: (user: User) => void;
+  signIn: () => void,
+  signOut: () => void
 }
 
-export interface IUserCtx {
-  user: User;
-  setUser: () => void;
-}
-export const UserCtx = createContext<IUserCtx | null>(null);
+const CtxUser = createContext<PropsContext | null>(null);
+
+export default CtxUser
