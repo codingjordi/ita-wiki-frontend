@@ -1,6 +1,5 @@
-import { FC } from 'react'
-import './App.css'
-import GItHubLogin from './components/github-login/GItHubLogin'
+import { FC } from "react";
+import GItHubLogin from "./components/github-login/GItHubLogin";
 import folder from "./assets/new-folder-dynamic-color.svg";
 import puzzle from "./assets/puzzle-dynamic-color.svg";
 import ok from "./assets/thumb-up-dynamic-color.svg";
@@ -14,9 +13,12 @@ import php from "./assets/logo-php 1.svg";
 import dataScience from "./assets/data-science.svg";
 import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
+import { useUser } from "./hooks/useUser";
 
 const App: FC = () => {
-  const handlerClick = () => { }
+
+  const { signIn, signOut, user } = useUser()
+
   return (
     <>
       <header>
@@ -33,35 +35,61 @@ const App: FC = () => {
           </button>
           <ul>
             <li>
-              <i><img src={node} alt="Node" width={29} height={19.36} /></i>
+              <i>
+                <img src={node} alt="Node" width={29} height={19.36} />
+              </i>
               <span>Node</span>
             </li>
             <li>
-              <i><img src={react} alt="React" width={29} height={19.36} /></i>
+              <i>
+                <img src={react} alt="React" width={29} height={19.36} />
+              </i>
               <span>React</span>
             </li>
             <li>
-              <i><img src={angular} alt="Angular" width={29} height={19.36} /></i>
+              <i>
+                <img src={angular} alt="Angular" width={29} height={19.36} />
+              </i>
               <span>Angular</span>
             </li>
             <li>
-              <i><img src={javascript} alt="Javascript" width={29} height={19.36} /></i>
+              <i>
+                <img
+                  src={javascript}
+                  alt="Javascript"
+                  width={29}
+                  height={19.36}
+                />
+              </i>
               <span>Javascript</span>
             </li>
             <li>
-              <i><img src={java} alt="Java" width={29} height={19.36} /></i>
+              <i>
+                <img src={java} alt="Java" width={29} height={19.36} />
+              </i>
               <span>Java</span>
             </li>
             <li>
-              <i><img src={php} alt="Fullstack PHP" width={29} height={19.36} /></i>
+              <i>
+                <img src={php} alt="Fullstack PHP" width={29} height={19.36} />
+              </i>
               <span>Fullstack PHP</span>
             </li>
             <li>
-              <i><img src={dataScience} alt="Data Science" width={29} height={19.36} /></i>
+              <i>
+                <img
+                  src={dataScience}
+                  alt="Data Science"
+                  width={29}
+                  height={19.36}
+                />
+              </i>
               <span>Data Science</span>
             </li>
             <li>
-              <i><img src={bbdd} alt="BBDD" width={29} height={19.36} /></i>
+              <i>
+                <img src={bbdd} alt="BBDD" width={29} height={19.36} />
+              </i>
               <span>BBDD</span>
             </li>
           </ul>
@@ -69,25 +97,38 @@ const App: FC = () => {
       </header>
       <main>
         <aside>listado techs</aside>
-        <section >
-          <article style={{
-            display: 'flex',
-            flexDirection: 'column',
-            maxWidth: '320px',
-            padding: '1rem'
-          }}>
+        <section>
+          <article
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              maxWidth: "375px",
+              padding: "1rem",
+            }}
+          >
             <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
-            <p>Registrate o haz login para poder subir y votar recursos</p>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              maxWidth: '320px'
-            }}>
-              <GItHubLogin onClick={handlerClick} />
-              <label htmlFor="terms">
-                <input name="terms" type="checkbox" /> Acepto términos legales
-              </label>
-            </div>
+            {user ? <article id={user.uid} className="flex justify-evenly items-center gap-4 mt-4 py-2 px-4 rounded-md bg-black text-white">
+              <img src={user.photoURL} alt="Avatar usuario" width={64} height={64} className="rounded-full border-2 border-white" />
+              <small className="font-bold" style={{ textTransform: 'uppercase' }}>{user.displayName}</small>
+              <button className="bg-white text-red-500 text-sm font-bold active:scale-95 py-1 px-4 rounded-sm border-2 border-black" type="button" onClick={signOut}>Exit</button>
+            </article> :
+              <div>
+                <p>Registrate o haz login para poder subir y votar recursos</p>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    maxWidth: "320px",
+                  }}
+                >
+                  <GItHubLogin onClick={signIn} />
+                  <label htmlFor="terms">
+                    <input name="terms" type="checkbox" /> Acepto términos legales
+                  </label>
+                </div>
+              </div>
+            }
+
           </article>
           <div>
             <div>
@@ -117,7 +158,7 @@ const App: FC = () => {
         </section>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
