@@ -15,35 +15,21 @@ import addIcon from './assets/add.svg'
 import HomePage from "./pages/HomePage";
 import ItaButton from "./components/atoms/ItaButton";
 import { useCtxUser } from "./hooks/useCtxUser";
-import { useUser } from "./hooks/useUser";
 
 
 const App: FC = () => {
-
-  const { user } = useUser()
-  // const { user } = useCtxUser();
+  const { user } = useCtxUser();
 
   const goToResourcesPage = () => {
-    if (user) {
-      alert("logado");
-      console.log("user: ", user);
-    } else {
-      alert("no logado");
-      console.log("user: ", user);
-    }
+    alert("click go to resources")
   }
-  useEffect(() => {
-    console.log("User actualizado:", user);
-  }, [user]);
-
 
   return (
     <>
-
       <header>
-        <p className="bg-[#ebebeb] p-6">
+        {user && <p className="bg-[#ebebeb] p-6">
           <ItaButton icon={addIcon} variant='icon' onClick={goToResourcesPage}></ItaButton>
-        </p>
+        </p>}
         <button type="button">
           <img src={menu} alt="menu" width={29} height={19.36} />
         </button>
