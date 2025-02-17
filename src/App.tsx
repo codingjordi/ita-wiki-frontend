@@ -10,18 +10,20 @@ import php from "./assets/logo-php 1.svg";
 import dataScience from "./assets/data-science.svg";
 import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
 import addIcon from './assets/add.svg'
 import HomePage from "./pages/HomePage";
+import ResourcesPage from "./pages/ResourcesPage";
 import ItaButton from "./components/atoms/ItaButton";
 import { useCtxUser } from "./hooks/useCtxUser";
 
 
 const App: FC = () => {
   const { user } = useCtxUser();
+  const navigate = useNavigate();
 
   const goToResourcesPage = () => {
-    alert("click go to resources")
+    navigate('/resources')
   }
 
   return (
@@ -105,6 +107,7 @@ const App: FC = () => {
       </header>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/resources" element={<ResourcesPage />} />
       </Routes>
     </>
   );
