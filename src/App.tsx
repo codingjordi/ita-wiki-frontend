@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import menu from "./assets/Vector-7.svg";
 import node from "./assets/logo-node 1.svg";
@@ -11,14 +11,39 @@ import dataScience from "./assets/data-science.svg";
 import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
 import { Route, Routes } from "react-router";
+import addIcon from './assets/add.svg'
 import HomePage from "./pages/HomePage";
+import ItaButton from "./components/atoms/ItaButton";
+import { useCtxUser } from "./hooks/useCtxUser";
+import { useUser } from "./hooks/useUser";
+
 
 const App: FC = () => {
 
+  const { user } = useUser()
+  // const { user } = useCtxUser();
+
+  const goToResourcesPage = () => {
+    if (user) {
+      alert("logado");
+      console.log("user: ", user);
+    } else {
+      alert("no logado");
+      console.log("user: ", user);
+    }
+  }
+  useEffect(() => {
+    console.log("User actualizado:", user);
+  }, [user]);
+
+
   return (
     <>
-      
+
       <header>
+        <p className="bg-[#ebebeb] p-6">
+          <ItaButton icon={addIcon} variant='icon' onClick={goToResourcesPage}></ItaButton>
+        </p>
         <button type="button">
           <img src={menu} alt="menu" width={29} height={19.36} />
         </button>
@@ -92,9 +117,9 @@ const App: FC = () => {
           </ul>
         </nav>
       </header>
-       <Routes>
-      <Route path="/" element={<HomePage />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
     </>
   );
 };
