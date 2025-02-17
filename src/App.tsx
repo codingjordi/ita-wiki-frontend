@@ -11,8 +11,9 @@ import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
 import { Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
-import ItaResources from "./components/ItaResources";
-
+import ListResources from "./components/resources/ListResources";
+import moock from "./moock/resources.json"
+import avatarPost from "./assets/avatar_post.svg"
 const App: FC = () => {
 
   return (
@@ -94,7 +95,17 @@ const App: FC = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
       </Routes>
-      <ItaResources />
+      <ListResources resources={moock.resources.map(res => {
+        return (
+          {
+            ...res,
+            user: {
+              ...res.user,
+              photoURL: avatarPost
+            }
+          }
+        )
+      })} nameResource="React.js" />
     </>
   );
 };
