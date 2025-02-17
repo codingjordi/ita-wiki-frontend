@@ -7,6 +7,7 @@
       "favorite": false,
       "votes": 201,
       "user": {
+        "id": "asdasdasd",
         "photoURL": "http://photourl.jpg",
         "displayName": "Ona Costa"
       },
@@ -19,6 +20,7 @@
       "favorite": true,
       "votes": 123,
       "user": {
+        "id": "asdasdasd",
         "photoURL": "http://photourl.jpg",
         "displayName": "Ona Costa"
       },
@@ -31,6 +33,7 @@
       "favorite": false,
       "votes": 123,
       "user": {
+        "id": "asdasdasd",
         "photoURL": "http://photourl.jpg",
         "displayName": "Ona Costa"
       },
@@ -43,6 +46,7 @@
       "favorite": true,
       "votes": 25,
       "user": {
+        "id": "asdasdasd",
         "photoURL": "http://photourl.jpg",
         "displayName": "Ona Costa"
       },
@@ -55,6 +59,7 @@
       "favorite": false,
       "votes": 7,
       "user": {
+        "id": "asdasdasd",
         "photoURL": "http://photourl.jpg",
         "displayName": "Ona Costa"
       },
