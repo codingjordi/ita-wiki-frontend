@@ -11,9 +11,10 @@ import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
 import { Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
-import ListResources from "./components/resources/ListResources";
+
 import moock from "./moock/resources.json"
 import avatarPost from "./assets/avatar_post.svg"
+import { ListResources } from "./components/resources/ListResources";
 const App: FC = () => {
 
   return (
