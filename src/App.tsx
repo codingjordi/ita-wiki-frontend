@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
 import menu from "./assets/Vector-7.svg";
 import node from "./assets/logo-node 1.svg";
@@ -14,7 +14,7 @@ import { Route, Routes, useNavigate } from "react-router";
 import addIcon from './assets/add.svg'
 import HomePage from "./pages/HomePage";
 import ResourcesPage from "./pages/ResourcesPage";
-import ItaButton from "./components/atoms/ItaButton";
+import ButtonComponent from "./components/atoms/ButtonComponent";
 import { useCtxUser } from "./hooks/useCtxUser";
 
 
@@ -30,7 +30,7 @@ const App: FC = () => {
     <>
       <header>
         {user && <p className="bg-[#ebebeb] p-6">
-          <ItaButton icon={addIcon} variant='icon' onClick={goToResourcesPage}></ItaButton>
+          <ButtonComponent icon={addIcon} variant='icon' onClick={goToResourcesPage} />
         </p>}
         <button type="button">
           <img src={menu} alt="menu" width={29} height={19.36} />
