@@ -109,9 +109,22 @@ const App: FC = () => {
           </ul>
         </nav>
       </header>
-       <Routes>
+      <Routes>
       <Route path="/" element={<HomePage />} />
-        </Routes>
+      <Route path="/resources" element={<ListResources resources={moock.resources.map(res => {
+        return (
+          {
+            ...res,
+            user: {
+              ...res.user,
+              photoURL: avatarPost
+            }
+          }
+        )
+      })} nameResource="React.js" />} />
+        <Route path="/resource/add" element={<CreateResourcePage />} />
+      </Routes>
+        
     </>
   );
 };
