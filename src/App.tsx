@@ -13,7 +13,7 @@ import close from "./assets/close.svg";
 import { Route, Routes, useNavigate } from "react-router";
 import addIcon from './assets/add.svg'
 import HomePage from "./pages/HomePage";
-import ResourcesPage from "./pages/ResourcesPage";
+import CreateResourcePage from "./pages/CreateResourcePage";
 import ButtonComponent from "./components/atoms/ButtonComponent";
 import { useCtxUser } from "./hooks/useCtxUser";
 
@@ -23,15 +23,17 @@ const App: FC = () => {
   const navigate = useNavigate();
 
   const goToResourcesPage = () => {
-    navigate('/resources')
+    navigate('/resource/add')
   }
 
   return (
     <>
       <header>
-        {user && <p className="bg-[#ebebeb] p-6">
-          <ButtonComponent icon={addIcon} variant='icon' onClick={goToResourcesPage} />
-        </p>}
+        <p className="bg-[#ebebeb] p-6">
+          {user &&
+            <ButtonComponent icon={addIcon} variant='icon' onClick={goToResourcesPage} />
+          }
+        </p>
         <button type="button">
           <img src={menu} alt="menu" width={29} height={19.36} />
         </button>
@@ -107,7 +109,7 @@ const App: FC = () => {
       </header>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/resources" element={<ResourcesPage />} />
+        <Route path="/resource/add" element={<CreateResourcePage />} />
       </Routes>
     </>
   );
