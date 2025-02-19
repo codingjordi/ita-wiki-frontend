@@ -9,17 +9,33 @@ import php from "./assets/logo-php 1.svg";
 import dataScience from "./assets/data-science.svg";
 import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
+import addIcon from './assets/add.svg'
 import HomePage from "./pages/HomePage";
+import CreateResourcePage from "./pages/CreateResourcePage";
+import ButtonComponent from "./components/atoms/ButtonComponent";
+import { useCtxUser } from "./hooks/useCtxUser";
+
 
 import moock from "./moock/resources.json"
 import avatarPost from "./assets/avatar_post.svg"
 import { ListResources } from "./components/resources/ListResources";
 const App: FC = () => {
+  const { user } = useCtxUser();
+  const navigate = useNavigate();
+
+  const goToResourcesPage = () => {
+    navigate('/resource/add')
+  }
 
   return (
     <>
       <header>
+        <p className="bg-[#ebebeb] p-6">
+          {user &&
+            <ButtonComponent icon={addIcon} variant='icon' onClick={goToResourcesPage} />
+          }
+        </p>
         <button type="button">
           <img src={menu} alt="menu" width={29} height={19.36} />
         </button>
@@ -93,20 +109,9 @@ const App: FC = () => {
           </ul>
         </nav>
       </header>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-      </Routes>
-      <ListResources resources={moock.resources.map(res => {
-        return (
-          {
-            ...res,
-            user: {
-              ...res.user,
-              photoURL: avatarPost
-            }
-          }
-        )
-      })} nameResource="React.js" />
+       <Routes>
+      <Route path="/" element={<HomePage />} />
+        </Routes>
     </>
   );
 };
