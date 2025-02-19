@@ -1,5 +1,4 @@
 import { FC } from "react";
-
 import menu from "./assets/Vector-7.svg";
 import node from "./assets/logo-node 1.svg";
 import react from "./assets/react.svg";
@@ -18,6 +17,9 @@ import ButtonComponent from "./components/atoms/ButtonComponent";
 import { useCtxUser } from "./hooks/useCtxUser";
 
 
+import moock from "./moock/resources.json"
+import avatarPost from "./assets/avatar_post.svg"
+import { ListResources } from "./components/resources/ListResources";
 const App: FC = () => {
   const { user } = useCtxUser();
   const navigate = useNavigate();
@@ -107,10 +109,9 @@ const App: FC = () => {
           </ul>
         </nav>
       </header>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/resource/add" element={<CreateResourcePage />} />
-      </Routes>
+       <Routes>
+      <Route path="/" element={<HomePage />} />
+        </Routes>
     </>
   );
 };
