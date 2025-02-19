@@ -10,15 +10,28 @@ import php from "./assets/logo-php 1.svg";
 import dataScience from "./assets/data-science.svg";
 import bbdd from "./assets/logo-bbdd 1.svg";
 import close from "./assets/close.svg";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
+import addIcon from './assets/add.svg'
 import HomePage from "./pages/HomePage";
+import ResourcesPage from "./pages/ResourcesPage";
+import ButtonComponent from "./components/atoms/ButtonComponent";
+import { useCtxUser } from "./hooks/useCtxUser";
+
 
 const App: FC = () => {
+  const { user } = useCtxUser();
+  const navigate = useNavigate();
+
+  const goToResourcesPage = () => {
+    navigate('/resources')
+  }
 
   return (
     <>
-      
       <header>
+        {user && <p className="bg-[#ebebeb] p-6">
+          <ButtonComponent icon={addIcon} variant='icon' onClick={goToResourcesPage} />
+        </p>}
         <button type="button">
           <img src={menu} alt="menu" width={29} height={19.36} />
         </button>
@@ -92,9 +105,10 @@ const App: FC = () => {
           </ul>
         </nav>
       </header>
-       <Routes>
-      <Route path="/" element={<HomePage />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/resources" element={<ResourcesPage />} />
+      </Routes>
     </>
   );
 };
