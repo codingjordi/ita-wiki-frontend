@@ -1,36 +1,29 @@
 import { FC } from "react";
 import menu from "./assets/Vector-7.svg";
-import node from "./assets/logo-node 1.svg";
-import react from "./assets/react.svg";
-import angular from "./assets/angular.svg";
-import javascript from "./assets/javascript.svg";
-import java from "./assets/logo-java 1.svg";
-import php from "./assets/logo-php 1.svg";
-import dataScience from "./assets/data-science.svg";
-import bbdd from "./assets/logo-bbdd 1.svg";
+
 import close from "./assets/close.svg";
 import { Route, Routes, useNavigate } from "react-router";
 import addIcon from './assets/add.svg'
 import HomePage from "./pages/HomePage";
 import CreateResourcePage from "./pages/CreateResourcePage";
-import ButtonComponent from "./components/atoms/ButtonComponent";
-import { useCtxUser } from "./hooks/useCtxUser";
-
-
 import moock from "./moock/resources.json"
 import avatarPost from "./assets/avatar_post.svg"
 import { ListResources } from "./components/resources/ListResources";
-const App: FC = () => {
-  const { user } = useCtxUser();
-  const navigate = useNavigate();
+import HeaderComponent from "./components/Layout/HeaderComponent";
+import AsideComponent from "./components/Layout/AsideComponent";
 
-  const goToResourcesPage = () => {
-    navigate('/resource/add')
-  }
+const App: FC = () => {
+  // const { user } = useCtxUser();
+  // const navigate = useNavigate();
+
+  // const goToResourcesPage = () => {
+  //   navigate('/resource/add')
+  // }
 
   return (
-    <>
-      <header>
+    // <div className="bg-[#ebebeb]">
+    <div className="bg-[#e5b4e9]">
+      {/* <header>
         <p className="bg-[#ebebeb] p-6">
           {user &&
             <ButtonComponent icon={addIcon} variant='icon' onClick={goToResourcesPage} />
@@ -108,24 +101,26 @@ const App: FC = () => {
             </li>
           </ul>
         </nav>
-      </header>
+      </header> */}
+      <HeaderComponent />
+      <AsideComponent />
       <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/resources" element={<ListResources resources={moock.resources.map(res => {
-        return (
-          {
-            ...res,
-            user: {
-              ...res.user,
-              photoURL: avatarPost
+        <Route path="/" element={<HomePage />} />
+        <Route path="/resources" element={<ListResources resources={moock.resources.map(res => {
+          return (
+            {
+              ...res,
+              user: {
+                ...res.user,
+                photoURL: avatarPost
+              }
             }
-          }
-        )
-      })} nameResource="React.js" />} />
+          )
+        })} nameResource="React.js" />} />
         <Route path="/resource/add" element={<CreateResourcePage />} />
       </Routes>
-        
-    </>
+
+    </div>
   );
 };
 
