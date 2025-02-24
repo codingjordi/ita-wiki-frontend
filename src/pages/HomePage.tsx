@@ -7,8 +7,7 @@ import { useCtxUser } from '../hooks/useCtxUser';
 export default function HomePage() {
   const { signIn, signOut, user } = useCtxUser()
   return (
-    <>   <main>
-      <aside>listado techs</aside>
+    <main className="bg-white rounded-xl p-6 w-full max-h-[calc(100vh-90px)]">
       <section>
         <article
           style={{
@@ -68,6 +67,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </main></>
+    </main>
   )
 }
