@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { User } from "../types";
+import { IntUser } from "../types";
 import { signInWithGitHub } from "../api/firebase";
 import { storage } from "../utils";
 
 export const useUser = () => {
-  const [user, setUser] = useState<User | null>(storage.get("user"));
+
+  const [user, setUser] = useState<IntUser | undefined>(storage.get("user"));
 
   const signIn = () => {
     signInWithGitHub(setUser)
@@ -13,7 +14,7 @@ export const useUser = () => {
     localStorage.removeItem("user")
     setUser(() => storage.get("user"))
   }
-  const saveUser = (user: User) => {
+  const saveUser = (user: IntUser) => {
     setUser(() => user)
   }
   return { user, saveUser, signIn, signOut };

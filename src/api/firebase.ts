@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GithubAuthProvider, signInWithPopup } from "firebase/auth";
-import { User } from "../types";
+import { IntUser } from "../types";
 import { storage } from "../utils";
 
 const firebaseConfig = {
@@ -18,14 +18,14 @@ export const gitHubProvider = new GithubAuthProvider();
 
 export const auth = getAuth(app);
 
-export const signInWithGitHub = (callback: (arg0: () => User) => void) => {
+export const signInWithGitHub = (callback: (arg0: () => IntUser) => void) => {
   signInWithPopup(auth, gitHubProvider)
     .then((result) => {
       const newUser = {
-        uid: result.user.providerData[0].uid,
+        id: result.user.providerData[0].uid,
         displayName: result.user.providerData[0].displayName,
         photoURL: result.user.providerData[0].photoURL,
-      } as User
+      } as IntUser
 
       storage.save("user", newUser)
       callback(() => newUser)
