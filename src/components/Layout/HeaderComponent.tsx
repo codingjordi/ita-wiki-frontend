@@ -16,7 +16,7 @@ const HeaderComponent = () => {
         navigate('/resource/add')
     }
     return (
-        <header className="bg-[#ebebeb] p-6 flex items-center justify-between">
+        <header className="bg-[#ebebeb] p-6 pt-0 px-0 flex items-center justify-between">
             <Link to='/'><img src={logoItAcademy} alt='logo' width={'116px'} /></Link>
             <div className='flex'>
                 <div className="relative mr-[120px] cursor-pointer">
@@ -38,7 +38,9 @@ const HeaderComponent = () => {
                     </select>
                 </div>
                 <ButtonComponent icon={settingsIcon} variant='icon' />
-                <ButtonComponent icon={userIcon} variant='icon' />
+                <div className='mr-[-10px]'>
+                    <ButtonComponent icon={userIcon} variant='icon' />
+                </div>
             </div>
         </header>
     );
