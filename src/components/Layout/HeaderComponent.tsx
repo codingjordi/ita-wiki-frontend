@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router';
 import logoItAcademy from '../../assets/LogoItAcademy.svg'
 import addIcon from '../../assets/add.svg'
