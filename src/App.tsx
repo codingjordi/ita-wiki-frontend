@@ -5,8 +5,8 @@ import CreateResourcePage from "./pages/CreateResourcePage";
 import moock from "./moock/resources.json"
 import avatarPost from "./assets/avatar_post.svg"
 import { ListResources } from "./components/resources/ListResources";
-import HeaderComponent from "./components/layout/HeaderComponent";
-import AsideComponent from "./components/layout/AsideComponent";
+import HeaderComponent from "./components/Layout/HeaderComponent";
+import AsideComponent from "./components/Layout/AsideComponent";
 
 const App: FC = () => {
 
