@@ -2,8 +2,7 @@ import { FC } from "react";
 import menu from "./assets/Vector-7.svg";
 
 import close from "./assets/close.svg";
-import { Route, Routes, useNavigate } from "react-router";
-import addIcon from './assets/add.svg'
+import { Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
 import CreateResourcePage from "./pages/CreateResourcePage";
 import moock from "./moock/resources.json"
@@ -13,12 +12,6 @@ import HeaderComponent from "./components/Layout/HeaderComponent";
 import AsideComponent from "./components/Layout/AsideComponent";
 
 const App: FC = () => {
-  // const { user } = useCtxUser();
-  // const navigate = useNavigate();
-
-  // const goToResourcesPage = () => {
-  //   navigate('/resource/add')
-  // }
 
   return (
     <div className="bg-[#ebebeb] p-6">
