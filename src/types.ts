@@ -5,8 +5,9 @@ export type TypChildren = {
 }
 export interface IntUser {
   id: string;
-  displayName: string;
-  photoURL: string;
+  displayName: string | null;
+  photoURL: string | null;
+  role?: string
 }
 
 export interface IntResource {

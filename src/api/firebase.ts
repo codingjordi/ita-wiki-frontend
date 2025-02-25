@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import { IntUser } from "../types";
 import { storage } from "../utils";
+import { getUserRole } from "./userApi";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -18,19 +19,26 @@ export const gitHubProvider = new GithubAuthProvider();
 
 export const auth = getAuth(app);
 
-export const signInWithGitHub = (callback: (arg0: () => IntUser) => void) => {
-  signInWithPopup(auth, gitHubProvider)
-    .then((result) => {
-      const newUser = {
-        id: result.user.providerData[0].uid,
-        displayName: result.user.providerData[0].displayName,
-        photoURL: result.user.providerData[0].photoURL,
-      } as IntUser
+export const signInWithGitHub = async () => {
+  try {
+    const result = await signInWithPopup(auth, gitHubProvider);
 
-      storage.save("user", newUser)
-      callback(() => newUser)
-    })
-    .catch((error) => {
-      console.log("error", error.message);
-    });
+    const newUser: IntUser = {
+      id: result.user.providerData[0].uid,
+      displayName: result.user.providerData[0].displayName,
+      photoURL: result.user.providerData[0].photoURL,
+    };
+
+    newUser.role = await getUserRole(newUser.id);
+
+    storage.save("user", newUser);
+    storage.save("user", newUser)
+    return newUser;
+
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "Error during GitHub authentication. Please try again.");
+    }
+    throw new Error("An unknown error occurred during GitHub authentication.");
+  }
 }
