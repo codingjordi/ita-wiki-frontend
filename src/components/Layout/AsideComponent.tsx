@@ -1,4 +1,3 @@
-import React from 'react';
 import node from "../../assets/logo-node 1.svg";
 import react from "../../assets/react.svg";
 import angular from "../../assets/angular.svg";

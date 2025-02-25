@@ -22,11 +22,10 @@ export const auth = getAuth(app);
 export const signInWithGitHub = async () => {
   try {
     const result = await signInWithPopup(auth, gitHubProvider);
-
     const newUser: IntUser = {
-      id: result.user.providerData[0].uid,
-      displayName: result.user.providerData[0].displayName,
-      photoURL: result.user.providerData[0].photoURL,
+      id: result.user.providerData[0].uid ?? '',
+      displayName: result.user.providerData[0].displayName ?? '',
+      photoURL: result.user.providerData[0].photoURL ?? '',
     };
 
     newUser.role = await getUserRole(newUser.id);
