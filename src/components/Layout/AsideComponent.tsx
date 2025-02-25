@@ -7,6 +7,7 @@ import java from "../../assets/logo-java 1.svg";
 import php from "../../assets/logo-php 1.svg";
 import dataScience from "../../assets/data-science.svg";
 import bbdd from "../../assets/logo-bbdd 1.svg";
+import { Link } from 'react-router';
 
 const AsideComponent = () => {
     const asideContent = [
@@ -25,11 +26,11 @@ const AsideComponent = () => {
                 {asideContent.map((item, index) => (
                     <li key={index} className="flex items-center space-x-3">
                         <img src={item.icon} alt={item.label} className="w-6 h-6" />
-                        <span>{item.label}</span>
+                        <Link to={`/resources/${item.label}`}>{item.label}</Link>
                     </li>
                 ))}
             </ul>
-        </aside>
+        </aside >
     );
 }
 
