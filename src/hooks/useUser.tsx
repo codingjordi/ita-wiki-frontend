@@ -4,13 +4,8 @@ import { signInWithGitHub } from "../api/firebase";
 import { storage } from "../utils";
 
 export const useUser = () => {
-<<<<<<< HEAD
-
-  const [user, setUser] = useState<IntUser | undefined>(storage.get("user"));
-=======
   const [user, setUser] = useState<IntUser | null>(storage.get("user"));
   const [error, setError] = useState<string | null>(null)
->>>>>>> main
 
   const signIn = async () => {
     try {
