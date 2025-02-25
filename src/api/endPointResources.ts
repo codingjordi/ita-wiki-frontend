@@ -15,7 +15,12 @@ const getResources = async () => {
     const ok = request.ok;
     if (!ok) return moockResources
     const data = await request.json()
-    return data
+    if (Array.isArray(data) && !data.length) {
+      return moockResources
+    } else {
+      return data
+    }
+
   } catch (error) {
     const err = error as Error
     throw new Error(err.message)
