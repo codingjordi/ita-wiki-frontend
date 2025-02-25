@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GithubAuthProvider, signInWithPopup } from "firebase/auth";
-import { User } from "../types";
+import { IntUser } from "../types";
 import { storage } from "../utils";
 import { getUserRole } from "./userApi";
 
@@ -23,7 +23,7 @@ export const signInWithGitHub = async () => {
   try {
     const result = await signInWithPopup(auth, gitHubProvider);
 
-    const newUser: User = {
+    const newUser: IntUser = {
       uid: result.user.providerData[0].uid,
       displayName: result.user.providerData[0].displayName,
       photoURL: result.user.providerData[0].photoURL,

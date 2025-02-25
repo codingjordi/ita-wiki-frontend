@@ -1,15 +1,12 @@
 import { FC } from "react";
-import menu from "./assets/Vector-7.svg";
-
-import close from "./assets/close.svg";
 import { Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
 import CreateResourcePage from "./pages/CreateResourcePage";
 import moock from "./moock/resources.json"
 import avatarPost from "./assets/avatar_post.svg"
 import { ListResources } from "./components/resources/ListResources";
-import HeaderComponent from "./components/Layout/HeaderComponent";
-import AsideComponent from "./components/Layout/AsideComponent";
+import HeaderComponent from "./components/layout/HeaderComponent";
+import AsideComponent from "./components/layout/AsideComponent";
 
 const App: FC = () => {
 
