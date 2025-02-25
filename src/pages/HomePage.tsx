@@ -5,7 +5,8 @@ import ok from "../assets/thumb-up-dynamic-color.svg";
 import { useCtxUser } from '../hooks/useCtxUser';
 
 export default function HomePage() {
-  const { signIn, signOut, user } = useCtxUser()
+  const { signIn, signOut, user, error } = useCtxUser()
+
   return (
     <main className="bg-white rounded-xl p-6 w-full max-h-[calc(100vh-90px)]">
       <section>
@@ -18,11 +19,13 @@ export default function HomePage() {
           }}
         >
           <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
-          {user ? <article id={user.uid} className="flex justify-evenly items-center gap-4 mt-4 py-2 px-4 rounded-md bg-black text-white">
-            <img src={user.photoURL} alt="Avatar usuario" width={64} height={64} className="rounded-full border-2 border-white" />
-            <small className="font-bold" style={{ textTransform: 'uppercase' }}>{user.displayName}</small>
-            <button className="bg-white text-red-500 text-sm font-bold active:scale-95 py-1 px-4 rounded-sm border-2 border-black" type="button" onClick={signOut}>Exit</button>
-          </article> :
+
+          {user ?
+            <article id={user.id} className="flex justify-evenly items-center gap-4 mt-4 py-2 px-4 rounded-md bg-black text-white">
+              <img src={user.photoURL} alt="Avatar usuario" width={64} height={64} className="rounded-full border-2 border-white" />
+              <small className="font-bold" style={{ textTransform: 'uppercase' }}>{user.displayName}</small>
+              <button className="bg-white text-red-500 text-sm font-bold active:scale-95 py-1 px-4 rounded-sm border-2 border-black" type="button" onClick={signOut}>Exit</button>
+            </article> :
             <div>
               <p>Registrate o haz login para poder subir y votar recursos</p>
               <div
@@ -36,12 +39,17 @@ export default function HomePage() {
                 <label htmlFor="terms">
                   <input name="terms" type="checkbox" /> Acepto términos legales
                 </label>
+                {error && (
+                  <div className="error-message text-red-500 my-4">
+                    {error}
+                  </div>
+                )}
               </div>
             </div>
           }
 
         </article>
-        <div>
+        <div className="">
           <div>
             <h2>Funcionalidades básicas que te ofrece esta plataforma:</h2>
             <section>
