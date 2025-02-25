@@ -1,69 +1,44 @@
 {
   "resources": [
     {
-      "resource_id": 1,
+      "id": 25,
+      "id_github": "123456",
       "title": "Context en 20 minutos",
-      "description": "Id aliqua sit sit aliquip tempor exercitation tempor cupidatat.",
-      "favorite": false,
-      "votes": 201,
-      "user": {
-        "id": "asdasdasd",
-        "photoURL": "http://photourl.jpg",
-        "displayName": "Ona Costa"
-      },
-      "create_at": "8 agosto de 2022"
+      "url": "http://localhost/recurso/1",
+      "create_at": "2 agosto de 2022",
+      "update_at": "5 agosto de 2022"
     },
     {
-      "resource_id": 2,
+      "id": 26,
+      "id_github": "123457",
       "title": "Redux para principiantes",
-      "description": "Adipisicing qui ut elit sit proident ea.",
-      "favorite": true,
-      "votes": 123,
-      "user": {
-        "id": "asdasdasd",
-        "photoURL": "http://photourl.jpg",
-        "displayName": "Ona Costa"
-      },
-      "create_at": "8 agosto de 2022"
+      "url": "http://localhost/recurso/1",
+      "create_at": "1 agosto de 2022",
+      "update_at": "3 agosto de 2022"
     },
     {
-      "resource_id": 3,
+      "id": 27,
+      "id_github": "123458",
       "title": "Redux para principiantes",
-      "description": "Adipisicing qui ut elit sit proident ea.",
-      "favorite": false,
-      "votes": 123,
-      "user": {
-        "id": "asdasdasd",
-        "photoURL": "http://photourl.jpg",
-        "displayName": "Ona Costa"
-      },
-      "create_at": "8 agosto de 2022"
+      "url": "http://localhost/recurso/1",
+      "create_at": "5 febrero de 2022",
+      "update_at": "2 enero de 2022"
     },
     {
-      "resource_id": 4,
-      "title": "Redux para principiantes",
-      "description": "Adipisicing qui ut elit sit proident ea.",
-      "favorite": true,
-      "votes": 25,
-      "user": {
-        "id": "asdasdasd",
-        "photoURL": "http://photourl.jpg",
-        "displayName": "Ona Costa"
-      },
-      "create_at": "8 agosto de 2022"
+      "id": 28,
+      "id_github": "123459",
+      "title": "El tio la vara",
+      "url": "http://localhost/recurso/1",
+      "create_at": "25 agosto de 2022",
+      "update_at": "10 agosto de 2022"
     },
     {
-      "resource_id": 5,
-      "title": "Redux para principiantes",
-      "description": "Adipisicing qui ut elit sit proident ea.",
-      "favorite": false,
-      "votes": 7,
-      "user": {
-        "id": "asdasdasd",
-        "photoURL": "http://photourl.jpg",
-        "displayName": "Ona Costa"
-      },
-      "create_at": "8 agosto de 2022"
+      "id": 29,
+      "id_github": "123460",
+      "title": "Y volo, y me hiso volar y yo vole de el! jajja",
+      "url": "http://localhost/recurso/1",
+      "create_at": "16 agosto de 2022",
+      "update_at": "1 agosto de 2022"
     }
   ]
 }

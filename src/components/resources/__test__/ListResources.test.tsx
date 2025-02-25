@@ -1,23 +1,22 @@
 import { render, screen } from '@testing-library/react'
 import { ListResources } from '../ListResources'
-import mook from "../../../moock/resources.json"
-import { IntResource } from '../../../types'
-const resources = mook.resources.map(resource => {
-  return {
-    ...resource,
-    user: {
-      ...resource.user,
-      photoURL: 'http//avatar_post.svg'
-    }
-  }
-}) as IntResource[]
+import moock from "../../../moock/resources.json"
+import { IntResource, TypTechnologyResource } from '../../../types'
+
+const moockrResources = moock.resources.map(resource => ({
+  ...resource,
+  create_at: "2025-02-25 00:00:00",
+  update_at: "2025-02-25 00:00:00"
+} as IntResource))
+
+const tech = "React" as TypTechnologyResource
 
 describe('ListResources Component', () => {
 
   it('should render the component and display the correct title', () => {
-    render(<ListResources resources={resources} nameResource="React.js" />)
+    render(<ListResources resources={moockrResources} technology={tech} />)
 
-    const titleElement = screen.getByText('Recursos React.js');
+    const titleElement = screen.getByText('Recursos React');
     expect(titleElement.tagName).toBe('H2')
   })
 
