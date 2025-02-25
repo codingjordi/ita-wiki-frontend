@@ -1,10 +1,12 @@
 import { createContext } from "react";
-import { User } from "../types";
+import { IntUser } from "../types";
 export interface PropsContext {
-  user: User;
-  saveUser: (user: User) => void;
+  user: IntUser;
+  saveUser: (user: IntUser) => void;
   signIn: () => void,
   signOut: () => void
+  error: string | null;
+  setError: (error: string | null) => void;
 }
 
 const CtxUser = createContext<PropsContext | null>(null);
