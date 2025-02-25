@@ -11,11 +11,12 @@ export interface IntUser {
 }
 
 export interface IntResource {
-  resource_id: number,
+  id: number,
+  id_github: string,
   title: string,
-  description: string,
-  favorite: boolean,
-  votes: number,
-  user: IntUser,
-  create_at: string
+  url: string,
+  create_at?: string,
+  update_at?: string
 }
+
+export type TypTechnologyResource = "All" | "Node" | "React" | "Angular" | "Javascript" | "Java" | "FullStack PHP" | "Data Science" | "BBDD" 
