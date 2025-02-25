@@ -1,10 +1,8 @@
-import { FC, Fragment, useEffect, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { useParams } from "react-router";
-
 import { IntResource, TypTechnologyResource } from "../types";
 import { ListResources } from "../components/resources/ListResources";
 import { getResources } from "../api/endPointResources";
-
 
 const ResourcesPage: FC = () => {
   const { technology } = useParams()
@@ -17,11 +15,7 @@ const ResourcesPage: FC = () => {
     })()
   }, [])
 
-  return (
-    <Fragment>
-      <ListResources resources={apiResources} technology={tech} />
-    </Fragment>
-  )
+  return (<ListResources resources={apiResources} technology={tech} />)
 }
 
 export default ResourcesPage;

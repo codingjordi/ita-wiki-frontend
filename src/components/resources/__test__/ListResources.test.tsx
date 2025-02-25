@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { ListResources } from '../ListResources'
 import moock from "../../../moock/resources.json"
-import { IntResource } from '../../../types'
+import { IntResource, TypTechnologyResource } from '../../../types'
 
 const moockrResources = moock.resources.map(resource => ({
   ...resource,
@@ -9,10 +9,12 @@ const moockrResources = moock.resources.map(resource => ({
   update_at: "2025-02-25 00:00:00"
 } as IntResource))
 
+const tech = "React" as TypTechnologyResource
+
 describe('ListResources Component', () => {
 
   it('should render the component and display the correct title', () => {
-    render(<ListResources resources={moockrResources} technology="React" />)
+    render(<ListResources resources={moockrResources} technology={tech} />)
 
     const titleElement = screen.getByText('Recursos React');
     expect(titleElement.tagName).toBe('H2')
