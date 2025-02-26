@@ -13,7 +13,7 @@ const getResources = async () => {
     const url = `${API_URL}${END_POINTS.resources.lists}`
     const request = await fetch(url)
     const ok = request.ok;
-    if (!ok) return moockResources
+    if (!ok) throw new Error('Upss! Error inesperado.')
     const data = await request.json()
     if (Array.isArray(data) && !data.length) {
       return moockResources

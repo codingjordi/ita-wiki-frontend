@@ -11,7 +11,7 @@ export const FavoriteResource: FC<FavoriteResourceProps> = ({ favorite }) => {
       <i role="resource"
         data-testid="favorite-resource"
         className="inline-flex">{
-          favorite ? <img src={heart} width={28} height={28} /> : <img src={heart} width={28} height={28} />
+          favorite ? '❤' : <img src={heart} width={28} height={28} />
         }
       </i>
     </div>
