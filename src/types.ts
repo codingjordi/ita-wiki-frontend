@@ -6,7 +6,7 @@ export type TypChildren = {
 export interface IntUser {
   id: string;
   displayName: string | null;
-  photoURL: string | null;
+  photoURL: string | undefined;
   role?: string
 }
 
