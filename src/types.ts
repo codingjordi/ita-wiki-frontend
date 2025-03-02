@@ -7,7 +7,7 @@ export interface IntUser {
   id: string;
   displayName: string | null;
   photoURL: string | undefined;
-  role?: string
+  role?: string;
 }
 
 export interface IntResource {
