@@ -18,7 +18,6 @@ export default function HomePage() {
             maxWidth: "375px",
             padding: "1rem",
             margin: "40px auto 60px",
-            margin: "40px auto 60px"
           }}
         >
 
