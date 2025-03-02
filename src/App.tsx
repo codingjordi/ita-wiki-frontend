@@ -7,7 +7,6 @@ import AsideComponent from "./components/Layout/AsideComponent";
 import ResourcesPage from "./pages/ResourcesPage";
 
 const App: FC = () => {
-
   return (
     <div className="bg-[#ebebeb] p-6 h-screen">
       <HeaderComponent />
@@ -20,7 +19,6 @@ const App: FC = () => {
         </Routes>
       </div>
     </div>
-
   );
 };
 
