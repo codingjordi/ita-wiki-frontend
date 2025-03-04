@@ -12,7 +12,7 @@ const HeaderComponent = () => {
     const navigate = useNavigate();
 
     const goToResourcesPage = () => {
-        navigate('/resource/add')
+        navigate('/resources/add')
     }
     return (
         <header className="bg-[#ebebeb] p-6 pt-0 px-0 flex items-center justify-between">
