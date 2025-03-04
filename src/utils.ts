@@ -10,4 +10,6 @@ const storage = {
   },
 };
 
-export { storage };
+export {
+  storage
+}
