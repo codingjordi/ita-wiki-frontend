@@ -43,12 +43,10 @@ const { user } = useUser()
           throw new Error(`Error HTTP: ${response.status}`);
       }
 
-
   } catch (error) {
-      console.error("Hubo un error:", error);
+      console.error("Hubo un error");
   }
 }
-
 
   return (
     <div className='w-full'>
@@ -64,8 +62,6 @@ const { user } = useUser()
             className='w-full px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]'
           />
         </div>
-
-       
 
         <div>
           <input
