@@ -43,4 +43,6 @@ const getResources = async () => {
   }
 };
 
-export { getResources };
+export {
+  getResources
+}

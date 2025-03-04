@@ -15,7 +15,7 @@ const ResourcesPage: FC = () => {
     })();
   }, []);
 
-  return <ListResources resources={apiResources} technology={tech} />;
-};
+  return (<ListResogiurces resources={apiResources} technology={tech} />)
+}
 
 export default ResourcesPage;
