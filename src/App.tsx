@@ -7,7 +7,6 @@ import AsideComponent from "./components/Layout/AsideComponent";
 import ResourcesPage from "./pages/ResourcesPage";
 
 const App: FC = () => {
-
   return (
     <div className="bg-[#ebebeb] p-6">
       <HeaderComponent />
@@ -17,11 +16,10 @@ const App: FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/resources/:technology" element={<ResourcesPage />} />
           <Route path="/resources/add" element={<CreateResourcePage />} />
-          <Route path="/resources" element={<ResourcesPage />}/>
+          <Route path="/resources" element={<ResourcesPage />} />
         </Routes>
       </div>
     </div>
-
   );
 };
 
