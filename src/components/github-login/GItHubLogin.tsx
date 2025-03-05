@@ -2,7 +2,10 @@ import { FC } from "react";
 
 const GItHubLogin: FC<{ onClick?: () => void }> = ({ onClick }) => {
   return (
-    <button onClick={onClick} className="bg-black text-white text-xl inline-flex items-center justify-evenly p-2 rounded-md border-2 hover:bg-white hover:border-2 hover:border-black hover:text-black gap-4">
+    <button
+      onClick={onClick}
+      className="bg-black text-white text-xl inline-flex items-center justify-evenly p-2 rounded-md border-2 hover:bg-white hover:border-2 hover:border-black hover:text-black gap-4"
+    >
       <i>
         <svg
           xmlns="http://www.w3.org/2000/svg"

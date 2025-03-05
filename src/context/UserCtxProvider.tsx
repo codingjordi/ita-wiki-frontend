@@ -9,11 +9,7 @@ interface Props {
 
 const UserCtxProvider: FC<Props> = ({ children }) => {
   const value = { ...useUser() } as PropsContext;
-  return (
-    <CtxUser.Provider value={value}>
-      {children}
-    </CtxUser.Provider>
-  );
+  return <CtxUser.Provider value={value}>{children}</CtxUser.Provider>;
 };
 
 export default UserCtxProvider;
