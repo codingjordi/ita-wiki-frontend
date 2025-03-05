@@ -41,7 +41,7 @@ export default function CreateResourcePage() {
       if (!response.ok) {
         throw new Error(`Error HTTP: ${response.status}`);
       }
-    } catch (_error) {
+    } catch {
       alert("Hubo un error");
     }
   };
