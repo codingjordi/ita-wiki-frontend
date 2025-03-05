@@ -6,6 +6,8 @@ export const getUserRole = async (githubId: number): Promise<string> => {
       `${API_URL}/users/user-signedin-as?github_id=${githubId}`,
     );
 
+    //TO-DO: poner AbortController()
+
     if (!response.ok) throw new Error("Error fetching user role");
     const data = await response.json();
     return data.role?.role || "anonymous";
