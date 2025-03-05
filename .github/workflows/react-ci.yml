@@ -30,7 +30,7 @@ jobs:
         run: npx prettier --check .
 
       - name: Run ESLint
-        run: npx eslint . 
+        run: npx eslint .
 
       - name: Run tests with Jest
         run: npm test -- --coverage
