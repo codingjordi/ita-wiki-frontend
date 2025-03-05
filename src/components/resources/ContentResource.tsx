@@ -4,7 +4,6 @@ import { TypChildren } from "../../types";
 export const ContentResource: FC<TypChildren> = ({ children }) => {
   return (
     <article
-      role="resource"
       data-testid="content-resource"
       className="flex flex-col flex-1 gap-2"
     >
