@@ -3,8 +3,10 @@ import folder from "../assets/new-folder-dynamic-color.svg";
 import puzzle from "../assets/puzzle-dynamic-color.svg";
 import ok from "../assets/thumb-up-dynamic-color.svg";
 import { useCtxUser } from "../hooks/useCtxUser";
+import { useCtxUser } from "../hooks/useCtxUser";
 
 export default function HomePage() {
+  const { signIn, signOut, user, error } = useCtxUser();
   const { signIn, signOut, user, error } = useCtxUser();
 
   return (
@@ -17,13 +19,14 @@ export default function HomePage() {
             flexDirection: "column",
             maxWidth: "375px",
             padding: "1rem",
-            margin: "40px auto 60px",
           }}
         >
+          <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
+
           {user ? (
             <article
               id={user.id}
-              className="flex justify-evenly items-center gap-4 mt-4 py-2 px-4 rounded-md bg-black text-white mx-auto"
+              className="flex justify-evenly items-center gap-4 mt-4 py-2 px-4 rounded-md bg-black text-white"
             >
               <img
                 src={user.photoURL}
@@ -62,9 +65,11 @@ export default function HomePage() {
                 </label>
                 {error && (
                   <div className="error-message text-red-500 my-4">{error}</div>
+                  <div className="error-message text-red-500 my-4">{error}</div>
                 )}
               </div>
             </div>
+          )}
           )}
         </article>
         <div>
@@ -94,5 +99,6 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+  );
   );
 }

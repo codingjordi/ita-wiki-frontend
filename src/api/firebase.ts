@@ -24,10 +24,10 @@ export const signInWithGitHub = async () => {
     const result = await signInWithPopup(auth, gitHubProvider);
     const newUser: IntUser = {
       id: Number(result.user.providerData[0].uid),
-      displayName: result.user.providerData[0].displayName ?? '',
-      photoURL: result.user.providerData[0].photoURL ?? '',
+      displayName: result.user.providerData[0].displayName ?? "",
+      photoURL: result.user.providerData[0].photoURL ?? "",
     };
-    console.log(newUser)
+    console.log(newUser);
 
     newUser.role = await getUserRole(newUser.id);
 
