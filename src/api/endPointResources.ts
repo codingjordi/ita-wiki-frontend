@@ -34,4 +34,6 @@ const getResources = async (): Promise<IntResource[]> => {
   }
 };
 
-export { getResources };
+export {
+  getResources
+}
