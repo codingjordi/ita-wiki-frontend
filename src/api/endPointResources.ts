@@ -24,7 +24,6 @@ const getResources = async (): Promise<IntResource[]> => {
 
     const data = await response.json();
     return Array.isArray(data) && data.length ? data : moockResources;
-
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
       console.warn("Petición cancelada.");
@@ -34,6 +33,5 @@ const getResources = async (): Promise<IntResource[]> => {
     throw new Error("Error al obtener los recursos");
   }
 };
-
 
 export { getResources };

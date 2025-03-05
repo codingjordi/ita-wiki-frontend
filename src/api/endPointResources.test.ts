@@ -12,8 +12,8 @@ const moockResources = moock.resources.map((resource) => ({
 
 describe("getResources", () => {
   beforeEach(() => {
-    vi.spyOn(console, "error").mockImplementation(() => { });
-    vi.spyOn(console, "warn").mockImplementation(() => { });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -22,10 +22,12 @@ describe("getResources", () => {
 
   it("debería lanzar un error si fetch falla", async () => {
     global.fetch = vi.fn(() =>
-      Promise.reject(new Error("Error al obtener los recursos"))
+      Promise.reject(new Error("Error al obtener los recursos")),
     );
 
-    await expect(getResources()).rejects.toThrow("Error al obtener los recursos");
+    await expect(getResources()).rejects.toThrow(
+      "Error al obtener los recursos",
+    );
   });
 
   it("debería devolver una lista de recursos vacía si la API responde correctamente pero sin datos", async () => {
@@ -33,7 +35,7 @@ describe("getResources", () => {
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve([]),
-      } as Response)
+      } as Response),
     );
 
     const resources = await getResources();
@@ -50,7 +52,7 @@ describe("getResources", () => {
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve(mockData),
-      } as Response)
+      } as Response),
     );
 
     const resources = await getResources();
@@ -59,7 +61,7 @@ describe("getResources", () => {
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining("resources/lists"),
-      expect.objectContaining({ signal: expect.any(AbortSignal) })
+      expect.objectContaining({ signal: expect.any(AbortSignal) }),
     );
   });
 
@@ -69,7 +71,7 @@ describe("getResources", () => {
         ok: false,
         status: 500,
         statusText: "Internal Server Error",
-      } as Response)
+      } as Response),
     );
 
     const resources = await getResources();
