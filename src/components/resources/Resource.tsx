@@ -7,8 +7,8 @@ import { VotesResource } from "./VotesResource";
 import { UserResource } from "./UserResource";
 import { FooterResource } from "./FooterResource";
 type ResourceProps = {
-  resource: IntResource
-}
+  resource: IntResource;
+};
 
 export const Resource: FC<ResourceProps> = ({ resource }) => {
   return (
@@ -34,5 +34,5 @@ export const Resource: FC<ResourceProps> = ({ resource }) => {
         </>
       </FooterResource>
     </li>
-  )
-}
+  );
+};

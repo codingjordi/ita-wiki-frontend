@@ -2,12 +2,12 @@ import { FC } from "react";
 import arrowDown from '../../assets/chevron_forward_down.svg'
 import arrowTop from '../../assets/chevron_forward_top.svg'
 interface VotesResource {
-  votes: number
+  votes: number;
 }
 
 export const VotesResource: FC<VotesResource> = ({ votes }) => {
   return (
-    <article role="resource" data-testid="resource-votes" className="flex flex-col items-center">
+    <article data-testid="resource-votes" className="flex flex-col items-center">
       <img src={arrowTop} alt="icon" width={16} height={16.1} />
       <span className="inline-flex text-[16px] text-[#282828]"><strong>{votes}</strong></span>
       <img src={arrowDown} alt="icon" width={16} height={16.1} />

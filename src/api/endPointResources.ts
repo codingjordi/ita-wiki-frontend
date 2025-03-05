@@ -2,16 +2,17 @@ import { API_URL, END_POINTS } from "../config";
 import { IntResource } from "../types";
 import moock from "../moock/resources.json";
 
-const moockResources = moock.resources.map(resource => ({
-  ...resource,
-  create_at: "2025-02-25 00:00:00",
-  update_at: "2025-02-25 00:00:00"
-} as IntResource));
-
+const moockResources = moock.resources.map(
+  (resource) =>
+    ({
+      ...resource,
+      create_at: "2025-02-25 00:00:00",
+      update_at: "2025-02-25 00:00:00",
+    }) as IntResource,
+);
 const getResources = async (): Promise<IntResource[]> => {
   const controller = new AbortController();
   const signal = controller.signal;
-
   try {
     const url = `${API_URL}${END_POINTS.resources.lists}`;
     const response = await fetch(url, { signal });
