@@ -11,13 +11,13 @@ describe("UserResource Component", () => {
   it("The component must have the initial styles", () => {
     render(
       <UserResource user={userMoock} />
-    )
-    const userResource = screen.getByTestId("user-resource")
+    );
+    const userResource = screen.getByTestId("user-resource");
     const imgUser = screen.getByRole("img", {
       name: 'User avatar'
-    })
-    expect(userResource).toHaveClass("flex gap-2 items-center")
-    expect(imgUser).toHaveClass("rounded-full w-[28px] h-[28px]")
+    });
+    expect(userResource).toHaveClass("flex gap-2 items-center");
+    expect(imgUser).toHaveClass("rounded-full w-[28px] h-[28px]");
   })
 
   it("Tiene que rederizar los datos del usuario", () => {

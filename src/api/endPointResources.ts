@@ -19,7 +19,7 @@ const getResources = async (): Promise<IntResource[]> => {
 
     if (!response.ok) {
       console.warn(`Error ${response.status}: ${response.statusText}`);
-      return moockResources; // 🚀 Ahora devolvemos los datos mockeados en caso de error de API
+      return moockResources;
     }
 
     const data = await response.json();
@@ -31,7 +31,7 @@ const getResources = async (): Promise<IntResource[]> => {
       return moockResources;
     }
     console.error("Error en getResources:", error);
-    throw new Error("Error al obtener los recursos"); // Ahora solo lanzamos error si `fetch` realmente falló
+    throw new Error("Error al obtener los recursos");
   }
 };
 

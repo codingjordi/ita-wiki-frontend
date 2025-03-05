@@ -12,13 +12,11 @@ const moockResources = moock.resources.map((resource) => ({
 
 describe("getResources", () => {
   beforeEach(() => {
-    // Silencia los logs de errores durante las pruebas
     vi.spyOn(console, "error").mockImplementation(() => { });
     vi.spyOn(console, "warn").mockImplementation(() => { });
   });
 
   afterEach(() => {
-    // Restaura el comportamiento original después de cada test
     vi.restoreAllMocks();
   });
 
@@ -34,7 +32,7 @@ describe("getResources", () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
-        json: () => Promise.resolve([]), // API responde correctamente pero sin datos
+        json: () => Promise.resolve([]),
       } as Response)
     );
 
@@ -61,7 +59,7 @@ describe("getResources", () => {
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining("resources/lists"),
-      expect.objectContaining({ signal: expect.any(AbortSignal) }) // 🔥 Solución para el segundo argumento de fetch
+      expect.objectContaining({ signal: expect.any(AbortSignal) })
     );
   });
 
@@ -70,7 +68,7 @@ describe("getResources", () => {
       Promise.resolve({
         ok: false,
         status: 500,
-        statusText: "Internal Server Error", // ✅ Se añade statusText para evitar "Error 500: undefined"
+        statusText: "Internal Server Error",
       } as Response)
     );
 
