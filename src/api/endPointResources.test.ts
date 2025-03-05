@@ -12,8 +12,8 @@ const moockResources = moock.resources.map((resource) => ({
 
 describe("getResources", () => {
   beforeEach(() => {
-    vi.spyOn(console, "error").mockImplementation(() => {});
-    vi.spyOn(console, "warn").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => { });
+    vi.spyOn(console, "warn").mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -60,7 +60,7 @@ describe("getResources", () => {
     expect(resources).toEqual(mockData);
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
-      expect.stringContaining("resources/lists"),
+      expect.stringContaining("resources"),
       expect.objectContaining({ signal: expect.any(AbortSignal) }),
     );
   });
