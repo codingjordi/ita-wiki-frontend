@@ -1,6 +1,5 @@
 import { API_URL, END_POINTS } from "./config";
 
-
 describe("Configuración de la API", () => {
   // Simulando la variable de entorno antes de cada test
   beforeAll(() => {

@@ -30,9 +30,9 @@ export default function CreateResourcePage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
           "Accept-Encoding": "gzip, deflate, br",
-          "Connection": "keep-alive",
+          Connection: "keep-alive",
         },
         body: JSON.stringify(newResource),
       });
@@ -42,7 +42,7 @@ export default function CreateResourcePage() {
       }
       toast.success("¡Recurso creado con éxito! 🚀");
     } catch {
-      toast.error("Hubo un error al crear el recurso 😢"); 
+      toast.error("Hubo un error al crear el recurso 😢");
     }
   };
 
