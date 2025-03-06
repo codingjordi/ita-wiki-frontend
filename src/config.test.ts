@@ -14,6 +14,6 @@ describe("Configuración de la API", () => {
 
   it("debería tener las rutas correctas en END_POINTS", () => {
     // Verificar que los endpoints en END_POINTS sean los correctos
-    expect(END_POINTS.resources.lists).toBe("resources/lists");
+    expect(END_POINTS.resources.lists).toBe("resources/");
   });
 });

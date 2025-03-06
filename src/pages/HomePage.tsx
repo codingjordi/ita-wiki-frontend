@@ -3,10 +3,8 @@ import folder from "../assets/new-folder-dynamic-color.svg";
 import puzzle from "../assets/puzzle-dynamic-color.svg";
 import ok from "../assets/thumb-up-dynamic-color.svg";
 import { useCtxUser } from "../hooks/useCtxUser";
-import { useCtxUser } from "../hooks/useCtxUser";
 
 export default function HomePage() {
-  const { signIn, signOut, user, error } = useCtxUser();
   const { signIn, signOut, user, error } = useCtxUser();
 
   return (
@@ -65,11 +63,9 @@ export default function HomePage() {
                 </label>
                 {error && (
                   <div className="error-message text-red-500 my-4">{error}</div>
-                  <div className="error-message text-red-500 my-4">{error}</div>
                 )}
               </div>
             </div>
-          )}
           )}
         </article>
         <div>
@@ -99,6 +95,5 @@ export default function HomePage() {
         </div>
       </section>
     </main>
-  );
   );
 }
