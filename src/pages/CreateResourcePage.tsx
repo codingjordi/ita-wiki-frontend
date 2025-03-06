@@ -2,6 +2,7 @@ import { useState } from "react";
 import ButtonComponent from "../components/atoms/ButtonComponent";
 import { IntResource } from "../types";
 import { API_URL, END_POINTS } from "../config";
+import { toast } from "sonner";
 
 import { useUser } from "../hooks/useUser";
 
@@ -20,12 +21,10 @@ export default function CreateResourcePage() {
       ...prevData,
       ...updatedField,
     }));
-    console.log(JSON.stringify(updatedField, null, 2));
   };
 
   const handleSubmitFormData = async () => {
     const newResource = { ...formData };
-    alert(JSON.stringify(newResource, null, 2));
     try {
       const response = await fetch(`${API_URL}${END_POINTS.resources.post}`, {
         method: "POST",
@@ -41,8 +40,9 @@ export default function CreateResourcePage() {
       if (!response.ok) {
         throw new Error(`Error HTTP: ${response.status}`);
       }
+      toast.success("¡Recurso creado con éxito! 🚀");
     } catch {
-      alert("Hubo un error");
+      toast.error("Hubo un error al crear el recurso 😢"); 
     }
   };
 
