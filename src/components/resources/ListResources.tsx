@@ -1,8 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { IntResource, TypTechnologyResource } from "../../types";
+
 import { Resource } from "./Resource";
 import { FilterResources } from "./FilterResources";
+
+import filterData from "../../moock/filters.json";
 interface ListResourceProps {
   resources: IntResource[];
   technology?: TypTechnologyResource;
@@ -12,19 +15,7 @@ export const ListResources: FC<ListResourceProps> = ({
   resources,
   technology,
 }) => {
-  const categories = [
-    "Todos",
-    "Components",
-    "UseState & useEffect",
-    "Eventos",
-    "Renderizado condicional",
-    "Listas",
-    "Estilos",
-    "Debugging",
-    "React Router",
-  ];
-
-  const types = ["Videos", "Cursos", "Blogs"];
+  const { categories, types } = filterData;
 
   const [searchParams, setSearchParams] = useSearchParams();
 
