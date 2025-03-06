@@ -1,19 +1,36 @@
 import { describe, it, expect, vi } from "vitest";
 import { getResources } from "./endPointResources";
+import moock from "../moock/resources.json";
+import { IntResource } from "../types";
+
+// Datos mockeados
+const moockResources = moock.resources.map((resource) => ({
+  ...resource,
+  create_at: "2025-02-25 00:00:00",
+  update_at: "2025-02-25 00:00:00",
+})) as IntResource[];
 
 describe("getResources", () => {
+  beforeEach(() => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("debería lanzar un error si fetch falla", async () => {
-    // Mock de fetch que simula un error de red o de la API
     global.fetch = vi.fn(() =>
       Promise.reject(new Error("Error al obtener los recursos")),
     );
 
-    // Verificar que getResources lanza el error esperado
     await expect(getResources()).rejects.toThrow(
       "Error al obtener los recursos",
     );
   });
-  it("debería devolver una lista de recursos", async () => {
+
+  it("debería devolver una lista de recursos vacía si la API responde correctamente pero sin datos", async () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
@@ -26,13 +43,11 @@ describe("getResources", () => {
   });
 
   it("debería devolver los datos de la API cuando la respuesta es exitosa", async () => {
-    // Datos simulados que devolverá la API
     const mockData = [
       { id: 1, name: "Recurso 1" },
       { id: 2, name: "Recurso 2" },
     ];
 
-    // Mock de fetch para que devuelva estos datos
     global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
@@ -45,23 +60,17 @@ describe("getResources", () => {
     expect(resources).toEqual(mockData);
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
-      expect.stringContaining("resources/lists"),
+      expect.stringContaining("resources"),
+      expect.objectContaining({ signal: expect.any(AbortSignal) }),
     );
   });
 
-  it("debería devolver los datos mockeados cuando la API responde con un error", async () => {
-    // Importar los datos mockeados del módulo
-    const { default: moock } = await import("../moock/resources.json");
-    const moockResources = moock.resources.map((resource) => ({
-      ...resource,
-      create_at: "2025-02-25 00:00:00",
-      update_at: "2025-02-25 00:00:00",
-    }));
-
-    // Mock de fetch para simular un error (API responde con status 500)
+  it("debería devolver los datos mockeados si la API devuelve un error", async () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: false,
+        status: 500,
+        statusText: "Internal Server Error",
       } as Response),
     );
 
