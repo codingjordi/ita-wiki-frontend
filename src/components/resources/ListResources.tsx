@@ -13,7 +13,7 @@ export const ListResources: FC<ListResourceProps> = ({
   return (
     resources && (
       <div className="mx-auto w-full grow lg:flex xl:px-2 gap-x-6 sm:bg-white lg:bg-transparent">
-        <div className="flex-1 xl:flex bg-white rounded-xl">
+        <div className="flex-1 xl:flex bg-white rounded-xl px-8 py-6">
           <div className="px-4 py-6 sm:px-6 lg:pl-8 lg:w-80 xl:shrink-0 xl:pl-6">
             Filtros
           </div>
