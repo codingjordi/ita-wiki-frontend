@@ -3,6 +3,7 @@ import heart from "../../assets/heart.svg";
 import edit from "../../assets/edit.svg";
 interface FavoriteResourceProps {
   favorite: boolean;
+  favorite: boolean;
 }
 export const FavoriteResource: FC<FavoriteResourceProps> = ({ favorite }) => {
   return (
