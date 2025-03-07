@@ -36,7 +36,7 @@ const getResources = async (): Promise<IntResource[]> => {
 
 const createResource = async (resource: Partial<IntResource>) => {
   try {
-    const response = await fetch(`${API_URL}${END_POINTS.resources.create}`, {
+    const response = await fetch(`${API_URL}${END_POINTS.resources.post}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,10 +45,11 @@ const createResource = async (resource: Partial<IntResource>) => {
     });
 
     if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
+      const errorData = await response.json();
+      throw new Error(errorData.message || `Error ${response.status}: ${response.statusText}`);
     }
 
-    return await response.json(); // Retorna la respuesta del backend
+    return await response.json(); 
   } catch (error) {
     console.error("Error al crear recurso:", error);
     throw error;
