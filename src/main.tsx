@@ -11,7 +11,12 @@ createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <BrowserRouter>
         <App />
-        <Toaster />
+        <Toaster richColors toastOptions={{
+          style: {
+            padding: '2rem',
+            fontSize: '1rem'
+          }}
+         } />
       </BrowserRouter>
     </StrictMode>
   </UserCtxProvider>,
