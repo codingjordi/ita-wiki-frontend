@@ -10,21 +10,19 @@ const moockResources = moock.resources.map(
       update_at: "2025-02-25 00:00:00",
     }) as IntResource,
 );
-
 const getResources = async (): Promise<IntResource[]> => {
   const controller = new AbortController();
   const signal = controller.signal;
-
   try {
     const url = `${API_URL}${END_POINTS.resources.lists}`;
     const response = await fetch(url, { signal });
 
     if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
+      console.warn(`Error ${response.status}: ${response.statusText}`);
+      return moockResources;
     }
 
     const data = await response.json();
-
     return Array.isArray(data) && data.length ? data : moockResources;
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
@@ -32,7 +30,7 @@ const getResources = async (): Promise<IntResource[]> => {
       return moockResources;
     }
     console.error("Error en getResources:", error);
-    return moockResources;
+    throw new Error("Error al obtener los recursos");
   }
 };
 

@@ -10,7 +10,7 @@ export default function CreateResourcePage() {
   const { user } = useUser();
 
   const [formData, setFormData] = useState({
-    github_id: user?.id,
+    github_id: 2421919,
     title: "",
     description: "",
     url: "",
@@ -30,9 +30,6 @@ export default function CreateResourcePage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
-          "Accept-Encoding": "gzip, deflate, br",
-          Connection: "keep-alive",
         },
         body: JSON.stringify(newResource),
       });

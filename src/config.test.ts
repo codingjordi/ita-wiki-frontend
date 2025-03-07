@@ -5,7 +5,6 @@ describe("Configuración de la API", () => {
   beforeAll(() => {
     // Mock de la variable de entorno para que VITE_API_URL tenga un valor conocido durante el test
     import.meta.env.VITE_API_URL = "http://localhost:8000/api/";
-    import.meta.env.VITE_API_URL = "http://localhost:8000/api/";
   });
 
   it("debería tener la URL correcta de la API", () => {
