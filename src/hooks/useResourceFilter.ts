@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
-import { useSearchParams } from "react-router";
-import { IntResource } from "../types";
+import { useSearchParams, useParams } from "react-router";
+import { IntResource } from "../types"; // Adjust path as needed
 
 interface UseResourceFilterProps {
   resources: IntResource[];
@@ -13,6 +13,7 @@ export const useResourceFilter = ({
   themes,
   resourceTypes,
 }: UseResourceFilterProps) => {
+  const { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const initialTheme = searchParams.get("theme") || themes[0];
@@ -49,12 +50,14 @@ export const useResourceFilter = ({
       const typeMatch =
         selectedResourceTypes.length === 0 ||
         selectedResourceTypes.some(
-          (selectedType) => resource.type === selectedType,
+          (selectedType) => resource.type === selectedType
         );
 
       return themeMatch && typeMatch;
     });
-  }, [resources, selectedTheme, selectedResourceTypes]);
+  }, [resources, category, selectedTheme, selectedResourceTypes]);
+  console.log("el array");
+  console.log("Recursos filtrados:", filteredResources);
 
   return {
     filteredResources,
