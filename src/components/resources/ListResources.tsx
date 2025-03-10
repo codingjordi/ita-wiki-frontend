@@ -1,13 +1,11 @@
-import { FC, useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import { FC, useState } from "react";
 import { IntResource } from "../../types";
-
 import { Resource } from "./Resource";
 import { FilterResources } from "./FilterResources";
-
 import { categories } from "../../data/categories";
 import { themes } from "../../data/themes";
 import { resourceTypes } from "../../data/resourceTypes";
+import { useResourceFilter } from "../../hooks/useResourceFilter"; // Adjust path as needed
 
 interface ListResourceProps {
   resources: IntResource[];
@@ -18,34 +16,19 @@ export const ListResources: FC<ListResourceProps> = ({
   resources,
   category,
 }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const initialTheme = searchParams.get("theme") || themes[0];
-  const initialResourceTypes = searchParams
-    .get("resourceTypes")
-    ?.split(",") || [resourceTypes[0]];
-
-  const [selectedTheme, setSelectedTheme] = useState<string>(initialTheme);
-  const [selectedResourceTypes, setSelectedResourceTypes] =
-    useState<string[]>(initialResourceTypes);
   const [showFilters, setShowFilters] = useState<boolean>(false);
-
-  useEffect(() => {
-    const params = new URLSearchParams();
-
-    if (selectedTheme) {
-      params.set("theme", selectedTheme);
-    }
-
-    if (
-      selectedResourceTypes.length > 0 &&
-      selectedResourceTypes.some((type) => type.trim() !== "")
-    ) {
-      params.set("resourceTypes", selectedResourceTypes.join(","));
-    }
-    const queryString = params.toString();
-    setSearchParams(queryString ? params : undefined);
-  }, [selectedTheme, selectedResourceTypes, setSearchParams]);
+  
+  const {
+    filteredResources,
+    selectedTheme,
+    setSelectedTheme,
+    selectedResourceTypes,
+    setSelectedResourceTypes
+  } = useResourceFilter({
+    resources: resources || [],
+    themes,
+    resourceTypes
+  });
 
   return (
     resources && (
@@ -63,7 +46,6 @@ export const ListResources: FC<ListResourceProps> = ({
               setSelectedResourceTypes={setSelectedResourceTypes}
             />
           </div>
-
           <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
             <div className="flex justify-between items-center">
               <h2 className="py-4 text-4xl">
@@ -104,7 +86,6 @@ export const ListResources: FC<ListResourceProps> = ({
                 )}
               </button>
             </div>
-
             {/* Filters - Visible on mobile when toggled */}
             {showFilters && (
               <div className="sm:hidden mt-4 p-4 bg-gray-100 rounded-lg">
@@ -119,15 +100,13 @@ export const ListResources: FC<ListResourceProps> = ({
                 />
               </div>
             )}
-
             <ul className="flex flex-col gap-2 mt-4">
-              {resources.map((resource: IntResource) => (
+              {filteredResources.map((resource: IntResource) => (
                 <Resource key={resource.id} resource={resource} />
               ))}
             </ul>
           </div>
         </div>
-
         <div className="shrink-0 lg:w-80 mt-6 sm:mt-0 space-y-6">
           <div className="bg-white sm:rounded-xl px-4 py-6 sm:px-6 lg:pl-8 xl:shrink-0 xl:pl-6">
             Lista de lectura
