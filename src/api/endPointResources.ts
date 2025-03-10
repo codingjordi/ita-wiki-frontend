@@ -46,15 +46,16 @@ const createResource = async (resource: Partial<IntResource>) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || `Error ${response.status}: ${response.statusText}`);
+      throw new Error(
+        errorData.message || `Error ${response.status}: ${response.statusText}`,
+      );
     }
 
-    return await response.json(); 
+    return await response.json();
   } catch (error) {
     console.error("Error al crear recurso:", error);
     throw error;
   }
 };
-
 
 export { getResources, createResource };
