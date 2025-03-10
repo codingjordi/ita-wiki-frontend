@@ -31,9 +31,9 @@ export default function CreateResourcePage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
           "Accept-Encoding": "gzip, deflate, br",
-          "Connection": "keep-alive",
+          Connection: "keep-alive",
         },
         body: JSON.stringify(newResource),
       });
