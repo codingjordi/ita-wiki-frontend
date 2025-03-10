@@ -14,7 +14,7 @@ const App: FC = () => {
         <AsideComponent />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/resources/:technology" element={<ResourcesPage />} />
+          <Route path="/resources/:category" element={<ResourcesPage />} />
           <Route path="/resources/add" element={<CreateResourcePage />} />
           <Route path="/resources" element={<ResourcesPage />} />
         </Routes>
