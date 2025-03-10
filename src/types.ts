@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import { categories } from "./data/categories";
 import { themes } from "./data/themes";
-import { resourceTypes } from "./data/resourceType";
+import { resourceTypes } from "./data/resourceTypes";
 
-export type Category = typeof categories[number]
-export type Theme = typeof themes[number]
-export type ResourceType = typeof resourceTypes[number]
+export type Category = (typeof categories)[number];
+export type Theme = (typeof themes)[number];
+export type ResourceType = (typeof resourceTypes)[number];
 
 export type TypChildren = {
   children?: ReactNode;
@@ -27,6 +27,6 @@ export interface IntResource {
   create_at?: string;
   update_at?: string;
   category: Category;
-  theme: Theme;        
-  type: ResourceType;  
+  theme: Theme;
+  type: ResourceType;
 }

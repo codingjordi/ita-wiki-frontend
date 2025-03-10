@@ -1,42 +1,49 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { FilterResources } from "../FilterResources";
-import moock from "../../../moock/filters.json";
-
-const { categories, types } = moock;
+import { themes } from "../../../data/themes";
+import { resourceTypes } from "../../../data/resourceTypes";
 
 describe("FilterResources Component", () => {
-  let selectedCategory = categories[0];
-  let selectedTypes: string[] = [];
+  let selectedTheme: (typeof themes)[number];
+  let selectedResourceTypes: string[];
 
-  const setSelectedCategory = vi.fn((category: string) => {
-    selectedCategory = category;
-  });
+  let setSelectedTheme: ReturnType<typeof vi.fn>;
+  let setSelectedResourceTypes: ReturnType<typeof vi.fn>;
 
-  const setSelectedTypes = vi.fn((updateFn) => {
-    selectedTypes = updateFn(selectedTypes);
+  beforeEach(() => {
+    selectedTheme = themes[0];
+    selectedResourceTypes = [];
+
+    setSelectedTheme = vi.fn((theme: (typeof themes)[number]) => {
+      selectedTheme = theme;
+    });
+
+    setSelectedResourceTypes = vi.fn((newResourceTypes: string[]) => {
+      selectedResourceTypes = newResourceTypes;
+    });
   });
 
   it("should render categories and types from filter.json", () => {
     render(
       <MemoryRouter>
         <FilterResources
-          categories={categories}
-          types={types}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          selectedTypes={selectedTypes}
-          setSelectedTypes={setSelectedTypes}
+          themes={[...themes]}
+          resourceTypes={[...resourceTypes]}
+          selectedTheme={selectedTheme}
+          setSelectedTheme={setSelectedTheme}
+          selectedResourceTypes={selectedResourceTypes}
+          setSelectedResourceTypes={setSelectedResourceTypes}
         />
       </MemoryRouter>,
     );
 
-    categories.forEach((category) => {
-      expect(screen.getByText(category)).toBeInTheDocument();
+    themes.forEach((theme) => {
+      expect(screen.getByText(theme)).toBeInTheDocument();
     });
 
-    types.forEach((type) => {
+    resourceTypes.forEach((type) => {
       expect(screen.getByText(type)).toBeInTheDocument();
     });
   });
@@ -45,12 +52,12 @@ describe("FilterResources Component", () => {
     render(
       <MemoryRouter>
         <FilterResources
-          categories={categories}
-          types={types}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          selectedTypes={selectedTypes}
-          setSelectedTypes={setSelectedTypes}
+          themes={[...themes]}
+          resourceTypes={[...resourceTypes]}
+          selectedTheme={selectedTheme}
+          setSelectedTheme={setSelectedTheme}
+          selectedResourceTypes={selectedResourceTypes}
+          setSelectedResourceTypes={setSelectedResourceTypes}
         />
       </MemoryRouter>,
     );
@@ -58,28 +65,27 @@ describe("FilterResources Component", () => {
     const eventCategory = screen.getByText("Eventos");
     fireEvent.click(eventCategory);
 
-    expect(setSelectedCategory).toHaveBeenCalledWith("Eventos");
+    expect(setSelectedTheme).toHaveBeenCalledWith("Eventos");
   });
 
   it("should toggle type checkboxes when clicked", () => {
     render(
       <MemoryRouter>
         <FilterResources
-          categories={categories}
-          types={types}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-          selectedTypes={selectedTypes}
-          setSelectedTypes={setSelectedTypes}
+          themes={[...themes]}
+          resourceTypes={[...resourceTypes]}
+          selectedTheme={selectedTheme}
+          setSelectedTheme={setSelectedTheme}
+          selectedResourceTypes={selectedResourceTypes}
+          setSelectedResourceTypes={setSelectedResourceTypes}
         />
       </MemoryRouter>,
     );
 
-    const videosCheckbox = screen.getByText("Videos")
-      .previousSibling as HTMLInputElement;
-    fireEvent.click(videosCheckbox);
+    const videoCheckbox = screen.getByLabelText("Video") as HTMLInputElement;
+    fireEvent.click(videoCheckbox);
 
-    expect(setSelectedTypes).toHaveBeenCalled();
-    expect(setSelectedTypes).toHaveBeenCalledWith(expect.any(Function));
+    expect(setSelectedResourceTypes).toHaveBeenCalled();
+    expect(setSelectedResourceTypes).toHaveBeenCalledWith(["Video"]);
   });
 });

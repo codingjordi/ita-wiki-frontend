@@ -1,48 +1,51 @@
 import { FC, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import { IntResource, TypTechnologyResource } from "../../types";
+import { IntResource } from "../../types";
 
 import { Resource } from "./Resource";
 import { FilterResources } from "./FilterResources";
 
-import filterData from "../../moock/filters.json";
+import { categories } from "../../data/categories";
+import { themes } from "../../data/themes";
+import { resourceTypes } from "../../data/resourceTypes";
+
 interface ListResourceProps {
   resources: IntResource[];
-  technology?: TypTechnologyResource;
+  category?: keyof typeof categories;
 }
 
 export const ListResources: FC<ListResourceProps> = ({
   resources,
-  technology,
+  category,
 }) => {
-  const { categories, types } = filterData;
-
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const initialCategory = searchParams.get("category") || categories[0];
-  const initialTypes = searchParams.get("types")?.split(",") || [types[0]];
+  const initialTheme = searchParams.get("theme") || themes[0];
+  const initialResourceTypes = searchParams
+    .get("resourceTypes")
+    ?.split(",") || [resourceTypes[0]];
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<string>(initialCategory);
-  const [selectedTypes, setSelectedTypes] = useState<string[]>(initialTypes);
+  const [selectedTheme, setSelectedTheme] = useState<string>(initialTheme);
+  const [selectedResourceTypes, setSelectedResourceTypes] =
+    useState<string[]>(initialResourceTypes);
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
   useEffect(() => {
     const params = new URLSearchParams();
 
-    if (selectedCategory) {
-      params.set("category", selectedCategory);
+    if (selectedTheme) {
+      params.set("theme", selectedTheme);
     }
 
     if (
-      selectedTypes.length > 0 &&
-      selectedTypes.some((type) => type.trim() !== "")
+      selectedResourceTypes.length > 0 &&
+      selectedResourceTypes.some((type) => type.trim() !== "")
     ) {
-      params.set("types", selectedTypes.join(","));
+      params.set("resourceTypes", selectedResourceTypes.join(","));
     }
     const queryString = params.toString();
     setSearchParams(queryString ? params : undefined);
-  }, [selectedCategory, selectedTypes, setSearchParams]);
+  }, [selectedTheme, selectedResourceTypes, setSearchParams]);
 
   return (
     resources && (
@@ -52,18 +55,20 @@ export const ListResources: FC<ListResourceProps> = ({
           <div className="hidden sm:block px-4 py-6 sm:px-6 lg:pr-8 lg:w-80 xl:shrink-0 xl:pr-6">
             <h2 className="text-2xl font-bold">Filtros</h2>
             <FilterResources
-              categories={categories}
-              types={types}
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              selectedTypes={selectedTypes}
-              setSelectedTypes={setSelectedTypes}
+              themes={[...themes]}
+              resourceTypes={[...resourceTypes]}
+              selectedTheme={selectedTheme}
+              setSelectedTheme={setSelectedTheme}
+              selectedResourceTypes={selectedResourceTypes}
+              setSelectedResourceTypes={setSelectedResourceTypes}
             />
           </div>
 
           <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
             <div className="flex justify-between items-center">
-              <h2 className="py-4 text-4xl">Recursos {technology}</h2>
+              <h2 className="py-4 text-4xl">
+                Recursos {String(category) || "General"}
+              </h2>
               {/* Filter Button (Mobile only) */}
               <button
                 className="sm:hidden bg-[#B91879] text-white px-4 py-2 rounded-md flex items-center gap-2"
@@ -105,12 +110,12 @@ export const ListResources: FC<ListResourceProps> = ({
               <div className="sm:hidden mt-4 p-4 bg-gray-100 rounded-lg">
                 <h2 className="text-2xl font-bold">Filtros</h2>
                 <FilterResources
-                  categories={categories}
-                  types={types}
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
-                  selectedTypes={selectedTypes}
-                  setSelectedTypes={setSelectedTypes}
+                  themes={themes}
+                  resourceTypes={resourceTypes as readonly string[]}
+                  selectedTheme={selectedTheme}
+                  setSelectedTheme={setSelectedTheme}
+                  selectedResourceTypes={selectedResourceTypes}
+                  setSelectedResourceTypes={setSelectedResourceTypes}
                 />
               </div>
             )}

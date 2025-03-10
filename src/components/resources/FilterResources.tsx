@@ -1,25 +1,29 @@
 import { FC } from "react";
 
 interface FilterResourcesProps {
-  categories: string[];
-  types: string[];
-  selectedCategory: string;
-  setSelectedCategory: (category: string) => void;
-  selectedTypes: string[];
-  setSelectedTypes: React.Dispatch<React.SetStateAction<string[]>>;
+  themes: readonly string[];
+  resourceTypes: readonly string[];
+  selectedTheme: string;
+  setSelectedTheme: (theme: string) => void;
+  selectedResourceTypes: string[];
+  setSelectedResourceTypes: (resourceTypes: string[]) => void;
 }
 
 export const FilterResources: FC<FilterResourcesProps> = ({
-  categories,
-  types,
-  selectedCategory,
-  setSelectedCategory,
-  selectedTypes,
-  setSelectedTypes,
+  themes,
+  resourceTypes,
+  selectedTheme,
+  setSelectedTheme,
+  selectedResourceTypes,
+  setSelectedResourceTypes,
 }) => {
-  const toggleType = (type: string) => {
-    setSelectedTypes((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
+  const toggleResourceType = (resourceType: string) => {
+    setSelectedResourceTypes(
+      selectedResourceTypes.includes(resourceType)
+        ? selectedResourceTypes.filter(
+            (rType: string) => rType !== resourceType,
+          )
+        : [...selectedResourceTypes, resourceType],
     );
   };
 
@@ -27,56 +31,54 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     <div className="mt-6">
       <div className="mb-6">
         <h3 className="text-lg font-bold mb-3">Temas</h3>
-        {categories.map((category) => (
+        {themes.map((theme) => (
           <label
-            key={category}
+            key={theme}
             className="flex items-center gap-2 mb-2 cursor-pointer"
           >
             <input
               type="radio"
-              name="category"
-              value={category}
-              checked={selectedCategory === category}
-              onChange={() => setSelectedCategory(category)}
+              name="theme"
+              value={theme}
+              checked={selectedTheme === theme}
+              onChange={() => setSelectedTheme(theme)}
               className="hidden"
             />
             <div
               className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
-                selectedCategory === category
-                  ? "border-[#B91879]"
-                  : "border-gray-400"
+                selectedTheme === theme ? "border-[#B91879]" : "border-gray-400"
               }`}
             >
-              {selectedCategory === category && (
+              {selectedTheme === theme && (
                 <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
               )}
             </div>
-            <span className="text-gray-800">{category}</span>
+            <span className="text-gray-800">{theme}</span>
           </label>
         ))}
       </div>
 
       <div>
-        <h3 className="text-lg font-bold mb-3">Tipo</h3>
-        {types.map((type) => (
+        <h3 className="text-lg font-bold mb-3">Tipo de recurso</h3>
+        {resourceTypes.map((resourceType) => (
           <label
-            key={type}
+            key={resourceType}
             className="flex items-center gap-2 mb-2 cursor-pointer"
           >
             <input
               type="checkbox"
-              checked={selectedTypes.includes(type)}
-              onChange={() => toggleType(type)}
+              checked={selectedResourceTypes.includes(resourceType)}
+              onChange={() => toggleResourceType(resourceType)}
               className="hidden"
             />
             <div
               className={`w-5 h-5 flex items-center justify-center rounded border ${
-                selectedTypes.includes(type)
+                selectedResourceTypes.includes(resourceType)
                   ? "bg-[#B91879] border-[#B91879]"
                   : "border-gray-400"
               }`}
             >
-              {selectedTypes.includes(type) && (
+              {selectedResourceTypes.includes(resourceType) && (
                 <svg
                   className="w-4 h-4 text-white"
                   fill="none"
@@ -93,7 +95,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
                 </svg>
               )}
             </div>
-            <span className="text-gray-800">{type}</span>
+            <span className="text-gray-800">{resourceType}</span>
           </label>
         ))}
       </div>
