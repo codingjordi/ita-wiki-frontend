@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useParams } from "react-router";
-import { IntResource } from "../types"; // Adjust path as needed
+import { IntResource } from "../types";
 
 interface UseResourceFilterProps {
   resources: IntResource[];
@@ -55,8 +55,6 @@ export const useResourceFilter = ({
       return categoryMatch && themeMatch && typeMatch;
     });
   }, [resources, category, selectedTheme, selectedResourceTypes]);
-  console.log("el array");
-  console.log("Recursos filtrados:", filteredResources);
 
   return {
     filteredResources,
