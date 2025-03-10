@@ -44,16 +44,15 @@ export const useResourceFilter = ({
     if (!resources) return [];
 
     return resources.filter((resource) => {
-      const themeMatch =
-        selectedTheme === "Todos" || resource.theme === selectedTheme;
-
+      const categoryMatch = !category || resource.category === category;
+      const themeMatch = selectedTheme === "Todos" || resource.theme === selectedTheme;
       const typeMatch =
         selectedResourceTypes.length === 0 ||
         selectedResourceTypes.some(
           (selectedType) => resource.type === selectedType,
         );
 
-      return themeMatch && typeMatch;
+      return categoryMatch && themeMatch && typeMatch;
     });
   }, [resources, category, selectedTheme, selectedResourceTypes]);
   console.log("el array");
