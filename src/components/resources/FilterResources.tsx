@@ -8,6 +8,7 @@ interface FilterResourcesProps {
   setSelectedTheme: (theme: string) => void;
   selectedResourceTypes: string[];
   setSelectedResourceTypes: (resourceTypes: string[]) => void;
+  resetTheme: () => void
 }
 
 export const FilterResources: FC<FilterResourcesProps> = ({
@@ -17,6 +18,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
   setSelectedTheme,
   selectedResourceTypes,
   setSelectedResourceTypes,
+  resetTheme
 }) => {
   const toggleResourceType = (resourceType: string) => {
     setSelectedResourceTypes(
@@ -34,12 +36,13 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     if (category !== prevCategory) {
       setSelectedResourceTypes([...resourceTypes]);
       setPrevCategory(category ?? null);
+      resetTheme();
     }
 
     if (selectedResourceTypes.length === 0) {
       setSelectedResourceTypes([...resourceTypes]);
     }
-  }, [category, prevCategory, resourceTypes, selectedResourceTypes, setSelectedResourceTypes]);
+  }, [category, prevCategory, resourceTypes, selectedResourceTypes, setSelectedResourceTypes, resetTheme]);
 
 
   return (

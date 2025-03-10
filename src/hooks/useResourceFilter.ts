@@ -40,6 +40,9 @@ export const useResourceFilter = ({
     setSearchParams(queryString ? params : undefined);
   }, [selectedTheme, selectedResourceTypes, setSearchParams]);
 
+  const resetTheme = () => {
+    setSelectedTheme(() => themes[0])
+  }
   const filteredResources = useMemo(() => {
     if (!resources) return [];
 
@@ -62,5 +65,6 @@ export const useResourceFilter = ({
     setSelectedTheme,
     selectedResourceTypes,
     setSelectedResourceTypes,
+    resetTheme
   };
 };
