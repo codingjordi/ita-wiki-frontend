@@ -1,167 +1,130 @@
-import { useState } from "react";
-import ButtonComponent from "../components/atoms/ButtonComponent";
 import { IntResource } from "../types";
-import { API_URL, END_POINTS } from "../config";
-
-import { useUser } from "../hooks/useUser";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { resourceSchema } from "../validations/resourceSchema";
+import FormInput from "../components/FormInput";
+import { createResource } from "../api/endPointResources";
+import { toast } from "sonner";
+import ButtonComponent from "../components/atoms/ButtonComponent";
+import { categories } from "../data/categories";
+import { themes } from "../data/themes";
 
 export default function CreateResourcePage() {
-  const { user } = useUser();
-
-  const [formData, setFormData] = useState({
-    github_id: user?.id,
-    title: "",
-    description: "",
-    url: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm<Partial<IntResource>>({
+    resolver: zodResolver(resourceSchema),
   });
 
-  const handleChangeFormData = (updatedField: Partial<IntResource>) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      ...updatedField,
-    }));
-    console.log(JSON.stringify(updatedField, null, 2));
-  };
+  const onSubmit = async (data: Partial<IntResource>) => {
+    const resourceWithGithubId = {
+      ...data,
+      github_id: 6729608,
+    };
 
-  const handleSubmitFormData = async () => {
-    const newResource = { ...formData };
-    alert(JSON.stringify(newResource, null, 2));
     try {
-      const response = await fetch(`${API_URL}${END_POINTS.resources.post}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "Accept-Encoding": "gzip, deflate, br",
-          "Connection": "keep-alive",
-        },
-        body: JSON.stringify(newResource),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
-      }
-    } catch {
-      alert("Hubo un error");
+      await createResource(resourceWithGithubId);
+      toast.success("¡Recurso creado con éxito!");
+      reset();
+    } catch (error) {
+      console.error("Error al crear el recurso:", error);
+      toast.error("Hubo un error al crear el recurso");
     }
   };
 
   return (
     <div className="w-full">
       <h1 className="font-semibold">Nuevo recurso</h1>
-      <form className="my-5 space-y-3.5 w-1/2 bg-white p-10 rounded-xl">
-        <div>
-          <input
-            name="title"
-            type="text"
-            value={formData.title}
-            onChange={(e) => handleChangeFormData({ title: e.target.value })}
-            placeholder="Título"
-            className="w-full px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
-          />
-        </div>
-
-        <div>
-          <input
-            name="description"
-            value={formData.description}
-            onChange={(e) =>
-              handleChangeFormData({ description: e.target.value })
-            }
-            type="text"
-            id="description"
-            placeholder="Description"
-            className="w-full px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
-          />
-        </div>
-
-        <div>
-          <input
-            name="URL"
-            type="url"
-            id="url"
-            value={formData.url}
-            onChange={(e) => handleChangeFormData({ url: e.target.value })}
-            placeholder="URL"
-            className="w-full px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
-          />
-        </div>
-
-        {/* <select
-          name="topic"
-          id=""
-          className='w-full px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]'
+      <div className="flex justify-center mt-20 xl:mr-[198px]">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="my-5 w-full lg:w-3/5 bg-white p-10 rounded-xl"
         >
-          <option value="" className='font-black text-red-500'>Tema</option>
-          <option value="Node">Node</option>
-          <option value="React">React</option>
-          <option value="Angular">Angular</option>
-          <option value="JavaScript">JavaScript</option>
-          <option value="Java">Java</option>
-          <option value="Fullstack PHP">Fullstack PHP</option>
-          <option value="Data Science">Data Science</option>
-          <option value="BB.DD.">BB.DD.</option>
-        </select> */}
+          <FormInput id="title" placeholder="Título" register={register} errors={errors.title?.message} />
+          <FormInput id="description" placeholder="Descripción" register={register} errors={errors.description?.message} />
+          <FormInput id="url" placeholder="URL" register={register} errors={errors.url?.message} />
 
-        {/* <div className='flex justify-around'>
-          <label htmlFor='video' className='flex items-center'>
-            Video
-            <input
-              type="radio"
-              name="type"
-              value="video"
-              id="video"
-              onClick={(e) => {
-                const input = e.target as HTMLInputElement; 
-                handleChangeFormData({ type: input.checked ? "video" : "" });
-              }}
-              className="w-6 h-6 ml-1 accent-[#B91879] outline-black"
-            />
-          </label>
-          <label htmlFor='curso' className='flex items-center'>
-            Curso
-            <input
-              type="radio"
-              name="type"
-              value="curso"
-              id="curso"
-              onClick={(e) => {
-                const input = e.target as HTMLInputElement; 
-                handleChangeFormData({ type: input.checked ? "curso" : "" });
-              }}
-              className="w-6 h-6 ml-1 accent-[#B91879] outline-black"
-            />
-          </label>
-          <label htmlFor='blog' className='flex items-center'>
-            Blog
-            <input
-              type="radio"
-              name="type"
-              value="blog"
-              id="blog"
-              onClick={(e) => {
-                const input = e.target as HTMLInputElement; 
-                handleChangeFormData({ type: input.checked ? "blog" : "" });
-              }}
-              className="w-6 h-6 ml-1 accent-[#B91879] outline-black"
-            />
-          </label>
-        </div> */}
+          <select
+            id="category"
+            className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
+            {...register("category")}
+          >
+            <option value="Tecnología" className=" disabled:text-[#909AA3]" disabled selected>Tecnología</option>
+            {categories.map(categorie => (
+              <option key={categorie} value={categorie}>
+                {categorie}
+              </option>
+            ))}
+          </select>
+          <div className="h-6">
+            {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+          </div>
 
-        <div className="mt-12">
-          <ButtonComponent
-            className="outline-[#B91879]"
-            children="Crear"
-            variant="primary"
-            onClick={() => handleSubmitFormData()}
-          />
-          <ButtonComponent
-            className="outline-[#B91879]"
-            children="Cancelar"
-            variant="secondary"
-          />
-        </div>
-      </form>
+          <select
+            id="theme"
+            className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
+            {...register("theme")}
+          >
+            <option value="Tema" className=" disabled:text-[#909AA3]" disabled selected>Tema</option>
+            {themes.map(theme => (
+              <option key={theme} value={theme}>
+                {theme}
+              </option>
+            ))}
+          </select>
+          <div className="h-6">
+            {errors.theme && <p className="text-red-500 text-sm">{errors.theme.message}</p>}
+          </div>
+
+          <div className="flex justify-around">
+            <div className="flex gap-2 md:text-xl">
+              <input
+                type="radio"
+                id="video"
+                value="video"
+                className="scale-150 accent-[#B91879]"
+                {...register("type")}
+              />
+              <label htmlFor="video">Vídeo</label>
+            </div>
+            <div className="flex gap-2 md:text-xl">
+              <input
+                type="radio"
+                id="curso"
+                value="curso"
+                className="scale-150 accent-[#B91879]"
+                {...register("type")}
+              />
+              <label htmlFor="curso">Curso</label>
+            </div>
+            <div className="flex gap-2 md:text-xl">
+              <input
+                type="radio"
+                id="blog"
+                value="blog"
+                className="scale-150 accent-[#B91879]"
+                {...register("type")}
+              />
+              <label htmlFor="blog">Blog</label>
+            </div>
+          </div>
+
+
+          {errors.type && <p className="text-red-500 text-sm">{errors.type.message}</p>}
+
+          <div className="flex gap-4 mt-4">
+            <ButtonComponent type="submit" variant="primary">Crear</ButtonComponent>
+            <ButtonComponent variant="secondary" onClick={() => window.history.back()}>Cancelar</ButtonComponent>
+          </div>
+        </form>
+        <pre>
+          {JSON.stringify(watch(), null, 2)}
+        </pre>
+      </div>
     </div>
   );
 }
