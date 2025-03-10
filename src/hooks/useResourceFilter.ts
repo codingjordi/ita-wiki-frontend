@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useSearchParams } from 'react-router';
-import { IntResource } from '../types'; // Adjust path as needed
+import { useState, useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router";
+import { IntResource } from "../types";
 
 interface UseResourceFilterProps {
   resources: IntResource[];
@@ -11,15 +11,18 @@ interface UseResourceFilterProps {
 export const useResourceFilter = ({
   resources,
   themes,
-  resourceTypes
+  resourceTypes,
 }: UseResourceFilterProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const initialTheme = searchParams.get("theme") || themes[0];
-  const initialResourceTypes = searchParams.get("resourceTypes")?.split(",") || [resourceTypes[0]];
+  const initialResourceTypes = searchParams
+    .get("resourceTypes")
+    ?.split(",") || [resourceTypes[0]];
 
   const [selectedTheme, setSelectedTheme] = useState<string>(initialTheme);
-  const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(initialResourceTypes);
+  const [selectedResourceTypes, setSelectedResourceTypes] =
+    useState<string[]>(initialResourceTypes);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -40,13 +43,14 @@ export const useResourceFilter = ({
     if (!resources) return [];
 
     return resources.filter((resource) => {
-      const themeMatch = 
-        selectedTheme === "Todos" || 
-        resource.theme === selectedTheme;
+      const themeMatch =
+        selectedTheme === "Todos" || resource.theme === selectedTheme;
 
-      const typeMatch = 
-        selectedResourceTypes.length === 0 || 
-        selectedResourceTypes.some(selectedType => resource.type === selectedType);
+      const typeMatch =
+        selectedResourceTypes.length === 0 ||
+        selectedResourceTypes.some(
+          (selectedType) => resource.type === selectedType,
+        );
 
       return themeMatch && typeMatch;
     });
@@ -57,6 +61,6 @@ export const useResourceFilter = ({
     selectedTheme,
     setSelectedTheme,
     selectedResourceTypes,
-    setSelectedResourceTypes
+    setSelectedResourceTypes,
   };
 };

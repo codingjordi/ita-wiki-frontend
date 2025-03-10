@@ -17,17 +17,17 @@ export const ListResources: FC<ListResourceProps> = ({
   category,
 }) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  
+
   const {
     filteredResources,
     selectedTheme,
     setSelectedTheme,
     selectedResourceTypes,
-    setSelectedResourceTypes
+    setSelectedResourceTypes,
   } = useResourceFilter({
     resources: resources || [],
     themes,
-    resourceTypes
+    resourceTypes,
   });
 
   return (
