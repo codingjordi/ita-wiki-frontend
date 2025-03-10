@@ -13,6 +13,8 @@ jobs:
     name: Run React Project Validations
     runs-on: ubuntu-latest
 
+    environment: main
+
     env:
       VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
       VITE_AUTH_DOMAIN: ${{ secrets.VITE_AUTH_DOMAIN }}
