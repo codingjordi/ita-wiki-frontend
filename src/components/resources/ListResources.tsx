@@ -67,7 +67,7 @@ export const ListResources: FC<ListResourceProps> = ({
           <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
             <div className="flex justify-between items-center">
               <h2 className="py-4 text-4xl">
-                Recursos {String(category) || "General"}
+                Recursos {String(category) || ""}
               </h2>
               {/* Filter Button (Mobile only) */}
               <button
