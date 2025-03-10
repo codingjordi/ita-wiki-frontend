@@ -50,7 +50,7 @@ export const useResourceFilter = ({
       const typeMatch =
         selectedResourceTypes.length === 0 ||
         selectedResourceTypes.some(
-          (selectedType) => resource.type === selectedType
+          (selectedType) => resource.type === selectedType,
         );
 
       return themeMatch && typeMatch;
