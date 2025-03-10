@@ -1,9 +1,11 @@
 import { ReactNode } from "react";
+import { categories } from "./data/categories";
+import { themes } from "./data/themes";
+import { resourceTypes } from "./data/resourceType";
 
-// Definir los tipos para category, theme y type
-export type Category = 'Node' | 'React' | 'Angular' | 'Javascript' | 'Java' | 'Fullstack PHP' | 'Data Science' | 'BBDD';
-export type Theme = 'All' | 'Components' | 'UseState & UseEffect' | 'Eventos' | 'Renderizado condicional' | 'Listas' | 'Estilos' | 'Debugging' | 'React Router';
-export type ResourceType = 'Video' | 'Cursos' | 'Blog';
+export type Category = typeof categories[number]
+export type Theme = typeof themes[number]
+export type ResourceType = typeof resourceTypes[number]
 
 export type TypChildren = {
   children?: ReactNode;
@@ -28,13 +30,3 @@ export interface IntResource {
   theme: Theme;        
   type: ResourceType;  
 }
-
-export type TypTechnologyResource = 
-"All"
-|"Node"
-|"React"
-|"Angular"
-|"Javascript"
-|"Data Science"
-|"BBDD"
-
