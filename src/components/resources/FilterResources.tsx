@@ -86,6 +86,10 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               type="checkbox"
               checked={selectedResourceTypes.includes(resourceType)}
               onChange={() => toggleResourceType(resourceType)}
+              disabled={
+                selectedResourceTypes.length === 1 &&
+                selectedResourceTypes.includes(resourceType)
+              }
               className="hidden"
             />
             <div

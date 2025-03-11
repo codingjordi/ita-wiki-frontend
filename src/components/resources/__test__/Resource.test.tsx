@@ -18,7 +18,7 @@ describe("Resource Component", () => {
 
     const titleElement = screen.getByTestId("resource");
     expect(titleElement).toHaveClass(
-      "border-[1px] border-[#7E7E7E] rounded-[20px] w-full max-w-[467.27px]",
+      "border-[1px] border-[#7E7E7E] rounded-[20px] w-full lg:max-w-[467.27px]",
     );
   });
 });

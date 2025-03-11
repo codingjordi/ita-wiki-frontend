@@ -5,7 +5,7 @@ import { FilterResources } from "./FilterResources";
 import { categories } from "../../data/categories";
 import { themes } from "../../data/themes";
 import { resourceTypes } from "../../data/resourceTypes";
-import { useResourceFilter } from "../../hooks/useResourceFilter"; // Adjust path as needed
+import { useResourceFilter } from "../../hooks/useResourceFilter";
 
 interface ListResourceProps {
   resources: IntResource[];
@@ -34,7 +34,7 @@ export const ListResources: FC<ListResourceProps> = ({
   return (
     resources && (
       <div className="mx-auto w-full grow lg:flex xl:px-2 gap-x-6 sm:bg-white lg:bg-transparent">
-        <div className="flex-1 xl:flex bg-white sm:rounded-xl px-8 py-6">
+        <div className="flex flex-col lg:flex-row lg:flex-grow lg:overflow-y-auto bg-white lg:rounded-xl px-4 lg:px-8 py-4 sm:py-6">
           {/* Sidebar Filters (Visible on larger screens, on the left) */}
           <div className="hidden sm:block px-4 py-6 sm:px-6 lg:pr-8 lg:w-80 xl:shrink-0 xl:pr-6">
             <h2 className="text-2xl font-bold">Filtros</h2>
@@ -48,9 +48,9 @@ export const ListResources: FC<ListResourceProps> = ({
               resetTheme={resetTheme}
             />
           </div>
-          <div className="px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6">
+          <div className="lg:flex-1 px-4 py-6 lg:pl-8 xl:pl-6">
             <div className="flex justify-between items-center">
-              <h2 className="py-4 text-4xl">
+              <h2 className="text-2xl font-bold">
                 Recursos {String(category) || ""}
               </h2>
               {/* Filter Button (Mobile only) */}
@@ -103,14 +103,14 @@ export const ListResources: FC<ListResourceProps> = ({
                 />
               </div>
             )}
-            <ul className="flex flex-col gap-2 mt-4">
+            <ul className="flex flex-col gap-2 py-8">
               {filteredResources.map((resource: IntResource) => (
                 <Resource key={resource.id} resource={resource} />
               ))}
             </ul>
           </div>
         </div>
-        <div className="shrink-0 lg:w-80 mt-6 sm:mt-0 space-y-6">
+        <div className="shrink-0 px-4 lg:w-80 mt-6 sm:mt-0 space-y-6">
           <div className="bg-white sm:rounded-xl px-4 py-6 sm:px-6 lg:pl-8 xl:shrink-0 xl:pl-6">
             Lista de lectura
           </div>

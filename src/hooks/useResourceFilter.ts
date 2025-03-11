@@ -26,6 +26,13 @@ export const useResourceFilter = ({
     useState<string[]>(initialResourceTypes);
 
   useEffect(() => {
+    if (category) {
+      setSelectedTheme("Todos");
+      setSelectedResourceTypes([...resourceTypes]);
+    }
+  }, [category, resourceTypes]);
+
+  useEffect(() => {
     const params = new URLSearchParams();
     if (selectedTheme) {
       params.set("theme", selectedTheme);
@@ -44,7 +51,7 @@ export const useResourceFilter = ({
     setSelectedTheme(() => themes[0])
   }
   const filteredResources = useMemo(() => {
-    if (!resources) return [];
+    if (!resources || !category) return [];
 
     return resources.filter((resource) => {
       const categoryMatch = !category || resource.category === category;

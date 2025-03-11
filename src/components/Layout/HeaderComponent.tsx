@@ -15,7 +15,8 @@ const HeaderComponent = () => {
     navigate("/resources/add");
   };
   return (
-    <header className="bg-[#ebebeb] p-6 flex items-center justify-between">
+    // just temporarily hidden on mobile, to prevent horizontal overflow
+    <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
       <Link to="/">
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
