@@ -17,7 +17,7 @@ describe("UserResource Component", () => {
     expect(userResource).toHaveClass("flex gap-2 items-center");
     expect(imgUser).toHaveClass("rounded-full w-[28px] h-[28px]");
   });
-  
+
   it("Tiene que rederizar los datos del usuario", () => {
     render(<UserResource user={userMoock} />);
     const displayName = screen.getByText("Usuario uno");
