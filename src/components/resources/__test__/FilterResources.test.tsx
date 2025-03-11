@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
 import { FilterResources } from "../FilterResources";
 import { themes } from "../../../data/themes";
 import { resourceTypes } from "../../../data/resourceTypes";
@@ -12,6 +12,8 @@ describe("FilterResources Component", () => {
   let setSelectedTheme: ReturnType<typeof vi.fn>;
   let setSelectedResourceTypes: ReturnType<typeof vi.fn>;
 
+  let resetTheme: Mock;
+
   beforeEach(() => {
     selectedTheme = themes[0];
     selectedResourceTypes = [];
@@ -22,6 +24,11 @@ describe("FilterResources Component", () => {
 
     setSelectedResourceTypes = vi.fn((newResourceTypes: string[]) => {
       selectedResourceTypes = newResourceTypes;
+    });
+
+    resetTheme = vi.fn(() => {
+      selectedTheme = themes[0]; // Reset to first theme (usually "Todos")
+      selectedResourceTypes = []; // Reset to empty array
     });
   });
 
@@ -35,6 +42,7 @@ describe("FilterResources Component", () => {
           setSelectedTheme={setSelectedTheme}
           selectedResourceTypes={selectedResourceTypes}
           setSelectedResourceTypes={setSelectedResourceTypes}
+          resetTheme={resetTheme}
         />
       </MemoryRouter>,
     );
@@ -58,6 +66,7 @@ describe("FilterResources Component", () => {
           setSelectedTheme={setSelectedTheme}
           selectedResourceTypes={selectedResourceTypes}
           setSelectedResourceTypes={setSelectedResourceTypes}
+          resetTheme={resetTheme}
         />
       </MemoryRouter>,
     );
@@ -78,6 +87,7 @@ describe("FilterResources Component", () => {
           setSelectedTheme={setSelectedTheme}
           selectedResourceTypes={selectedResourceTypes}
           setSelectedResourceTypes={setSelectedResourceTypes}
+          resetTheme={resetTheme}
         />
       </MemoryRouter>,
     );

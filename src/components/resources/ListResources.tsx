@@ -24,7 +24,7 @@ export const ListResources: FC<ListResourceProps> = ({
     setSelectedTheme,
     selectedResourceTypes,
     setSelectedResourceTypes,
-    resetTheme
+    resetTheme,
   } = useResourceFilter({
     resources: resources || [],
     themes,

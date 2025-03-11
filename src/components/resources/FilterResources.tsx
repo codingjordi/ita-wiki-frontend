@@ -8,7 +8,7 @@ interface FilterResourcesProps {
   setSelectedTheme: (theme: string) => void;
   selectedResourceTypes: string[];
   setSelectedResourceTypes: (resourceTypes: string[]) => void;
-  resetTheme: () => void
+  resetTheme: () => void;
 }
 
 export const FilterResources: FC<FilterResourcesProps> = ({
@@ -18,17 +18,25 @@ export const FilterResources: FC<FilterResourcesProps> = ({
   setSelectedTheme,
   selectedResourceTypes,
   setSelectedResourceTypes,
-  resetTheme
+  resetTheme,
 }) => {
   const toggleResourceType = (resourceType: string) => {
-    setSelectedResourceTypes(
+    if (
+      selectedResourceTypes.length === 1 &&
       selectedResourceTypes.includes(resourceType)
-        ? selectedResourceTypes.filter(
-          (rType: string) => rType !== resourceType,
-        )
-        : [...selectedResourceTypes, resourceType],
-    );
+    ) {
+      setSelectedResourceTypes([...resourceTypes]);
+    } else {
+      setSelectedResourceTypes(
+        selectedResourceTypes.includes(resourceType)
+          ? selectedResourceTypes.filter(
+              (rType: string) => rType !== resourceType,
+            )
+          : [...selectedResourceTypes, resourceType],
+      );
+    }
   };
+
   const { category } = useParams();
   const [prevCategory, setPrevCategory] = useState<string | null>(null);
 
@@ -42,8 +50,14 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     if (selectedResourceTypes.length === 0) {
       setSelectedResourceTypes([...resourceTypes]);
     }
-  }, [category, prevCategory, resourceTypes, selectedResourceTypes, setSelectedResourceTypes, resetTheme]);
-
+  }, [
+    category,
+    prevCategory,
+    resourceTypes,
+    selectedResourceTypes,
+    setSelectedResourceTypes,
+    resetTheme,
+  ]);
 
   return (
     <div className="mt-6">
@@ -63,8 +77,9 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               className="hidden"
             />
             <div
-              className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${selectedTheme === theme ? "border-[#B91879]" : "border-gray-400"
-                }`}
+              className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
+                selectedTheme === theme ? "border-[#B91879]" : "border-gray-400"
+              }`}
             >
               {selectedTheme === theme && (
                 <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
@@ -86,17 +101,14 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               type="checkbox"
               checked={selectedResourceTypes.includes(resourceType)}
               onChange={() => toggleResourceType(resourceType)}
-              disabled={
-                selectedResourceTypes.length === 1 &&
-                selectedResourceTypes.includes(resourceType)
-              }
               className="hidden"
             />
             <div
-              className={`w-5 h-5 flex items-center justify-center rounded border ${selectedResourceTypes.includes(resourceType)
-                ? "bg-[#B91879] border-[#B91879]"
-                : "border-gray-400"
-                }`}
+              className={`w-5 h-5 flex items-center justify-center rounded border ${
+                selectedResourceTypes.includes(resourceType)
+                  ? "bg-[#B91879] border-[#B91879]"
+                  : "border-gray-400"
+              }`}
             >
               {selectedResourceTypes.includes(resourceType) && (
                 <svg

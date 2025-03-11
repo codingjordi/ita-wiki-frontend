@@ -48,14 +48,15 @@ export const useResourceFilter = ({
   }, [selectedTheme, selectedResourceTypes, setSearchParams]);
 
   const resetTheme = () => {
-    setSelectedTheme(() => themes[0])
-  }
+    setSelectedTheme(() => themes[0]);
+  };
   const filteredResources = useMemo(() => {
     if (!resources || !category) return [];
 
     return resources.filter((resource) => {
       const categoryMatch = !category || resource.category === category;
-      const themeMatch = selectedTheme === "Todos" || resource.theme === selectedTheme;
+      const themeMatch =
+        selectedTheme === "Todos" || resource.theme === selectedTheme;
       const typeMatch =
         selectedResourceTypes.length === 0 ||
         selectedResourceTypes.some(
@@ -72,6 +73,6 @@ export const useResourceFilter = ({
     setSelectedTheme,
     selectedResourceTypes,
     setSelectedResourceTypes,
-    resetTheme
+    resetTheme,
   };
 };
