@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { UserResource } from "../UserResource";
 import { IntUser } from "../../../types";
 const userMoock = {
-  id: "124klyh542757wsd",
+  id: 1245678,
   displayName: "Usuario uno",
   photoURL: "http/asdadasd.jpg",
 } as IntUser;
@@ -17,7 +17,7 @@ describe("UserResource Component", () => {
     expect(userResource).toHaveClass("flex gap-2 items-center");
     expect(imgUser).toHaveClass("rounded-full w-[28px] h-[28px]");
   });
-
+  
   it("Tiene que rederizar los datos del usuario", () => {
     render(<UserResource user={userMoock} />);
     const displayName = screen.getByText("Usuario uno");
