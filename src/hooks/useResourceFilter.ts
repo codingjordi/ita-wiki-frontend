@@ -27,7 +27,6 @@ export const useResourceFilter = ({
 
   useEffect(() => {
     if (category) {
-      setSelectedTheme("Todos");
       setSelectedResourceTypes([...resourceTypes]);
     }
   }, [category, resourceTypes]);
