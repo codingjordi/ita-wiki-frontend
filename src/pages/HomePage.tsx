@@ -22,7 +22,7 @@ export default function HomePage() {
         >
           {user ? (
             <article
-              id={user.id}
+              id={user.id.toString()}
               className="flex justify-evenly items-center gap-4 mt-4 py-2 px-4 rounded-md bg-black text-white mx-auto"
             >
               <img
