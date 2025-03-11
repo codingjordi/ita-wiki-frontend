@@ -12,11 +12,9 @@ vi.mock("react-router", () => ({
 import { useParams, useSearchParams } from "react-router";
 
 describe("useResourceFilter", () => {
-  // Mock data
   const mockThemes = ["Todos", "Componentes", "UseState & UseEffect"] as const;
   const mockResourceTypes = ["Video", "Cursos", "Blog"] as const;
 
-  // Sample resources for testing
   const mockResources: IntResource[] = [
     {
       id: 1,
@@ -50,11 +48,9 @@ describe("useResourceFilter", () => {
     },
   ];
 
-  // Mock URLSearchParams with proper get/set methods
   let mockParamsData: Record<string, string> = {};
   let mockSetSearchParams: ReturnType<typeof vi.fn>;
 
-  // Helper to create a proper mock of URLSearchParams
   function createMockSearchParams() {
     return {
       get: (key: string) => mockParamsData[key] || null,
@@ -69,21 +65,17 @@ describe("useResourceFilter", () => {
   }
 
   beforeEach(() => {
-    // Reset mocks and mock data
     vi.clearAllMocks();
     mockParamsData = {};
 
-    // Create mock search params
     const mockSearchParams = createMockSearchParams();
     mockSetSearchParams = vi.fn();
 
-    // Setup useSearchParams mock
     (useSearchParams as ReturnType<typeof vi.fn>).mockReturnValue([
       mockSearchParams,
       mockSetSearchParams,
     ]);
 
-    // Default category param
     (useParams as ReturnType<typeof vi.fn>).mockReturnValue({
       category: "React",
     });
@@ -98,7 +90,6 @@ describe("useResourceFilter", () => {
       }),
     );
 
-    // Match actual implementation - should use first items from arrays
     expect(result.current.selectedTheme).toBe(mockThemes[0]);
     expect(result.current.selectedResourceTypes).toEqual(mockResourceTypes);
   });
@@ -112,7 +103,6 @@ describe("useResourceFilter", () => {
       }),
     );
 
-    // Change theme selection
     act(() => {
       result.current.setSelectedTheme("Componentes");
     });
@@ -121,7 +111,6 @@ describe("useResourceFilter", () => {
   });
 
   it("filters resources by category from URL params", () => {
-    // Mock category from URL params
     (useParams as ReturnType<typeof vi.fn>).mockReturnValue({
       category: "Angular",
     });
@@ -134,16 +123,13 @@ describe("useResourceFilter", () => {
       }),
     );
 
-    // Should only include Angular resources
     expect(result.current.filteredResources.length).toBe(1);
     expect(result.current.filteredResources[0].category).toBe("Angular");
   });
 
   it("resets filters when category changes", () => {
-    // Mock function to track if setSelectedTheme is called
     const mockSetCategory = vi.fn();
 
-    // Initial render with React category
     const { rerender } = renderHook(
       (props) => {
         (useParams as ReturnType<typeof vi.fn>).mockReturnValue({
@@ -156,7 +142,6 @@ describe("useResourceFilter", () => {
           resourceTypes: mockResourceTypes,
         });
 
-        // Access properties directly without .current
         if (result.selectedTheme === "Todos" && props.category === "Angular") {
           mockSetCategory("reset detected");
         }
@@ -166,10 +151,8 @@ describe("useResourceFilter", () => {
       { initialProps: { category: "React" } },
     );
 
-    // Change to different category
     rerender({ category: "Angular" });
 
-    // Expect the side effect function was called, showing filters were reset
     expect(mockSetCategory).toHaveBeenCalledWith("reset detected");
   });
 });
