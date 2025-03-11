@@ -13,8 +13,8 @@ vi.mock("../../../hooks/useResourceFilter", () => ({
     setSelectedTheme: vi.fn(),
     selectedResourceTypes: ["Video"],
     setSelectedResourceTypes: vi.fn(),
-    resetTheme: vi.fn()
-  })
+    resetTheme: vi.fn(),
+  }),
 }));
 
 const moockrResources = moock.resources.map(
