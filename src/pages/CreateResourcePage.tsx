@@ -8,13 +8,15 @@ import { toast } from "sonner";
 import ButtonComponent from "../components/atoms/ButtonComponent";
 import { categories } from "../data/categories";
 import { themes } from "../data/themes";
+import { useUser } from "../hooks/useUser";
 
 export default function CreateResourcePage() {
+  const { user } = useUser();
+
   const {
     register,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm<Partial<IntResource>>({
     resolver: zodResolver(resourceSchema),
@@ -23,7 +25,7 @@ export default function CreateResourcePage() {
   const onSubmit = async (data: Partial<IntResource>) => {
     const resourceWithGithubId = {
       ...data,
-      github_id: 6729608,
+      github_id: user?.id,
     };
 
     try {
@@ -66,15 +68,11 @@ export default function CreateResourcePage() {
           <select
             id="category"
             className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
+            defaultValue=""
             {...register("category")}
           >
-            <option
-              value="Tecnología"
-              className=" disabled:text-[#909AA3]"
-              disabled
-              selected
-            >
-              Tecnología
+            <option value="" disabled>
+              Categoria
             </option>
             {categories.map((categorie) => (
               <option key={categorie} value={categorie}>
@@ -91,14 +89,10 @@ export default function CreateResourcePage() {
           <select
             id="theme"
             className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
+            defaultValue=""
             {...register("theme")}
           >
-            <option
-              value="Tema"
-              className=" disabled:text-[#909AA3]"
-              disabled
-              selected
-            >
+            <option value="" disabled>
               Tema
             </option>
             {themes.map((theme) => (
@@ -118,7 +112,7 @@ export default function CreateResourcePage() {
               <input
                 type="radio"
                 id="video"
-                value="video"
+                value="Video"
                 className="scale-150 accent-[#B91879]"
                 {...register("type")}
               />
@@ -128,7 +122,7 @@ export default function CreateResourcePage() {
               <input
                 type="radio"
                 id="curso"
-                value="curso"
+                value="Cursos"
                 className="scale-150 accent-[#B91879]"
                 {...register("type")}
               />
@@ -138,19 +132,20 @@ export default function CreateResourcePage() {
               <input
                 type="radio"
                 id="blog"
-                value="blog"
+                value="Blog"
                 className="scale-150 accent-[#B91879]"
                 {...register("type")}
               />
               <label htmlFor="blog">Blog</label>
             </div>
           </div>
+          <div className="h-6">
+            {errors.type && (
+              <p className="text-red-500 text-sm">{errors.type.message}</p>
+            )}
+          </div>
 
-          {errors.type && (
-            <p className="text-red-500 text-sm">{errors.type.message}</p>
-          )}
-
-          <div className="flex gap-4 mt-4">
+          <div className="md:flex gap-4 mt-1">
             <ButtonComponent type="submit" variant="primary">
               Crear
             </ButtonComponent>
@@ -162,7 +157,6 @@ export default function CreateResourcePage() {
             </ButtonComponent>
           </div>
         </form>
-        <pre>{JSON.stringify(watch(), null, 2)}</pre>
       </div>
     </div>
   );
