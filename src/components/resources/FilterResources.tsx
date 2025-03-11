@@ -6,7 +6,9 @@ interface FilterResourcesProps {
   selectedTheme: string;
   setSelectedTheme: (theme: string) => void;
   selectedResourceTypes: string[];
-  setSelectedResourceTypes: (resourceTypes: string[]) => void;
+  setSelectedResourceTypes: (
+    resourceTypes: string[] | ((prevSelected: string[]) => string[]),
+  ) => void;
 }
 
 export const FilterResources: FC<FilterResourcesProps> = ({
@@ -18,18 +20,20 @@ export const FilterResources: FC<FilterResourcesProps> = ({
   setSelectedResourceTypes,
 }) => {
   const toggleResourceType = (resourceType: string) => {
-    setSelectedResourceTypes(
-      selectedResourceTypes.includes(resourceType)
-        ? selectedResourceTypes.filter(
-            (rType: string) => rType !== resourceType,
-          )
-        : [...selectedResourceTypes, resourceType],
-    );
+    setSelectedResourceTypes((prevSelected: string[]) => {
+      if (prevSelected.length === 1 && prevSelected.includes(resourceType)) {
+        return prevSelected;
+      }
+
+      return prevSelected.includes(resourceType)
+        ? prevSelected.filter((rType: string) => rType !== resourceType)
+        : [...prevSelected, resourceType];
+    });
   };
 
   useEffect(() => {
-    if (selectedResourceTypes.length === 0) {
-      setSelectedResourceTypes([...resourceTypes]); // Hacemos una copia del array
+    if (selectedResourceTypes.length === 0 && resourceTypes.length > 0) {
+      setSelectedResourceTypes([resourceTypes[0]]);
     }
   }, [resourceTypes, selectedResourceTypes, setSelectedResourceTypes]);
 
@@ -75,6 +79,10 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               type="checkbox"
               checked={selectedResourceTypes.includes(resourceType)}
               onChange={() => toggleResourceType(resourceType)}
+              disabled={
+                selectedResourceTypes.length === 1 &&
+                selectedResourceTypes.includes(resourceType)
+              }
               className="hidden"
             />
             <div

@@ -24,7 +24,6 @@ describe("ListResources Component", () => {
       </MemoryRouter>,
     );
 
-    // Use String(category) to match how it's used in the component
     const titleElement = screen.getByText(`Recursos ${String(category)}`);
     expect(titleElement.tagName).toBe("H2");
   });

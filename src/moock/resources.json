@@ -2,43 +2,231 @@
   "resources": [
     {
       "id": 25,
-      "github_id": "123456",
+      "github_id": 123456,
       "title": "Context en 20 minutos",
+      "description": "Una introducción rápida al Context API de React",
       "url": "http://localhost/recurso/1",
       "create_at": "2 agosto de 2022",
-      "update_at": "5 agosto de 2022"
+      "update_at": "5 agosto de 2022",
+      "category": "React",
+      "theme": "Componentes",
+      "type": "Video"
     },
     {
       "id": 26,
       "github_id": 123457,
       "title": "Redux para principiantes",
+      "description": "Aprende a gestionar el estado global con Redux",
       "url": "http://localhost/recurso/1",
       "create_at": "1 agosto de 2022",
-      "update_at": "3 agosto de 2022"
+      "update_at": "3 agosto de 2022",
+      "category": "React",
+      "theme": "UseState & UseEffect",
+      "type": "Cursos"
     },
     {
       "id": 27,
       "github_id": 123458,
-      "title": "Redux para principiantes",
+      "title": "Desarrollo avanzado con React Hooks",
+      "description": "Patrones comunes y soluciones con hooks",
       "url": "http://localhost/recurso/1",
       "create_at": "5 febrero de 2022",
-      "update_at": "2 enero de 2022"
+      "update_at": "2 enero de 2022",
+      "category": "React",
+      "theme": "UseState & UseEffect",
+      "type": "Blog"
     },
     {
       "id": 28,
       "github_id": 123459,
-      "title": "El tio la vara",
+      "title": "Optimización de renderizado en React",
+      "description": "Técnicas para mejorar el rendimiento de tus componentes",
       "url": "http://localhost/recurso/1",
       "create_at": "25 agosto de 2022",
-      "update_at": "10 agosto de 2022"
+      "update_at": "10 agosto de 2022",
+      "category": "React",
+      "theme": "Renderizado condicional",
+      "type": "Video"
     },
     {
       "id": 29,
       "github_id": 123460,
-      "title": "Y volo, y me hiso volar y yo vole de el! jajja",
+      "title": "Enrutamiento dinámico con React Router",
+      "description": "Configuración avanzada de rutas en aplicaciones React",
       "url": "http://localhost/recurso/1",
       "create_at": "16 agosto de 2022",
-      "update_at": "1 agosto de 2022"
+      "update_at": "1 agosto de 2022",
+      "category": "React",
+      "theme": "React Router",
+      "type": "Cursos"
+    },
+    {
+      "id": 30,
+      "github_id": 123461,
+      "title": "Introducción a Node.js",
+      "description": "Aprende a usar Node.js para construir aplicaciones del lado del servidor",
+      "url": "http://localhost/recurso/2",
+      "create_at": "10 marzo de 2022",
+      "update_at": "15 marzo de 2022",
+      "category": "Node",
+      "theme": "Conceptos básicos",
+      "type": "Cursos"
+    },
+    {
+      "id": 31,
+      "github_id": 123462,
+      "title": "Estructura de Aplicaciones en React",
+      "description": "Cómo estructurar tu proyecto React para aplicaciones escalables",
+      "url": "http://localhost/recurso/3",
+      "create_at": "18 marzo de 2022",
+      "update_at": "20 marzo de 2022",
+      "category": "React",
+      "theme": "Patrones de diseño",
+      "type": "Blog"
+    },
+    {
+      "id": 32,
+      "github_id": 123463,
+      "title": "Angular: Guía para principiantes",
+      "description": "Una guía completa para comenzar con Angular y sus conceptos fundamentales",
+      "url": "http://localhost/recurso/4",
+      "create_at": "12 febrero de 2022",
+      "update_at": "14 febrero de 2022",
+      "category": "Angular",
+      "theme": "Fundamentos",
+      "type": "Video"
+    },
+    {
+      "id": 33,
+      "github_id": 123464,
+      "title": "Componentes Avanzados en Angular",
+      "description": "Aprende sobre directivas, pipes y servicios en Angular",
+      "url": "http://localhost/recurso/5",
+      "create_at": "22 marzo de 2022",
+      "update_at": "25 marzo de 2022",
+      "category": "Angular",
+      "theme": "Componentes",
+      "type": "Cursos"
+    },
+    {
+      "id": 34,
+      "github_id": 123465,
+      "title": "Manejo de estados en JavaScript",
+      "description": "Cómo gestionar el estado de una aplicación JavaScript usando patrones modernos",
+      "url": "http://localhost/recurso/6",
+      "create_at": "3 marzo de 2022",
+      "update_at": "5 marzo de 2022",
+      "category": "JavaScript",
+      "theme": "State Management",
+      "type": "Blog"
+    },
+    {
+      "id": 35,
+      "github_id": 123466,
+      "title": "JavaScript para backend con Node.js",
+      "description": "Introducción al uso de JavaScript para construir servidores con Node.js",
+      "url": "http://localhost/recurso/7",
+      "create_at": "5 abril de 2022",
+      "update_at": "6 abril de 2022",
+      "category": "JavaScript",
+      "theme": "Backend",
+      "type": "Cursos"
+    },
+    {
+      "id": 36,
+      "github_id": 123467,
+      "title": "Spring Boot para Java",
+      "description": "Aprende a crear aplicaciones Java con Spring Boot",
+      "url": "http://localhost/recurso/8",
+      "create_at": "8 mayo de 2022",
+      "update_at": "10 mayo de 2022",
+      "category": "Java",
+      "theme": "Frameworks",
+      "type": "Video"
+    },
+    {
+      "id": 37,
+      "github_id": 123468,
+      "title": "Patrones de diseño en Java",
+      "description": "Explora los patrones de diseño más comunes en Java",
+      "url": "http://localhost/recurso/9",
+      "create_at": "25 mayo de 2022",
+      "update_at": "30 mayo de 2022",
+      "category": "Java",
+      "theme": "Patrones de diseño",
+      "type": "Blog"
+    },
+    {
+      "id": 38,
+      "github_id": 123469,
+      "title": "Desarrollo Fullstack con PHP y React",
+      "description": "Desarrolla una aplicación Fullstack utilizando PHP y React",
+      "url": "http://localhost/recurso/10",
+      "create_at": "1 junio de 2022",
+      "update_at": "5 junio de 2022",
+      "category": "FullStack PHP",
+      "theme": "FullStack",
+      "type": "Cursos"
+    },
+    {
+      "id": 39,
+      "github_id": 123470,
+      "title": "Conexión de bases de datos en PHP",
+      "description": "Aprende a conectar bases de datos MySQL con PHP",
+      "url": "http://localhost/recurso/11",
+      "create_at": "10 junio de 2022",
+      "update_at": "12 junio de 2022",
+      "category": "FullStack PHP",
+      "theme": "Base de datos",
+      "type": "Blog"
+    },
+    {
+      "id": 40,
+      "github_id": 123471,
+      "title": "Introducción a Data Science",
+      "description": "Un curso completo sobre las bases de la Ciencia de Datos",
+      "url": "http://localhost/recurso/12",
+      "create_at": "15 junio de 2022",
+      "update_at": "18 junio de 2022",
+      "category": "Data Science",
+      "theme": "Fundamentos",
+      "type": "Cursos"
+    },
+    {
+      "id": 41,
+      "github_id": 123472,
+      "title": "Manejo de grandes volúmenes de datos",
+      "description": "Estrategias y herramientas para trabajar con grandes volúmenes de datos",
+      "url": "http://localhost/recurso/13",
+      "create_at": "25 junio de 2022",
+      "update_at": "28 junio de 2022",
+      "category": "Data Science",
+      "theme": "Big Data",
+      "type": "Video"
+    },
+    {
+      "id": 42,
+      "github_id": 123473,
+      "title": "Introducción a bases de datos relacionales",
+      "description": "Aprende los conceptos básicos de las bases de datos relacionales",
+      "url": "http://localhost/recurso/14",
+      "create_at": "10 julio de 2022",
+      "update_at": "12 julio de 2022",
+      "category": "BBDD",
+      "theme": "Relacionales",
+      "type": "Blog"
+    },
+    {
+      "id": 43,
+      "github_id": 123474,
+      "title": "Optimización de consultas SQL",
+      "description": "Aprende a optimizar consultas SQL para bases de datos grandes",
+      "url": "http://localhost/recurso/15",
+      "create_at": "15 julio de 2022",
+      "update_at": "18 julio de 2022",
+      "category": "BBDD",
+      "theme": "Consultas",
+      "type": "Cursos"
     }
   ]
 }

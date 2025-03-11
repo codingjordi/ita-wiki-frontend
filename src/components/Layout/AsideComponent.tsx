@@ -21,7 +21,7 @@ const AsideComponent = () => {
   ];
 
   return (
-    <aside className="flex items-center p-6 pl-0 pr-[80px] max-h-[calc(100vh-90px)]">
+    <aside className="flex p-6 items-center justify-center lg:block lg:w-80 lg:h-screen lg:max-h-[calc(100vh-90px)] lg:mt-36">
       <ul className="space-y-6">
         {asideContent.map((item, index) => (
           <li key={index} className="flex items-center space-x-3">
