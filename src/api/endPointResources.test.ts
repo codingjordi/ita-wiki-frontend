@@ -3,7 +3,6 @@ import { getResources } from "./endPointResources";
 import moock from "../moock/resources.json";
 import { IntResource } from "../types";
 
-// Datos mockeados
 const moockResources = moock.resources.map((resource) => ({
   ...resource,
   create_at: "2025-02-25 00:00:00",
@@ -60,7 +59,7 @@ describe("getResources", () => {
     expect(resources).toEqual(mockData);
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
-      expect.stringContaining("resources"),
+      expect.stringContaining("resources/"),
       expect.objectContaining({ signal: expect.any(AbortSignal) }),
     );
   });
