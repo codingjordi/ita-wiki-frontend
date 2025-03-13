@@ -1,24 +1,34 @@
-import { Link, useNavigate } from "react-router";
-import logoItAcademy from "../../assets/LogoItAcademy.svg";
-import addIcon from "../../assets/add.svg";
-import settingsIcon from "../../assets/settings.svg";
-import userIcon from "../../assets/user2.svg";
-import searchIcon from "../../assets/search.svg";
-import ButtonComponent from "../atoms/ButtonComponent";
-import { useCtxUser } from "../../hooks/useCtxUser";
+import { Link, useNavigate } from 'react-router';
+import logoItAcademy from '../../assets/LogoItAcademy.svg';
+import addIcon from '../../assets/add.svg';
+import settingsIcon from '../../assets/settings.svg';
+import userIcon from '../../assets/user2.svg';
+import searchIcon from '../../assets/search.svg';
+import ButtonComponent from '../atoms/ButtonComponent';
+import { useCtxUser } from '../../hooks/useCtxUser';
+import { useState } from 'react';
+import { Modal } from '../Modal/Modal';
 
 const HeaderComponent = () => {
   const { user } = useCtxUser();
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const goToResourcesPage = () => {
-    navigate("/resources/add");
+    navigate('/resources/add');
   };
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     // just temporarily hidden on mobile, to prevent horizontal overflow
     <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
       <Link to="/">
-        <img src={logoItAcademy} alt="logo" width={"116px"} />
+        <img
+          src={logoItAcademy}
+          alt="logo"
+          width={'116px'}
+        />
       </Link>
       <div className="flex">
         <div className="relative mr-[120px] cursor-pointer">
@@ -33,8 +43,7 @@ const HeaderComponent = () => {
               xmlns={searchIcon}
               className="h-5 w-5"
               viewBox="0 0 20 20"
-              fill="currentColor"
-            >
+              fill="currentColor">
               <path
                 fillRule="evenodd"
                 d="M12.9 14.32a8 8 0 111.42-1.42l4.83 4.83a1 1 0 01-1.42 1.42l-4.83-4.83zM8 14a6 6 0 100-12 6 6 0 000 12z"
@@ -53,16 +62,31 @@ const HeaderComponent = () => {
         <div className="flex justify-center items-center mx-2">
           <select
             title="lang"
-            className="bg-white py-2 px-4 text-[#808080] rounded-lg border border-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#808080] focus:border-transparent"
-          >
+            className="bg-white py-2 px-4 text-[#808080] rounded-lg border border-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#808080] focus:border-transparent">
             <option>ES</option>
             <option>EN</option>
           </select>
         </div>
-        <ButtonComponent icon={settingsIcon} variant="icon" />
+        <ButtonComponent
+          icon={settingsIcon}
+          variant="icon"
+        />
         <div className="mr-[-10px]">
-          <ButtonComponent icon={userIcon} variant="icon" />
+          <ButtonComponent
+            icon={userIcon}
+            variant="icon"
+            onClick={openModal}
+          />
         </div>
+        {isModalOpen && <Modal closeModal={closeModal} />}
+        {/* <Modal icon title description>
+          <Button>
+
+          </Button>
+          <Checkbox>
+
+          </Checkbox>
+        </Modal> */}
       </div>
     </header>
   );
