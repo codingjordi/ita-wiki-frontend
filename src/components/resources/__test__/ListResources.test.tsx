@@ -29,7 +29,7 @@ const moockResources = moock.resources.map(
       ...resource,
       create_at: "2025-02-25 00:00:00",
       update_at: "2025-02-25 00:00:00",
-    }) as IntResource
+    }) as IntResource,
 );
 
 const category = Object.keys(categories)[0] as keyof typeof categories;
@@ -39,7 +39,7 @@ describe("ListResources Component", () => {
     render(
       <MemoryRouter>
         <ListResources resources={moockResources} category={category} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const titleElement = screen.getByText(`Recursos ${String(category)}`);
@@ -52,7 +52,7 @@ describe("ListResources Component", () => {
     render(
       <MemoryRouter>
         <ListResources resources={moockResources} category={category} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
     expect(screen.queryByTestId("my-resources-container")).toBeInTheDocument();
   });
