@@ -4,11 +4,11 @@ import { ListResources } from "../ListResources";
 import moock from "../../../moock/resources.json";
 import { categories } from "../../../data/categories";
 import { IntResource } from "../../../types";
-import { describe, it, expect, vi } from "vitest"; // Add this import
+import { describe, it, expect, vi } from "vitest";
 
 vi.mock("../../../hooks/useResourceFilter", () => ({
   useResourceFilter: () => ({
-    filteredResources: moockrResources,
+    filteredResources: moockResources,
     selectedTheme: "Todos",
     setSelectedTheme: vi.fn(),
     selectedResourceTypes: ["Video"],
@@ -17,13 +17,19 @@ vi.mock("../../../hooks/useResourceFilter", () => ({
   }),
 }));
 
-const moockrResources = moock.resources.map(
+vi.mock("../../../hooks/useUser", () => ({
+  useUser: () => ({
+    user: { id: "123456" },
+  }),
+}));
+
+const moockResources = moock.resources.map(
   (resource) =>
     ({
       ...resource,
       create_at: "2025-02-25 00:00:00",
       update_at: "2025-02-25 00:00:00",
-    }) as IntResource,
+    }) as IntResource
 );
 
 const category = Object.keys(categories)[0] as keyof typeof categories;
@@ -32,11 +38,22 @@ describe("ListResources Component", () => {
   it("should render the component and display the correct title", () => {
     render(
       <MemoryRouter>
-        <ListResources resources={moockrResources} category={category} />
-      </MemoryRouter>,
+        <ListResources resources={moockResources} category={category} />
+      </MemoryRouter>
     );
 
     const titleElement = screen.getByText(`Recursos ${String(category)}`);
     expect(titleElement.tagName).toBe("H2");
+  });
+
+  it("should render user's own resources when user logged in and own resources present", () => {
+    moockResources.filter((resource) => resource.github_id === 123456);
+
+    render(
+      <MemoryRouter>
+        <ListResources resources={moockResources} category={category} />
+      </MemoryRouter>
+    );
+    expect(screen.queryByTestId("my-resources-container")).toBeInTheDocument();
   });
 });

@@ -125,7 +125,9 @@ export const ListResources: FC<ListResourceProps> = ({
           <div className="bg-white sm:rounded-xl px-4 py-6 sm:px-6 lg:pl-8 xl:shrink-0 xl:pl-6">
             <h3 className="text-[22px] font-bold">Lista de lectura</h3>
           </div>
-          <ListMyResources myResources={userCreatedResources} />
+          {user && userCreatedResources.length > 0 && (
+            <ListMyResources myResources={userCreatedResources} />
+          )}
         </div>
       </div>
     )
