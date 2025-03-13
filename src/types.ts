@@ -30,3 +30,14 @@ export interface IntResource {
   theme: Theme;
   type: ResourceType;
 }
+
+export type TypTechnologyResource =
+  | "All"
+  | "Node"
+  | "React"
+  | "Angular"
+  | "JavaScript"
+  | "Java"
+  | "FullStack PHP"
+  | "Data Science"
+  | "BBDD";
