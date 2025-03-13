@@ -31,6 +31,9 @@ export default function CreateResourcePage() {
     try {
       await createResource(resourceWithGithubId);
       toast.success("¡Recurso creado con éxito!");
+      setTimeout(() => {
+        window.location.href = `/resources/${data?.category?.toLowerCase()}`;
+      }, 1000);
       reset();
     } catch (error) {
       console.error("Error al crear el recurso:", error);
@@ -69,7 +72,7 @@ export default function CreateResourcePage() {
             id="category"
             className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
             defaultValue=""
-            {...register("category")}
+            {...register("category", { required: true })}
           >
             <option value="" disabled>
               Categoria
@@ -90,7 +93,7 @@ export default function CreateResourcePage() {
             id="theme"
             className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
             defaultValue=""
-            {...register("theme")}
+            {...register("theme", { required: true })}
           >
             <option value="" disabled>
               Tema
@@ -114,7 +117,7 @@ export default function CreateResourcePage() {
                 id="video"
                 value="Video"
                 className="scale-150 accent-[#B91879]"
-                {...register("type")}
+                {...register("type", { required: true })}
               />
               <label htmlFor="video">Vídeo</label>
             </div>
@@ -124,7 +127,7 @@ export default function CreateResourcePage() {
                 id="curso"
                 value="Cursos"
                 className="scale-150 accent-[#B91879]"
-                {...register("type")}
+                {...register("type", { required: true })}
               />
               <label htmlFor="curso">Curso</label>
             </div>
@@ -134,7 +137,7 @@ export default function CreateResourcePage() {
                 id="blog"
                 value="Blog"
                 className="scale-150 accent-[#B91879]"
-                {...register("type")}
+                {...register("type", { required: true })}
               />
               <label htmlFor="blog">Blog</label>
             </div>
