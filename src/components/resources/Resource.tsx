@@ -14,7 +14,7 @@ export const Resource: FC<ResourceProps> = ({ resource }) => {
   return (
     <li
       role="resources"
-      className="border-[1px] border-[#7E7E7E] rounded-[20px] w-full max-w-[467.27px]"
+      className="border-[1px] border-[#7E7E7E] rounded-[20px] w-full lg:max-w-[467.27px]"
       data-testid="resource"
     >
       <BodyResource>

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { categories } from "./data/categories";
 import { themes } from "./data/themes";
-import { resourceTypes } from "./data/resourceType";
+import { resourceTypes } from "./data/resourceTypes";
 
 export type Category = (typeof categories)[number];
 export type Theme = (typeof themes)[number];

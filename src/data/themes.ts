@@ -1,6 +1,6 @@
 export const themes = [
-  "All",
-  "Components",
+  "Todos",
+  "Componentes",
   "UseState & UseEffect",
   "Eventos",
   "Renderizado condicional",

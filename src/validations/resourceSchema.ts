@@ -2,7 +2,7 @@ import { z } from "zod";
 import { IntResource } from "../types";
 import { themes } from "../data/themes";
 import { categories } from "../data/categories";
-import { resourceTypes } from "../data/resourceType";
+import { resourceTypes } from "../data/resourceTypes";
 
 export const resourceSchema: z.ZodType<Partial<IntResource>> = z.object({
   title: z
@@ -27,5 +27,5 @@ export const resourceSchema: z.ZodType<Partial<IntResource>> = z.object({
 
   type: z.enum(resourceTypes, {
     message: "Debes seleccionar al menos un tipo de recurso.",
-  }) ,
+  }),
 });

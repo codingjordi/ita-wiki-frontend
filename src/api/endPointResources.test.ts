@@ -3,7 +3,6 @@ import { getResources } from "./endPointResources";
 import moock from "../moock/resources.json";
 import { IntResource } from "../types";
 
-// Datos mockeados
 const moockResources = moock.resources.map((resource) => ({
   ...resource,
   create_at: "2025-02-25 00:00:00",
