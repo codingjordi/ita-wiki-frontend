@@ -17,9 +17,10 @@ export default function HomePage() {
             flexDirection: "column",
             maxWidth: "375px",
             padding: "1rem",
-            margin: "40px auto 60px",
           }}
         >
+          <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
+
           {user ? (
             <article
               id={user.id.toString()}

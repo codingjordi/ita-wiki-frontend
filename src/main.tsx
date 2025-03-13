@@ -20,6 +20,15 @@ createRoot(document.getElementById("root")!).render(
           }}
         />
         <App />
+        <Toaster
+          richColors
+          toastOptions={{
+            style: {
+              padding: "2rem",
+              fontSize: "1rem",
+            },
+          }}
+        />
       </BrowserRouter>
     </StrictMode>
   </UserCtxProvider>,

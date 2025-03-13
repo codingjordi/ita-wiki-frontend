@@ -27,6 +27,7 @@ export const signInWithGitHub = async () => {
       displayName: result.user.providerData[0].displayName ?? "",
       photoURL: result.user.providerData[0].photoURL ?? "",
     };
+    console.log(newUser);
 
     newUser.role = await getUserRole(newUser.id);
 
