@@ -11,15 +11,45 @@ import { Modal } from '../Modal/Modal';
 import GItHubLogin from '../github-login/GItHubLogin';
 
 const HeaderComponent = () => {
-  const { user, error, signIn } = useCtxUser();
+  const { user, signIn } = useCtxUser();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [loginError, setLoginError] = useState<JSX.Element | null>(null);
 
   const goToResourcesPage = () => {
     navigate('/resources/add');
   };
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleSignIn = async () => {
+    if (!isChecked) {
+      setLoginError(
+        <div className="text-red-500 text-sm mt-2 text-center">
+          Lo sentimos, no se ha podido iniciar sesión,
+          <br /> contacte con el administrador.
+        </div>,
+      );
+      return;
+    }
+    try {
+      await signIn();
+      setIsModalOpen(false);
+    } catch (error) {
+      setLoginError(
+        <div className="text-red-500 text-sm mt-2 text-center">
+          Lo sentimos, no se ha podido iniciar sesión,
+          <br /> contacte con el administrador.
+        </div>,
+      );
+    }
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    setLoginError('');
+  };
 
   return (
     // just temporarily hidden on mobile, to prevent horizontal overflow
@@ -83,16 +113,20 @@ const HeaderComponent = () => {
           <Modal
             closeModal={closeModal}
             title="Inicio sesión">
-            <GItHubLogin onClick={signIn} />
+            <GItHubLogin onClick={handleSignIn} />
             <label
               htmlFor="terms"
               className="block mt-8">
               <input
                 name="terms"
-                type="checkbox"></input>
+                type="checkbox"
+                onChange={handleCheckboxChange}
+                checked={isChecked}></input>
               Acepto términos legales
             </label>
-            {error && <div className="text-red-500 my-4">{error}</div>}
+            {loginError && (
+              <div className="text-red-500 text-sm mt-2">{loginError}</div>
+            )}
           </Modal>
         )}
       </div>
