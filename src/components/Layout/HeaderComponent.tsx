@@ -36,7 +36,7 @@ const HeaderComponent = () => {
     try {
       await signIn();
       setIsModalOpen(false);
-    } catch (error) {
+    } catch {
       setLoginError(
         <div className="text-red-500 text-sm mt-2 text-center">
           Lo sentimos, no se ha podido iniciar sesión,
