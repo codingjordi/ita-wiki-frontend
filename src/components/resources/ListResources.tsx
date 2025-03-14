@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { IntResource } from "../../types";
 
-import { useUser } from "../../hooks/useUser";
+import { useCtxUser } from "../../hooks/useCtxUser";
 
 import { Resource } from "./Resource";
 import { FilterResources } from "./FilterResources";
@@ -23,7 +23,7 @@ export const ListResources: FC<ListResourceProps> = ({
 }) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
-  const { user } = useUser();
+  const { user } = useCtxUser();
 
   const {
     filteredResources,
