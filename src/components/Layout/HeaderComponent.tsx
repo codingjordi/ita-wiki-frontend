@@ -8,9 +8,10 @@ import ButtonComponent from '../atoms/ButtonComponent';
 import { useCtxUser } from '../../hooks/useCtxUser';
 import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
+import GItHubLogin from '../github-login/GItHubLogin';
 
 const HeaderComponent = () => {
-  const { user } = useCtxUser();
+  const { user, error, signIn } = useCtxUser();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -78,15 +79,22 @@ const HeaderComponent = () => {
             onClick={openModal}
           />
         </div>
-        {isModalOpen && <Modal closeModal={closeModal} />}
-        {/* <Modal icon title description>
-          <Button>
-
-          </Button>
-          <Checkbox>
-
-          </Checkbox>
-        </Modal> */}
+        {isModalOpen && (
+          <Modal
+            closeModal={closeModal}
+            title="Inicio sesión">
+            <GItHubLogin onClick={signIn} />
+            <label
+              htmlFor="terms"
+              className="block mt-8">
+              <input
+                name="terms"
+                type="checkbox"></input>
+              Acepto términos legales
+            </label>
+            {error && <div className="text-red-500 my-4">{error}</div>}
+          </Modal>
+        )}
       </div>
     </header>
   );
