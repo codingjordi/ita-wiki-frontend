@@ -29,6 +29,7 @@ export interface IntResource {
   category: Category;
   theme: Theme;
   type: ResourceType;
+  isBookmarked?: boolean;
 }
 
 export type TypTechnologyResource =
