@@ -15,7 +15,7 @@ const HeaderComponent = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [loginError, setLoginError] = useState<JSX.Element | null>(null);
+  const [loginError, setLoginError] = useState<React.ReactNode | null>(null);
 
   const goToResourcesPage = () => {
     navigate('/resources/add');
