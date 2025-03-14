@@ -17,9 +17,9 @@ vi.mock("../../../hooks/useResourceFilter", () => ({
   }),
 }));
 
-vi.mock("../../../hooks/useUser", () => ({
-  useUser: () => ({
-    user: { id: "123456" },
+vi.mock("../../../hooks/useCtxUser", () => ({
+  useCtxUser: () => ({
+    user: { id: "123463" },
   }),
 }));
 
@@ -47,11 +47,14 @@ describe("ListResources Component", () => {
   });
 
   it("should render user's own resources when user logged in and own resources present", () => {
-    moockResources.filter((resource) => resource.github_id === 123456);
+    const userResources = moockResources.map((resource) => ({
+      ...resource,
+      github_id: 123463,
+    }));
 
     render(
       <MemoryRouter>
-        <ListResources resources={moockResources} category={category} />
+        <ListResources resources={userResources} category={category} />
       </MemoryRouter>,
     );
     expect(screen.queryByTestId("my-resources-container")).toBeInTheDocument();
