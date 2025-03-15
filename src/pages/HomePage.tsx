@@ -11,7 +11,7 @@ import { getRole } from "../api/endPointRoles";
 export default function HomePage() {
   const { signIn, signOut, user, error } = useCtxUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userRole, setUserRole] = useState<string>("anonymous");
+  const [userRole, setUserRole] = useState<string>("visitor");
 
   // Handle log in
   useEffect(() => {
@@ -19,21 +19,20 @@ export default function HomePage() {
       getRole(user.id)
         .then((roleData) => {
           setUserRole(roleData.role);
-          console.log("Role fetched:", roleData);
         })
         .catch((err) => {
           console.error("Error fetching role:", err);
-          setUserRole("anonymous");
+          setUserRole("visitor");
         });
     } else {
-      setUserRole("anonymous");
+      setUserRole("visitor");
     }
   }, [user]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Permission to see AddUsers.tsx
+  // Permission to see AddUsers component
   const hasPermission = ["superadmin", "admin", "mentor"].includes(userRole);
 
   return (

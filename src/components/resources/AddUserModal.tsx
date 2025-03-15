@@ -31,6 +31,7 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({ onClose, userRole,
     };
     createRole(requestBody);
     console.log(requestBody);
+
     onClose();
   };
 

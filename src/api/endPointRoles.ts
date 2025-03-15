@@ -1,37 +1,6 @@
 import { API_URL, END_POINTS } from "../config";
 import moock from "../moock/roles.json";
 
-// En el cuerpo de la solitud tendra:
-// authorized_github_id: 9999999,
-// github_id: 23434,
-// role: "student"
-
-// GET{base_url}/api/roles
-// {
-// 	"message": "Role found.",
-// 	"role": {
-// 	  "github_id": 6729608,
-// 	  "role": "admin",
-// 	  "isAdmin": true,
-// 	  "isStudent": false,
-// 	  "isMentor": false,
-// 	  "isAnonymous": false
-// 	}
-//   }
-
-// POST{base_url}/api/roles
-// "message": "Role created successfully",
-//   "role": {
-//     "github_id": 23434,
-//     "role": "student",
-//   }
-
-// USER
-// displayName : "Jordi Terradas"
-// id : 119063441
-// photoURL : "https://avatars.githubusercontent.com/u/119063441?v=4"
-// role : "admin"
-
 interface IntRole {
   github_id: number;
   role: string;
@@ -39,7 +8,6 @@ interface IntRole {
   isAdmin: boolean;
   isStudent: boolean;
   isMentor: boolean;
-  isAnonymous: boolean;
 }
 
 interface RoleCreationRequest {
@@ -66,7 +34,7 @@ const getRole = async (github_id: number): Promise<IntRole> => {
 	  const response = await fetch(url, { signal });
   
 	  if (!response.ok) {
-		console.warn(`Error ${response.status}: ${response.statusText}`);
+		console.warn(`Error ${response.status}: ${response.statusText}, usaremos el mock`);
 		return mockRoles;
 	  }
   
@@ -97,7 +65,7 @@ const getRole = async (github_id: number): Promise<IntRole> => {
   
   const createRole = async (body: RoleCreationRequest): Promise<RoleCreationResponse> => {
 	try {
-	  const response = await fetch(`${API_URL}${END_POINTS.roles.post}/${body.github_id}`, {
+	  const response = await fetch(`${API_URL}${END_POINTS.roles.post}`, {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json",

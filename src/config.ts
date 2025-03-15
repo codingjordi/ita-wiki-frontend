@@ -8,7 +8,7 @@ const END_POINTS = {
     post: "resources/" as EndPoints,
   },
   roles: {
-    lists: "roles/" as EndPoints,
+    lists: "users/user-signedin-as?github_id=" as EndPoints,
     post: "roles/" as EndPoints,
   }
 };

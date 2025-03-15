@@ -1,12 +1,7 @@
 {
   "message": "Role found.",
   "role": {
-    "github_id": 6729608,
-    "role": "superadmin",
-    "isSuperAdmin": true,
-    "isAdmin": false,
-    "isStudent": false,
-    "isMentor": false,
-    "isAnonymous": false
+    "github_id": 4,
+    "role": "admin"
   }
 }
