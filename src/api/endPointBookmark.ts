@@ -1,5 +1,5 @@
 import { API_URL, END_POINTS } from "../config";
-import { Bookmark, Message } from "../types";
+import { Bookmark } from "../types";
 import bookmarksArr from "../moock/bookmarks.json"
 
 
