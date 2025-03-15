@@ -1,3 +1,4 @@
+import { FC } from "react";
 import edit from '../../../assets/edit.svg'
 
 interface BookmarkProps {
@@ -5,7 +6,7 @@ interface BookmarkProps {
     description: string;
     url: string;
 }
-const BookmarkComponent: React.FC<BookmarkProps> = ({ title, description, url }) => {
+const BookmarkComponent: FC<BookmarkProps> = ({ title, description, url }) => {
     return (
         <article className='flex  items-start mb-6'>
             <div className='w-full'>

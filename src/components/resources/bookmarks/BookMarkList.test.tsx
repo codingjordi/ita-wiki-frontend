@@ -1,0 +1,108 @@
+import { render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
+import { BookMarkList } from "../BookMarkList"; // Asegúrate de que el nombre sea correcto
+import { IntResource, IntBookmarkElement } from "../../../types";
+import { useGetBookmarksList } from "../../../hooks/useBookmarks";
+import { describe, it, expect, vi } from "vitest";
+
+// Mock de hooks
+vi.mock("../../../hooks/useBookmarks");
+
+describe("BookMarkList Component", () => {
+    const mockResources: IntResource[] = [
+        {
+            id: 1,
+            title: "Resource 1",
+            description: "Description 1",
+            url: "http://example.com/1",
+            github_id: 12345,
+            category: "Node",
+            theme: "Todos",
+            type: "Video",
+        },
+        {
+            id: 2,
+            title: "Resource 2",
+            description: "Description 2",
+            url: "http://example.com/2",
+            github_id: 12346,
+            category: "React",
+            theme: "Todos",
+            type: "Cursos",
+        },
+    ];
+
+    const mockBookmarks: IntBookmarkElement[] = [
+        {
+            id: 1,
+            github_id: 4567,
+            title: "Resource 1",
+            description: "Description 1",
+            url: "http://example.com/1",
+        },
+    ];
+
+    it("should render the component and display the correct title", async () => {
+        // Mock del hook useGetBookmarksList
+        (useGetBookmarksList as vi.Mock).mockReturnValue(mockBookmarks);
+
+        render(
+            <MemoryRouter>
+                <BookMarkList resources={mockResources} />
+            </MemoryRouter>
+        );
+
+        const titleElement = screen.getByText("Lista de lectura");
+        expect(titleElement).toBeInTheDocument();
+    });
+
+    it("should render 'No hay lista de recursos disponible' when there are no bookmarks", async () => {
+        // Mock del hook useGetBookmarksList
+        (useGetBookmarksList as vi.Mock).mockReturnValue([]);
+
+        render(
+            <MemoryRouter>
+                <BookMarkList resources={mockResources} />
+            </MemoryRouter>
+        );
+
+        expect(screen.getByText("No hay lista de recursos disponible")).toBeInTheDocument();
+    });
+
+    it("should render BookmarkComponent for each bookmark", async () => {
+        // Mock del hook useGetBookmarksList
+        (useGetBookmarksList as vi.Mock).mockReturnValue(mockBookmarks);
+
+        render(
+            <MemoryRouter>
+                <BookMarkList resources={mockResources} />
+            </MemoryRouter>
+        );
+
+        // Esperamos que el componente BookmarkComponent sea renderizado
+        await waitFor(() => {
+            expect(screen.getAllByRole("article")).toHaveLength(mockBookmarks.length);
+            mockBookmarks.forEach((bookmark) => {
+                expect(screen.getByText(`Título: ${bookmark.title}`)).toBeInTheDocument();
+                expect(screen.getByText(`Descripción: ${bookmark.description}`)).toBeInTheDocument();
+            });
+        });
+    });
+
+    it("should display the correct props in BookmarkComponent", async () => {
+        // Mock del hook useGetBookmarksList
+        (useGetBookmarksList as vi.Mock).mockReturnValue(mockBookmarks);
+
+        render(
+            <MemoryRouter>
+                <BookMarkList resources={mockResources} />
+            </MemoryRouter>
+        );
+
+        await waitFor(() => {
+            mockBookmarks.forEach((bookmark) => {
+                expect(screen.getByText(`Título: ${bookmark.title}`).closest("a")).toHaveAttribute("href", bookmark.url);
+            });
+        });
+    });
+});

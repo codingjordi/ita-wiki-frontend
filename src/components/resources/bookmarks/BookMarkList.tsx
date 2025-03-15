@@ -1,3 +1,4 @@
+import { FC } from "react";
 import BookmarkComponent from './BookmarkComponent';
 import { IntResource } from '../../../types';
 import { useGetBookmarksList } from "../../../hooks/useBookmarks"
@@ -6,8 +7,9 @@ interface BookMarkListProps {
     resources: IntResource[];
 }
 
-const BookMarkList: React.FC<BookMarkListProps> = ({ resources }) => {
+const BookMarkList: FC<BookMarkListProps> = ({ resources }) => {
     const bookmarkArr = useGetBookmarksList(resources)
+    console.log("arr en coponente", bookmarkArr);
 
     return (
         <div className='h-[50vh] overflow-auto'>
