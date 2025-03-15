@@ -1,11 +1,32 @@
 import BookmarkComponent from './BookmarkComponent';
+import { IntResource } from '../../../types';
+import { useGetBookmarksList } from "../../../hooks/useBookmarks"
 
-const BookMarkList = () => {
+interface BookMarkListProps {
+    resources: IntResource[];
+}
+
+const BookMarkList: React.FC<BookMarkListProps> = ({ resources }) => {
+    const bookmarkArr = useGetBookmarksList(resources)
+
     return (
-        <div>
-            <h3 className="text-[22px] font-bold">Lista de lectura</h3>
-            {/* AQUI VA EL MAP */}
-            <BookmarkComponent />
+        <div className='h-[50vh] overflow-auto'>
+            <h3 className="text-[22px] font-bold mb-8">Lista de lectura</h3>
+
+            {bookmarkArr && bookmarkArr.length === 0 ? (
+                <p>No hay lista de recursos disponible</p>
+            ) : (
+                <div>
+                    {bookmarkArr && bookmarkArr.map((bookmark) => (
+                        <BookmarkComponent
+                            key={bookmark.id}
+                            title={bookmark.title}
+                            description={bookmark.description}
+                            url={bookmark.url}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

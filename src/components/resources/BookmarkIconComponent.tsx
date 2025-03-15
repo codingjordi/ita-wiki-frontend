@@ -1,7 +1,7 @@
-import bookmarkFull from "../../../assets/bookmark_full.svg"
-import bookmarkEmpty from "../../../assets/Bookmark_empty.svg"
+import bookmarkFull from "../../assets/bookmark_full.svg"
+import bookmarkEmpty from "../../assets/Bookmark_empty.svg"
 
-const BookmarkIconComponent = (marked) => {
+const BookmarkIconComponent = (marked: boolean) => {
     return (
         <div className="flex items-center justify-start gap-2 max-h-12">
             {marked ? (

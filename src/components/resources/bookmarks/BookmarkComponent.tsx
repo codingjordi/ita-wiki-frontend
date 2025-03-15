@@ -1,10 +1,18 @@
 import edit from '../../../assets/edit.svg'
-const BookmarkComponent = () => {
+
+interface BookmarkProps {
+    title: string;
+    description: string;
+    url: string;
+}
+const BookmarkComponent: React.FC<BookmarkProps> = ({ title, description, url }) => {
     return (
-        <article className='flex'>
+        <article className='flex  items-start mb-6'>
             <div className='w-full'>
-                <h4>titulo</h4>
-                <p>Descripcion</p>
+                <a href={url} target="_blank" rel="noopener noreferrer" className='!text-gray-500 hover:!text-gray-800'>
+                    <h4 className="color-inherit">Título: {title}</h4>
+                    <p className='color-inherit'>Descripción: {description}</p>
+                </a>
             </div>
             <img src={edit} alt="edit" className='w-[15px]' />
         </article>

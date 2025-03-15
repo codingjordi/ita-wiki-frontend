@@ -29,7 +29,6 @@ export interface IntResource {
   category: Category;
   theme: Theme;
   type: ResourceType;
-  isBookmarked?: boolean;
 }
 
 export type TypTechnologyResource =
@@ -52,4 +51,12 @@ export interface Bookmark {
 }
 export interface Message {
   message: string
+}
+
+export interface IntBookmarkElement {
+  id: number;
+  github_id: number;
+  title: string;
+  description: string;
+  url: string;
 }

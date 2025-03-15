@@ -2,11 +2,10 @@ import { FC } from "react";
 import { IntResource } from "../../types";
 import { BodyResource } from "./BodyResource";
 import { ContentResource } from "./ContentResource";
-import { FavoriteResource } from "./FavoriteResource";
 import { VotesResource } from "./VotesResource";
 import { UserResource } from "./UserResource";
 import { FooterResource } from "./FooterResource";
-import BookmarkIconComponent from "./bookmarks/BookmarkIconComponent";
+import BookmarkIconComponent from "./BookmarkIconComponent";
 type ResourceProps = {
   resource: IntResource;
 };
