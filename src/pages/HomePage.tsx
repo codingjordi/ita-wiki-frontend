@@ -61,7 +61,10 @@ export default function HomePage() {
                 height={64}
                 className="rounded-full border-2 border-white"
               />
-              <small className="font-bold" style={{ textTransform: "uppercase" }}>
+              <small
+                className="font-bold"
+                style={{ textTransform: "uppercase" }}
+              >
                 {user.displayName}
               </small>
               <button
@@ -86,7 +89,9 @@ export default function HomePage() {
                 <label htmlFor="terms">
                   <input name="terms" type="checkbox" /> Acepto términos legales
                 </label>
-                {error && <div className="error-message text-red-500 my-4">{error}</div>}
+                {error && (
+                  <div className="error-message text-red-500 my-4">{error}</div>
+                )}
               </div>
             </div>
           )}
@@ -123,7 +128,13 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {isModalOpen && hasPermission && <AddUsersModal onClose={closeModal} userRole={userRole} userID={user.id} />}
+      {isModalOpen && hasPermission && (
+        <AddUsersModal
+          onClose={closeModal}
+          userRole={userRole}
+          userID={user.id}
+        />
+      )}
     </main>
   );
 }

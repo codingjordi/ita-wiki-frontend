@@ -10,7 +10,7 @@ const END_POINTS = {
   roles: {
     lists: "users/user-signedin-as?github_id=" as EndPoints,
     post: "roles/" as EndPoints,
-  }
+  },
 };
 
 export { API_URL, END_POINTS };
