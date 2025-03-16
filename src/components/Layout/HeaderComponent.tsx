@@ -3,46 +3,33 @@ import logoItAcademy from "../../assets/LogoItAcademy.svg";
 import addIcon from "../../assets/add.svg";
 import settingsIcon from "../../assets/settings.svg";
 import userIcon from "../../assets/user2.svg";
-import searchIcon from "../../assets/search.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
+import SearchComponnent from "./header/SearchComponnent";
+import { useState } from "react";
+import { useSearchMatch } from "../../hooks/useResourceFilter"
 
 const HeaderComponent = () => {
   const { user } = useCtxUser();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("")
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
   };
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    useSearchMatch(searchQuery);
+  };
+
   return (
-    // just temporarily hidden on mobile, to prevent horizontal overflow
     <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
       <Link to="/">
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
       <div className="flex">
-        <div className="relative mr-[120px] cursor-pointer">
-          <input
-            type="text"
-            placeholder="Buscar recurso"
-            className="bg-white pl-10 pr-4 py-2 border border-white font-semibold text-base rounded-lg
-                   focus:outline-none focus:ring-2 focus:ring-[#808080]"
-          />
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#808080] ">
-            <svg
-              xmlns={searchIcon}
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.9 14.32a8 8 0 111.42-1.42l4.83 4.83a1 1 0 01-1.42 1.42l-4.83-4.83zM8 14a6 6 0 100-12 6 6 0 000 12z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        </div>
+        <SearchComponnent onSearch={handleSearch} />
         {user && (
           <ButtonComponent
             icon={addIcon}
@@ -64,7 +51,7 @@ const HeaderComponent = () => {
           <ButtonComponent icon={userIcon} variant="icon" />
         </div>
       </div>
-    </header>
+    </header >
   );
 };
 
