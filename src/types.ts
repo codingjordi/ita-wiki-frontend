@@ -50,7 +50,7 @@ export interface Bookmark {
   updated_at: string;
 }
 export interface Message {
-  message: string
+  message: string;
 }
 
 export interface IntBookmarkElement {
