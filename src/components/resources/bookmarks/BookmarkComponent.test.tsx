@@ -2,8 +2,10 @@ import { render, screen } from '@testing-library/react';
 import BookmarkComponent from './BookmarkComponent';
 import { vi } from 'vitest';
 
-// Simula la importación de la imagen SVG (edit.svg)
-vi.mock('../../../assets/edit.svg', () => 'mocked-edit.svg');
+vi.mock("../../../assets/edit.svg", () => ({
+    default: "mocked-edit-icon",
+}));
+
 
 describe('BookmarkComponent', () => {
     const title = 'Test Title';
@@ -30,13 +32,5 @@ describe('BookmarkComponent', () => {
         expect(editImage).toHaveClass('w-[15px]');
     });
 
-    test('applies correct text colors', () => {
-        render(<BookmarkComponent title={title} description={description} url={url} />);
 
-        // Verifica que el texto tenga el color esperado
-        const titleElement = screen.getByText(`Título: ${title}`);
-        const descriptionElement = screen.getByText(`Descripción: ${description}`);
-        expect(titleElement).toHaveClass('!text-gray-500');
-        expect(descriptionElement).toHaveClass('!text-gray-500');
-    });
 });

@@ -1,13 +1,18 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { BookMarkList } from "../BookMarkList"; // Asegúrate de que el nombre sea correcto
+import BookMarkList from "./BookMarkList"; // Asegúrate de que el nombre sea correcto
 import { IntResource, IntBookmarkElement } from "../../../types";
 import { useGetBookmarksList } from "../../../hooks/useBookmarks";
 import { describe, it, expect, vi } from "vitest";
 
-// Mock de hooks
-vi.mock("../../../hooks/useBookmarks");
 
+// Mock de hooks
+vi.mock("../../../hooks/useBookmarks", () => ({
+    useGetBookmarksList: vi.fn(),
+}));
+vi.mock("../../../assets/edit.svg", () => ({
+    default: "mocked-edit-icon",
+}));
 describe("BookMarkList Component", () => {
     const mockResources: IntResource[] = [
         {

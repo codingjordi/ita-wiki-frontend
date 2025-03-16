@@ -1,6 +1,6 @@
 import { FC } from "react";
 import bookmarkFull from "../../assets/bookmark_full.svg"
-import bookmarkEmpty from "../../assets/Bookmark_empty.svg"
+import bookmarkEmpty from "../../assets/bookmark_empty.svg"
 
 
 interface BookmarkComponentProps {
@@ -8,7 +8,7 @@ interface BookmarkComponentProps {
 }
 const BookmarkIconComponent: FC<BookmarkComponentProps> = ({ marked }) => {
     return (
-        <div className="flex items-center justify-start gap-2 max-h-12">
+        <div id="bookmarkIcon" data-testid="bookmarkIcon" className="flex items-center justify-start gap-2 max-h-12">
             {marked ? (
                 <img src={bookmarkEmpty} height={16} alt="bookmark none" />
             ) : (

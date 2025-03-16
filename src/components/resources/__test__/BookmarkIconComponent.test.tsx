@@ -1,14 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import BookmarkIconComponent from '../BookmarkIconComponent';
-import bookmarkFull from '../../assets/bookmark_full.svg';
-import bookmarkEmpty from '../../assets/Bookmark_empty.svg';
+import bookmarkFull from '../../../assets/bookmark_full.svg';
+import bookmarkEmpty from '../../../assets/bookmark_empty.svg';
+import { vi } from 'vitest';
 
-describe("FavoriteResource Component", () => {
+vi.mock('/assets/bookmark_full.svg', () => ({
+    default: "test-file-stub",
+}));
+vi.mock('/assets/bookmark_empty.svg', () => ({
+    default: "test-file-stub",
+}));
+
+
+describe("BookmarkIconComponent class", () => {
     it("The component must have the initial styles", () => {
         render(<BookmarkIconComponent marked={false} />);
-        const favoriteResource = screen.getByTestId("favorite-resource");
-        expect(favoriteResource).toHaveClass("inline-flex");
+        const bookmarkIcon = screen.getByTestId("bookmarkIcon");
+        expect(bookmarkIcon).toHaveClass("items-center");
     });
 });
 describe('BookmarkIconComponent', () => {
