@@ -16,8 +16,8 @@ const BookmarkComponent: FC<BookmarkProps> = ({ title, description, url }) => {
           rel="noopener noreferrer"
           className="!text-gray-500 hover:!text-gray-800"
         >
-          <h4 className="color-inherit">Título: {title}</h4>
-          <p className="color-inherit">Descripción: {description}</p>
+          <h4 className="color-inherit font-bold">{title}</h4>
+          <p className="color-inherit font-normal">{description}</p>
         </a>
       </div>
       <img src={edit} alt="edit" className="w-[15px]" />
