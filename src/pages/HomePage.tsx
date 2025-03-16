@@ -19,8 +19,6 @@ export default function HomePage() {
             padding: "1rem",
           }}
         >
-          <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
-
           {user ? (
             <article
               id={String(user.id)}
@@ -33,12 +31,20 @@ export default function HomePage() {
                 height={64}
                 className="rounded-full border-2 border-white"
               />
-              <small
-                className="font-bold"
-                style={{ textTransform: "uppercase" }}
-              >
-                {user.displayName}
-              </small>
+              <div className="flex flex-col divide-y-2">
+                <small
+                  className="font-bold"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {user.displayName}
+                </small>
+                <small
+                  className="font-bold"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {user.role}
+                </small>
+              </div>
               <button
                 className="bg-white text-red-500 text-sm font-bold active:scale-95 py-1 px-4 rounded-sm border-2 border-black"
                 type="button"
