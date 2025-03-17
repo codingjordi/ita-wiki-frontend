@@ -8,8 +8,7 @@ import ButtonComponent from "../components/atoms/ButtonComponent";
 import { getRole } from "../api/endPointRoles";
 
 export default function HomePage() {
-
-  const { signIn, signOut, user, error } = useCtxUser();
+  const { signOut, user } = useCtxUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
 
