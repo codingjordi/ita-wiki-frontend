@@ -1,7 +1,8 @@
 {
-  "message": "Role found",
+
+  "message": "Role found.",
   "role": {
-    "github_id": 666,
-    "role": "loser"
+    "github_id": 4,
+    "role": "admin"
   }
 }

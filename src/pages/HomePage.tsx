@@ -2,9 +2,38 @@ import folder from "../assets/new-folder-dynamic-color.svg";
 import puzzle from "../assets/puzzle-dynamic-color.svg";
 import ok from "../assets/thumb-up-dynamic-color.svg";
 import { useCtxUser } from "../hooks/useCtxUser";
+import { useState, useEffect } from "react";
+import { AddUsersModal } from "../components/resources/AddUserModal";
+import ButtonComponent from "../components/atoms/ButtonComponent";
+import { getRole } from "../api/endPointRoles";
 
 export default function HomePage() {
-  const { signOut, user } = useCtxUser();
+
+  const { signIn, signOut, user, error } = useCtxUser();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (user && user.id) {
+      getRole(user.id)
+        .then((roleData) => {
+          setUserRole(roleData?.role || null);
+        })
+        .catch((err) => {
+          console.error("Error fetching role:", err);
+          setUserRole(null);
+        });
+    } else {
+      setUserRole(null);
+    }
+  }, [user]);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const hasPermission = userRole
+    ? ["superadmin", "admin", "mentor"].includes(userRole)
+    : false;
 
   return (
     <main className="bg-white rounded-xl p-6 w-full text-center h-[inherit] max-h-[calc(100vh-114px)] overflow-auto">
@@ -55,6 +84,12 @@ export default function HomePage() {
           ) : (
             <div></div>
           )}
+
+          {hasPermission && (
+            <ButtonComponent onClick={openModal} className="mt-4">
+              Añadir Usuario
+            </ButtonComponent>
+          )}
         </article>
         <div>
           <div>
@@ -82,6 +117,13 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {isModalOpen && hasPermission && (
+        <AddUsersModal
+          onClose={closeModal}
+          userRole={userRole}
+          userID={user.id}
+        />
+      )}
     </main>
   );
 }
