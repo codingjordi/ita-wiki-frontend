@@ -9,7 +9,6 @@ interface BookMarkListProps {
 
 const BookMarkList: FC<BookMarkListProps> = ({ resources }) => {
   const bookmarkArr = useGetBookmarksList(resources);
-  console.log("arr en coponente", bookmarkArr);
 
   return (
     <div className="h-[50vh] overflow-auto">

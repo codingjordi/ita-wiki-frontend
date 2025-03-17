@@ -4,6 +4,7 @@ import BookMarkList from "./BookMarkList"; // Asegúrate de que el nombre sea co
 import { IntResource, IntBookmarkElement } from "../../../types";
 import { useGetBookmarksList } from "../../../hooks/useBookmarks";
 import { describe, it, expect, vi } from "vitest";
+import { Mock } from "vitest";
 
 // Mock de hooks
 vi.mock("../../../hooks/useBookmarks", () => ({
@@ -49,7 +50,7 @@ describe("BookMarkList Component", () => {
 
   it("should render the component and display the correct title", async () => {
     // Mock del hook useGetBookmarksList
-    (useGetBookmarksList as vi.Mock).mockReturnValue(mockBookmarks);
+    (useGetBookmarksList as Mock).mockReturnValue(mockBookmarks);
 
     render(
       <MemoryRouter>
@@ -63,7 +64,7 @@ describe("BookMarkList Component", () => {
 
   it("should render 'No hay lista de recursos disponible' when there are no bookmarks", async () => {
     // Mock del hook useGetBookmarksList
-    (useGetBookmarksList as vi.Mock).mockReturnValue([]);
+    (useGetBookmarksList as Mock).mockReturnValue([]);
 
     render(
       <MemoryRouter>
@@ -78,7 +79,7 @@ describe("BookMarkList Component", () => {
 
   it("should render BookmarkComponent for each bookmark", async () => {
     // Mock del hook useGetBookmarksList
-    (useGetBookmarksList as vi.Mock).mockReturnValue(mockBookmarks);
+    (useGetBookmarksList as Mock).mockReturnValue(mockBookmarks);
 
     render(
       <MemoryRouter>
@@ -100,7 +101,7 @@ describe("BookMarkList Component", () => {
 
   it("should display the correct props in BookmarkComponent", async () => {
     // Mock del hook useGetBookmarksList
-    (useGetBookmarksList as vi.Mock).mockReturnValue(mockBookmarks);
+    (useGetBookmarksList as Mock).mockReturnValue(mockBookmarks);
 
     render(
       <MemoryRouter>
