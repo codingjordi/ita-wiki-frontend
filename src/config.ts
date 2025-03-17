@@ -1,6 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-type EndPoints = "resources/" | "users/lists" | "bookmarks/" | "bookmarks";
+
+type EndPoints = "resources/" | "users/lists" | "roles/"| "bookmarks/" | "bookmarks";
 
 const END_POINTS = {
   resources: {
@@ -11,6 +12,10 @@ const END_POINTS = {
     get: "bookmarks/" as EndPoints,
     post: "bookmarks" as EndPoints,
     delete: "bookmarks" as EndPoints,
+  },
+  roles: {
+    lists: "users/user-signedin-as?github_id=" as EndPoints,
+    post: "roles/" as EndPoints,
   },
 };
 
