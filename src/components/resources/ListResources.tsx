@@ -6,6 +6,7 @@ import { useCtxUser } from "../../hooks/useCtxUser";
 import { Resource } from "./Resource";
 import { FilterResources } from "./FilterResources";
 import { ListMyResources } from "./ListMyResources";
+import SortButton from "./SortButton";
 
 import { categories } from "../../data/categories";
 import { themes } from "../../data/themes";
@@ -64,6 +65,7 @@ export const ListResources: FC<ListResourceProps> = ({
               <h2 className="text-[26px] font-bold">
                 Recursos {String(category) || ""}
               </h2>
+              <SortButton />
               {/* Filter Button (Mobile only) */}
               <button
                 className="sm:hidden bg-[#B91879] text-white px-4 py-2 rounded-md flex items-center gap-2"
