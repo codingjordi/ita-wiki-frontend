@@ -1,11 +1,10 @@
-import GItHubLogin from "../components/github-login/GItHubLogin";
 import folder from "../assets/new-folder-dynamic-color.svg";
 import puzzle from "../assets/puzzle-dynamic-color.svg";
 import ok from "../assets/thumb-up-dynamic-color.svg";
 import { useCtxUser } from "../hooks/useCtxUser";
 
 export default function HomePage() {
-  const { signIn, signOut, user, error } = useCtxUser();
+  const { signOut, user } = useCtxUser();
 
   return (
     <main className="bg-white rounded-xl p-6 w-full text-center h-[inherit] max-h-[calc(100vh-114px)] overflow-auto">
@@ -55,22 +54,7 @@ export default function HomePage() {
             </article>
           ) : (
             <div>
-              <p>Registrate o haz login para poder subir y votar recursos</p>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  maxWidth: "320px",
-                }}
-              >
-                <GItHubLogin onClick={signIn} />
-                <label htmlFor="terms">
-                  <input name="terms" type="checkbox" /> Acepto términos legales
-                </label>
-                {error && (
-                  <div className="error-message text-red-500 my-4">{error}</div>
-                )}
-              </div>
+
             </div>
           )}
         </article>
