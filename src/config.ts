@@ -1,7 +1,11 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-
-type EndPoints = "resources/" | "users/lists" | "roles/"| "bookmarks/" | "bookmarks";
+type EndPoints =
+  | "resources/"
+  | "users/lists"
+  | "roles/"
+  | "bookmarks/"
+  | "bookmarks";
 
 const END_POINTS = {
   resources: {
