@@ -31,7 +31,9 @@ export default function HomePage() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const hasPermission = userRole ? ["superadmin", "admin", "mentor"].includes(userRole) : false;
+  const hasPermission = userRole
+    ? ["superadmin", "admin", "mentor"].includes(userRole)
+    : false;
 
   return (
     <main className="bg-white rounded-xl p-6 w-full text-center h-[inherit] max-h-[calc(100vh-114px)] overflow-auto">

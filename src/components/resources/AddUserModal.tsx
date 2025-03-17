@@ -23,8 +23,8 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
   const [githubId, setGithubId] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
 
-  const availableRoles = userRole 
-    ? (rolePermissions[userRole as keyof typeof rolePermissions] || [])
+  const availableRoles = userRole
+    ? rolePermissions[userRole as keyof typeof rolePermissions] || []
     : [];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,14 +35,14 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
       role: selectedRole,
     };
     createRole(requestBody)
-    .then(() => {
-      // TODO add a toaster or something on success
-      onClose();
-    })
-    .catch(error => {
-      // TODO add something for errors too
-      console.error("Failed to create role:", error);
-    });
+      .then(() => {
+        // TODO add a toaster or something on success
+        onClose();
+      })
+      .catch((error) => {
+        // TODO add something for errors too
+        console.error("Failed to create role:", error);
+      });
     onClose();
   };
 
