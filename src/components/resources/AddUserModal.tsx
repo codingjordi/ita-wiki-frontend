@@ -5,7 +5,7 @@ import { createRole } from "../../api/endPointRoles";
 
 interface AddUsersModalProps {
   onClose: () => void;
-  userRole: string;
+  userRole: string | null;
   userID: number | string;
 }
 
@@ -23,9 +23,9 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
   const [githubId, setGithubId] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
 
-  // Get available roles based on the user's role
-  const availableRoles =
-    rolePermissions[userRole as keyof typeof rolePermissions] || [];
+  const availableRoles = userRole 
+    ? (rolePermissions[userRole as keyof typeof rolePermissions] || [])
+    : [];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,9 +34,15 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
       github_id: Number(githubId),
       role: selectedRole,
     };
-    createRole(requestBody);
-    console.log(requestBody);
-
+    createRole(requestBody)
+    .then(() => {
+      // TODO add a toaster or something on success
+      onClose();
+    })
+    .catch(error => {
+      // TODO add something for errors too
+      console.error("Failed to create role:", error);
+    });
     onClose();
   };
 
@@ -65,7 +71,7 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
               type="text"
               id="username"
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              placeholder="Enter ID"
+              placeholder="Ingresa su ID"
               value={githubId}
               onChange={(e) => setGithubId(e.target.value)}
               required
@@ -77,7 +83,7 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
               htmlFor="role"
               className="block text-sm font-medium text-gray-700 mb-1"
             >
-              Role
+              Rol
             </label>
             <select
               id="role"
@@ -86,7 +92,7 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
               onChange={(e) => setSelectedRole(e.target.value)}
               required
             >
-              <option value="">Select a role</option>
+              <option value="">Selecciona su rol</option>
               {availableRoles.map((role) => (
                 <option key={role} value={role}>
                   {role}
@@ -101,10 +107,10 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
               variant="secondary"
               onClick={onClose}
             >
-              Cancel
+              Cancelar
             </ButtonComponent>
             <ButtonComponent type="submit" variant="primary">
-              Add User
+              Añadir
             </ButtonComponent>
           </div>
         </form>

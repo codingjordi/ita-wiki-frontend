@@ -11,29 +11,27 @@ import { getRole } from "../api/endPointRoles";
 export default function HomePage() {
   const { signIn, signOut, user, error } = useCtxUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userRole, setUserRole] = useState<string>("visitor");
+  const [userRole, setUserRole] = useState<string | null>(null);
 
-  // Handle log in
   useEffect(() => {
     if (user && user.id) {
       getRole(user.id)
         .then((roleData) => {
-          setUserRole(roleData.role);
+          setUserRole(roleData?.role || null);
         })
         .catch((err) => {
           console.error("Error fetching role:", err);
-          setUserRole("visitor");
+          setUserRole(null);
         });
     } else {
-      setUserRole("visitor");
+      setUserRole(null);
     }
   }, [user]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Permission to see AddUsers component
-  const hasPermission = ["superadmin", "admin", "mentor"].includes(userRole);
+  const hasPermission = userRole ? ["superadmin", "admin", "mentor"].includes(userRole) : false;
 
   return (
     <main className="bg-white rounded-xl p-6 w-full text-center h-[inherit] max-h-[calc(100vh-114px)] overflow-auto">
@@ -47,8 +45,6 @@ export default function HomePage() {
             padding: "1rem",
           }}
         >
-          <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
-
           {user ? (
             <article
               id={String(user.id)}
@@ -98,7 +94,7 @@ export default function HomePage() {
 
           {hasPermission && (
             <ButtonComponent onClick={openModal} className="mt-4">
-              Add users
+              Añadir Usuario
             </ButtonComponent>
           )}
         </article>
