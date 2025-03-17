@@ -53,9 +53,7 @@ export default function HomePage() {
               </button>
             </article>
           ) : (
-            <div>
-
-            </div>
+            <div></div>
           )}
         </article>
         <div>

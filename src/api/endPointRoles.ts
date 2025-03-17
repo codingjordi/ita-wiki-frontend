@@ -31,7 +31,7 @@ const getRole = async (github_id: number): Promise<IntRole> => {
   const signal = controller.signal;
   try {
     const url = `${API_URL}${END_POINTS.roles.lists}${github_id}`;
-    console.log('this is the query endpoint to get the role:', url)
+    console.log("this is the query endpoint to get the role:", url);
     const response = await fetch(url, { signal });
 
     if (!response.ok) {
@@ -45,8 +45,8 @@ const getRole = async (github_id: number): Promise<IntRole> => {
 
     // Succesful
     if (data && typeof data === "object" && data.role) {
-        console.log(data.role)
-        return data.role as IntRole;
+      console.log(data.role);
+      return data.role as IntRole;
     }
 
     // Not found

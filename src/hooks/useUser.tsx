@@ -35,7 +35,7 @@ export const useUser = () => {
   const handleSetRole = async () => {
     if (user) {
       try {
-        const userRole = await getUserRole(user.id); 
+        const userRole = await getUserRole(user.id);
         const updatedUser = { ...user, role: userRole };
         setUser(updatedUser);
         storage.save("user", updatedUser);
@@ -45,7 +45,6 @@ export const useUser = () => {
       }
     }
   };
-  
 
   return {
     user,
@@ -54,6 +53,6 @@ export const useUser = () => {
     signOut,
     error,
     setError,
-    handleSetRole
+    handleSetRole,
   };
 };

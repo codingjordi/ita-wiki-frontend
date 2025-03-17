@@ -13,13 +13,13 @@ describe("getUserRole", () => {
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve({ role: { role: "admin" } }),
-      })
+      }),
     ) as unknown as typeof fetch;
 
     const role = await getUserRole(1234567);
     expect(global.fetch).toHaveBeenCalledWith(
       `${API_URL}login?github_id=1234567`,
-      expect.any(Object) // Verifica que se pase la configuración (method: POST)
+      expect.any(Object), // Verifica que se pase la configuración (method: POST)
     );
     expect(role).toBe("admin");
   });
