@@ -8,14 +8,15 @@ import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import { useState } from "react";
 import { Modal } from "../Modal/Modal";
-import GItHubLogin from "../github-login/GItHubLogin";
+import GitHubLogin from "../github-login/GitHubLogin";
+
 
 const HeaderComponent = () => {
   const { user, signIn } = useCtxUser();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [loginError, setLoginError] = useState<React.ReactNode | null>(null);
+  const [loginError, setLoginError] = useState(false);
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
@@ -25,30 +26,20 @@ const HeaderComponent = () => {
 
   const handleSignIn = async () => {
     if (!isChecked) {
-      setLoginError(
-        <div className="text-red-500 text-sm mt-2 text-center">
-          Lo sentimos, no se ha podido iniciar sesión,
-          <br /> contacte con el administrador.
-        </div>,
-      );
+      setLoginError(true);
       return;
     }
     try {
       await signIn();
       setIsModalOpen(false);
     } catch {
-      setLoginError(
-        <div className="text-red-500 text-sm mt-2 text-center">
-          Lo sentimos, no se ha podido iniciar sesión,
-          <br /> contacte con el administrador.
-        </div>,
-      );
+      setLoginError(true);
     }
   };
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
-    setLoginError("");
+    setLoginError(false);
   };
 
   return (
@@ -98,19 +89,15 @@ const HeaderComponent = () => {
         </div>
         <ButtonComponent icon={settingsIcon} variant="icon" />
         <div className="mr-[-10px]">
-          <ButtonComponent
-            icon={userIcon}
-            variant="icon"
-            onClick={openModal}
-            text={user ? "" : "Inicia sesión"}
-          />
+          <ButtonComponent icon={userIcon} variant="icon" onClick={openModal} />
         </div>
         {isModalOpen && (
           <Modal closeModal={closeModal} title="Inicio sesión">
-            <GItHubLogin onClick={handleSignIn} />
+            <GitHubLogin onClick={handleSignIn} />
             <label htmlFor="terms" className="block mt-8">
               <input
                 name="terms"
+                id="terms"
                 type="checkbox"
                 onChange={handleCheckboxChange}
                 checked={isChecked}
@@ -118,7 +105,12 @@ const HeaderComponent = () => {
               Acepto términos legales
             </label>
             {loginError && (
-              <div className="text-red-500 text-sm mt-2">{loginError}</div>
+              <div className="text-red-500 text-sm mt-2">
+                <div className="text-red-500 text-sm mt-2 text-center">
+                  Lo sentimos, no se ha podido iniciar sesión,
+                  <br /> contacte con el administrador.
+                </div>
+              </div>
             )}
           </Modal>
         )}

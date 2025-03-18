@@ -1,4 +1,4 @@
-import GItHubLogin from "../github-login/GItHubLogin";
+import GitHubLogin from "../github-login/GitHubLogin";
 import { useCtxUser } from "../../hooks/useCtxUser";
 
 interface ModalProps {
@@ -22,7 +22,7 @@ export const Modal = ({ closeModal, title, children }: ModalProps) => {
           <div className="flex flex-col justify-center items-center w-full mt-10">
             {title && <h2 className="text-xl font-bold mb-10">{title}</h2>}
 
-            {children ? children : <GItHubLogin onClick={signIn} />}
+            {children ? children : <GitHubLogin onClick={signIn} />}
           </div>
         </div>
       </div>
