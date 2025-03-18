@@ -10,7 +10,6 @@ import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
 
-
 const HeaderComponent = () => {
   const { user, signIn } = useCtxUser();
   const navigate = useNavigate();
