@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { getUserRole } from "../api/userApi";
 
 const API_URL = "http://localhost:8000/api/";
@@ -17,10 +17,15 @@ describe("getUserRole", () => {
     ) as unknown as typeof fetch;
 
     const role = await getUserRole(1234567);
-    expect(global.fetch).toHaveBeenCalledWith(
-      `${API_URL}login?github_id=1234567`,
-      expect.any(Object), // Verifica que se pase la configuración (method: POST)
-    );
+
+    expect(global.fetch).toHaveBeenCalledWith(`${API_URL}login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: "1234567", // ✅ Enviar solo el ID como string plano
+    });
+
     expect(role).toBe("admin");
   });
 
