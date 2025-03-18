@@ -1,4 +1,3 @@
-import GitHubLogin from "../components/github-login/GitHubLogin";
 import folder from "../assets/new-folder-dynamic-color.svg";
 import puzzle from "../assets/puzzle-dynamic-color.svg";
 import ok from "../assets/thumb-up-dynamic-color.svg";
@@ -9,7 +8,7 @@ import ButtonComponent from "../components/atoms/ButtonComponent";
 import { getRole } from "../api/endPointRoles";
 
 export default function HomePage() {
-  const { signIn, signOut, user, error } = useCtxUser();
+  const { signOut, user } = useCtxUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userRole, setUserRole] = useState<string | null>(null);
 
@@ -59,12 +58,20 @@ export default function HomePage() {
                 height={64}
                 className="rounded-full border-2 border-white"
               />
-              <small
-                className="font-bold"
-                style={{ textTransform: "uppercase" }}
-              >
-                {user.displayName}
-              </small>
+              <div className="flex flex-col divide-y-2">
+                <small
+                  className="font-bold"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {user.displayName}
+                </small>
+                <small
+                  className="font-bold"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {user.role}
+                </small>
+              </div>
               <button
                 className="bg-white text-red-500 text-sm font-bold active:scale-95 py-1 px-4 rounded-sm border-2 border-black"
                 type="button"
@@ -74,24 +81,7 @@ export default function HomePage() {
               </button>
             </article>
           ) : (
-            <div>
-              <p>Registrate o haz login para poder subir y votar recursos</p>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  maxWidth: "320px",
-                }}
-              >
-                <GitHubLogin onClick={signIn} />
-                <label htmlFor="terms">
-                  <input name="terms" type="checkbox" /> Acepto términos legales
-                </label>
-                {error && (
-                  <div className="error-message text-red-500 my-4">{error}</div>
-                )}
-              </div>
-            </div>
+            <div></div>
           )}
 
           {hasPermission && (
