@@ -88,7 +88,7 @@ const HeaderComponent = () => {
         </div>
         <ButtonComponent icon={settingsIcon} variant="icon" />
         <div className="mr-[-10px]">
-          <ButtonComponent icon={userIcon} variant="icon" onClick={openModal} />
+          <ButtonComponent icon={userIcon} variant="icon" text={user ? '' : 'Iniciar sesión'} onClick={openModal} />
         </div>
         {isModalOpen && (
           <Modal closeModal={closeModal} title="Inicio sesión">
