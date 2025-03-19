@@ -19,13 +19,14 @@ export interface IntUser {
 }
 
 export interface IntResource {
+  votes: any;
   id?: number;
   github_id: number;
   title: string;
   description: string;
   url: string;
-  create_at?: string;
-  update_at?: string;
+  create_at?: Date | string;
+  update_at?: Date | string;
   category: Category;
   theme: Theme;
   type: ResourceType;
@@ -41,3 +42,5 @@ export type TypTechnologyResource =
   | "FullStack PHP"
   | "Data Science"
   | "BBDD";
+
+  export type SortOption = "recent" | "oldest" | "year" | "votes";
