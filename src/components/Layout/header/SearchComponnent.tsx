@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import searchIcon from "../../../assets/search.svg";
 
 interface SearchComponentProps {
@@ -14,6 +14,11 @@ const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch, disabled })
         setSearchTerm(value);
         onSearch(value);
     };
+    useEffect(() => {
+        if (disabled) {
+            setSearchTerm("");
+        }
+    }, [disabled]);
 
     return (
         <div className="relative mr-[120px]">
