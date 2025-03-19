@@ -20,6 +20,9 @@ const HeaderComponent = () => {
   const goToResourcesPage = () => {
     navigate("/resources/add");
   };
+  const disabledSearch = () => location.pathname === '/';
+
+  console.log("disabledSearch", disabledSearch());
 
   useEffect(() => {
     const searchFromUrl = searchParams.get("search") || "";
@@ -49,7 +52,7 @@ const HeaderComponent = () => {
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
       <div className="flex">
-        <SearchComponnent onSearch={handleSearch} />
+        <SearchComponnent onSearch={handleSearch} disabled={disabledSearch()} />
         {user && (
           <ButtonComponent
             icon={addIcon}
