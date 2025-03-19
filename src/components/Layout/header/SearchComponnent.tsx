@@ -8,7 +8,6 @@ interface SearchComponentProps {
 
 const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch, disabled }) => {
     const [searchTerm, setSearchTerm] = useState("");
-    console.log("disble on comp", disabled);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setSearchTerm(value);

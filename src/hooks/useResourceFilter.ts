@@ -20,7 +20,7 @@ export const useResourceFilter = ({
   const initialResourceTypes = searchParams
     .get("resourceTypes")
     ?.split(",") || [resourceTypes[0]];
-
+  const searchQuery = searchParams.get("search") || "";
   const [selectedTheme, setSelectedTheme] = useState<string>(initialTheme);
   const [selectedResourceTypes, setSelectedResourceTypes] =
     useState<string[]>(initialResourceTypes);
@@ -42,11 +42,12 @@ export const useResourceFilter = ({
     ) {
       params.set("resourceTypes", selectedResourceTypes.join(","));
     }
-    if (!params.has("search") && searchParams.get("search")) {
-      params.set("search", searchParams.get("search")!);
+    if (!params.has("search") && searchQuery) {
+      params.set("search", searchQuery);
     }
     setSearchParams(params);
-  }, [selectedTheme, selectedResourceTypes, searchParams, setSearchParams]);
+
+  }, [selectedTheme, selectedResourceTypes, searchQuery, setSearchParams]);
 
   const resetTheme = () => {
     setSelectedTheme(() => themes[0]);
@@ -63,10 +64,12 @@ export const useResourceFilter = ({
         selectedResourceTypes.some(
           (selectedType) => resource.type === selectedType,
         );
-
-      return categoryMatch && themeMatch && typeMatch;
+      const searchMatch =
+        !searchQuery ||
+        resource.title.toLowerCase().includes(searchQuery.toLowerCase());
+      return categoryMatch && themeMatch && typeMatch && searchMatch;;
     });
-  }, [resources, category, selectedTheme, selectedResourceTypes]);
+  }, [resources, category, selectedTheme, selectedResourceTypes, searchQuery]);
 
   return {
     filteredResources,

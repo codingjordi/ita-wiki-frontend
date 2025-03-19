@@ -22,7 +22,6 @@ const HeaderComponent = () => {
   };
   const disabledSearch = () => location.pathname === '/';
 
-  console.log("disabledSearch", disabledSearch());
 
   useEffect(() => {
     const searchFromUrl = searchParams.get("search") || "";
@@ -31,13 +30,14 @@ const HeaderComponent = () => {
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    console.log("Parámetros actuales en la URL:", searchParams.toString());
-  }, [searchParams]);
+
+  // useEffect(() => {
+  // console.log("params");
+  //    searchParams.toString();
+  // }, [searchParams]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    console.log("aa:", query);
 
     // Guardar todos los parámetros actuales, incluyendo search
     const params = new URLSearchParams(window.location.search);
