@@ -1,11 +1,38 @@
-import GItHubLogin from "../components/github-login/GItHubLogin";
 import folder from "../assets/new-folder-dynamic-color.svg";
 import puzzle from "../assets/puzzle-dynamic-color.svg";
 import ok from "../assets/thumb-up-dynamic-color.svg";
 import { useCtxUser } from "../hooks/useCtxUser";
+import { useState, useEffect } from "react";
+import { AddUsersModal } from "../components/resources/AddUserModal";
+import ButtonComponent from "../components/atoms/ButtonComponent";
+import { getRole } from "../api/endPointRoles";
 
 export default function HomePage() {
-  const { signIn, signOut, user, error } = useCtxUser();
+  const { signOut, user } = useCtxUser();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (user && user.id) {
+      getRole(user.id)
+        .then((roleData) => {
+          setUserRole(roleData?.role || null);
+        })
+        .catch((err) => {
+          console.error("Error fetching role:", err);
+          setUserRole(null);
+        });
+    } else {
+      setUserRole(null);
+    }
+  }, [user]);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const hasPermission = userRole
+    ? ["superadmin", "admin", "mentor"].includes(userRole)
+    : false;
 
   return (
     <main className="bg-white rounded-xl p-6 w-full text-center h-[inherit] max-h-[calc(100vh-114px)] overflow-auto">
@@ -19,8 +46,6 @@ export default function HomePage() {
             padding: "1rem",
           }}
         >
-          <h1>¡Bienvenid@ a la wiki de la IT Academy!</h1>
-
           {user ? (
             <article
               id={String(user.id)}
@@ -33,12 +58,20 @@ export default function HomePage() {
                 height={64}
                 className="rounded-full border-2 border-white"
               />
-              <small
-                className="font-bold"
-                style={{ textTransform: "uppercase" }}
-              >
-                {user.displayName}
-              </small>
+              <div className="flex flex-col divide-y-2">
+                <small
+                  className="font-bold"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {user.displayName}
+                </small>
+                <small
+                  className="font-bold"
+                  style={{ textTransform: "uppercase" }}
+                >
+                  {user.role}
+                </small>
+              </div>
               <button
                 className="bg-white text-red-500 text-sm font-bold active:scale-95 py-1 px-4 rounded-sm border-2 border-black"
                 type="button"
@@ -48,24 +81,13 @@ export default function HomePage() {
               </button>
             </article>
           ) : (
-            <div>
-              <p>Registrate o haz login para poder subir y votar recursos</p>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  maxWidth: "320px",
-                }}
-              >
-                <GItHubLogin onClick={signIn} />
-                <label htmlFor="terms">
-                  <input name="terms" type="checkbox" /> Acepto términos legales
-                </label>
-                {error && (
-                  <div className="error-message text-red-500 my-4">{error}</div>
-                )}
-              </div>
-            </div>
+            <div></div>
+          )}
+
+          {hasPermission && (
+            <ButtonComponent onClick={openModal} className="mt-4">
+              Añadir Usuario
+            </ButtonComponent>
           )}
         </article>
         <div>
@@ -94,6 +116,13 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {isModalOpen && hasPermission && (
+        <AddUsersModal
+          onClose={closeModal}
+          userRole={userRole}
+          userID={user.id}
+        />
+      )}
     </main>
   );
 }
