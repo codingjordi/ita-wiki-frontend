@@ -6,7 +6,6 @@ import userIcon from "../../assets/user2.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import SearchComponnent from "./header/SearchComponnent";
-import { useState, useEffect } from 'react';
 
 const HeaderComponent = () => {
   const { user } = useCtxUser();
@@ -14,28 +13,17 @@ const HeaderComponent = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
-
-  const [searchQuery, setSearchQuery] = useState("")
-
   const goToResourcesPage = () => {
     navigate("/resources/add");
   };
+
   const disabledSearch = () => location.pathname === '/';
 
 
-  useEffect(() => {
-    const searchFromUrl = searchParams.get("search") || "";
-    if (searchFromUrl !== searchQuery) {
-      setSearchQuery(searchFromUrl);
-    }
-  }, [searchParams]);
-
   const handleSearch = (query: string) => {
-    setSearchQuery(query);
 
-    // Guardar todos los parámetros actuales, incluyendo search
-    const params = new URLSearchParams(window.location.search);
-    params.set('search', query);  // Aseguramos que el parámetro `search` siempre se mantenga
+    const params = new URLSearchParams(searchParams);
+    params.set('search', query);
 
     navigate(`?${params.toString()}`);
   };
