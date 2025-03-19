@@ -30,12 +30,6 @@ const HeaderComponent = () => {
     }
   }, [searchParams]);
 
-
-  // useEffect(() => {
-  // console.log("params");
-  //    searchParams.toString();
-  // }, [searchParams]);
-
   const handleSearch = (query: string) => {
     setSearchQuery(query);
 
