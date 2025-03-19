@@ -42,9 +42,11 @@ export const useResourceFilter = ({
     ) {
       params.set("resourceTypes", selectedResourceTypes.join(","));
     }
-    const queryString = params.toString();
-    setSearchParams(queryString ? params : undefined);
-  }, [selectedTheme, selectedResourceTypes, setSearchParams]);
+    if (!params.has("search") && searchParams.get("search")) {
+      params.set("search", searchParams.get("search")!);
+    }
+    setSearchParams(params);
+  }, [selectedTheme, selectedResourceTypes, searchParams, setSearchParams]);
 
   const resetTheme = () => {
     setSelectedTheme(() => themes[0]);
