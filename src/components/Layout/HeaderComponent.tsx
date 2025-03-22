@@ -12,8 +12,7 @@ const HeaderComponent = () => {
   const { user } = useCtxUser();
   const navigate = useNavigate();
   const location = useLocation();
-  // const [searchParams] = useSearchParams();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [resource, setResource] = useState("");
 
   const goToResourcesPage = () => {
@@ -33,7 +32,7 @@ const HeaderComponent = () => {
     if (resourcePath !== resource) {
       setResource(resourcePath);
     }
-  }, [location.pathname]);
+  }, [location.pathname, resource]);
 
 
   return (
