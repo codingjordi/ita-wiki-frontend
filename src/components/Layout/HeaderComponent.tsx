@@ -6,12 +6,15 @@ import userIcon from "../../assets/user2.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import SearchComponnent from "./header/SearchComponnent";
+import { useEffect, useState } from 'react';
 
 const HeaderComponent = () => {
   const { user } = useCtxUser();
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [resource, setResource] = useState("");
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
@@ -19,14 +22,19 @@ const HeaderComponent = () => {
 
   const disabledSearch = () => location.pathname === '/';
 
-
   const handleSearch = (query: string) => {
-
     const params = new URLSearchParams(searchParams);
     params.set('search', query);
-
     navigate(`?${params.toString()}`);
   };
+
+  useEffect(() => {
+    const resourcePath = location.pathname.split("/resources/")[1]?.split("?")[0] || "";
+    if (resourcePath !== resource) {
+      setResource(resourcePath);
+    }
+  }, [location.pathname]);
+
 
   return (
     <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
@@ -34,7 +42,11 @@ const HeaderComponent = () => {
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
       <div className="flex">
-        <SearchComponnent onSearch={handleSearch} disabled={disabledSearch()} />
+        <SearchComponnent
+          onSearch={handleSearch}
+          disabled={disabledSearch()}
+          resetTrigger={resource}
+        />
         {user && (
           <ButtonComponent
             icon={addIcon}

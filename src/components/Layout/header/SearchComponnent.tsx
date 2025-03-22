@@ -3,10 +3,11 @@ import searchIcon from "../../../assets/search.svg";
 
 interface SearchComponentProps {
     onSearch: (query: string) => void;
-    disabled: boolean
+    disabled: boolean;
+    resetTrigger: string;
 }
 
-const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch, disabled }) => {
+const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch, disabled, resetTrigger }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -17,7 +18,11 @@ const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch, disabled })
         if (disabled) {
             setSearchTerm("");
         }
-    }, [disabled]);
+    }, [disabled,]);
+
+    useEffect(() => {
+        setSearchTerm("");
+    }, [resetTrigger]);
 
     return (
         <div className="relative mr-[120px]">
