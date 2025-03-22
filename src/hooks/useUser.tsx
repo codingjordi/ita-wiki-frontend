@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IntUser } from "../types";
 import { signInWithGitHub } from "../api/firebase";
 import { storage } from "../utils";
+import { getUserRole } from "../api/userApi";
 
 export const useUser = () => {
   const [user, setUser] = useState<IntUser | null>(storage.get("user"));
@@ -11,6 +12,7 @@ export const useUser = () => {
     try {
       const newUser = await signInWithGitHub();
       setUser(newUser);
+      await handleSetRole();
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -19,14 +21,30 @@ export const useUser = () => {
       }
     }
   };
+
   const signOut = () => {
     localStorage.removeItem("user");
     setUser(null);
     setError(null);
   };
+
   const saveUser = (user: IntUser) => {
     setUser(() => user);
   };
+
+  const handleSetRole = async () => {
+    if (user) {
+      try {
+        const userRole = await getUserRole(user.id);
+        const updatedUser = { ...user, role: userRole };
+        setUser(updatedUser);
+        storage.save("user", updatedUser);
+      } catch (error) {
+        throw new Error(error as string);
+      }
+    }
+  };
+
   return {
     user,
     saveUser,
@@ -34,5 +52,6 @@ export const useUser = () => {
     signOut,
     error,
     setError,
+    handleSetRole,
   };
 };

@@ -7,13 +7,21 @@ import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import SearchComponnent from "./header/SearchComponnent";
 import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Modal } from "../Modal/Modal";
+import GitHubLogin from "../github-login/GitHubLogin";
+
 
 const HeaderComponent = () => {
-  const { user } = useCtxUser();
+  const { user, signIn } = useCtxUser();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const [resource, setResource] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
@@ -34,6 +42,28 @@ const HeaderComponent = () => {
       setResource(resourcePath);
     }
   }, [location.pathname, resource]);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleSignIn = async () => {
+    if (!isChecked) {
+      setLoginError(true);
+      return;
+    }
+    try {
+      await signIn();
+      setIsModalOpen(false);
+    } catch {
+      setLoginError(true);
+    }
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    setLoginError(false);
+  };
+
 
   return (
     <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
@@ -64,8 +94,36 @@ const HeaderComponent = () => {
         </div>
         <ButtonComponent icon={settingsIcon} variant="icon" />
         <div className="mr-[-10px]">
-          <ButtonComponent icon={userIcon} variant="icon" />
+          <ButtonComponent
+            icon={userIcon}
+            variant="icon"
+            text={user ? "" : "Iniciar sesión"}
+            onClick={openModal}
+          />
         </div>
+        {isModalOpen && (
+          <Modal closeModal={closeModal} title="Inicio sesión">
+            <GitHubLogin onClick={handleSignIn} />
+            <label htmlFor="terms" className="block mt-8">
+              <input
+                name="terms"
+                id="terms"
+                type="checkbox"
+                onChange={handleCheckboxChange}
+                checked={isChecked}
+              ></input>
+              Acepto términos legales
+            </label>
+            {loginError && (
+              <div className="text-red-500 text-sm mt-2">
+                <div className="text-red-500 text-sm mt-2 text-center">
+                  Lo sentimos, no se ha podido iniciar sesión,
+                  <br /> contacte con el administrador.
+                </div>
+              </div>
+            )}
+          </Modal>
+        )}
       </div>
     </header>
   );
