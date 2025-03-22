@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useState, useEffect } from 'react';
 import searchIcon from "../../../assets/search.svg";
 
@@ -7,7 +8,7 @@ interface SearchComponentProps {
     resetTrigger: string;
 }
 
-const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch, disabled, resetTrigger }) => {
+const SearchComponent: FC<SearchComponentProps> = ({ onSearch, disabled, resetTrigger }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;

@@ -67,7 +67,8 @@ export const useResourceFilter = ({
       const searchMatch =
         !searchQuery ||
         resource.title.toLowerCase().includes(searchQuery.toLowerCase());
-      return categoryMatch && themeMatch && typeMatch && searchMatch;;
+
+      return categoryMatch && themeMatch && typeMatch && searchMatch;
     });
   }, [resources, category, selectedTheme, selectedResourceTypes, searchQuery]);
 
