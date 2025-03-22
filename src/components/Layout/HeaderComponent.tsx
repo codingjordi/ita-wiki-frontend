@@ -6,7 +6,7 @@ import userIcon from "../../assets/user2.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import SearchComponnent from "./header/SearchComponnent";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const HeaderComponent = () => {
   const { user } = useCtxUser();
@@ -19,21 +19,21 @@ const HeaderComponent = () => {
     navigate("/resources/add");
   };
 
-  const disabledSearch = () => location.pathname === '/';
+  const disabledSearch = () => location.pathname === "/";
 
   const handleSearch = (query: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set('search', query);
+    params.set("search", query);
     navigate(`?${params.toString()}`);
   };
 
   useEffect(() => {
-    const resourcePath = location.pathname.split("/resources/")[1]?.split("?")[0] || "";
+    const resourcePath =
+      location.pathname.split("/resources/")[1]?.split("?")[0] || "";
     if (resourcePath !== resource) {
       setResource(resourcePath);
     }
   }, [location.pathname, resource]);
-
 
   return (
     <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
@@ -67,7 +67,7 @@ const HeaderComponent = () => {
           <ButtonComponent icon={userIcon} variant="icon" />
         </div>
       </div>
-    </header >
+    </header>
   );
 };
 

@@ -46,7 +46,6 @@ export const useResourceFilter = ({
       params.set("search", searchQuery);
     }
     setSearchParams(params);
-
   }, [selectedTheme, selectedResourceTypes, searchQuery, setSearchParams]);
 
   const resetTheme = () => {
