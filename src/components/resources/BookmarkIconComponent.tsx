@@ -13,9 +13,9 @@ const BookmarkIconComponent: FC<BookmarkComponentProps> = ({ marked }) => {
       className="flex items-center justify-start gap-2 max-h-12"
     >
       {marked ? (
-        <img src={bookmarkEmpty} height={16} alt="bookmark none" />
+        <img src={bookmarkFull} height={16} alt="Bookmark is marked" />
       ) : (
-        <img src={bookmarkFull} height={16} alt="bookmark on" />
+        <img src={bookmarkEmpty} height={16} alt="Bookmark is not marked" />
       )}
     </div>
   );

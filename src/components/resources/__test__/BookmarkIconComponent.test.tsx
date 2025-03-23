@@ -20,21 +20,21 @@ describe("BookmarkIconComponent class", () => {
   });
 });
 describe("BookmarkIconComponent", () => {
-  it("renders bookmarkEmpty when marked is true", () => {
+  it("renders bookmarkFull when marked is true", () => {
     render(<BookmarkIconComponent marked={true} />);
-    expect(screen.getByAltText("bookmark none")).toBeInTheDocument();
-    expect(screen.getByAltText("bookmark none")).toHaveAttribute(
+    expect(screen.getByAltText("Bookmark is marked")).toBeInTheDocument();
+    expect(screen.getByAltText("Bookmark is marked")).toHaveAttribute(
       "src",
-      bookmarkEmpty,
+      bookmarkFull,
     );
   });
 
-  it("renders bookmarkFull when marked is false", () => {
+  it("renders bookmarkEmpty when marked is false", () => {
     render(<BookmarkIconComponent marked={false} />);
-    expect(screen.getByAltText("bookmark on")).toBeInTheDocument();
-    expect(screen.getByAltText("bookmark on")).toHaveAttribute(
+    expect(screen.getByAltText("Bookmark is not marked")).toBeInTheDocument();
+    expect(screen.getByAltText("Bookmark is not marked")).toHaveAttribute(
       "src",
-      bookmarkFull,
+      bookmarkEmpty,
     );
   });
 
@@ -47,7 +47,7 @@ describe("BookmarkIconComponent", () => {
 
   it("renders img with correct height", () => {
     render(<BookmarkIconComponent marked={true} />);
-    expect(screen.getByAltText("bookmark none")).toHaveAttribute(
+    expect(screen.getByAltText("Bookmark is marked")).toHaveAttribute(
       "height",
       "16",
     );
