@@ -37,7 +37,7 @@ export const ListResources: FC<ListResourceProps> = ({ resources, category }) =>
     resourceTypes,
   });
 
-  const { sortedResources, setSortOption, setSelectedYear, availableYears  } = useResourceSort({
+  const { sortedResources, setSortOption, setSelectedYear, availableYears, sortOption } = useResourceSort({
     resources: filteredResources,
   });
 
@@ -45,8 +45,7 @@ export const ListResources: FC<ListResourceProps> = ({ resources, category }) =>
     ? resources.filter((resource) => resource.github_id === Number(user.id))
     : [];
 
-    useEffect(() => {
-    }, [sortedResources]);
+  useEffect(() => {}, [sortedResources]);
 
   return (
     resources && (
@@ -71,12 +70,13 @@ export const ListResources: FC<ListResourceProps> = ({ resources, category }) =>
               <h2 className="text-[26px] font-bold">
                 Recursos {String(category) || ""}
               </h2>
-              <SortButton 
+              <SortButton
                 setSortOption={setSortOption}
-                setSelectedYear={setSelectedYear} 
-                availableYears={availableYears} 
-                  />
-               {/* Filter Button (Mobile only) */}
+                setSelectedYear={setSelectedYear}
+                availableYears={availableYears}
+                sortOption={sortOption} 
+              />
+              {/* Filter Button (Mobile only) */}
               <button
                 className="sm:hidden bg-[#B91879] text-white px-4 py-2 rounded-md flex items-center gap-2"
                 onClick={() => setShowFilters(!showFilters)}
