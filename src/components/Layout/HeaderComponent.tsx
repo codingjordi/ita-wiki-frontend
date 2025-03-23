@@ -11,7 +11,6 @@ import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
 
-
 const HeaderComponent = () => {
   const { user, signIn } = useCtxUser();
   const navigate = useNavigate();
@@ -21,7 +20,6 @@ const HeaderComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [loginError, setLoginError] = useState(false);
-
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
@@ -63,7 +61,6 @@ const HeaderComponent = () => {
     setIsChecked(!isChecked);
     setLoginError(false);
   };
-
 
   return (
     <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
