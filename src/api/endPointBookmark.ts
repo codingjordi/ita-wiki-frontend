@@ -16,13 +16,11 @@ const getBookmarks = async (github_id: string): Promise<Bookmark[]> => {
     });
     if (!response.ok) {
       return bookmarksArr;
-      // return [];
     }
     const bookmarks = await response.json();
     return bookmarks;
   } catch {
     return bookmarksArr;
-    throw new Error("No se pudieron obtener los bookmarks");
   }
 };
 
