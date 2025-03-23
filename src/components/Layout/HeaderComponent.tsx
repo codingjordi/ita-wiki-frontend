@@ -7,7 +7,6 @@ import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import SearchComponnent from "./header/SearchComponnent";
 import { useEffect, useState } from "react";
-import { useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
 
