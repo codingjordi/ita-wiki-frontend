@@ -4,8 +4,6 @@ import { IntResource } from "../types";
 import { ListResources } from "../components/resources/ListResources";
 import { getResources } from "../api/endPointResources";
 import { categories } from "../data/categories";
-// TODO: REVISAR ESTO
-// import { useBookmarks } from "../hooks/useBookmarks";
 import moock from "../moock/resources.json";
 
 const ResourcesPage: FC = () => {
