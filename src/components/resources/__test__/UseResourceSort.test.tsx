@@ -12,7 +12,7 @@ describe('useResourceSort hook', () => {
       github_id: 123456,
       description: 'Description 1',
       url: 'https://example.com/resource1',
-      category: 'React', // Добавил недостающие свойства
+      category: 'React', 
       theme: 'JavaScript',
       type: 'Blog',
     },
@@ -59,7 +59,7 @@ describe('useResourceSort hook', () => {
       result.current.setSortOption('oldest');
     });
 
-    expect(result.current.sortedResources[0].title).toBe('Resource 2'); // Проверяем, что самый старый ресурс идет первым
+    expect(result.current.sortedResources[0].title).toBe('Resource 2'); 
   });
 
   it('should return sorted resources by votes', () => {
@@ -69,7 +69,7 @@ describe('useResourceSort hook', () => {
       result.current.setSortOption('votes');
     });
 
-    expect(result.current.sortedResources[0].title).toBe('Resource 2'); // Проверяем, что ресурс с наибольшими голосами идет первым
+    expect(result.current.sortedResources[0].title).toBe('Resource 2'); 
   });
 
   it('should filter resources by year', () => {
@@ -79,6 +79,6 @@ describe('useResourceSort hook', () => {
       result.current.setSelectedYear(2022);
     });
 
-    expect(result.current.sortedResources).toHaveLength(1); // Проверяем, что остался только один ресурс для 2022
+    expect(result.current.sortedResources).toHaveLength(1); 
   });
 });
