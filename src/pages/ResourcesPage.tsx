@@ -23,7 +23,6 @@ const ResourcesPage: FC = () => {
       try {
         setIsLoading(true);
         const data = await getResources();
-        console.log("📌 Recursos en el estado después de getResources():", data); 
         setApiResources(data);
       } catch (error) {
         console.error(
