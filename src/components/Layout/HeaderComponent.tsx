@@ -24,7 +24,7 @@ const HeaderComponent = () => {
     navigate("/resources/add");
   };
 
-  const disabledSearch = () => location.pathname === "/";
+  const isSearchDisabled = location.pathname === "/";
 
   const handleSearch = (query: string) => {
     const params = new URLSearchParams(searchParams);
@@ -69,7 +69,7 @@ const HeaderComponent = () => {
       <div className="flex">
         <SearchComponent
           onSearch={handleSearch}
-          disabled={disabledSearch()}
+          disabled={isSearchDisabled}
           resetTrigger={resource}
         />
         {user && (
