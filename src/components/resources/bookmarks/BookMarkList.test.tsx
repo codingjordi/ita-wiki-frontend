@@ -28,7 +28,6 @@ describe("BookMarkList Component", () => {
       theme: "Todos",
       type: "Video",
       votes: 10,
-      
     },
     {
       id: 2,
@@ -39,7 +38,7 @@ describe("BookMarkList Component", () => {
       category: "React",
       theme: "Todos",
       type: "Cursos",
-      votes: 20, 
+      votes: 20,
     },
   ];
 

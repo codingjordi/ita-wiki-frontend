@@ -8,7 +8,7 @@ export const themes = [
   "Estilos",
   "Debugging",
   "React Router",
-  "JavaScript", 
-  "Backend",    
-  "Frontend",   
+  "JavaScript",
+  "Backend",
+  "Frontend",
 ] as const;
