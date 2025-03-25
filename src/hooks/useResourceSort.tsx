@@ -18,11 +18,16 @@ export const useResourceSort = ({ resources }: UseResourceSortProps) => {
       return;
     }
 
-    const parseDate = (dateValue: string | Date | undefined): { timestamp: number; year: number } => {
+    const parseDate = (
+      dateValue: string | Date | undefined,
+    ): { timestamp: number; year: number } => {
       if (!dateValue) return { timestamp: 0, year: 0 };
 
       if (dateValue instanceof Date) {
-        return { timestamp: dateValue.getTime(), year: dateValue.getFullYear() };
+        return {
+          timestamp: dateValue.getTime(),
+          year: dateValue.getFullYear(),
+        };
       }
 
       const dateStr = String(dateValue).trim();
@@ -32,8 +37,18 @@ export const useResourceSort = ({ resources }: UseResourceSortProps) => {
       }
 
       const months: { [key: string]: number } = {
-        enero: 0, febrero: 1, marzo: 2, abril: 3, mayo: 4, junio: 5,
-        julio: 6, agosto: 7, septiembre: 8, octubre: 9, noviembre: 10, diciembre: 11,
+        enero: 0,
+        febrero: 1,
+        marzo: 2,
+        abril: 3,
+        mayo: 4,
+        junio: 5,
+        julio: 6,
+        agosto: 7,
+        septiembre: 8,
+        octubre: 9,
+        noviembre: 10,
+        diciembre: 11,
       };
 
       const regex = /(\d{1,2}) (\w+) de (\d{4})/;
@@ -43,7 +58,10 @@ export const useResourceSort = ({ resources }: UseResourceSortProps) => {
 
       const [, day, monthStr, year] = match;
       const month = months[monthStr.toLowerCase()] ?? 0;
-      return { timestamp: new Date(Number(year), month, Number(day)).getTime(), year: Number(year) };
+      return {
+        timestamp: new Date(Number(year), month, Number(day)).getTime(),
+        year: Number(year),
+      };
     };
 
     const parsedResources = resources.map((res) => ({
@@ -57,15 +75,26 @@ export const useResourceSort = ({ resources }: UseResourceSortProps) => {
 
     let sorted = [...parsedResources];
 
-    if (sortOption === "recent") sorted.sort((a, b) => b.parsedDate - a.parsedDate);
-    if (sortOption === "oldest") sorted.sort((a, b) => a.parsedDate - b.parsedDate);
-    
-    if (sortOption === "votes") sorted.sort((a, b) => b.votes - a.votes);
+    if (sortOption === "recent")
+      sorted.sort((a, b) => b.parsedDate - a.parsedDate);
+    if (sortOption === "oldest")
+      sorted.sort((a, b) => a.parsedDate - b.parsedDate);
 
-    if (selectedYear !== null) sorted = sorted.filter((res) => res.parsedYear === selectedYear);
+    if (sortOption === "votes")
+      sorted.sort((a, b) => (b.votes as number) - (a.votes as number));
+
+    if (selectedYear !== null)
+      sorted = sorted.filter((res) => res.parsedYear === selectedYear);
 
     setSortedResources([...sorted]);
   }, [resources, sortOption, selectedYear]);
 
-  return { sortedResources, sortOption, setSortOption, selectedYear, setSelectedYear, availableYears };
+  return {
+    sortedResources,
+    sortOption,
+    setSortOption,
+    selectedYear,
+    setSelectedYear,
+    availableYears,
+  };
 };
