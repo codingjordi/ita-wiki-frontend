@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import SearchComponent from "./SearchComponnent";
+import SearchComponent from "./SearchComponent";
 
 describe("SearchComponent", () => {
   test("debe renderizar el input y el ícono", () => {
     render(
-      <SearchComponent onSearch={() => {}} disabled={false} resetTrigger="" />,
+      <SearchComponent onSearch={() => { }} disabled={false} resetTrigger="" />,
     );
 
     const input = screen.getByPlaceholderText(/buscar recurso/i);
@@ -65,7 +65,7 @@ describe("SearchComponent", () => {
 describe("SearchComponent disbled si le pasamos la prop", () => {
   it("debe deshabilitar el input cuando disabled es true", () => {
     render(
-      <SearchComponent onSearch={() => {}} disabled={true} resetTrigger="" />,
+      <SearchComponent onSearch={() => { }} disabled={true} resetTrigger="" />,
     );
 
     const input = screen.getByPlaceholderText(/buscar recurso/i);

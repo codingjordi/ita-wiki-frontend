@@ -5,7 +5,7 @@ import settingsIcon from "../../assets/settings.svg";
 import userIcon from "../../assets/user2.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
-import SearchComponnent from "./header/SearchComponnent";
+import SearchComponent from "./header/SearchComponent";
 import { useEffect, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
@@ -67,7 +67,7 @@ const HeaderComponent = () => {
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
       <div className="flex">
-        <SearchComponnent
+        <SearchComponent
           onSearch={handleSearch}
           disabled={disabledSearch()}
           resetTrigger={resource}
