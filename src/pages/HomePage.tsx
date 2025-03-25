@@ -5,7 +5,7 @@ import { useCtxUser } from "../hooks/useCtxUser";
 import { useState, useEffect } from "react";
 import { AddUsersModal } from "../components/resources/AddUserModal";
 import ButtonComponent from "../components/atoms/ButtonComponent";
-import { getRole } from "../api/endPointRoles";
+import { getUserRole } from "../api/userApi";
 
 export default function HomePage() {
   const { signOut, user } = useCtxUser();
@@ -14,9 +14,9 @@ export default function HomePage() {
 
   useEffect(() => {
     if (user && user.id) {
-      getRole(user.id)
+      getUserRole(user.id)
         .then((roleData) => {
-          setUserRole(roleData?.role || null);
+          setUserRole(roleData || null);
         })
         .catch((err) => {
           console.error("Error fetching role:", err);
@@ -25,6 +25,7 @@ export default function HomePage() {
     } else {
       setUserRole(null);
     }
+    console.log(user.id);
   }, [user]);
 
   const openModal = () => setIsModalOpen(true);
