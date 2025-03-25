@@ -19,7 +19,7 @@ export interface IntUser {
 }
 
 export interface IntResource {
-  votes: any;
+  votes: number;
   id?: number;
   github_id: number;
   title: string;
@@ -43,4 +43,4 @@ export type TypTechnologyResource =
   | "Data Science"
   | "BBDD";
 
-  export type SortOption = "recent" | "oldest" | "year" | "votes";
+export type SortOption = "recent" | "oldest" | "year" | "votes";
