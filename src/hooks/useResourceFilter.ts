@@ -20,7 +20,7 @@ export const useResourceFilter = ({
   const initialResourceTypes = searchParams
     .get("resourceTypes")
     ?.split(",") || [resourceTypes[0]];
-
+  const searchQuery = searchParams.get("search") || "";
   const [selectedTheme, setSelectedTheme] = useState<string>(initialTheme);
   const [selectedResourceTypes, setSelectedResourceTypes] =
     useState<string[]>(initialResourceTypes);
@@ -42,9 +42,11 @@ export const useResourceFilter = ({
     ) {
       params.set("resourceTypes", selectedResourceTypes.join(","));
     }
-    const queryString = params.toString();
-    setSearchParams(queryString ? params : undefined);
-  }, [selectedTheme, selectedResourceTypes, setSearchParams]);
+    if (!params.has("search") && searchQuery) {
+      params.set("search", searchQuery);
+    }
+    setSearchParams(params);
+  }, [selectedTheme, selectedResourceTypes, searchQuery, setSearchParams]);
 
   const resetTheme = () => {
     setSelectedTheme(() => themes[0]);
@@ -61,10 +63,13 @@ export const useResourceFilter = ({
         selectedResourceTypes.some(
           (selectedType) => resource.type === selectedType,
         );
+      const searchMatch =
+        !searchQuery ||
+        resource.title.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return categoryMatch && themeMatch && typeMatch;
+      return categoryMatch && themeMatch && typeMatch && searchMatch;
     });
-  }, [resources, category, selectedTheme, selectedResourceTypes]);
+  }, [resources, category, selectedTheme, selectedResourceTypes, searchQuery]);
 
   return {
     filteredResources,

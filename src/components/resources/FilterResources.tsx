@@ -46,8 +46,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
       setPrevCategory(category ?? null);
       resetTheme();
     }
-
-    if (selectedResourceTypes.length === 0) {
+    if (selectedResourceTypes.length === 0 && resourceTypes.length > 0) {
       setSelectedResourceTypes([...resourceTypes]);
     }
   }, [
