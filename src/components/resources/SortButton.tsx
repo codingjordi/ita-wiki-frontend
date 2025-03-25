@@ -20,8 +20,11 @@ const SortButton: React.FC<SortButtonProps> = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false); 
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
       }
     };
 
@@ -93,7 +96,7 @@ const SortButton: React.FC<SortButtonProps> = ({
               >
                 <li
                   className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                  onClick={() => setSelectedYear(null)} 
+                  onClick={() => setSelectedYear(null)}
                 >
                   Todos los años
                 </li>
@@ -101,7 +104,7 @@ const SortButton: React.FC<SortButtonProps> = ({
                   <li
                     key={year}
                     className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                    onClick={() => setSelectedYear(year)} 
+                    onClick={() => setSelectedYear(year)}
                   >
                     {year}
                   </li>
