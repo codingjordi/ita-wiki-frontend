@@ -19,7 +19,10 @@ interface ListResourceProps {
   category?: keyof typeof categories;
 }
 
-export const ListResources: FC<ListResourceProps> = ({ resources, category }) => {
+export const ListResources: FC<ListResourceProps> = ({
+  resources,
+  category,
+}) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
 
   const { user } = useCtxUser();
@@ -37,7 +40,13 @@ export const ListResources: FC<ListResourceProps> = ({ resources, category }) =>
     resourceTypes,
   });
 
-  const { sortedResources, setSortOption, setSelectedYear, availableYears, sortOption } = useResourceSort({
+  const {
+    sortedResources,
+    setSortOption,
+    setSelectedYear,
+    availableYears,
+    sortOption,
+  } = useResourceSort({
     resources: filteredResources,
   });
 
@@ -74,7 +83,7 @@ export const ListResources: FC<ListResourceProps> = ({ resources, category }) =>
                 setSortOption={setSortOption}
                 setSelectedYear={setSelectedYear}
                 availableYears={availableYears}
-                sortOption={sortOption} 
+                sortOption={sortOption}
               />
               {/* Filter Button (Mobile only) */}
               <button

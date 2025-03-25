@@ -81,7 +81,6 @@
       "votes": 23
     },
 
-    
     {
       "id": 30,
       "github_id": 123461,
@@ -94,7 +93,6 @@
       "theme": "Conceptos básicos",
       "type": "Cursos",
       "votes": 22
-
     },
     {
       "id": 31,
@@ -147,7 +145,6 @@
       "theme": "State Management",
       "type": "Blog",
       "votes": 15
-
     },
     {
       "id": 35,
