@@ -1,18 +1,21 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation, useSearchParams } from "react-router";
 import logoItAcademy from "../../assets/LogoItAcademy.svg";
 import addIcon from "../../assets/add.svg";
 import settingsIcon from "../../assets/settings.svg";
 import userIcon from "../../assets/user2.svg";
-import searchIcon from "../../assets/search.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
-import { useState } from "react";
+import SearchComponent from "./header/SearchComponent";
+import { useEffect, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
 
 const HeaderComponent = () => {
   const { user, signIn } = useCtxUser();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const [resource, setResource] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [loginError, setLoginError] = useState(false);
@@ -20,6 +23,23 @@ const HeaderComponent = () => {
   const goToResourcesPage = () => {
     navigate("/resources/add");
   };
+
+  const isSearchDisabled = location.pathname === "/";
+
+  const handleSearch = (query: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("search", query);
+    navigate(`?${params.toString()}`);
+  };
+
+  useEffect(() => {
+    const resourcePath =
+      location.pathname.split("/resources/")[1]?.split("?")[0] || "";
+    if (resourcePath !== resource) {
+      setResource(resourcePath);
+    }
+  }, [location.pathname, resource]);
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -42,34 +62,16 @@ const HeaderComponent = () => {
   };
 
   return (
-    // just temporarily hidden on mobile, to prevent horizontal overflow
     <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
       <Link to="/">
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
       <div className="flex">
-        <div className="relative mr-[120px] cursor-pointer">
-          <input
-            type="text"
-            placeholder="Buscar recurso"
-            className="bg-white pl-10 pr-4 py-2 border border-white font-semibold text-base rounded-lg
-                   focus:outline-none focus:ring-2 focus:ring-[#808080]"
-          />
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#808080] ">
-            <svg
-              xmlns={searchIcon}
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.9 14.32a8 8 0 111.42-1.42l4.83 4.83a1 1 0 01-1.42 1.42l-4.83-4.83zM8 14a6 6 0 100-12 6 6 0 000 12z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        </div>
+        <SearchComponent
+          onSearch={handleSearch}
+          disabled={isSearchDisabled}
+          resetTrigger={resource}
+        />
         {user && (
           <ButtonComponent
             icon={addIcon}
