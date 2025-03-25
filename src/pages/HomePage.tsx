@@ -25,7 +25,6 @@ export default function HomePage() {
     } else {
       setUserRole(null);
     }
-    console.log(user.id);
   }, [user]);
 
   const openModal = () => setIsModalOpen(true);
