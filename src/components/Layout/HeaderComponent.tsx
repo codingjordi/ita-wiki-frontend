@@ -43,17 +43,21 @@ const HeaderComponent = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSignIn = async () => {
     if (!isChecked) {
       setLoginError(true);
       return;
     }
+    setIsLoading(true);
     try {
       await signIn();
       setIsModalOpen(false);
     } catch {
       setLoginError(true);
     }
+    setIsLoading(false);
   };
 
   const handleCheckboxChange = () => {
@@ -99,7 +103,7 @@ const HeaderComponent = () => {
         </div>
         {isModalOpen && (
           <Modal closeModal={closeModal} title="Inicio sesión">
-            <GitHubLogin onClick={handleSignIn} />
+            <GitHubLogin onClick={handleSignIn} isLoading={isLoading} />
             <label htmlFor="terms" className="block mt-8">
               <input
                 name="terms"
