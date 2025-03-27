@@ -37,11 +37,11 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
     };
     createRole(requestBody)
       .then(() => {
-        toast.success('¡Rol asignado con éxito!')
+        toast.success("¡Rol asignado con éxito!");
         onClose();
       })
       .catch((error) => {
-        toast.error('No se pudo asignar el rol...')
+        toast.error("No se pudo asignar el rol...");
         console.error("Failed to create role:", error);
       });
     onClose();
