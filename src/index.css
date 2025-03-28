@@ -15,15 +15,17 @@
   background-color: #ffffff;
 }
 
+@theme {
+  --color-muted: #ebebeb;
+  --color-gray-foreground: #7E7E7E;
+  --background-image-card: url("assets/bg-card.svg");
+}
+
 a {
   font-weight: 500;
-  color: #646cff;
   text-decoration: inherit;
 }
 
-a:hover {
-  color: #535bf2;
-}
 
 body {
   margin: 0;
@@ -32,12 +34,6 @@ body {
   background-color: #ebebeb;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  margin: 0;
-  padding: 0;
-}
 
 /* @media (prefers-color-scheme: light) {
   :root {
