@@ -2,7 +2,7 @@ import folder from "../assets/new-folder-dynamic-color.svg";
 import puzzle from "../assets/puzzle-dynamic-color.svg";
 import ok from "../assets/thumb-up-dynamic-color.svg";
 import { useCtxUser } from "../hooks/useCtxUser";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AddUsersModal } from "../components/resources/AddUserModal";
 import ButtonComponent from "../components/atoms/ButtonComponent";
 import { getUserRole } from "../api/userApi";
@@ -37,9 +37,9 @@ export default function HomePage() {
     ? ["superadmin", "admin", "mentor"].includes(userRole)
     : false;
 
-  const handleNavigate = () => {
+  const handleNavigate = useCallback(() => {
     navigate("/resources/React");
-  };
+  }, []);
 
   return (
     <main className="bg-white rounded-xl flex flex-col items-center justify-center w-full mx-6 p-10 md:p-6 mb-6 text-center overflow-auto">
