@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { useCtxUser } from "../../hooks/useCtxUser";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { createRole } from "../../api/endPointRoles";
+import { toast } from "sonner";
 
 interface AddUsersModalProps {
   onClose: () => void;
@@ -36,11 +37,11 @@ export const AddUsersModal: React.FC<AddUsersModalProps> = ({
     };
     createRole(requestBody)
       .then(() => {
-        // TODO add a toaster or something on success
+        toast.success("¡Rol asignado con éxito!");
         onClose();
       })
       .catch((error) => {
-        // TODO add something for errors too
+        toast.error("No se pudo asignar el rol...");
         console.error("Failed to create role:", error);
       });
     onClose();
