@@ -5,6 +5,7 @@ import { ListResources } from "../components/resources/ListResources";
 import { getResources } from "../api/endPointResources";
 import { categories } from "../data/categories";
 import moock from "../moock/resources.json";
+import PageTitle from "../components/ui/PageTitle";
 
 const ResourcesPage: FC = () => {
   const { category } = useParams();
@@ -28,7 +29,7 @@ const ResourcesPage: FC = () => {
       } catch (error) {
         console.error(
           "No se han podido obtener los recursos. Se cargan los recursos de moock.",
-          error,
+          error
         );
         setApiResources(moock.resources as IntResource[]);
       } finally {
@@ -43,6 +44,7 @@ const ResourcesPage: FC = () => {
   //   useBookmarks({ resources: apiResources });
   return (
     <>
+      <PageTitle title={`${category}`} />
       {isLoading ? (
         <div>Obteniendo los recursos...</div>
       ) : (
