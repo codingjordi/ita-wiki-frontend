@@ -24,13 +24,10 @@ const AsideComponent = () => {
     <aside className="flex p-6 items-center justify-center lg:block lg:w-55 lg:h-screen lg:max-h-[calc(100vh-90px)] lg:mt-36">
       <ul className="space-y-6">
         {asideContent.map((item, index) => (
-          <li
-            key={index}
-            className="flex items-center space-x-3 hover:opacity-70"
-          >
+          <li key={index} className="flex items-center space-x-3">
             <img src={item.icon} alt={item.label} className="w-6 h-6" />
             <Link
-              className="text-gray-foreground"
+              className="text-gray-foreground opacity-hover"
               to={`/resources/${item.label}`}
             >
               {item.label}
