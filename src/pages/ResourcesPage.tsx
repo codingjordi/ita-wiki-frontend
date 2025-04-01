@@ -28,7 +28,7 @@ const ResourcesPage: FC = () => {
       } catch (error) {
         console.error(
           "No se han podido obtener los recursos. Se cargan los recursos de moock.",
-          error
+          error,
         );
         setApiResources(moock.resources as IntResource[]);
       } finally {
