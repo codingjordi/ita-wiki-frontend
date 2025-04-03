@@ -30,7 +30,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
   };
 
   return (
-    <aside className="flex p-6 lg:block lg:w-80 lg:h-screen lg:max-h-[calc(100vh-90px)] lg:mt-36">
+    <aside className="flex p-6 lg:block lg:w-80 lg:h-screen lg:max-h-[calc(100vh-90px)]">
       <div className="space-y-6 py-6">
         <SearchComponent
           onSearch={handleSearch}
