@@ -11,7 +11,7 @@ export const Modal = ({ closeModal, title, children }: ModalProps) => {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/30 flex justify-center items-center">
+      <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
         <div className="bg-white p-6 rounded-2xl w-[35%] min-h-[30%] relative">
           <button
             className="absolute top-4 right-4 text-xl font-bold text-black"
