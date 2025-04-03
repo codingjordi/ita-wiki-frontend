@@ -30,7 +30,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
   };
 
   return (
-    <aside className="flex p-6 lg:block lg:w-80 lg:h-screen lg:max-h-[calc(100vh-90px)]">
+    <aside className="flex p-6 lg:block lg:w-80 lg:h-screen lg:max-h-[calc(100vh-90px)] lg:mt-36">
       <div className="space-y-6 py-6">
         <SearchComponent
           onSearch={handleSearch}
@@ -38,6 +38,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
           resetTrigger={resource}
         />
       </div>
+
       <section>
         <p className="space-y-6 py-6 font-bold text-lg">Categorias</p>
         <ul className="space-y-6">
@@ -47,7 +48,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
               currentPath === `/resources/${encodeURIComponent(item.label)}`;
 
             return (
-              <li key={index} className="flex items-center space-x-3 ">
+              <li key={index} className="flex items-center space-x-3">
                 <img src={item.icon} alt={item.label} className="w-6 h-6" />
                 <Link
                   to={path}
@@ -63,6 +64,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
           })}
         </ul>
       </section>
+
       <section>
         <p className="space-y-6 py-6 font-bold text-lg">Mis recursos</p>
         <p className="space-y-6 py-6 text-lg">Guardados</p>
