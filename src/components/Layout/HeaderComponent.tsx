@@ -1,4 +1,9 @@
-import { Link, useNavigate, useLocation, useSearchParams } from "react-router";
+import {
+  Link,
+  useNavigate,
+  useLocation,
+  useSearchParams,
+} from "react-router";
 import logoItAcademy from "../../assets/LogoItAcademy.svg";
 import addIcon from "../../assets/add.svg";
 import settingsIcon from "../../assets/settings.svg";
@@ -6,12 +11,13 @@ import userIcon from "../../assets/user2.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import SearchComponent from "./header/SearchComponent";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
 
+
 const HeaderComponent = () => {
-  const { user, signIn } = useCtxUser();
+  const { user, signIn, signOut } = useCtxUser();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
@@ -19,6 +25,11 @@ const HeaderComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showConfirmLogout, setShowConfirmLogout] = useState(false);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
@@ -40,10 +51,22 @@ const HeaderComponent = () => {
     }
   }, [location.pathname, resource]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignIn = async () => {
     if (!isChecked) {
@@ -93,14 +116,50 @@ const HeaderComponent = () => {
           </select>
         </div>
         <ButtonComponent icon={settingsIcon} variant="icon" />
-        <div className="mr-[-10px]">
-          <ButtonComponent
-            icon={userIcon}
-            variant="icon"
-            text={user ? "" : "Iniciar sesión"}
-            onClick={openModal}
-          />
-        </div>
+
+        {/* AVATAR & DROPDOWN */}
+        {user ? (
+          <div className="relative ml-4" ref={dropdownRef}>
+            <button
+              onClick={() => setShowDropdown((prev) => !prev)}
+              className="flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-300 hover:shadow-md transition"
+            >
+              <img
+                src={user.photoURL}
+                alt="avatar"
+                className="w-8 h-8 rounded-full"
+              />
+              <span className="font-medium text-sm text-gray-700">
+                {user.displayName}
+              </span>
+            </button>
+
+            {showDropdown && (
+              <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-50">
+                <button
+                  onClick={() => {
+                    setShowConfirmLogout(true);
+                    setShowDropdown(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 text-sm text-[#B91879] hover:bg-gray-100"
+                >
+                  Exit
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="mr-[-10px]">
+            <ButtonComponent
+              icon={userIcon}
+              variant="icon"
+              text="Iniciar sesión"
+              onClick={openModal}
+            />
+          </div>
+        )}
+
+        {/* MODAL LOGIN */}
         {isModalOpen && (
           <Modal closeModal={closeModal} title="Inicio sesión">
             <GitHubLogin onClick={handleSignIn} isLoading={isLoading} />
@@ -115,13 +174,36 @@ const HeaderComponent = () => {
               Acepto términos legales
             </label>
             {loginError && (
-              <div className="text-red-500 text-sm mt-2">
-                <div className="text-red-500 text-sm mt-2 text-center">
-                  Lo sentimos, no se ha podido iniciar sesión,
-                  <br /> contacte con el administrador.
-                </div>
+              <div className="text-red-600 text-sm mt-2 text-center">
+                Lo sentimos, no se ha podido iniciar sesión,
+                <br /> contacte con el administrador.
               </div>
             )}
+          </Modal>
+        )}
+
+        {/* MODAL LOGOUT CONFIRM */}
+        {showConfirmLogout && (
+          <Modal closeModal={() => setShowConfirmLogout(false)} title="Confirmar salida">
+            <p className="text-center my-4">¿Estás segur@ que quieres cerrar sesión?</p>
+            <div className="flex justify-center gap-4 mt-6">
+              <button
+                onClick={() => {
+                  signOut();
+                  setShowConfirmLogout(false);
+                  navigate("/"); 
+                }}
+                className="px-4 py-2 bg-[#b91879] text-white rounded-md hover:bg-[#98537c]"
+              >
+                Sí, salir
+              </button>
+              <button
+                onClick={() => setShowConfirmLogout(false)}
+                className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400"
+              >
+                Cancelar
+              </button>
+            </div>
           </Modal>
         )}
       </div>
