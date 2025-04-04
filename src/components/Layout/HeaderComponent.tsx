@@ -90,7 +90,6 @@ const HeaderComponent = () => {
       </Link>
 
       <div className="flex gap-2 items-center">
-
         {hasPermission && (
           <ButtonComponent
             onClick={openAddUserModal}
