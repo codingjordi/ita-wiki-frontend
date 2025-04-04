@@ -4,7 +4,6 @@ import addIcon from "../../assets/add.svg";
 import settingsIcon from "../../assets/settings.svg";
 import userIcon from "../../assets/user2.svg";
 import arrowDown from "../../assets/arrow-down.svg";
-// import close from "../../assets/close.svg";
 import logOutIcon from "../../assets/logout-svgrepo-com.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
