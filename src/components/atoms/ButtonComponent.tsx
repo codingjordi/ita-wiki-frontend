@@ -46,24 +46,24 @@ const ButtonComponent: FC<ItaButtonProps> = ({
   const baseClass =
     variant === "custom" ? className || "" : classList[variant ?? "default"];
 
-    return (
-      <button type={type || "button"} onClick={onClick} className={baseClass}>
-        {variant === "close" && <img src={closeIcon} alt="Close" />}
-    
-        {variant === "icon" && text && (
-          <>
-            <span className="mr-2">{text}</span>
-            <img src={icon} alt="icon" className="h-[17px]" />
-          </>
-        )}
-    
-        {variant === "icon" && !text && (
+  return (
+    <button type={type || "button"} onClick={onClick} className={baseClass}>
+      {variant === "close" && <img src={closeIcon} alt="Close" />}
+
+      {variant === "icon" && text && (
+        <>
+          <span className="mr-2">{text}</span>
           <img src={icon} alt="icon" className="h-[17px]" />
-        )}
-    
-        {variant !== "icon" && (text || children)}
-      </button>
-    );
+        </>
+      )}
+
+      {variant === "icon" && !text && (
+        <img src={icon} alt="icon" className="h-[17px]" />
+      )}
+
+      {variant !== "icon" && (text || children)}
+    </button>
+  );
 };
 
 export default ButtonComponent;
