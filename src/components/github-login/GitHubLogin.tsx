@@ -7,7 +7,7 @@ const GitHubLogin: FC<{ onClick?: () => void; isLoading?: boolean }> = ({
   return (
     <button
       onClick={onClick}
-      className="bg-black text-white text-xl inline-flex items-center justify-center p-2 rounded-md border-2  gap-4 min-w-[200px] h-[50px] cursor-pointer transform hover:scale-105 transition duration-500 ease-in-out"
+      className="bg-black text-white text-sm font-bold inline-flex items-center justify-center p-2 m-2 rounded-md border-2  gap-4 min-w-[220px] min-h-[50px] cursor-pointer transform hover:scale-105 transition duration-500 ease-in-out"
       disabled={isLoading}
     >
       {isLoading ? (
