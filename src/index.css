@@ -4,7 +4,7 @@
   font-family: "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  height: 100%;
   color-scheme: light dark;
 
   font-synthesis: none;
@@ -13,6 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
   color: #213547;
   background-color: #ffffff;
+
+  --color-primary: #b91879;
 }
 
 @theme {
@@ -23,11 +25,12 @@
 
 a {
   font-weight: 500;
+  color: #7e7e7e;
   text-decoration: inherit;
 }
 
-a.opacity-hover:hover {
-  opacity: 0.7;
+a:hover {
+  color: #b91879;
 }
 
 body {

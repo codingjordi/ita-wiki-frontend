@@ -1,4 +1,4 @@
-import { Link, useNavigate, useLocation, useSearchParams } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import logoItAcademy from "../../assets/LogoItAcademy.svg";
 import addIcon from "../../assets/add.svg";
 import userIcon from "../../assets/user2.svg";
@@ -17,7 +17,7 @@ const HeaderComponent = () => {
   const { user, signIn, signOut } = useCtxUser();
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchParams] = useSearchParams();
+
   const [resource, setResource] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -36,9 +36,8 @@ const HeaderComponent = () => {
   };
 
   const isSearchDisabled = location.pathname === "/";
-
   const handleSearch = (query: string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(location.search);
     params.set("search", query);
     navigate(`?${params.toString()}`);
   };
@@ -132,6 +131,7 @@ const HeaderComponent = () => {
             text="Añadir Usuario"
           ></ButtonComponent>
         )}
+
         {user && (
           <ButtonComponent
             icon={addIcon}
