@@ -53,7 +53,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
                 <Link
                   to={path}
                   className={classNames("transition-colors", {
-                    "!text-[#b91879] !font-bold": isActive,
+                    "!text-[var(--color-primary)] !font-bold": isActive,
                     "text-gray-700 ": !isActive,
                   })}
                 >
