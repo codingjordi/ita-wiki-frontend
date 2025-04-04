@@ -2,10 +2,8 @@ import folder from "../assets/new-folder-dynamic-color.svg";
 import puzzle from "../assets/puzzle-dynamic-color.svg";
 import ok from "../assets/thumb-up-dynamic-color.svg";
 import { useCtxUser } from "../hooks/useCtxUser";
-import { useState, useEffect, useCallback } from "react";
-import { AddUsersModal } from "../components/resources/AddUserModal";
+import { useCallback } from "react";
 import ButtonComponent from "../components/atoms/ButtonComponent";
-import { getUserRole } from "../api/userApi";
 import Card from "../components/ui/Card";
 import { useNavigate } from "react-router";
 import PageTitle from "../components/ui/PageTitle";
@@ -13,30 +11,6 @@ import PageTitle from "../components/ui/PageTitle";
 export default function HomePage() {
   const navigate = useNavigate();
   const { signOut, user } = useCtxUser();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userRole, setUserRole] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (user && user.id) {
-      getUserRole(user.id)
-        .then((roleData) => {
-          setUserRole(roleData || null);
-        })
-        .catch((err) => {
-          console.error("Error fetching role:", err);
-          setUserRole(null);
-        });
-    } else {
-      setUserRole(null);
-    }
-  }, [user]);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const hasPermission = userRole
-    ? ["superadmin", "admin", "mentor"].includes(userRole)
-    : false;
 
   const handleNavigate = useCallback(() => {
     navigate("/resources/React");
@@ -78,12 +52,6 @@ export default function HomePage() {
                 </button>
               </article>
             )}
-
-            {hasPermission && (
-              <ButtonComponent onClick={openModal} className="mt-4">
-                Añadir Usuario
-              </ButtonComponent>
-            )}
           </article>
           <div>
             <div className="w-full flex flex-col items-center justify-center gap-6">
@@ -121,13 +89,6 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-        {isModalOpen && hasPermission && (
-          <AddUsersModal
-            onClose={closeModal}
-            userRole={userRole}
-            userID={user.id}
-          />
-        )}
       </main>
     </>
   );
