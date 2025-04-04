@@ -48,11 +48,11 @@ describe("Render Button", () => {
 
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass(
-      "block",
-      "w-full",
-      "h-[63px]",
-      "bg-[#B91879]",
-      "hover:bg-[#c44d95]",
+      "font-[600]",
+      "min-w-[152px]",
+      "text-white",
+      "bg-primary",
+      "hover:opacity-90",
     );
   });
   it("should have secondary classes", () => {
@@ -61,12 +61,12 @@ describe("Render Button", () => {
 
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass(
-      "block",
-      "w-full",
-      "text-[#7e7e7e] ",
-      "h-[63px]",
-      "bg-[#fff]",
-      "hover:bg-[#dcdcdc]",
+      "border",
+      "border-gray-foreground",
+      "font-[600]",
+      "text-gray-foregorund",
+      "hover:bg-neutral-50",
+      "min-w-[138px]",
     );
   });
   it("should be close button", () => {
@@ -116,7 +116,7 @@ describe("Render Button", () => {
   });
   it("should render button with children", () => {
     const { container } = render(
-      <ButtonComponent variant="default">
+      <ButtonComponent variant="primary">
         X<span className="align-super text-sm">2</span>
       </ButtonComponent>,
     );
