@@ -8,6 +8,8 @@ import { useCtxUser } from "../../hooks/useCtxUser";
 import { useEffect, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
+import { AddUsersModal } from "../resources/AddUserModal";
+import { getUserRole } from "../../api/userApi";
 
 const HeaderComponent = () => {
   const { user, signIn } = useCtxUser();
@@ -18,6 +20,7 @@ const HeaderComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
@@ -33,6 +36,30 @@ const HeaderComponent = () => {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const openAddUserModal = () => setIsAddUserModalOpen(true);
+  const closeAddUserModal = () => setIsAddUserModalOpen(false);
+
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (user && user.id) {
+      getUserRole(user.id)
+        .then((roleData) => {
+          setUserRole(roleData || null);
+        })
+        .catch((err) => {
+          console.error("Error fetching role:", err);
+          setUserRole(null);
+        });
+    } else {
+      setUserRole(null);
+    }
+  }, [user]);
+
+  const hasPermission = userRole
+    ? ["superadmin", "admin", "mentor"].includes(userRole)
+    : false;
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,7 +88,18 @@ const HeaderComponent = () => {
       <Link to="/">
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
-      <div className="flex">
+
+      <div className="flex gap-2 items-center">
+
+        {hasPermission && (
+          <ButtonComponent
+            onClick={openAddUserModal}
+            icon={addIcon}
+            variant="icon"
+            text="Añadir Usuario"
+          ></ButtonComponent>
+        )}
+
         {user && (
           <ButtonComponent
             icon={addIcon}
@@ -108,6 +146,13 @@ const HeaderComponent = () => {
               </div>
             )}
           </Modal>
+        )}
+        {isAddUserModalOpen && hasPermission && (
+          <AddUsersModal
+            onClose={closeAddUserModal}
+            userRole={userRole}
+            userID={user.id}
+          />
         )}
       </div>
     </header>

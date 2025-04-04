@@ -18,6 +18,7 @@
 }
 
 @theme {
+  --color-primary: #b91879;
   --color-gray-foreground: #7e7e7e;
   --background-image-card: url("assets/bg-card.svg");
 }
