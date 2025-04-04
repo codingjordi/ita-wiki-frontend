@@ -1,10 +1,10 @@
-import { Link, useNavigate, useLocation, useSearchParams } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import logoItAcademy from "../../assets/LogoItAcademy.svg";
 import addIcon from "../../assets/add.svg";
 import userIcon from "../../assets/user2.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
-import SearchComponent from "./header/SearchComponent";
+
 import { useEffect, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
@@ -15,7 +15,7 @@ const HeaderComponent = () => {
   const { user, signIn } = useCtxUser();
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchParams] = useSearchParams();
+
   const [resource, setResource] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -24,14 +24,6 @@ const HeaderComponent = () => {
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
-  };
-
-  const isSearchDisabled = location.pathname === "/";
-
-  const handleSearch = (query: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("search", query);
-    navigate(`?${params.toString()}`);
   };
 
   useEffect(() => {
@@ -96,12 +88,8 @@ const HeaderComponent = () => {
       <Link to="/">
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
+
       <div className="flex gap-2 items-center">
-        <SearchComponent
-          onSearch={handleSearch}
-          disabled={isSearchDisabled}
-          resetTrigger={resource}
-        />
         {hasPermission && (
           <ButtonComponent
             onClick={openAddUserModal}
@@ -110,6 +98,7 @@ const HeaderComponent = () => {
             text="Añadir Usuario"
           ></ButtonComponent>
         )}
+
         {user && (
           <ButtonComponent
             icon={addIcon}
