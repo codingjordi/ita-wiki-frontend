@@ -13,6 +13,7 @@ interface ItaButtonProps {
   children?: ReactNode;
   variant?: ItaBtnVariant;
   text?: string;
+  title?: string;
   icon?: string;
   type?: "button" | "submit" | "reset";
   className?: string;
@@ -47,14 +48,19 @@ const ButtonComponent: FC<ItaButtonProps> = ({
   return (
     <button type={type || "button"} onClick={onClick} className={baseClass}>
       {variant === "close" && <img src={closeIcon} alt="Close" />}
-      {variant === "icon" && (
-        <img
-          src={icon}
-          alt="icon"
-          className={`h-[17px] ${text ? "mr-3" : ""}`}
-        />
+
+      {variant === "icon" && text && (
+        <>
+          <span className="mr-2">{text}</span>
+          <img src={icon} alt="icon" className="h-[17px]" />
+        </>
       )}
-      {text || children}
+
+      {variant === "icon" && !text && (
+        <img src={icon} alt="icon" className="h-[17px]" />
+      )}
+
+      {variant !== "icon" && (text || children)}
     </button>
   );
 };
