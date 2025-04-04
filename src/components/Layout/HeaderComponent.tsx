@@ -228,9 +228,12 @@ const HeaderComponent = () => {
 
         {/* MODAL LOGIN */}
         {isModalOpen && (
-          <Modal closeModal={closeModal} title="Inicio sesión">
+          <Modal closeModal={closeModal} title="Inicio de sesión">
             <GitHubLogin onClick={handleSignIn} isLoading={isLoading} />
-            <label htmlFor="terms" className="block mt-8">
+            <label
+              htmlFor="terms"
+              className=" flex items-center gap-2 mt-8 cursor-pointer font-medium text-[1rem]"
+            >
               <input
                 name="terms"
                 id="terms"
