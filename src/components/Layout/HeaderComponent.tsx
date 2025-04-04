@@ -1,7 +1,6 @@
 import { Link, useNavigate, useLocation, useSearchParams } from "react-router";
 import logoItAcademy from "../../assets/LogoItAcademy.svg";
 import addIcon from "../../assets/add.svg";
-import settingsIcon from "../../assets/settings.svg";
 import userIcon from "../../assets/user2.svg";
 import arrowDown from "../../assets/arrow-down.svg";
 import logOutIcon from "../../assets/logout-svgrepo-com.svg";
@@ -87,7 +86,7 @@ const HeaderComponent = () => {
   };
 
   return (
-    <header className="hidden lg:flex bg-[#ebebeb] p-6 items-center justify-between">
+    <header className="hidden lg:flex py-4 px-6 items-center justify-between">
       <Link to="/">
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
@@ -145,8 +144,6 @@ const HeaderComponent = () => {
             </div>
           )}
         </div>
-
-        <ButtonComponent icon={settingsIcon} variant="icon" />
 
         {/* AVATAR & DROPDOWN */}
         {user ? (
