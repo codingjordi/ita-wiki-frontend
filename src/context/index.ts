@@ -1,7 +1,8 @@
 import { createContext } from "react";
 import { IntUser } from "../types";
 export interface PropsContext {
-  user: IntUser;
+  user: IntUser | null;
+  isAuthenticated: boolean;
   saveUser: (user: IntUser) => void;
   signIn: () => void;
   signOut: () => void;

@@ -9,24 +9,26 @@ interface ResourceCardProps {
   resource: IntResource;
   isBookmarked?: boolean;
   toggleBookmark?: (resource: IntResource) => void;
-  bookmarkCount?: number;
-  commentsCount?: number;
 }
 
 const ResourceCard: FC<ResourceCardProps> = ({
   resource,
   isBookmarked,
   toggleBookmark,
-  bookmarkCount = 0,
-  commentsCount = 0,
 }) => {
-  const { title, description, type, created_at, votes } = resource;
+  const {
+    title,
+    description,
+    type,
+    created_at,
+    votes,
+    bookmark_count,
+    comment_count,
+  } = resource;
   const { user } = useCtxUser();
 
   const handleBookmarkClick = () => {
     if (!user) {
-      console.log("User not logged in, cannot toggle bookmark");
-      // Here we could add a redirect to login or show a tooltip/message
       return;
     }
 
@@ -72,7 +74,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
             >
               <BookmarkIconComponent marked={isBookmarked} />
             </div>
-            {bookmarkCount}
+            {bookmark_count ?? 0}
           </span>
           <span className="flex items-center gap-1">
             <Clock size={16} />
@@ -85,7 +87,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
       <div className="flex items-center gap-4 shrink-0">
         <div className="flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2">
           <MessageCircle size={16} className="text-black" />
-          <span className="text-sm font-medium">{commentsCount}</span>
+          <span className="text-sm font-medium">{comment_count ?? 0}</span>
         </div>
         <div className="flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2">
           <Triangle size={16} className="text-black" />

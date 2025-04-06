@@ -46,7 +46,6 @@ export default function CreateResourcePage() {
     <>
       <PageTitle title="Create Resource" />
       <div className="w-full">
-        <h1 className="font-semibold">Nuevo recurso</h1>
         <div className="flex justify-center mt-20 xl:mr-[198px]">
           <form
             onSubmit={handleSubmit(onSubmit)}

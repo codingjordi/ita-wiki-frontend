@@ -1,9 +1,8 @@
 import { FC, useState } from "react";
 import { IntResource } from "../../types";
-// import { useCtxUser } from "../../hooks/useCtxUser";
 import { useResourceFilter } from "../../hooks/useResourceFilter";
 import { useResourceSort } from "../../hooks/useResourceSort";
-import { useResources } from "../../context/ResourcesContext"; // Updated import
+import { useResources } from "../../context/ResourcesContext";
 
 import { FilterResources } from "./FilterResources";
 import SortButton from "./SortButton";
@@ -26,7 +25,6 @@ export const ListResources: FC<ListResourceProps> = ({
   category,
 }) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  // const { user } = useCtxUser();
 
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("search") || "";
@@ -57,7 +55,7 @@ export const ListResources: FC<ListResourceProps> = ({
   const { isBookmarked, toggleBookmark } = useResources();
 
   const visibleResources = sortedResources.filter((resource) =>
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase())
+    resource.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (

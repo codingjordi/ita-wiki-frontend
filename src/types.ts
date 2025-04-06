@@ -20,7 +20,6 @@ export interface IntUser {
 }
 
 export interface IntResource {
-  votes: number;
   id?: number;
   github_id: number;
   title: string;
@@ -31,6 +30,9 @@ export interface IntResource {
   category: Category;
   theme: Theme;
   type: ResourceType;
+  votes: number;
+  bookmark_count?: number;
+  comment_count?: number;
 }
 
 export type TypTechnologyResource =

@@ -39,7 +39,6 @@ export const ResourcesProvider = ({
   >([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(true);
 
-  // Fetch resources on mount
   useEffect(() => {
     const fetchResources = async () => {
       try {
@@ -56,7 +55,6 @@ export const ResourcesProvider = ({
     fetchResources();
   }, []);
 
-  // Fetch bookmarks when user or resources change
   useEffect(() => {
     if (!user || resources.length === 0) {
       setBookmarkedResources([]);
@@ -67,21 +65,19 @@ export const ResourcesProvider = ({
     const fetchBookmarks = async () => {
       try {
         setLoadingBookmarks(true);
-        // const fetchedBookmarks: Bookmark[] = await getBookmarks(
-        //   user.id.toString()
-        // );
-
-        const fetchedBookmarks: Bookmark[] = await getBookmarks("6729608");
+        const fetchedBookmarks: Bookmark[] = await getBookmarks(
+          user.id.toString(),
+        );
 
         const bookmarkedResources: IntBookmarkElement[] = resources
           .filter((resource) =>
             fetchedBookmarks.some(
-              (bookmark) => bookmark.resource_id === resource.id
-            )
+              (bookmark) => bookmark.resource_id === resource.id,
+            ),
           )
           .map((resource) => {
             const matchedBookmark = fetchedBookmarks.find(
-              (bookmark) => bookmark.resource_id === resource.id
+              (bookmark) => bookmark.resource_id === resource.id,
             );
 
             return {
@@ -95,10 +91,9 @@ export const ResourcesProvider = ({
             };
           });
 
-        // Sort bookmarks by created_at in descending order
         const sortedBookmarks = bookmarkedResources.sort(
           (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
         );
 
         setBookmarkedResources(sortedBookmarks);
@@ -113,34 +108,30 @@ export const ResourcesProvider = ({
     fetchBookmarks();
   }, [user, resources]);
 
-  // Use the bookmark toggle hook
   const { toggleBookmark: toggleBookmarkAction } = useBookmarkToggle();
 
-  // Handle bookmark toggling with proper error handling
   const toggleBookmark = async (resource: IntResource) => {
     if (!user) return;
 
     try {
-      // Pass the current state and setter to the toggle function
       await toggleBookmarkAction(
         resource,
         bookmarkedResources,
-        setBookmarkedResources
+        setBookmarkedResources,
       );
     } catch (error) {
       console.error("Error in toggleBookmark:", error);
 
-      // If toggling fails, re-fetch bookmarks to restore correct state
       if (user && resources.length > 0) {
         try {
           const fetchedBookmarks: Bookmark[] = await getBookmarks(
-            user.id.toString()
+            user.id.toString(),
           );
           const revertedBookmarks = resources
             .filter((r) => fetchedBookmarks.some((b) => b.resource_id === r.id))
             .map((r) => {
               const match = fetchedBookmarks.find(
-                (b) => b.resource_id === r.id
+                (b) => b.resource_id === r.id,
               );
               return {
                 id: r.id!,
@@ -159,7 +150,6 @@ export const ResourcesProvider = ({
     }
   };
 
-  // Function to check if a resource is bookmarked
   const isBookmarked = (resource: IntResource) => {
     return bookmarkedResources.some((bookmark) => bookmark.id === resource.id);
   };

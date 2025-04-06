@@ -19,7 +19,7 @@ export const useResourceSort = ({ resources }: UseResourceSortProps) => {
     }
 
     const parseDate = (
-      dateValue: string | Date | undefined
+      dateValue: string | Date | undefined,
     ): { timestamp: number; year: number } => {
       if (!dateValue) return { timestamp: 0, year: 0 };
 

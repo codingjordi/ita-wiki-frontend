@@ -1,16 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import BookmarkIconComponent from "../BookmarkIconComponent";
-import bookmarkFull from "../../../assets/bookmark_full.svg";
-import bookmarkEmpty from "../../../assets/bookmark_empty.svg";
-import { vi } from "vitest";
-
-vi.mock("/assets/bookmark_full.svg", () => ({
-  default: "test-file-stub",
-}));
-vi.mock("/assets/bookmark_empty.svg", () => ({
-  default: "test-file-stub",
-}));
 
 describe("BookmarkIconComponent class", () => {
   it("The component must have the initial styles", () => {
@@ -19,37 +9,62 @@ describe("BookmarkIconComponent class", () => {
     expect(bookmarkIcon).toHaveClass("items-center");
   });
 });
+
 describe("BookmarkIconComponent", () => {
-  it("renders bookmarkFull when marked is true", () => {
+  it("renders filled bookmark icon when marked is true", () => {
     render(<BookmarkIconComponent marked={true} />);
-    expect(screen.getByAltText("Bookmark is marked")).toBeInTheDocument();
-    expect(screen.getByAltText("Bookmark is marked")).toHaveAttribute(
-      "src",
-      bookmarkFull,
+    const bookmarkIcon = screen.getByLabelText(
+      "Guardado en la lista de lectura",
     );
+    expect(bookmarkIcon).toBeInTheDocument();
+
+    // Check for the SVG element itself
+    const svgElement = bookmarkIcon.closest("svg");
+    expect(svgElement).toBeInTheDocument();
+
+    // Check if there's a path with fill="black"
+    const svgPaths = svgElement.querySelectorAll("path");
+    expect(svgPaths.length).toBeGreaterThan(0);
+
+    // Check for stroke color - Lucide uses stroke instead of color
+    expect(svgElement).toHaveAttribute("stroke", "black");
   });
 
-  it("renders bookmarkEmpty when marked is false", () => {
+  it("renders empty bookmark icon when marked is false", () => {
     render(<BookmarkIconComponent marked={false} />);
-    expect(screen.getByAltText("Bookmark is not marked")).toBeInTheDocument();
-    expect(screen.getByAltText("Bookmark is not marked")).toHaveAttribute(
-      "src",
-      bookmarkEmpty,
+    const bookmarkIcon = screen.getByLabelText(
+      "No guardado en la lista de lectura",
     );
+    expect(bookmarkIcon).toBeInTheDocument();
+
+    // Check for the SVG element itself
+    const svgElement = bookmarkIcon.closest("svg");
+    expect(svgElement).toBeInTheDocument();
+
+    // Check for stroke color - Lucide uses stroke instead of color
+    expect(svgElement).toHaveAttribute("stroke", "gray");
   });
 
   it("renders a div with correct class names", () => {
     render(<BookmarkIconComponent marked={true} />);
-    expect(screen.getByRole("img").closest("div")).toHaveClass(
+    const bookmarkContainer = screen.getByTestId("bookmarkIcon");
+    expect(bookmarkContainer).toHaveClass(
       "flex items-center justify-start gap-2 max-h-12",
     );
   });
 
-  it("renders img with correct height", () => {
+  it("renders bookmark with correct size", () => {
     render(<BookmarkIconComponent marked={true} />);
-    expect(screen.getByAltText("Bookmark is marked")).toHaveAttribute(
-      "height",
-      "16",
+    const bookmarkIcon = screen.getByLabelText(
+      "Guardado en la lista de lectura",
     );
+
+    // Check for the SVG element itself
+    const svgElement = bookmarkIcon.closest("svg");
+    expect(svgElement).toBeInTheDocument();
+
+    // Lucide icons typically render with width and height attributes
+    expect(svgElement).toHaveAttribute("width", "16");
+    expect(svgElement).toHaveAttribute("height", "16");
   });
 });

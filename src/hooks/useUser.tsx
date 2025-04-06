@@ -45,8 +45,11 @@ export const useUser = () => {
     }
   };
 
+  const isAuthenticated = !!user;
+
   return {
     user,
+    isAuthenticated,
     saveUser,
     signIn,
     signOut,
