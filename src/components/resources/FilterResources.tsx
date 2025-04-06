@@ -30,9 +30,9 @@ export const FilterResources: FC<FilterResourcesProps> = ({
       setSelectedResourceTypes(
         selectedResourceTypes.includes(resourceType)
           ? selectedResourceTypes.filter(
-              (rType: string) => rType !== resourceType,
+              (rType: string) => rType !== resourceType
             )
-          : [...selectedResourceTypes, resourceType],
+          : [...selectedResourceTypes, resourceType]
       );
     }
   };
@@ -40,23 +40,27 @@ export const FilterResources: FC<FilterResourcesProps> = ({
   const { category } = useParams();
   const [prevCategory, setPrevCategory] = useState<string | null>(null);
 
+  // First useEffect only runs when category changes
   useEffect(() => {
     if (category !== prevCategory) {
       setSelectedResourceTypes([...resourceTypes]);
       setPrevCategory(category ?? null);
       resetTheme();
     }
-    if (selectedResourceTypes.length === 0 && resourceTypes.length > 0) {
-      setSelectedResourceTypes([...resourceTypes]);
-    }
   }, [
     category,
     prevCategory,
     resourceTypes,
-    selectedResourceTypes,
-    setSelectedResourceTypes,
     resetTheme,
+    setSelectedResourceTypes,
   ]);
+
+  // Second useEffect to handle empty selectedResourceTypes
+  useEffect(() => {
+    if (selectedResourceTypes.length === 0 && resourceTypes.length > 0) {
+      setSelectedResourceTypes([...resourceTypes]);
+    }
+  }, [resourceTypes, selectedResourceTypes.length, setSelectedResourceTypes]);
 
   return (
     <div className="mt-6">

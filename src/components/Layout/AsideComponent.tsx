@@ -68,19 +68,19 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
       <section className="pt-6">
         <p className="pb-3 font-bold text-lg">Mis recursos</p>
 
-        {/* <Link to="/resources/bookmarked"> */}
-        <div className="flex items-center gap-2 py-1 text-gray-500">
-          <Bookmark size={25} />
-          <span>Guardados</span>
-        </div>
-        {/* </Link> */}
+        <Link to="/resources/bookmarks">
+          <div className="flex items-center gap-2 py-1 text-gray-500">
+            <Bookmark size={25} />
+            <span>Guardados</span>
+          </div>
+        </Link>
 
-        {/* <Link to="/resources/my-resources"> */}
-        <p className="flex items-center gap-2 py-1 text-gray-500">
-          <PenSquare size={25} />
-          <span>Creados</span>
-        </p>
-        {/* </Link> */}
+        <Link to="/resources/my-resources">
+          <p className="flex items-center gap-2 py-1 text-gray-500">
+            <PenSquare size={25} />
+            <span>Creados</span>
+          </p>
+        </Link>
       </section>
     </aside>
   );

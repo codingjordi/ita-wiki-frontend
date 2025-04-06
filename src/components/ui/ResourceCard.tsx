@@ -7,8 +7,8 @@ import BookmarkIconComponent from "../resources/BookmarkIconComponent";
 
 interface ResourceCardProps {
   resource: IntResource;
-  isBookmarked: boolean;
-  toggleBookmark: (resource: IntResource) => void;
+  isBookmarked?: boolean;
+  toggleBookmark?: (resource: IntResource) => void;
   bookmarkCount?: number;
   commentsCount?: number;
 }
@@ -24,15 +24,15 @@ const ResourceCard: FC<ResourceCardProps> = ({
   const { user } = useCtxUser();
 
   const handleBookmarkClick = () => {
-    // Only allow bookmark toggling for logged-in users
     if (!user) {
       console.log("User not logged in, cannot toggle bookmark");
-      // Here you could add a redirect to login or show a tooltip/message
+      // Here we could add a redirect to login or show a tooltip/message
       return;
     }
 
-    console.log("Bookmark clicked");
-    toggleBookmark(resource);
+    if (toggleBookmark) {
+      toggleBookmark(resource);
+    }
   };
 
   const formattedDate =
@@ -50,10 +50,15 @@ const ResourceCard: FC<ResourceCardProps> = ({
     <div className="bg-white rounded-2xl shadow-sm border border-gray-400 p-6 flex justify-between items-center w-full max-w-[710px] h-[109px]">
       {/* Left Section */}
       <div className="flex flex-col space-y-2 overflow-hidden">
-        <div>
+        <a
+          href={resource.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block space-y-2"
+        >
           <h3 className="text-lg font-bold text-black truncate">{title}</h3>
           <p className="text-gray-500 text-sm truncate">{description}</p>
-        </div>
+        </a>
         <div className="flex items-center gap-4 text-gray-500 text-sm">
           <span className="flex items-center gap-1">
             <PlayCircle size={16} />

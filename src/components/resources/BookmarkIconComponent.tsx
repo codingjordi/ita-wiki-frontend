@@ -2,10 +2,12 @@ import { FC } from "react";
 import { Bookmark } from "lucide-react";
 
 interface BookmarkComponentProps {
-  marked: boolean;
+  marked?: boolean;
 }
 
-const BookmarkIconComponent: FC<BookmarkComponentProps> = ({ marked }) => {
+const BookmarkIconComponent: FC<BookmarkComponentProps> = ({
+  marked = false,
+}) => {
   return (
     <div
       id="bookmarkIcon"
