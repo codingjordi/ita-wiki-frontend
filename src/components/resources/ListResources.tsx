@@ -1,17 +1,16 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import { IntResource } from "../../types";
-import { useCtxUser } from "../../hooks/useCtxUser";
+// import { useCtxUser } from "../../hooks/useCtxUser";
 import { useResourceFilter } from "../../hooks/useResourceFilter";
 import { useResourceSort } from "../../hooks/useResourceSort";
+import { useResources } from "../../context/ResourcesContext"; // Updated import
 
 import { FilterResources } from "./FilterResources";
-import { ListMyResources } from "./ListMyResources";
 import SortButton from "./SortButton";
 
 import { categories } from "../../data/categories";
 import { themes } from "../../data/themes";
 import { resourceTypes } from "../../data/resourceTypes";
-import BookMarkList from "./bookmarks/BookMarkList";
 
 import FilterButton from "./FilterButton";
 import { useSearchParams } from "react-router";
@@ -27,7 +26,7 @@ export const ListResources: FC<ListResourceProps> = ({
   category,
 }) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  const { user } = useCtxUser();
+  // const { user } = useCtxUser();
 
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("search") || "";
@@ -55,14 +54,10 @@ export const ListResources: FC<ListResourceProps> = ({
     resources: filteredResources,
   });
 
-  const userCreatedResources = user
-    ? resources.filter((resource) => resource.github_id === Number(user.id))
-    : [];
-
-  useEffect(() => {}, [sortedResources]);
+  const { isBookmarked, toggleBookmark } = useResources();
 
   const visibleResources = sortedResources.filter((resource) =>
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    resource.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -120,19 +115,15 @@ export const ListResources: FC<ListResourceProps> = ({
 
             <ul className="flex flex-col gap-2 py-8">
               {visibleResources.map((resource: IntResource) => (
-                <ResourceCard key={resource.id} resource={resource} />
+                <ResourceCard
+                  key={resource.id}
+                  resource={resource}
+                  isBookmarked={isBookmarked(resource)}
+                  toggleBookmark={toggleBookmark}
+                />
               ))}
             </ul>
           </div>
-        </div>
-
-        <div className="shrink-0 px-4 lg:w-80 mt-6 sm:mt-0 space-y-6">
-          <div className="bg-white sm:rounded-xl px-4 py-6 sm:px-6 lg:pl-8 xl:shrink-0 xl:pl-6">
-            <BookMarkList resources={resources} />
-          </div>
-          {user && userCreatedResources.length > 0 && (
-            <ListMyResources myResources={userCreatedResources} />
-          )}
         </div>
       </div>
     )

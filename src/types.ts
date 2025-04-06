@@ -26,8 +26,8 @@ export interface IntResource {
   title: string;
   description: string;
   url: string;
-  create_at?: Date | string;
-  update_at?: Date | string;
+  created_at?: Date | string;
+  updated_at?: Date | string;
   category: Category;
   theme: Theme;
   type: ResourceType;
@@ -63,4 +63,5 @@ export interface IntBookmarkElement {
   title: string;
   description: string;
   url: string;
+  created_at: string;
 }

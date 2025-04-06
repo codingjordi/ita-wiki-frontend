@@ -2,8 +2,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import classNames from "classnames";
 import SearchComponent from "./header/SearchComponent";
 import { useState } from "react";
-import BookMarkList from "../resources/bookmarks/BookMarkList";
-import { useResources } from "../../context/ResourcesContext";
+// import { useResources } from "../../context/ResourcesContext";
 import { Bookmark, PenSquare } from "lucide-react";
 
 type AsideItem = {
@@ -22,7 +21,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
   const navigate = useNavigate();
   const [resource] = useState("");
   const isSearchDisabled = location.pathname === "/";
-  const { resources } = useResources();
+  // const { resources } = useResources();
 
   const handleSearch = (query: string) => {
     const params = new URLSearchParams(searchParams);
@@ -69,19 +68,19 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
       <section className="pt-6">
         <p className="pb-3 font-bold text-lg">Mis recursos</p>
 
+        {/* <Link to="/resources/bookmarked"> */}
         <div className="flex items-center gap-2 py-1 text-gray-500">
           <Bookmark size={25} />
           <span>Guardados</span>
         </div>
+        {/* </Link> */}
 
+        {/* <Link to="/resources/my-resources"> */}
         <p className="flex items-center gap-2 py-1 text-gray-500">
           <PenSquare size={25} />
           <span>Creados</span>
         </p>
-
-        <div className="py-1">
-          <BookMarkList resources={resources} />
-        </div>
+        {/* </Link> */}
       </section>
     </aside>
   );

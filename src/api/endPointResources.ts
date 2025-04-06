@@ -6,9 +6,9 @@ const moockResources = moock.resources.map(
   (resource) =>
     ({
       ...resource,
-      create_at: "2025-02-25 00:00:00",
-      update_at: "2025-02-25 00:00:00",
-    }) as IntResource,
+      created_at: "2025-02-25 00:00:00",
+      updated_at: "2025-02-25 00:00:00",
+    }) as IntResource
 );
 
 const getResources = async (): Promise<IntResource[]> => {
@@ -48,7 +48,7 @@ const createResource = async (resource: Partial<IntResource>) => {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(
-        errorData.message || `Error ${response.status}: ${response.statusText}`,
+        errorData.message || `Error ${response.status}: ${response.statusText}`
       );
     }
 

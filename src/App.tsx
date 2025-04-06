@@ -18,6 +18,11 @@ const App: FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/resources/:category" element={<ResourcesPage />} />
+            {/* <Route path="/resources/bookmarks" element={<BookmarksPage />} />
+            <Route
+              path="/resources/my-resources"
+              element={<MyResourcesPage />}
+            /> */}
             <Route path="/resources/add" element={<CreateResourcePage />} />
             <Route path="/resources" element={<ResourcesPage />} />
           </Routes>

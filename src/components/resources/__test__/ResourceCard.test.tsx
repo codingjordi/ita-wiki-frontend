@@ -7,7 +7,7 @@ const resourceMock = {
   title: "React Basics",
   description: "Learn React step-by-step",
   type: "Video",
-  create_at: "1 abril de 2023",
+  created_at: "1 abril de 2023",
   votes: 22,
 } as IntResource;
 
@@ -17,7 +17,7 @@ test("renders title and description", () => {
       resource={{ ...resourceMock, votes: 0 }}
       bookmarkCount={0}
       commentsCount={0}
-    />,
+    />
   );
 
   const allZeros = screen.getAllByText("0");
@@ -26,11 +26,7 @@ test("renders title and description", () => {
 
 test("displays correct title and description", () => {
   render(
-    <ResourceCard
-      resource={resourceMock}
-      bookmarkCount={5}
-      commentsCount={2}
-    />,
+    <ResourceCard resource={resourceMock} bookmarkCount={5} commentsCount={2} />
   );
   expect(screen.getByText("React Basics")).toBeInTheDocument();
   expect(screen.getByText("Learn React step-by-step")).toBeInTheDocument();
@@ -38,11 +34,7 @@ test("displays correct title and description", () => {
 
 test("displays resource type", () => {
   render(
-    <ResourceCard
-      resource={resourceMock}
-      bookmarkCount={5}
-      commentsCount={2}
-    />,
+    <ResourceCard resource={resourceMock} bookmarkCount={5} commentsCount={2} />
   );
   expect(screen.getByText("Video")).toBeInTheDocument();
 });

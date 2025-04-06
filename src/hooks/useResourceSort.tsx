@@ -19,7 +19,7 @@ export const useResourceSort = ({ resources }: UseResourceSortProps) => {
     }
 
     const parseDate = (
-      dateValue: string | Date | undefined,
+      dateValue: string | Date | undefined
     ): { timestamp: number; year: number } => {
       if (!dateValue) return { timestamp: 0, year: 0 };
 
@@ -66,8 +66,8 @@ export const useResourceSort = ({ resources }: UseResourceSortProps) => {
 
     const parsedResources = resources.map((res) => ({
       ...res,
-      parsedDate: parseDate(res.create_at).timestamp,
-      parsedYear: parseDate(res.create_at).year,
+      parsedDate: parseDate(res.created_at).timestamp,
+      parsedYear: parseDate(res.created_at).year,
     }));
 
     const yearsSet = new Set(parsedResources.map((res) => res.parsedYear));

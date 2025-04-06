@@ -6,11 +6,22 @@ import { VotesResource } from "./VotesResource";
 import { UserResource } from "./UserResource";
 import { FooterResource } from "./FooterResource";
 import BookmarkIconComponent from "./BookmarkIconComponent";
+
 type ResourceProps = {
   resource: IntResource;
+  isBookmarked: boolean;
+  toggleBookmark: (resource: IntResource) => void;
 };
 
-export const Resource: FC<ResourceProps> = ({ resource }) => {
+export const Resource: FC<ResourceProps> = ({
+  resource,
+  isBookmarked,
+  toggleBookmark,
+}) => {
+  const handleBookmarkClick = () => {
+    toggleBookmark(resource);
+  };
+
   return (
     <li
       role="resources"
@@ -27,7 +38,9 @@ export const Resource: FC<ResourceProps> = ({ resource }) => {
             Reprehenderit laborum cillum anim section.
           </p>
         </ContentResource>
-        <BookmarkIconComponent marked={false} />
+        <div onClick={handleBookmarkClick} className="cursor-pointer">
+          <BookmarkIconComponent marked={isBookmarked} />
+        </div>
       </BodyResource>
       <FooterResource>
         <>
@@ -41,9 +54,9 @@ export const Resource: FC<ResourceProps> = ({ resource }) => {
           />
           {`,`}
           <span className="text-[#808080] font-bold">
-            {resource.create_at instanceof Date
-              ? resource.create_at.toLocaleDateString()
-              : resource.create_at}
+            {resource.created_at instanceof Date
+              ? resource.created_at.toLocaleDateString()
+              : resource.created_at}
           </span>{" "}
         </>
       </FooterResource>
