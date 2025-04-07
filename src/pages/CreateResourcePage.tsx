@@ -64,8 +64,7 @@ export default function CreateResourcePage() {
   return (
     <>
       <PageTitle title="Create Resource" />
-      <div className="my-9 mx-18 w-full lg:w-6/7 bg-white py-10 px-15  rounded-xl">
-        {/* <div className="overflow-y-scroll"> */}
+      <div className="my-9 mx-18 w-full lg:w-6/7 bg-white py-10 px-15  rounded-xl ">
         <div className="md:flex justify-between items-center">
           <div>
             <h3 className="text-sm font-medium text-gray-500">
@@ -90,10 +89,10 @@ export default function CreateResourcePage() {
         </div>
         <hr className="w-full border-t border-gray-300 mt-3" />
 
-        <div className="flex mt-8">
+        <div className="flex mt-8 overflow-y-scroll">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="">
+            className=" ">
             <h2 className="text-sm text-black font-medium mb-3">Título</h2>
             <FormInput
               id="title"
@@ -112,20 +111,20 @@ export default function CreateResourcePage() {
             />
 
             {/* AQUI VAN LOS BOTONES DE LENGUAJE */}
-            <h2 className="text-sm text-black font-medium">Lenguaje</h2>
+            <h2 className="text-sm text-black font-medium mb-5">Lenguaje</h2>
             <div className="flex gap-x-3">
               <ButtonComponent
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect('Java')}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                className={`min-w-[8rem] max-h-[3.5rem] text-black  ${
                   selectedCategory === 'Java' ? 'border-2 border-[#B91879]' : ''
                 }`}>
                 <div className="flex justify-center items-center gap-1 h-fit">
                   <img
                     src={logoJava}
                     alt="LogoJava"
-                    className="mx-1"
+                    className="w-7"
                   />
                   <h1 className="text-sm font-medium">Java</h1>
                 </div>
@@ -144,7 +143,7 @@ export default function CreateResourcePage() {
                   <img
                     src={logoPhp}
                     alt="LogoPHP"
-                    className="mx-1"
+                    className="w-7"
                   />
                   <h1 className="text-sm font-medium">PHP</h1>
                 </div>
@@ -163,7 +162,7 @@ export default function CreateResourcePage() {
                   <img
                     src={logoJavaS}
                     alt="LogoJavaS"
-                    className="mx-1"
+                    className="w-5"
                   />
                   <h1 className="text-sm font-medium">JavaScript</h1>
                 </div>
@@ -178,11 +177,11 @@ export default function CreateResourcePage() {
                     ? 'border-2 border-[#B91879]'
                     : ''
                 }`}>
-                <div className="flex justify-center">
+                <div className="flex justify-center items-center gap-1">
                   <img
                     src={logoTypeS}
                     alt="LogoTypeS"
-                    className="mx-1"
+                    className="w-6"
                   />
                   <h1 className="text-sm font-medium">TypeScript</h1>
                 </div>
@@ -201,7 +200,7 @@ export default function CreateResourcePage() {
                   <img
                     src={logoPython}
                     alt="LogoPython"
-                    className="mx-1"
+                    className="w-6"
                   />
                   <h1 className="text-sm font-medium">Python</h1>
                 </div>
@@ -218,7 +217,7 @@ export default function CreateResourcePage() {
                   <img
                     src={logoSql}
                     alt="LogoSQL"
-                    className="mx-1"
+                    className="w-5"
                   />
                   <h1 className="text-sm font-medium">SQL</h1>
                 </div>
@@ -370,7 +369,6 @@ export default function CreateResourcePage() {
             </ButtonComponent> */}
           </form>
         </div>
-        {/* </div> */}
       </div>
     </>
   );
