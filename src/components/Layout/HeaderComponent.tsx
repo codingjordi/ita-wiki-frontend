@@ -286,7 +286,7 @@ const HeaderComponent = () => {
           <AddUsersModal
             onClose={closeAddUserModal}
             userRole={userRole}
-            userID={user.id}
+            userID={user?.id ?? ""}
           />
         )}
       </div>

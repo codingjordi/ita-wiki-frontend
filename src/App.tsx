@@ -1,11 +1,16 @@
 import { FC } from "react";
-import { Route, Routes } from "react-router";
+import { Route, Routes, Navigate } from "react-router";
+
 import HomePage from "./pages/HomePage";
 import CreateResourcePage from "./pages/CreateResourcePage";
 import HeaderComponent from "./components/Layout/HeaderComponent";
 import AsideComponent from "./components/Layout/AsideComponent";
 import ResourcesPage from "./pages/ResourcesPage";
 import { asideContent } from "./components/Layout/aside/asideContent";
+import BookmarksPage from "./pages/BookmarksPage";
+import MyResourcesPage from "./pages/MyResourcesPage";
+
+import RequireAuth from "./components/RequireAuth";
 
 const App: FC = () => {
   return (
@@ -16,10 +21,22 @@ const App: FC = () => {
         <AsideComponent asideContent={asideContent} />
         <div className="flex-grow">
           <Routes>
+            {/* Public routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/resources/:category" element={<ResourcesPage />} />
-            <Route path="/resources/add" element={<CreateResourcePage />} />
-            <Route path="/resources" element={<ResourcesPage />} />
+
+            {/* Protected routes */}
+            <Route element={<RequireAuth />}>
+              <Route path="/resources/bookmarks" element={<BookmarksPage />} />
+              <Route
+                path="/resources/my-resources"
+                element={<MyResourcesPage />}
+              />
+              <Route path="/resources/add" element={<CreateResourcePage />} />
+            </Route>
+
+            {/* Fallback route */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </div>

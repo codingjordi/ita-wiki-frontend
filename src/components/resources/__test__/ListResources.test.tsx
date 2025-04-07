@@ -6,6 +6,7 @@ import { categories } from "../../../data/categories";
 import { IntResource } from "../../../types";
 import { describe, it, expect, vi } from "vitest";
 
+// Mock the entire hook
 vi.mock("../../../hooks/useResourceFilter", () => ({
   useResourceFilter: () => ({
     filteredResources: moockResources,
@@ -23,12 +24,22 @@ vi.mock("../../../hooks/useCtxUser", () => ({
   }),
 }));
 
+// Add mock for useResources
+vi.mock("../../../context/ResourcesContext", () => ({
+  useResources: () => ({
+    isBookmarked: vi.fn(),
+    toggleBookmark: vi.fn(),
+    resources: moockResources,
+    isLoading: false,
+  }),
+}));
+
 const moockResources = moock.resources.map(
   (resource) =>
     ({
       ...resource,
-      create_at: "2025-02-25 00:00:00",
-      update_at: "2025-02-25 00:00:00",
+      created_at: "2025-02-25 00:00:00",
+      updated_at: "2025-02-25 00:00:00",
     }) as IntResource,
 );
 
@@ -44,19 +55,5 @@ describe("ListResources Component", () => {
 
     const titleElement = screen.getByText(`Recursos ${String(category)}`);
     expect(titleElement.tagName).toBe("H2");
-  });
-
-  it("should render user's own resources when user logged in and own resources present", () => {
-    const userResources = moockResources.map((resource) => ({
-      ...resource,
-      github_id: 123463,
-    }));
-
-    render(
-      <MemoryRouter>
-        <ListResources resources={userResources} category={category} />
-      </MemoryRouter>,
-    );
-    expect(screen.queryByTestId("my-resources-container")).toBeInTheDocument();
   });
 });
