@@ -6,7 +6,6 @@ import arrowDown from "../../assets/arrow-down.svg";
 import logOutIcon from "../../assets/logout-svgrepo-com.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
-import SearchComponent from "./header/SearchComponent";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
@@ -33,13 +32,6 @@ const HeaderComponent = () => {
 
   const goToResourcesPage = () => {
     navigate("/resources/add");
-  };
-
-  const isSearchDisabled = location.pathname === "/";
-  const handleSearch = (query: string) => {
-    const params = new URLSearchParams(location.search);
-    params.set("search", query);
-    navigate(`?${params.toString()}`);
   };
 
   useEffect(() => {
@@ -117,12 +109,6 @@ const HeaderComponent = () => {
         <img src={logoItAcademy} alt="logo" width={"116px"} />
       </Link>
       <div className="flex items-center gap-[6px]">
-        <SearchComponent
-          onSearch={handleSearch}
-          disabled={isSearchDisabled}
-          resetTrigger={resource}
-        />
-
         {hasPermission && (
           <ButtonComponent
             onClick={openAddUserModal}
