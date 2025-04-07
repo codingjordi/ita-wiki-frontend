@@ -13,7 +13,7 @@ const END_POINTS = {
     post: "resources/" as EndPoints,
   },
   bookmarks: {
-    get: "bookmarks/" as EndPoints,
+    get: "bookmarks" as EndPoints,
     post: "bookmarks" as EndPoints,
     delete: "bookmarks" as EndPoints,
   },

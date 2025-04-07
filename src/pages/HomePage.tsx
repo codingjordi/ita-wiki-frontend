@@ -15,6 +15,8 @@ export default function HomePage() {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const DEFAULT_CATEGORY = "React";
+
   useEffect(() => {
     if (user && user.id) {
       getUserRole(user.id)
@@ -37,14 +39,14 @@ export default function HomePage() {
     if (!user || !userRole) return;
 
     if (["anonymous", "student", "mentor"].includes(userRole)) {
-      navigate("/resources");
+      navigate(`/resources/${DEFAULT_CATEGORY}`);
     } else if (["admin", "superadmin"].includes(userRole)) {
       navigate("/admin-dashboard");
     }
   }, [user, userRole, navigate]);
 
   const handleNavigate = useCallback(() => {
-    navigate("/resources/React");
+    navigate(`/resources/${DEFAULT_CATEGORY}`);
   }, [navigate]);
 
   if (loading) {

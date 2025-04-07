@@ -1,10 +1,13 @@
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
-import classNames from "classnames";
-import SearchComponent from "./header/SearchComponent";
 import { useState } from "react";
-import BookMarkList from "../resources/bookmarks/BookMarkList";
-import { useResources } from "../../context/ResourcesContext";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
+
+import classNames from "classnames";
 import { Bookmark, PenSquare } from "lucide-react";
+
+import { useCtxUser } from "../../hooks/useCtxUser";
+
+import SearchComponent from "./header/SearchComponent";
+import ButtonComponent from "../atoms/ButtonComponent";
 
 type AsideItem = {
   icon: string;
@@ -22,12 +25,20 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
   const navigate = useNavigate();
   const [resource] = useState("");
   const isSearchDisabled = location.pathname === "/";
-  const { resources } = useResources();
+  const { user } = useCtxUser();
 
   const handleSearch = (query: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("search", query);
     navigate(`?${params.toString()}`);
+  };
+
+  const goToResourcesPage = () => {
+    navigate("/resources/add");
+  };
+
+  const isPathActive = (path: string) => {
+    return currentPath === path;
   };
 
   return (
@@ -45,8 +56,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
         <ul className="space-y-6">
           {asideContent.map((item, index) => {
             const path = `/resources/${item.label}`;
-            const isActive =
-              currentPath === `/resources/${encodeURIComponent(item.label)}`;
+            const isActive = isPathActive(path);
 
             return (
               <li key={index} className="flex items-center space-x-3">
@@ -55,7 +65,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
                   to={path}
                   className={classNames("transition-colors", {
                     "!text-[var(--color-primary)] !font-bold": isActive,
-                    "text-gray-700 ": !isActive,
+                    "text-gray-700": !isActive,
                   })}
                 >
                   {item.label}
@@ -66,23 +76,52 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
         </ul>
       </section>
 
-      <section className="pt-6">
-        <p className="pb-3 font-bold text-lg">Mis recursos</p>
+      {user && (
+        <>
+          <section className="py-6">
+            <p className="pb-3 font-bold text-lg">Mis recursos</p>
 
-        <div className="flex items-center gap-2 py-1 text-gray-500">
-          <Bookmark size={25} />
-          <span>Guardados</span>
-        </div>
+            <div className="flex items-center space-x-3 py-1">
+              <Bookmark size={25} />
+              <Link
+                to="/resources/bookmarks"
+                className={classNames("transition-colors", {
+                  "!text-[var(--color-primary)] !font-bold": isPathActive(
+                    "/resources/bookmarks",
+                  ),
+                  "text-gray-700": !isPathActive("/resources/bookmarks"),
+                })}
+              >
+                Guardados
+              </Link>
+            </div>
 
-        <p className="flex items-center gap-2 py-1 text-gray-500">
-          <PenSquare size={25} />
-          <span>Creados</span>
-        </p>
-
-        <div className="py-1">
-          <BookMarkList resources={resources} />
-        </div>
-      </section>
+            <div className="flex items-center space-x-3 py-1">
+              <PenSquare size={25} />
+              <Link
+                to="/resources/my-resources"
+                className={classNames("transition-colors", {
+                  "!text-[var(--color-primary)] !font-bold": isPathActive(
+                    "/resources/my-resources",
+                  ),
+                  "text-gray-700": !isPathActive("/resources/my-resources"),
+                })}
+              >
+                Creados
+              </Link>
+            </div>
+          </section>
+          <section>
+            <ButtonComponent
+              type="button"
+              variant="primary"
+              onClick={goToResourcesPage}
+            >
+              Crear recurso
+            </ButtonComponent>
+          </section>
+        </>
+      )}
     </aside>
   );
 };

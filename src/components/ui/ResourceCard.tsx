@@ -1,31 +1,47 @@
 import { FC } from "react";
-import {
-  MessageCircle,
-  Bookmark,
-  PlayCircle,
-  Clock,
-  Triangle,
-} from "lucide-react";
+import { MessageCircle, PlayCircle, Clock, Triangle } from "lucide-react";
 import { IntResource } from "../../types";
+import { useCtxUser } from "../../hooks/useCtxUser";
+
+import BookmarkIconComponent from "../resources/BookmarkIconComponent";
 
 interface ResourceCardProps {
   resource: IntResource;
-  bookmarkCount?: number;
-  commentsCount?: number;
+  isBookmarked?: boolean;
+  toggleBookmark?: (resource: IntResource) => void;
 }
 
 const ResourceCard: FC<ResourceCardProps> = ({
   resource,
-  bookmarkCount = 0,
-  commentsCount = 0,
+  isBookmarked,
+  toggleBookmark,
 }) => {
-  const { title, description, type, create_at, votes } = resource;
+  const {
+    title,
+    description,
+    type,
+    created_at,
+    votes,
+    bookmark_count,
+    comment_count,
+  } = resource;
+  const { user } = useCtxUser();
+
+  const handleBookmarkClick = () => {
+    if (!user) {
+      return;
+    }
+
+    if (toggleBookmark) {
+      toggleBookmark(resource);
+    }
+  };
 
   const formattedDate =
-    typeof create_at === "string" && isNaN(Date.parse(create_at))
-      ? create_at
-      : create_at
-        ? new Date(create_at).toLocaleDateString("es-ES", {
+    typeof created_at === "string" && isNaN(Date.parse(created_at))
+      ? created_at
+      : created_at
+        ? new Date(created_at).toLocaleDateString("es-ES", {
             day: "2-digit",
             month: "short",
             year: "numeric",
@@ -33,21 +49,32 @@ const ResourceCard: FC<ResourceCardProps> = ({
         : "Fecha desconocida";
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border  border-gray-400 p-6 flex justify-between items-center w-full max-w-[710px] h-[109px]">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-400 p-6 flex justify-between items-center w-full max-w-[710px] h-[109px]">
       {/* Left Section */}
       <div className="flex flex-col space-y-2 overflow-hidden">
-        <div>
+        <a
+          href={resource.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block space-y-2"
+        >
           <h3 className="text-lg font-bold text-black truncate">{title}</h3>
           <p className="text-gray-500 text-sm truncate">{description}</p>
-        </div>
+        </a>
         <div className="flex items-center gap-4 text-gray-500 text-sm">
           <span className="flex items-center gap-1">
             <PlayCircle size={16} />
             {type}
           </span>
           <span className="flex items-center gap-1">
-            <Bookmark size={16} />
-            {bookmarkCount}
+            <div
+              onClick={handleBookmarkClick}
+              className={`${user ? "cursor-pointer" : "cursor-not-allowed opacity-70"}`}
+              title={user ? undefined : "Inicia sesión para guardar recursos"}
+            >
+              <BookmarkIconComponent marked={isBookmarked} />
+            </div>
+            {bookmark_count ?? 0}
           </span>
           <span className="flex items-center gap-1">
             <Clock size={16} />
@@ -58,11 +85,11 @@ const ResourceCard: FC<ResourceCardProps> = ({
 
       {/* Right Section */}
       <div className="flex items-center gap-4 shrink-0">
-        <div className="flex flex-col items-center justify-center border  border-gray-200 rounded-lg px-3 py-2">
+        <div className="flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2">
           <MessageCircle size={16} className="text-black" />
-          <span className="text-sm font-medium">{commentsCount}</span>
+          <span className="text-sm font-medium">{comment_count ?? 0}</span>
         </div>
-        <div className="flex flex-col items-center justify-center border  border-gray-200 rounded-lg px-3 py-2">
+        <div className="flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2">
           <Triangle size={16} className="text-black" />
           <span className="text-sm font-medium">{votes ?? 0}</span>
         </div>

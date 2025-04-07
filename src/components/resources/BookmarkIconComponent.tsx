@@ -1,22 +1,29 @@
 import { FC } from "react";
-import bookmarkFull from "../../assets/bookmark_full.svg";
-import bookmarkEmpty from "../../assets/bookmark_empty.svg";
+import { Bookmark } from "lucide-react";
 
 interface BookmarkComponentProps {
-  marked: boolean;
+  marked?: boolean;
 }
-const BookmarkIconComponent: FC<BookmarkComponentProps> = ({ marked }) => {
+
+const BookmarkIconComponent: FC<BookmarkComponentProps> = ({
+  marked = false,
+}) => {
   return (
     <div
       id="bookmarkIcon"
       data-testid="bookmarkIcon"
       className="flex items-center justify-start gap-2 max-h-12"
     >
-      {marked ? (
-        <img src={bookmarkFull} height={16} alt="Bookmark is marked" />
-      ) : (
-        <img src={bookmarkEmpty} height={16} alt="Bookmark is not marked" />
-      )}
+      <Bookmark
+        size={16}
+        fill={marked ? "black" : "none"}
+        color={marked ? "black" : "gray"}
+        aria-label={
+          marked
+            ? "Guardado en la lista de lectura"
+            : "No guardado en la lista de lectura"
+        }
+      />
     </div>
   );
 };

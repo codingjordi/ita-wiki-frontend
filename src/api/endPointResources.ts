@@ -6,8 +6,8 @@ const moockResources = moock.resources.map(
   (resource) =>
     ({
       ...resource,
-      create_at: "2025-02-25 00:00:00",
-      update_at: "2025-02-25 00:00:00",
+      created_at: "2025-02-25 00:00:00",
+      updated_at: "2025-02-25 00:00:00",
     }) as IntResource,
 );
 
@@ -24,6 +24,7 @@ const getResources = async (): Promise<IntResource[]> => {
     }
 
     const data = await response.json();
+
     return Array.isArray(data) && data.length ? data : moockResources;
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
