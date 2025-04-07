@@ -14,8 +14,9 @@ import logoJavaS from '../../src/assets//javascript.svg';
 import logoTypeS from '../../src/assets/TypescriptVector.svg';
 import logoPython from '../../src/assets/pythonVector.svg';
 import logoSql from '../../src/assets/sqlVector.svg';
- import TagInput from '../components/resources/create-resources/TagInput';
+import TagInput from '../components/resources/create-resources/TagInput';
 import { useState } from 'react';
+import { Category } from '../types'; // Importa el tipo Category
 
 export default function CreateResourcePage() {
   const { user } = useUser();
@@ -23,11 +24,19 @@ export default function CreateResourcePage() {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
-  } = useForm<Partial<IntResource>>({
+  } = useForm({
     resolver: zodResolver(resourceSchema),
   });
+
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+
+  const handleCategorySelect = (category: Category) => {
+    setSelectedCategory(category); // Actualiza el estado local
+    setValue('category', category); // Registra el valor en el formulario
+  };
 
   const [tags, setTags] = useState<string[]>([]);
 
@@ -107,101 +116,86 @@ export default function CreateResourcePage() {
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                className="min-w-[8rem] max-h-[3.5rem] text-black py-2 hover:bg-transparent hover:scale-100 focus:border-2 focus:border-[#B91879]">
+                onClick={() => handleCategorySelect('Java')}
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'Java' ? 'border-2 border-[#B91879]' : ''
+                  }`}
+              >
                 <div className="flex justify-center items-center gap-1 h-fit">
-                  <img
-                    src={logoJava}
-                    alt="LogoJava"
-                    className="mx-1"
-                  />
-                  <h1 className="text-sm font-medium">
-                    Java
-                  </h1>
+                  <img src={logoJava} alt="LogoJava" className="mx-1" />
+                  <h1 className="text-sm font-medium">Java</h1>
                 </div>
               </ButtonComponent>
 
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                className="min-w-[8rem] max-h-[3.5rem] focus:border-2 focus:border-[#B91879] text-black py-2 hover:bg-transparent hover:scale-100
-              ">
+                onClick={() => handleCategorySelect('Fullstack PHP')}
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'Fullstack PHP' ? 'border-2 border-[#B91879]' : ''
+                  }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoPhp}
-                    alt="LogoPHP"
-                    className="mx-1"
-                  />
-                  <h1 className=" text-sm font-medium">
-                    PHP
-                  </h1>
+                  <img src={logoPhp} alt="LogoPHP" className="mx-1" />
+                  <h1 className="text-sm font-medium">PHP</h1>
                 </div>
               </ButtonComponent>
 
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                className="min-w-[12rem] max-h-[3.5rem] focus:border-[#B91879] text-black py-2 hover:bg-transparent hover:scale-100
-              ">
+                onClick={() => handleCategorySelect('Javascript')}
+                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'Javascript' ? 'border-2 border-[#B91879]' : ''
+                  }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoJavaS}
-                    alt="LogoJavaS"
-                    className="mx-1"
-                  />
-                  <h1 className="text-sm font-medium">
-                    JavaScript
-                  </h1>
+                  <img src={logoJavaS} alt="LogoJavaS" className="mx-1" />
+                  <h1 className="text-sm font-medium">JavaScript</h1>
                 </div>
               </ButtonComponent>
 
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                className="min-w-[12rem] max-h-[3.5rem] focus:border-[#B91879] text-black py-2 hover:bg-transparent hover:scale-100
-              ">
+                onClick={() => handleCategorySelect('TypeScript')}
+                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'TypeScript' ? 'border-2 border-[#B91879]' : ''
+                  }`}
+              >
                 <div className="flex justify-center">
-                  <img
-                    src={logoTypeS}
-                    alt="logoTypeS"
-                    className="mx-1"
-                  />
-                  <h1 className="text-sm font-medium">
-                    TypeScript
-                  </h1>
+                  <img src={logoTypeS} alt="LogoTypeS" className="mx-1" />
+                  <h1 className="text-sm font-medium">TypeScript</h1>
                 </div>
               </ButtonComponent>
+
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                className="min-w-[8rem] max-h-[3.5rem] focus:border-[#B91879] text-black py-2 hover:bg-transparent hover:scale-100
-              ">
+                onClick={() => handleCategorySelect('Python')}
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'Python' ? 'border-2 border-[#B91879]' : ''
+                  }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoPython}
-                    alt="logoPython"
-                    className="mx-1"
-                  />
-                  <h1 className="text-sm font-medium">
-                    Python
-                  </h1>
+                  <img src={logoPython} alt="LogoPython" className="mx-1" />
+                  <h1 className="text-sm font-medium">Python</h1>
                 </div>
               </ButtonComponent>
+
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                className="min-w-[8rem] max-h-[3.5rem] focus:border-[#B91879] text-black py-2 hover:bg-transparent hover:scale-100
-              ">
+                onClick={() => handleCategorySelect('SQL')}
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'SQL' ? 'border-2 border-[#B91879]' : ''
+                  }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoSql}
-                    alt="logoSql"
-                    className="mx-1"
-                  />
-                  <h1 className="text-sm font-medium">
-                    SQL
-                  </h1>
+                  <img src={logoSql} alt="LogoSQL" className="mx-1" />
+                  <h1 className="text-sm font-medium">SQL</h1>
                 </div>
               </ButtonComponent>
+            </div>
+
+            <div className="h-6">
+              {errors.category && (
+                <p className="text-red-500 text-sm">{errors.category.message}</p>
+              )}
             </div>
 
             {/* CÓDIGO QUE AÚN NO QUIERO BORRAR */}
@@ -316,6 +310,12 @@ export default function CreateResourcePage() {
                 className="max-w-[482px] max-h-[4.5rem] border-[0.06rem] border-gray-300 focus:border-[#B91879] outline-none"
               />
             </div>
+            <ButtonComponent
+              type="submit"
+              variant="primary"
+              className="min-w-[8rem] max-h-[2.75rem]">
+              Publicar
+            </ButtonComponent>
           </form>
         </div>
       </div>
