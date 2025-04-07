@@ -56,7 +56,7 @@ const TagInput: React.FC<TagInputProps> = ({ selectedTags, setSelectedTags }) =>
 
       {/* Lista de sugerencias */}
       {filteredSuggestions.length > 0 && (
-        <ul className="bg-white border rounded-md shadow-md mt-2 h-48 overflow-y-scroll">
+        <ul className="bg-white border rounded-md shadow-md mt-2 max-h-48 overflow-y-scroll">
           {filteredSuggestions.map((tag) => (
             <li
               key={tag}
