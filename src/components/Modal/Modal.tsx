@@ -1,6 +1,6 @@
-import GitHubLogin from "../github-login/GitHubLogin";
-import { useCtxUser } from "../../hooks/useCtxUser";
-import closeIcon from "../../../src/assets/close2.svg";
+import GitHubLogin from '../github-login/GitHubLogin';
+import { useCtxUser } from '../../hooks/useCtxUser';
+import closeIcon from '../../../src/assets/close2.svg';
 
 interface ModalProps {
   closeModal: () => void;
@@ -20,10 +20,11 @@ export const Modal = ({ closeModal, title, children }: ModalProps) => {
     <>
       <div
         className="fixed inset-0 bg-black/30 flex justify-center items-center z-50"
-        onClick={handleBackdropClick}
-      >
+        onClick={handleBackdropClick}>
         <div className="bg-white p-6 rounded-2xl w-[35%] min-h-[35%] relative">
-          <button className="absolute top-6 right-6 " onClick={closeModal}>
+          <button
+            className="absolute top-6 right-6 "
+            onClick={closeModal}>
             <img
               src={closeIcon}
               alt="Cerrar modal"
