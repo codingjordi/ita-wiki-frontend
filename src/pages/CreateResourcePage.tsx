@@ -16,7 +16,7 @@ import logoPython from '../../src/assets/pythonVector.svg';
 import logoSql from '../../src/assets/sqlVector.svg';
 import TagInput from '../components/resources/create-resources/TagInput';
 import { useState } from 'react';
-import { Category } from '../types'; // Importa el tipo Category
+import { Category } from '../types';
 
 export default function CreateResourcePage() {
   const { user } = useUser();
@@ -31,11 +31,13 @@ export default function CreateResourcePage() {
     resolver: zodResolver(resourceSchema),
   });
 
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null,
+  );
 
   const handleCategorySelect = (category: Category) => {
-    setSelectedCategory(category); // Actualiza el estado local
-    setValue('category', category); // Registra el valor en el formulario
+    setSelectedCategory(category);
+    setValue('category', category);
   };
 
   const [tags, setTags] = useState<string[]>([]);
@@ -62,15 +64,14 @@ export default function CreateResourcePage() {
   return (
     <>
       <PageTitle title="Create Resource" />
-      <div className="my-5 w-full lg:w-6/7 bg-white py-10 px-15 rounded-xl overflow-y-scroll">
+      <div className="my-9 mx-18 w-full lg:w-6/7 bg-white py-10 px-15  rounded-xl">
+        {/* <div className="overflow-y-scroll"> */}
         <div className="md:flex justify-between items-center">
           <div>
             <h3 className="text-sm font-medium text-gray-500">
               Recursos / crear recurso
             </h3>
-            <h1 className="text-[26px] font-black ">
-              Nuevo recurso
-            </h1>
+            <h1 className="text-[26px] font-black ">Nuevo recurso</h1>
           </div>
           <div className="flex  ">
             <ButtonComponent
@@ -99,7 +100,7 @@ export default function CreateResourcePage() {
               placeholder=""
               register={register}
               errors={errors.title?.message}
-              className="max-w-[482px] max-h-[2.6rem] border-[0.06rem] border-gray-300 focus:border-2 focus:border-[#B91879] outline-none mb-0"
+              className="max-w-[482px] max-h-[2.6rem] border-[0.06rem] border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
             />
             <h2 className="text-sm text-black font-medium mb-3">URL</h2>
             <FormInput
@@ -117,11 +118,15 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect('Java')}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'Java' ? 'border-2 border-[#B91879]' : ''
-                  }`}
-              >
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === 'Java' ? 'border-2 border-[#B91879]' : ''
+                }`}>
                 <div className="flex justify-center items-center gap-1 h-fit">
-                  <img src={logoJava} alt="LogoJava" className="mx-1" />
+                  <img
+                    src={logoJava}
+                    alt="LogoJava"
+                    className="mx-1"
+                  />
                   <h1 className="text-sm font-medium">Java</h1>
                 </div>
               </ButtonComponent>
@@ -130,11 +135,17 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect('Fullstack PHP')}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'Fullstack PHP' ? 'border-2 border-[#B91879]' : ''
-                  }`}
-              >
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === 'Fullstack PHP'
+                    ? 'border-2 border-[#B91879]'
+                    : ''
+                }`}>
                 <div className="flex justify-center items-center gap-1">
-                  <img src={logoPhp} alt="LogoPHP" className="mx-1" />
+                  <img
+                    src={logoPhp}
+                    alt="LogoPHP"
+                    className="mx-1"
+                  />
                   <h1 className="text-sm font-medium">PHP</h1>
                 </div>
               </ButtonComponent>
@@ -143,11 +154,17 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect('Javascript')}
-                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'Javascript' ? 'border-2 border-[#B91879]' : ''
-                  }`}
-              >
+                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === 'Javascript'
+                    ? 'border-2 border-[#B91879]'
+                    : ''
+                }`}>
                 <div className="flex justify-center items-center gap-1">
-                  <img src={logoJavaS} alt="LogoJavaS" className="mx-1" />
+                  <img
+                    src={logoJavaS}
+                    alt="LogoJavaS"
+                    className="mx-1"
+                  />
                   <h1 className="text-sm font-medium">JavaScript</h1>
                 </div>
               </ButtonComponent>
@@ -156,11 +173,17 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect('TypeScript')}
-                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'TypeScript' ? 'border-2 border-[#B91879]' : ''
-                  }`}
-              >
+                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === 'TypeScript'
+                    ? 'border-2 border-[#B91879]'
+                    : ''
+                }`}>
                 <div className="flex justify-center">
-                  <img src={logoTypeS} alt="LogoTypeS" className="mx-1" />
+                  <img
+                    src={logoTypeS}
+                    alt="LogoTypeS"
+                    className="mx-1"
+                  />
                   <h1 className="text-sm font-medium">TypeScript</h1>
                 </div>
               </ButtonComponent>
@@ -169,11 +192,17 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect('Python')}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'Python' ? 'border-2 border-[#B91879]' : ''
-                  }`}
-              >
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === 'Python'
+                    ? 'border-2 border-[#B91879]'
+                    : ''
+                }`}>
                 <div className="flex justify-center items-center gap-1">
-                  <img src={logoPython} alt="LogoPython" className="mx-1" />
+                  <img
+                    src={logoPython}
+                    alt="LogoPython"
+                    className="mx-1"
+                  />
                   <h1 className="text-sm font-medium">Python</h1>
                 </div>
               </ButtonComponent>
@@ -182,11 +211,15 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect('SQL')}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${selectedCategory === 'SQL' ? 'border-2 border-[#B91879]' : ''
-                  }`}
-              >
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === 'SQL' ? 'border-2 border-[#B91879]' : ''
+                }`}>
                 <div className="flex justify-center items-center gap-1">
-                  <img src={logoSql} alt="LogoSQL" className="mx-1" />
+                  <img
+                    src={logoSql}
+                    alt="LogoSQL"
+                    className="mx-1"
+                  />
                   <h1 className="text-sm font-medium">SQL</h1>
                 </div>
               </ButtonComponent>
@@ -194,7 +227,9 @@ export default function CreateResourcePage() {
 
             <div className="h-6">
               {errors.category && (
-                <p className="text-red-500 text-sm">{errors.category.message}</p>
+                <p className="text-red-500 text-sm">
+                  {errors.category.message}
+                </p>
               )}
             </div>
 
@@ -251,7 +286,9 @@ export default function CreateResourcePage() {
             </div> */}
 
             {/* ESTO DEBERÍA ESTAR MÁS JUNTO */}
-            <h2 className="text-sm text-black font-medium mb-5">Tipo de recurso</h2>
+            <h2 className="text-sm text-black font-medium mb-5">
+              Tipo de recurso
+            </h2>
             <div className="flex justify-start gap-x-10">
               <div className="ml-1 flex gap-4 md:text-xl">
                 <input
@@ -261,7 +298,11 @@ export default function CreateResourcePage() {
                   className=" scale-150 accent-[#B91879] "
                   {...register('type', { required: true })}
                 />
-                <label htmlFor="video" className='text-sm'>Vídeo</label>
+                <label
+                  htmlFor="video"
+                  className="text-sm">
+                  Vídeo
+                </label>
               </div>
               <div className="flex gap-2 md:text-xl">
                 <input
@@ -271,7 +312,11 @@ export default function CreateResourcePage() {
                   className="scale-150 accent-[#B91879]"
                   {...register('type', { required: true })}
                 />
-                <label htmlFor="curso" className='text-sm'>Curso</label>
+                <label
+                  htmlFor="curso"
+                  className="text-sm">
+                  Curso
+                </label>
               </div>
               <div className="flex gap-2 md:text-xl">
                 <input
@@ -281,7 +326,11 @@ export default function CreateResourcePage() {
                   className="scale-150 accent-[#B91879]"
                   {...register('type', { required: true })}
                 />
-                <label htmlFor="blog" className='text-sm'>Blog</label>
+                <label
+                  htmlFor="blog"
+                  className="text-sm">
+                  Blog
+                </label>
               </div>
             </div>
 
@@ -290,9 +339,12 @@ export default function CreateResourcePage() {
                 <p className="text-red-500 text-sm">{errors.type.message}</p>
               )}
             </div>
-            {/* FALTA EL CUADRO DE TAGS */}
+
             <h2 className="text-sm text-black font-medium mb-3">Tags</h2>
-            <TagInput selectedTags={tags} setSelectedTags={setTags} />
+            <TagInput
+              selectedTags={tags}
+              setSelectedTags={setTags}
+            />
 
             <div>
               <hr className="w-full border-t border-gray-300 mt-3 " />
@@ -318,6 +370,7 @@ export default function CreateResourcePage() {
             </ButtonComponent>
           </form>
         </div>
+        {/* </div> */}
       </div>
     </>
   );

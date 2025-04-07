@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 interface TagInputProps {
   selectedTags: string[];
   setSelectedTags: (tags: string[]) => void;
 }
 
-const suggestions = ["React", "JavaScript", "TypeScript", "Node.js", "CSS", "HTML", "Next.js"];
+const suggestions = [
+  'React',
+  'JavaScript',
+  'TypeScript',
+  'Node.js',
+  'CSS',
+  'HTML',
+  'Next.js',
+];
 
-const TagInput: React.FC<TagInputProps> = ({ selectedTags, setSelectedTags }) => {
-  const [inputValue, setInputValue] = useState("");
+const TagInput: React.FC<TagInputProps> = ({
+  selectedTags,
+  setSelectedTags,
+}) => {
+  const [inputValue, setInputValue] = useState('');
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +28,9 @@ const TagInput: React.FC<TagInputProps> = ({ selectedTags, setSelectedTags }) =>
 
     if (value) {
       setFilteredSuggestions(
-        suggestions.filter((tag) => tag.toLowerCase().includes(value.toLowerCase()))
+        suggestions.filter((tag) =>
+          tag.toLowerCase().includes(value.toLowerCase()),
+        ),
       );
     } else {
       setFilteredSuggestions([]);
@@ -28,12 +41,12 @@ const TagInput: React.FC<TagInputProps> = ({ selectedTags, setSelectedTags }) =>
     if (!selectedTags.includes(tag)) {
       setSelectedTags([...selectedTags, tag]);
     }
-    setInputValue("");
+    setInputValue('');
     setFilteredSuggestions([]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputValue.trim() !== "") {
+    if (e.key === 'Enter' && inputValue.trim() !== '') {
       addTag(inputValue.trim());
     }
   };
@@ -51,18 +64,17 @@ const TagInput: React.FC<TagInputProps> = ({ selectedTags, setSelectedTags }) =>
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder="Escribe un tag..."
-        className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full p-2 border rounded-md  border-gray-300 focus:border-2 focus:border-[#B91879] outline-none"
       />
 
       {/* Lista de sugerencias */}
       {filteredSuggestions.length > 0 && (
-        <ul className="bg-white border rounded-md shadow-md mt-2 max-h-48 overflow-y-scroll">
+        <ul className="bg-white border-[1px] border-[#DEDEDE] rounded-md shadow-md mt-2 max-h-48 ">
           {filteredSuggestions.map((tag) => (
             <li
               key={tag}
-              className="cursor-pointer p-2 hover:bg-gray-200"
-              onClick={() => addTag(tag)}
-            >
+              className="cursor-pointer p-2 hover:bg-[#B91879] hover:text-white "
+              onClick={() => addTag(tag)}>
               {tag}
             </li>
           ))}
@@ -72,12 +84,13 @@ const TagInput: React.FC<TagInputProps> = ({ selectedTags, setSelectedTags }) =>
       {/* Tags seleccionados */}
       <div className="mt-3 flex flex-wrap gap-2">
         {selectedTags.map((tag) => (
-          <div key={tag} className="flex items-center bg-blue-200 text-blue-800 px-3 py-1 rounded-full">
+          <div
+            key={tag}
+            className="flex items-center bg-[#F6F6F6] text-black px-3 py-1 rounded-sm">
             <span>{tag}</span>
             <button
               onClick={() => removeTag(tag)}
-              className="ml-2 text-red-500 hover:text-red-700"
-            >
+              className="ml-2 text-black hover:text-gray-700">
               ✕
             </button>
           </div>
