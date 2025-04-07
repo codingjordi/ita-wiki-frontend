@@ -340,15 +340,15 @@ export default function CreateResourcePage() {
               )}
             </div>
 
-            <h2 className="text-sm text-black font-medium mb-3">Tags</h2>
             <TagInput
               selectedTags={tags}
               setSelectedTags={setTags}
             />
 
             <div>
-              <hr className="w-full border-t border-gray-300 mt-3 " />
-              <h2 className="text-base font-semibold my-4">
+              <hr className="w-full border-t border-gray-300 mt-5 " />
+
+              <h2 className="text-base font-semibold my-4 ">
                 Información adicional
               </h2>
               <h2 className="text-sm text-black font-medium vmb-5 mt-5 mb-3">
@@ -362,12 +362,12 @@ export default function CreateResourcePage() {
                 className="max-w-[482px] max-h-[4.5rem] border-[0.06rem] border-gray-300 focus:border-[#B91879] outline-none"
               />
             </div>
-            <ButtonComponent
+            {/* <ButtonComponent
               type="submit"
               variant="primary"
               className="min-w-[8rem] max-h-[2.75rem]">
               Publicar
-            </ButtonComponent>
+            </ButtonComponent> */}
           </form>
         </div>
         {/* </div> */}

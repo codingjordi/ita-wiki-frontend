@@ -56,37 +56,16 @@ const TagInput: React.FC<TagInputProps> = ({
   };
 
   return (
-    <div className="w-full max-w-md ">
-      {/* Input */}
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder="Escribe un tag..."
-        className="w-full p-2 border rounded-md  border-gray-300 focus:border-2 focus:border-[#B91879] outline-none"
-      />
+    <div className="w-full max-w-md">
+      <h3 className="mb-2 font-semibold text-lg text-gray-800">Tags</h3>
 
-      {/* Lista de sugerencias */}
-      {filteredSuggestions.length > 0 && (
-        <ul className="bg-white border-[1px] border-[#DEDEDE] rounded-md shadow-md mt-2 max-h-48 ">
-          {filteredSuggestions.map((tag) => (
-            <li
-              key={tag}
-              className="cursor-pointer p-2 hover:bg-[#B91879] hover:text-white "
-              onClick={() => addTag(tag)}>
-              {tag}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* Tags seleccionados */}
-      <div className="mt-3 flex flex-wrap gap-2">
+      {/* Contenedor de input con tags */}
+      <div className="w-full p-2 border rounded-md border-gray-300 flex flex-wrap gap-2 focus-within:border-2 ">
+        {/* Tags seleccionados */}
         {selectedTags.map((tag) => (
           <div
             key={tag}
-            className="flex items-center bg-[#F6F6F6] text-black px-3 py-1 rounded-sm">
+            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-1 rounded-md">
             <span>{tag}</span>
             <button
               onClick={() => removeTag(tag)}
@@ -95,7 +74,31 @@ const TagInput: React.FC<TagInputProps> = ({
             </button>
           </div>
         ))}
+
+        {/* Input */}
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Escribe un tag..."
+          className="w-full border-none outline-none bg-transparent mt-3"
+        />
       </div>
+
+      {/* Lista de sugerencias */}
+      {filteredSuggestions.length > 0 && (
+        <ul className="bg-white border border-[#DEDEDE] rounded-md shadow-md mt-2 max-h-48 ">
+          {filteredSuggestions.map((tag) => (
+            <li
+              key={tag}
+              className="cursor-pointer p-2 hover:bg-[#B91879] hover:text-white"
+              onClick={() => addTag(tag)}>
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
