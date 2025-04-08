@@ -60,9 +60,9 @@ const TagInput: React.FC<TagInputProps> = ({
 
   return (
     <div className="w-full max-w-[482px]">
-      <label className="mb-3 font-medium text-sm text-gray-800">Tema</label>
+      <label className="mb-4 font-medium text-sm text-gray-800">Tags</label>
 
-      <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2">
+      <div className="mt-2 p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2">
         {selectedTheme && (
           <div
             key={selectedTheme}

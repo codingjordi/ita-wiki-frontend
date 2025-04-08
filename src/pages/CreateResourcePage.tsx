@@ -24,7 +24,6 @@ export default function CreateResourcePage() {
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
     reset,
     formState: { errors },
@@ -70,7 +69,6 @@ export default function CreateResourcePage() {
     <>
       <PageTitle title="Create Resource" />
       <div className="my-9 mx-18 w-full lg:w-6/7 bg-white py-10 px-15  rounded-xl ">
-        <p className="text-base">{JSON.stringify(watch(), null, 2)}</p>
         <div className="md:flex justify-between items-center">
           <div>
             <h3 className="text-sm font-medium text-gray-500">
@@ -220,59 +218,6 @@ export default function CreateResourcePage() {
               )}
             </div>
 
-            {/* CÓDIGO QUE AÚN NO QUIERO BORRAR */}
-            {/* <select
-              id="category"
-              className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
-              defaultValue=""
-              {...register('category', { required: true })}>
-              <option
-                value=""
-                disabled>
-                Categoria
-              </option>
-              {categories.map((categorie) => (
-                <option
-                  key={categorie}
-                  value={categorie}>
-                  {categorie}
-                </option>
-              ))}
-            </select> */}
-            {/* <div className="h-6">
-              {errors.category && (
-                <p className="text-red-500 text-sm">
-                  {errors.category.message}
-                </p>
-              )}
-            </div> */}
-
-            {/* <select
-              id="theme"
-              className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
-              defaultValue=""
-              {...register('theme', { required: true })}>
-              <option
-                value=""
-                disabled>
-                Tema
-              </option>
-              {themes.map((theme) => (
-                <option
-                  key={theme}
-                  value={theme}>
-                  {theme}
-                </option>
-              ))}
-            </select> */}
-            {/* <div className="h-6">
-             
-              {errors.theme && (
-                <p className="text-red-500 text-sm">{errors.theme.message}</p>
-              )}
-            </div>
-
-            {/* ESTO DEBERÍA ESTAR MÁS JUNTO */}
             <h2 className="text-sm text-black font-medium mb-5">
               Tipo de recurso
             </h2>
@@ -333,12 +278,12 @@ export default function CreateResourcePage() {
             </div>
 
             <div>
-              <hr className="w-full border-t border-gray-300 mt-5 " />
+              <hr className="w-full border-t border-gray-300"/>
 
-              <h2 className="text-base font-semibold my-4 ">
+              <h2 className="text-base font-semibold mt-4 ">
                 Información adicional
               </h2>
-              <h2 className="text-sm text-black font-medium vmb-5 mt-5 mb-3">
+              <h2 className="text-sm text-black font-medium vmb-5 mt-2 mb-2">
                 Descripción
               </h2>
               <FormInput
@@ -348,6 +293,7 @@ export default function CreateResourcePage() {
                 errors={errors.description?.message}
                 className="max-w-[482px] max-h-[4.5rem] border-[0.06rem] border-gray-300 focus:border-[#B91879] outline-none"
               />
+              
             </div>
           </form>
         </div>
