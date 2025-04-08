@@ -2,6 +2,7 @@ import { FC } from "react";
 import { MessageCircle, PlayCircle, Clock, Triangle } from "lucide-react";
 import { IntResource } from "../../types";
 import { useCtxUser } from "../../hooks/useCtxUser";
+import { useResources } from "../../context/ResourcesContext";
 
 import BookmarkIconComponent from "../resources/BookmarkIconComponent";
 
@@ -16,16 +17,13 @@ const ResourceCard: FC<ResourceCardProps> = ({
   isBookmarked,
   toggleBookmark,
 }) => {
-  const {
-    title,
-    description,
-    type,
-    created_at,
-    votes,
-    bookmark_count,
-    comment_count,
-  } = resource;
+  const { title, description, type, created_at, votes, comment_count } =
+    resource;
+
   const { user } = useCtxUser();
+  const { getBookmarkCount } = useResources();
+
+  const bookmarkCount = resource.id ? getBookmarkCount(resource.id) : 0;
 
   const handleBookmarkClick = () => {
     if (!user) {
@@ -74,7 +72,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
             >
               <BookmarkIconComponent marked={isBookmarked} />
             </div>
-            {bookmark_count ?? 0}
+            {bookmarkCount}
           </span>
           <span className="flex items-center gap-1">
             <Clock size={16} />

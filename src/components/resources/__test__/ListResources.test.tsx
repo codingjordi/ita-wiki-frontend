@@ -6,7 +6,6 @@ import { categories } from "../../../data/categories";
 import { IntResource } from "../../../types";
 import { describe, it, expect, vi } from "vitest";
 
-// Mock the entire hook
 vi.mock("../../../hooks/useResourceFilter", () => ({
   useResourceFilter: () => ({
     filteredResources: moockResources,
@@ -24,13 +23,18 @@ vi.mock("../../../hooks/useCtxUser", () => ({
   }),
 }));
 
-// Add mock for useResources
 vi.mock("../../../context/ResourcesContext", () => ({
   useResources: () => ({
     isBookmarked: vi.fn(),
     toggleBookmark: vi.fn(),
     resources: moockResources,
     isLoading: false,
+    getBookmarkCount: (resourceId: number | string) => {
+      const resource = moockResources.find((r) => r.id === resourceId);
+      return resource?.bookmark_count || 0;
+    },
+    bookmarkedResources: [],
+    loadingBookmarks: false,
   }),
 }));
 
