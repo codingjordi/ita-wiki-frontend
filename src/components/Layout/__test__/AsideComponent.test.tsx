@@ -67,7 +67,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Categorias")).toBeInTheDocument();
@@ -76,7 +76,7 @@ describe("AsideComponent Tests", () => {
       expect(screen.getByText(item.label)).toBeInTheDocument();
     });
     expect(screen.getAllByTestId("mock-icon")).toHaveLength(
-      asideContentMock.length
+      asideContentMock.length,
     );
 
     const searchInput = screen.getByRole("textbox");
@@ -104,7 +104,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Categorias")).toBeInTheDocument();
@@ -141,7 +141,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const reactLink = screen.getByText("React").closest("a");
