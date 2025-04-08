@@ -4,7 +4,7 @@ import { themes } from "./data/themes";
 import { resourceTypes } from "./data/resourceTypes";
 
 export type Category = (typeof categories)[number];
-export type Theme = (typeof themes)[number];
+export type Theme = (typeof themes)[number] | null;
 export type ResourceType = (typeof resourceTypes)[number];
 
 export type TypChildren = {
@@ -33,6 +33,7 @@ export interface IntResource {
   votes: number;
   bookmark_count?: number;
   comment_count?: number;
+  tags?: string[];
 }
 
 export type TypTechnologyResource =

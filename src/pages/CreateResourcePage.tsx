@@ -1,15 +1,22 @@
-import { IntResource } from "../types";
+import { IntResource, Theme, Category } from "../types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resourceSchema } from "../validations/resourceSchema";
-import FormInput from "../components/FormInput";
+import FormInput from "../components/resources/create-resources/FormInput";
 import { createResource } from "../api/endPointResources";
 import { toast } from "sonner";
 import ButtonComponent from "../components/atoms/ButtonComponent";
-import { categories } from "../data/categories";
-import { themes } from "../data/themes";
 import { useUser } from "../hooks/useUser";
 import PageTitle from "../components/ui/PageTitle";
+import logoJava from "../../src/assets/logo-java 1.svg";
+import logoPhp from "../../src/assets/logo-php 1.svg";
+import logoJavaS from "../../src/assets/javascript.svg";
+import logoTypeS from "../../src/assets/TypescriptVector.svg";
+import logoPython from "../../src/assets/pythonVector.svg";
+import logoSql from "../../src/assets/sqlVector.svg";
+import TagInput from "../components/resources/create-resources/TagInput";
+import { useState } from "react";
+import { themes } from "../data/themes";
 
 export default function CreateResourcePage() {
   const { user } = useUser();
@@ -17,11 +24,27 @@ export default function CreateResourcePage() {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
-  } = useForm<Partial<IntResource>>({
+  } = useForm({
     resolver: zodResolver(resourceSchema),
   });
+
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null,
+  );
+  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
+
+  const handleThemeChange = (theme: (typeof themes)[number] | null) => {
+    setSelectedTheme(theme);
+    setValue("theme", theme);
+  };
+
+  const handleCategorySelect = (category: Category) => {
+    setSelectedCategory(category);
+    setValue("category", category);
+  };
 
   const onSubmit = async (data: Partial<IntResource>) => {
     const resourceWithGithubId = {
@@ -45,85 +68,171 @@ export default function CreateResourcePage() {
   return (
     <>
       <PageTitle title="Create Resource" />
-      <div className="w-full">
-        <div className="flex justify-center mt-20 xl:mr-[198px]">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="my-5 w-full lg:w-3/5 bg-white p-10 rounded-xl"
-          >
+      <div className="my-9 mx-18 w-full lg:w-6/7 bg-white py-10 px-15  rounded-xl ">
+        <div className="md:flex justify-between items-center">
+          <div>
+            <h3 className="text-sm font-medium text-gray-500">
+              Recursos / crear recurso
+            </h3>
+            <h1 className="text-[26px] font-black ">Nuevo recurso</h1>
+          </div>
+          <div className="flex  ">
+            <ButtonComponent
+              variant="secondary"
+              onClick={() => window.history.back()}
+              className="min-w-[8rem] max-h-[2.75rem] mr-4"
+            >
+              Cancelar
+            </ButtonComponent>
+            <ButtonComponent
+              type="button"
+              variant="primary"
+              className="min-w-[8rem] max-h-[2.75rem]"
+              onClick={handleSubmit(onSubmit)}
+            >
+              Publicar
+            </ButtonComponent>
+          </div>
+        </div>
+        <hr className="w-full border-t border-gray-300 mt-3" />
+
+        <div className="flex mt-8 overflow-y-scroll">
+          <form onSubmit={handleSubmit(onSubmit)} className=" ">
+            <h2 className="text-sm text-black font-medium mb-3">Título</h2>
             <FormInput
               id="title"
-              placeholder="Título"
+              placeholder=""
               register={register}
               errors={errors.title?.message}
+              className="max-w-[482px] max-h-[2.6rem] border-[0.06rem] border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
             />
-            <FormInput
-              id="description"
-              placeholder="Descripción"
-              register={register}
-              errors={errors.description?.message}
-            />
+            <h2 className="text-sm text-black font-medium mb-3">URL</h2>
             <FormInput
               id="url"
-              placeholder="URL"
+              placeholder=""
               register={register}
               errors={errors.url?.message}
+              className="max-w-[482px] max-h-[2.6rem] border-[0.06rem] border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
             />
 
-            <select
-              id="category"
-              className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
-              defaultValue=""
-              {...register("category", { required: true })}
-            >
-              <option value="" disabled>
-                Categoria
-              </option>
-              {categories.map((categorie) => (
-                <option key={categorie} value={categorie}>
-                  {categorie}
-                </option>
-              ))}
-            </select>
+            <h2 className="text-sm text-black font-medium mb-3">Lenguaje</h2>
+            <div className="flex gap-x-3">
+              <ButtonComponent
+                type="button"
+                variant="secondary"
+                onClick={() => handleCategorySelect("Java")}
+                className={`min-w-[8rem] max-h-[3.5rem] text-black  ${
+                  selectedCategory === "Java" ? "border-2 border-[#B91879]" : ""
+                }`}
+              >
+                <div className="flex justify-center items-center gap-1 h-fit">
+                  <img src={logoJava} alt="LogoJava" className="w-7" />
+                  <h1 className="text-sm font-medium">Java</h1>
+                </div>
+              </ButtonComponent>
+
+              <ButtonComponent
+                type="button"
+                variant="secondary"
+                onClick={() => handleCategorySelect("Fullstack PHP")}
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === "Fullstack PHP"
+                    ? "border-2 border-[#B91879]"
+                    : ""
+                }`}
+              >
+                <div className="flex justify-center items-center gap-1">
+                  <img src={logoPhp} alt="LogoPHP" className="w-7" />
+                  <h1 className="text-sm font-medium">PHP</h1>
+                </div>
+              </ButtonComponent>
+
+              <ButtonComponent
+                type="button"
+                variant="secondary"
+                onClick={() => handleCategorySelect("Javascript")}
+                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === "Javascript"
+                    ? "border-2 border-[#B91879]"
+                    : ""
+                }`}
+              >
+                <div className="flex justify-center items-center gap-1">
+                  <img src={logoJavaS} alt="LogoJavaS" className="w-5" />
+                  <h1 className="text-sm font-medium">JavaScript</h1>
+                </div>
+              </ButtonComponent>
+
+              <ButtonComponent
+                type="button"
+                variant="secondary"
+                onClick={() => handleCategorySelect("TypeScript")}
+                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === "TypeScript"
+                    ? "border-2 border-[#B91879]"
+                    : ""
+                }`}
+              >
+                <div className="flex justify-center items-center gap-1">
+                  <img src={logoTypeS} alt="LogoTypeS" className="w-6" />
+                  <h1 className="text-sm font-medium">TypeScript</h1>
+                </div>
+              </ButtonComponent>
+
+              <ButtonComponent
+                type="button"
+                variant="secondary"
+                onClick={() => handleCategorySelect("Python")}
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === "Python"
+                    ? "border-2 border-[#B91879]"
+                    : ""
+                }`}
+              >
+                <div className="flex justify-center items-center gap-1">
+                  <img src={logoPython} alt="LogoPython" className="w-6" />
+                  <h1 className="text-sm font-medium">Python</h1>
+                </div>
+              </ButtonComponent>
+
+              <ButtonComponent
+                type="button"
+                variant="secondary"
+                onClick={() => handleCategorySelect("SQL")}
+                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                  selectedCategory === "SQL" ? "border-2 border-[#B91879]" : ""
+                }`}
+              >
+                <div className="flex justify-center items-center gap-1">
+                  <img src={logoSql} alt="LogoSQL" className="w-5" />
+                  <h1 className="text-sm font-medium">SQL</h1>
+                </div>
+              </ButtonComponent>
+            </div>
+
             <div className="h-6">
               {errors.category && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-sm mt-2">
                   {errors.category.message}
                 </p>
               )}
             </div>
 
-            <select
-              id="theme"
-              className="w-full mb-1 px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879]"
-              defaultValue=""
-              {...register("theme", { required: true })}
-            >
-              <option value="" disabled>
-                Tema
-              </option>
-              {themes.map((theme) => (
-                <option key={theme} value={theme}>
-                  {theme}
-                </option>
-              ))}
-            </select>
-            <div className="h-6">
-              {errors.theme && (
-                <p className="text-red-500 text-sm">{errors.theme.message}</p>
-              )}
-            </div>
-
-            <div className="flex justify-around">
-              <div className="flex gap-2 md:text-xl">
+            <h2 className="text-sm text-black font-medium mb-5">
+              Tipo de recurso
+            </h2>
+            <div className="flex justify-start gap-x-10 mb-1">
+              <div className="ml-1 flex gap-2 md:text-xl">
                 <input
                   type="radio"
                   id="video"
                   value="Video"
-                  className="scale-150 accent-[#B91879]"
+                  className=" scale-150 accent-[#B91879] "
                   {...register("type", { required: true })}
                 />
-                <label htmlFor="video">Vídeo</label>
+                <label htmlFor="video" className="text-sm">
+                  Vídeo
+                </label>
               </div>
               <div className="flex gap-2 md:text-xl">
                 <input
@@ -133,7 +242,9 @@ export default function CreateResourcePage() {
                   className="scale-150 accent-[#B91879]"
                   {...register("type", { required: true })}
                 />
-                <label htmlFor="curso">Curso</label>
+                <label htmlFor="curso" className="text-sm">
+                  Curso
+                </label>
               </div>
               <div className="flex gap-2 md:text-xl">
                 <input
@@ -143,25 +254,45 @@ export default function CreateResourcePage() {
                   className="scale-150 accent-[#B91879]"
                   {...register("type", { required: true })}
                 />
-                <label htmlFor="blog">Blog</label>
+                <label htmlFor="blog" className="text-sm">
+                  Blog
+                </label>
               </div>
             </div>
+
             <div className="h-6">
               {errors.type && (
                 <p className="text-red-500 text-sm">{errors.type.message}</p>
               )}
             </div>
 
-            <div className="md:flex gap-4 mt-1">
-              <ButtonComponent type="submit" variant="primary">
-                Crear
-              </ButtonComponent>
-              <ButtonComponent
-                variant="secondary"
-                onClick={() => window.history.back()}
-              >
-                Cancelar
-              </ButtonComponent>
+            <TagInput
+              selectedTheme={selectedTheme}
+              setSelectedTheme={handleThemeChange}
+            />
+
+            <div className="h-6">
+              {errors.theme && (
+                <p className="text-red-500 text-sm">{errors.theme.message}</p>
+              )}
+            </div>
+
+            <div>
+              <hr className="w-full border-t border-gray-300" />
+
+              <h2 className="text-base font-semibold mt-4 ">
+                Información adicional
+              </h2>
+              <h2 className="text-sm text-black font-medium vmb-5 mt-2 mb-2">
+                Descripción
+              </h2>
+              <FormInput
+                id="description"
+                placeholder=""
+                register={register}
+                errors={errors.description?.message}
+                className="max-w-[482px] max-h-[4.5rem] border-[0.06rem] border-gray-300 focus:border-[#B91879] outline-none"
+              />
             </div>
           </form>
         </div>

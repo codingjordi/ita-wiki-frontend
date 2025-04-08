@@ -43,7 +43,9 @@ const ButtonComponent: FC<ItaButtonProps> = ({
   onClick,
 }) => {
   const baseClass =
-    variant === "custom" ? className || "" : classList[variant ?? "primary"];
+    variant === "custom"
+      ? className || ""
+      : `${classList[variant ?? "primary"]} ${className || ""}`.trim();
 
   return (
     <button type={type || "button"} onClick={onClick} className={baseClass}>
