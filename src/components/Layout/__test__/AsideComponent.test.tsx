@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router";
 import { vi, describe, test, expect, beforeEach } from "vitest";
 import AsideComponent from "../AsideComponent";
 import { useCtxUser } from "../../../hooks/useCtxUser";
+const MockIcon = () => <svg data-testid="mock-icon" />;
 
 const mockUseLocation = vi.fn();
 const mockUseNavigate = vi.fn();
@@ -32,8 +33,8 @@ vi.mock("react-router-dom", () => {
 });
 
 const asideContentMock = [
-  { icon: "/react.svg", label: "React" },
-  { icon: "/node.svg", label: "Node" },
+  { icon: MockIcon, label: "React" },
+  { icon: MockIcon, label: "Node" },
 ];
 
 describe("AsideComponent Tests", () => {
@@ -66,15 +67,17 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     expect(screen.getByText("Categorias")).toBeInTheDocument();
 
     asideContentMock.forEach((item) => {
       expect(screen.getByText(item.label)).toBeInTheDocument();
-      expect(screen.getByAltText(item.label)).toBeInTheDocument();
     });
+    expect(screen.getAllByTestId("mock-icon")).toHaveLength(
+      asideContentMock.length
+    );
 
     const searchInput = screen.getByRole("textbox");
     expect(searchInput).toBeInTheDocument();
@@ -101,7 +104,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     expect(screen.getByText("Categorias")).toBeInTheDocument();
@@ -138,7 +141,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     const reactLink = screen.getByText("React").closest("a");
