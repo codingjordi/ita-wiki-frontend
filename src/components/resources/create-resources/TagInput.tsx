@@ -1,26 +1,19 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { themes } from "../../../data/themes";
 
 interface TagInputProps {
-  selectedTags: string[];
-  setSelectedTags: (tags: string[]) => void;
+  selectedTheme: (typeof themes)[number] | null;
+  setSelectedTheme: (theme: (typeof themes)[number] | null) => void;
 }
 
-const suggestions = [
-  'React',
-  'JavaScript',
-  'TypeScript',
-  'Node.js',
-  'CSS',
-  'HTML',
-  'Next.js',
-];
+const suggestions = themes;
 
 const TagInput: React.FC<TagInputProps> = ({
-  selectedTags,
-  setSelectedTags,
+  selectedTheme,
+  setSelectedTheme,
 }) => {
-  const [inputValue, setInputValue] = useState('');
-  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [filteredSuggestions, setFilteredSuggestions] = useState<(typeof themes)[number][]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -28,73 +21,82 @@ const TagInput: React.FC<TagInputProps> = ({
 
     if (value) {
       setFilteredSuggestions(
-        suggestions.filter((tag) =>
-          tag.toLowerCase().includes(value.toLowerCase()),
-        ),
+        suggestions.filter((theme) =>
+          theme.toLowerCase().includes(value.toLowerCase())
+        )
       );
     } else {
       setFilteredSuggestions([]);
     }
   };
 
-  const addTag = (tag: string) => {
-    if (!selectedTags.includes(tag)) {
-      setSelectedTags([...selectedTags, tag]);
+  const addTag = (theme: (typeof themes)[number]) => {
+    if (selectedTheme !== theme) {
+      setSelectedTheme(theme);
     }
-    setInputValue('');
+    setInputValue(""); 
     setFilteredSuggestions([]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputValue.trim() !== '') {
-      addTag(inputValue.trim());
+    if (e.key === "Enter" && inputValue.trim() !== "") {
+      const trimmedValue = inputValue.trim();
+
+      // Verificar si el valor está en el enum `themes`
+      if (themes.includes(trimmedValue as (typeof themes)[number])) {
+        addTag(trimmedValue as (typeof themes)[number]);
+      } else {
+        console.error("El valor ingresado no es válido.");
+      }
     }
   };
 
-  const removeTag = (tag: string) => {
-    setSelectedTags(selectedTags.filter((t) => t !== tag));
+  const removeTag = (theme: (typeof themes)[number]) => {
+    if (selectedTheme === theme) {
+      setSelectedTheme(null);
+    }
   };
 
   return (
-    <div className="w-full max-w-md">
-      <h3 className="mb-2 font-semibold text-lg text-gray-800">Tags</h3>
+    <div className="w-full max-w-[482px]">
+      <label className="mb-3 font-medium text-sm text-gray-800">Tema</label>
 
-      {/* Contenedor de input con tags */}
-      <div className="w-full p-2 border rounded-md border-gray-300 flex flex-wrap gap-2 focus-within:border-2 ">
-        {/* Tags seleccionados */}
-        {selectedTags.map((tag) => (
+      <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2">
+        {selectedTheme && (
           <div
-            key={tag}
-            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-1 rounded-md">
-            <span>{tag}</span>
+            key={selectedTheme}
+            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-1 rounded-md"
+          >
+            <span>{selectedTheme}</span>
             <button
-              onClick={() => removeTag(tag)}
-              className="ml-2 text-black hover:text-gray-700">
+              onClick={() => removeTag(selectedTheme)}
+              className="ml-2 text-black hover:text-gray-700"
+            >
               ✕
             </button>
           </div>
-        ))}
+        )}
 
-        {/* Input */}
         <input
           type="text"
+          id="tags"
           value={inputValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder="Escribe un tag..."
-          className="w-full border-none outline-none bg-transparent mt-3"
+          placeholder="Escribe un tema..."
+          className="w-full border-none outline-none bg-transparent"
         />
       </div>
 
-      {/* Lista de sugerencias */}
       {filteredSuggestions.length > 0 && (
-        <ul className="bg-white border border-[#DEDEDE] rounded-md shadow-md mt-2 max-h-48 ">
-          {filteredSuggestions.map((tag) => (
+        <ul className="bg-white border border-[#DEDEDE] rounded-md shadow-md mt-2 max-h-48 overflow-y-auto">
+          {filteredSuggestions.map((theme) => (
             <li
-              key={tag}
+              key={theme}
               className="cursor-pointer p-2 hover:bg-[#B91879] hover:text-white"
-              onClick={() => addTag(tag)}>
-              {tag}
+              onClick={() => addTag(theme)}
+            >
+              {theme}
             </li>
           ))}
         </ul>

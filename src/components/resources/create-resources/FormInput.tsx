@@ -1,5 +1,5 @@
-import { UseFormRegister } from 'react-hook-form';
-import { IntResource } from '../../../types';
+import { UseFormRegister } from "react-hook-form";
+import { IntResource } from "../../../types";
 
 interface FormInputProps {
   id: keyof IntResource;

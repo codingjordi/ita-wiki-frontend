@@ -1,22 +1,22 @@
-import { IntResource } from '../types';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { resourceSchema } from '../validations/resourceSchema';
-import FormInput from '../components/resources/create-resources/FormInput';
-import { createResource } from '../api/endPointResources';
-import { toast } from 'sonner';
-import ButtonComponent from '../components/atoms/ButtonComponent';
-import { useUser } from '../hooks/useUser';
-import PageTitle from '../components/ui/PageTitle';
-import logoJava from '../../src/assets/logo-java 1.svg';
-import logoPhp from '../../src/assets/logo-php 1.svg';
-import logoJavaS from '../../src/assets//javascript.svg';
-import logoTypeS from '../../src/assets/TypescriptVector.svg';
-import logoPython from '../../src/assets/pythonVector.svg';
-import logoSql from '../../src/assets/sqlVector.svg';
-import TagInput from '../components/resources/create-resources/TagInput';
-import { useState } from 'react';
-import { Category } from '../types';
+import { IntResource, Theme, Category } from "../types";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { resourceSchema } from "../validations/resourceSchema";
+import FormInput from "../components/resources/create-resources/FormInput";
+import { createResource } from "../api/endPointResources";
+import { toast } from "sonner";
+import ButtonComponent from "../components/atoms/ButtonComponent";
+import { useUser } from "../hooks/useUser";
+import PageTitle from "../components/ui/PageTitle";
+import logoJava from "../../src/assets/logo-java 1.svg";
+import logoPhp from "../../src/assets/logo-php 1.svg";
+import logoJavaS from "../../src/assets//javascript.svg";
+import logoTypeS from "../../src/assets/TypescriptVector.svg";
+import logoPython from "../../src/assets/pythonVector.svg";
+import logoSql from "../../src/assets/sqlVector.svg";
+import TagInput from "../components/resources/create-resources/TagInput";
+import { useState } from "react";
+import { themes } from "../data/themes";
 
 export default function CreateResourcePage() {
   const { user } = useUser();
@@ -24,6 +24,7 @@ export default function CreateResourcePage() {
   const {
     register,
     handleSubmit,
+    watch,
     setValue,
     reset,
     formState: { errors },
@@ -34,30 +35,37 @@ export default function CreateResourcePage() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null,
   );
+  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
 
+  const handleThemeChange = (theme: (typeof themes)[number] | null) => {
+    setSelectedTheme(theme);
+    setValue("theme", theme);
+  };
+  
   const handleCategorySelect = (category: Category) => {
     setSelectedCategory(category);
-    setValue('category', category);
+    setValue("category", category);
   };
 
-  const [tags, setTags] = useState<string[]>([]);
 
   const onSubmit = async (data: Partial<IntResource>) => {
+    console.log('lanzando la funcion onSubmit...')
     const resourceWithGithubId = {
       ...data,
       github_id: user?.id,
     };
+    console.log('resourceWithGithubId: ', resourceWithGithubId)
 
     try {
       await createResource(resourceWithGithubId);
-      toast.success('¡Recurso creado con éxito!');
+      toast.success("¡Recurso creado con éxito!");
       setTimeout(() => {
         window.location.href = `/resources/${data?.category?.toLowerCase()}`;
       }, 1000);
       reset();
     } catch (error) {
-      console.error('Error al crear el recurso:', error);
-      toast.error('Hubo un error al crear el recurso');
+      console.error("Error al crear el recurso:", error);
+      toast.error("Hubo un error al crear el recurso");
     }
   };
 
@@ -65,6 +73,7 @@ export default function CreateResourcePage() {
     <>
       <PageTitle title="Create Resource" />
       <div className="my-9 mx-18 w-full lg:w-6/7 bg-white py-10 px-15  rounded-xl ">
+      <p className="text-base">{JSON.stringify(watch(), null, 2)}</p>
         <div className="md:flex justify-between items-center">
           <div>
             <h3 className="text-sm font-medium text-gray-500">
@@ -76,13 +85,16 @@ export default function CreateResourcePage() {
             <ButtonComponent
               variant="secondary"
               onClick={() => window.history.back()}
-              className="min-w-[8rem] max-h-[2.75rem] mr-4">
+              className="min-w-[8rem] max-h-[2.75rem] mr-4"
+            >
               Cancelar
             </ButtonComponent>
             <ButtonComponent
-              type="submit"
+              type="button"
               variant="primary"
-              className="min-w-[8rem] max-h-[2.75rem]">
+              className="min-w-[8rem] max-h-[2.75rem]"
+              onClick={handleSubmit(onSubmit)}
+            >
               Publicar
             </ButtonComponent>
           </div>
@@ -90,9 +102,7 @@ export default function CreateResourcePage() {
         <hr className="w-full border-t border-gray-300 mt-3" />
 
         <div className="flex mt-8 overflow-y-scroll">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className=" ">
+          <form onSubmit={handleSubmit(onSubmit)} className=" ">
             <h2 className="text-sm text-black font-medium mb-3">Título</h2>
             <FormInput
               id="title"
@@ -110,22 +120,18 @@ export default function CreateResourcePage() {
               className="max-w-[482px] max-h-[2.6rem] border-[0.06rem] border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
             />
 
-            {/* AQUI VAN LOS BOTONES DE LENGUAJE */}
-            <h2 className="text-sm text-black font-medium mb-5">Lenguaje</h2>
+            <h2 className="text-sm text-black font-medium mb-3">Lenguaje</h2>
             <div className="flex gap-x-3">
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                onClick={() => handleCategorySelect('Java')}
+                onClick={() => handleCategorySelect("Java")}
                 className={`min-w-[8rem] max-h-[3.5rem] text-black  ${
-                  selectedCategory === 'Java' ? 'border-2 border-[#B91879]' : ''
-                }`}>
+                  selectedCategory === "Java" ? "border-2 border-[#B91879]" : ""
+                }`}
+              >
                 <div className="flex justify-center items-center gap-1 h-fit">
-                  <img
-                    src={logoJava}
-                    alt="LogoJava"
-                    className="w-7"
-                  />
+                  <img src={logoJava} alt="LogoJava" className="w-7" />
                   <h1 className="text-sm font-medium">Java</h1>
                 </div>
               </ButtonComponent>
@@ -133,18 +139,15 @@ export default function CreateResourcePage() {
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                onClick={() => handleCategorySelect('Fullstack PHP')}
+                onClick={() => handleCategorySelect("Fullstack PHP")}
                 className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
-                  selectedCategory === 'Fullstack PHP'
-                    ? 'border-2 border-[#B91879]'
-                    : ''
-                }`}>
+                  selectedCategory === "Fullstack PHP"
+                    ? "border-2 border-[#B91879]"
+                    : ""
+                }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoPhp}
-                    alt="LogoPHP"
-                    className="w-7"
-                  />
+                  <img src={logoPhp} alt="LogoPHP" className="w-7" />
                   <h1 className="text-sm font-medium">PHP</h1>
                 </div>
               </ButtonComponent>
@@ -152,18 +155,15 @@ export default function CreateResourcePage() {
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                onClick={() => handleCategorySelect('Javascript')}
+                onClick={() => handleCategorySelect("Javascript")}
                 className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
-                  selectedCategory === 'Javascript'
-                    ? 'border-2 border-[#B91879]'
-                    : ''
-                }`}>
+                  selectedCategory === "Javascript"
+                    ? "border-2 border-[#B91879]"
+                    : ""
+                }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoJavaS}
-                    alt="LogoJavaS"
-                    className="w-5"
-                  />
+                  <img src={logoJavaS} alt="LogoJavaS" className="w-5" />
                   <h1 className="text-sm font-medium">JavaScript</h1>
                 </div>
               </ButtonComponent>
@@ -171,18 +171,15 @@ export default function CreateResourcePage() {
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                onClick={() => handleCategorySelect('TypeScript')}
+                onClick={() => handleCategorySelect("TypeScript")}
                 className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
-                  selectedCategory === 'TypeScript'
-                    ? 'border-2 border-[#B91879]'
-                    : ''
-                }`}>
+                  selectedCategory === "TypeScript"
+                    ? "border-2 border-[#B91879]"
+                    : ""
+                }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoTypeS}
-                    alt="LogoTypeS"
-                    className="w-6"
-                  />
+                  <img src={logoTypeS} alt="LogoTypeS" className="w-6" />
                   <h1 className="text-sm font-medium">TypeScript</h1>
                 </div>
               </ButtonComponent>
@@ -190,18 +187,15 @@ export default function CreateResourcePage() {
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                onClick={() => handleCategorySelect('Python')}
+                onClick={() => handleCategorySelect("Python")}
                 className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
-                  selectedCategory === 'Python'
-                    ? 'border-2 border-[#B91879]'
-                    : ''
-                }`}>
+                  selectedCategory === "Python"
+                    ? "border-2 border-[#B91879]"
+                    : ""
+                }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoPython}
-                    alt="LogoPython"
-                    className="w-6"
-                  />
+                  <img src={logoPython} alt="LogoPython" className="w-6" />
                   <h1 className="text-sm font-medium">Python</h1>
                 </div>
               </ButtonComponent>
@@ -209,16 +203,13 @@ export default function CreateResourcePage() {
               <ButtonComponent
                 type="button"
                 variant="secondary"
-                onClick={() => handleCategorySelect('SQL')}
+                onClick={() => handleCategorySelect("SQL")}
                 className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
-                  selectedCategory === 'SQL' ? 'border-2 border-[#B91879]' : ''
-                }`}>
+                  selectedCategory === "SQL" ? "border-2 border-[#B91879]" : ""
+                }`}
+              >
                 <div className="flex justify-center items-center gap-1">
-                  <img
-                    src={logoSql}
-                    alt="LogoSQL"
-                    className="w-5"
-                  />
+                  <img src={logoSql} alt="LogoSQL" className="w-5" />
                   <h1 className="text-sm font-medium">SQL</h1>
                 </div>
               </ButtonComponent>
@@ -226,7 +217,7 @@ export default function CreateResourcePage() {
 
             <div className="h-6">
               {errors.category && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-sm mt-2">
                   {errors.category.message}
                 </p>
               )}
@@ -282,24 +273,22 @@ export default function CreateResourcePage() {
               {errors.theme && (
                 <p className="text-red-500 text-sm">{errors.theme.message}</p>
               )}
-            </div> */}
+            </div>
 
             {/* ESTO DEBERÍA ESTAR MÁS JUNTO */}
             <h2 className="text-sm text-black font-medium mb-5">
               Tipo de recurso
             </h2>
-            <div className="flex justify-start gap-x-10">
-              <div className="ml-1 flex gap-4 md:text-xl">
+            <div className="flex justify-start gap-x-10 mb-1">
+              <div className="ml-1 flex gap-2 md:text-xl">
                 <input
                   type="radio"
                   id="video"
                   value="Video"
                   className=" scale-150 accent-[#B91879] "
-                  {...register('type', { required: true })}
+                  {...register("type", { required: true })}
                 />
-                <label
-                  htmlFor="video"
-                  className="text-sm">
+                <label htmlFor="video" className="text-sm">
                   Vídeo
                 </label>
               </div>
@@ -309,11 +298,9 @@ export default function CreateResourcePage() {
                   id="curso"
                   value="Cursos"
                   className="scale-150 accent-[#B91879]"
-                  {...register('type', { required: true })}
+                  {...register("type", { required: true })}
                 />
-                <label
-                  htmlFor="curso"
-                  className="text-sm">
+                <label htmlFor="curso" className="text-sm">
                   Curso
                 </label>
               </div>
@@ -323,11 +310,9 @@ export default function CreateResourcePage() {
                   id="blog"
                   value="Blog"
                   className="scale-150 accent-[#B91879]"
-                  {...register('type', { required: true })}
+                  {...register("type", { required: true })}
                 />
-                <label
-                  htmlFor="blog"
-                  className="text-sm">
+                <label htmlFor="blog" className="text-sm">
                   Blog
                 </label>
               </div>
@@ -339,10 +324,13 @@ export default function CreateResourcePage() {
               )}
             </div>
 
-            <TagInput
-              selectedTags={tags}
-              setSelectedTags={setTags}
-            />
+            <TagInput selectedTheme={selectedTheme} setSelectedTheme={handleThemeChange} />
+
+            <div className="h-6">
+              {errors.theme && (
+                <p className="text-red-500 text-sm">{errors.theme.message}</p>
+              )}
+            </div>
 
             <div>
               <hr className="w-full border-t border-gray-300 mt-5 " />
@@ -361,12 +349,6 @@ export default function CreateResourcePage() {
                 className="max-w-[482px] max-h-[4.5rem] border-[0.06rem] border-gray-300 focus:border-[#B91879] outline-none"
               />
             </div>
-            {/* <ButtonComponent
-              type="submit"
-              variant="primary"
-              className="min-w-[8rem] max-h-[2.75rem]">
-              Publicar
-            </ButtonComponent> */}
           </form>
         </div>
       </div>
