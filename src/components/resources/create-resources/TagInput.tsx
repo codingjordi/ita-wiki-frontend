@@ -13,7 +13,9 @@ const TagInput: React.FC<TagInputProps> = ({
   setSelectedTheme,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  const [filteredSuggestions, setFilteredSuggestions] = useState<(typeof themes)[number][]>([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<
+    (typeof themes)[number][]
+  >([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -22,8 +24,8 @@ const TagInput: React.FC<TagInputProps> = ({
     if (value) {
       setFilteredSuggestions(
         suggestions.filter((theme) =>
-          theme.toLowerCase().includes(value.toLowerCase())
-        )
+          theme.toLowerCase().includes(value.toLowerCase()),
+        ),
       );
     } else {
       setFilteredSuggestions([]);
@@ -34,7 +36,7 @@ const TagInput: React.FC<TagInputProps> = ({
     if (selectedTheme !== theme) {
       setSelectedTheme(theme);
     }
-    setInputValue(""); 
+    setInputValue("");
     setFilteredSuggestions([]);
   };
 
@@ -42,7 +44,6 @@ const TagInput: React.FC<TagInputProps> = ({
     if (e.key === "Enter" && inputValue.trim() !== "") {
       const trimmedValue = inputValue.trim();
 
-      // Verificar si el valor está en el enum `themes`
       if (themes.includes(trimmedValue as (typeof themes)[number])) {
         addTag(trimmedValue as (typeof themes)[number]);
       } else {

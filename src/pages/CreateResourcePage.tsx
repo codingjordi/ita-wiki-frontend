@@ -10,7 +10,7 @@ import { useUser } from "../hooks/useUser";
 import PageTitle from "../components/ui/PageTitle";
 import logoJava from "../../src/assets/logo-java 1.svg";
 import logoPhp from "../../src/assets/logo-php 1.svg";
-import logoJavaS from "../../src/assets//javascript.svg";
+import logoJavaS from "../../src/assets/javascript.svg";
 import logoTypeS from "../../src/assets/TypescriptVector.svg";
 import logoPython from "../../src/assets/pythonVector.svg";
 import logoSql from "../../src/assets/sqlVector.svg";
@@ -41,20 +41,17 @@ export default function CreateResourcePage() {
     setSelectedTheme(theme);
     setValue("theme", theme);
   };
-  
+
   const handleCategorySelect = (category: Category) => {
     setSelectedCategory(category);
     setValue("category", category);
   };
 
-
   const onSubmit = async (data: Partial<IntResource>) => {
-    console.log('lanzando la funcion onSubmit...')
     const resourceWithGithubId = {
       ...data,
       github_id: user?.id,
     };
-    console.log('resourceWithGithubId: ', resourceWithGithubId)
 
     try {
       await createResource(resourceWithGithubId);
@@ -73,7 +70,7 @@ export default function CreateResourcePage() {
     <>
       <PageTitle title="Create Resource" />
       <div className="my-9 mx-18 w-full lg:w-6/7 bg-white py-10 px-15  rounded-xl ">
-      <p className="text-base">{JSON.stringify(watch(), null, 2)}</p>
+        <p className="text-base">{JSON.stringify(watch(), null, 2)}</p>
         <div className="md:flex justify-between items-center">
           <div>
             <h3 className="text-sm font-medium text-gray-500">
@@ -324,7 +321,10 @@ export default function CreateResourcePage() {
               )}
             </div>
 
-            <TagInput selectedTheme={selectedTheme} setSelectedTheme={handleThemeChange} />
+            <TagInput
+              selectedTheme={selectedTheme}
+              setSelectedTheme={handleThemeChange}
+            />
 
             <div className="h-6">
               {errors.theme && (

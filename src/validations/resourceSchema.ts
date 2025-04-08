@@ -28,11 +28,11 @@ export const resourceSchema: z.ZodType<Partial<IntResource>> = z.object({
     .max(10, { message: "No puedes agregar más de 10 tags." })
     .optional(),
 
-    theme: z.union([
-      z.enum(themes, { message: "Por favor, selecciona un tema válido" }),
-      z.null(), // Permitir null como valor
-    ]),
-    
+  theme: z.union([
+    z.enum(themes, { message: "Por favor, selecciona un tema válido" }),
+    z.null(),
+  ]),
+
   type: z.enum(resourceTypes, {
     message: "Debes seleccionar al menos un tipo de recurso.",
   }),
