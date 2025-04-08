@@ -96,7 +96,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
                 to="/resources/bookmarks"
                 className={classNames("transition-colors", {
                   "!text-[var(--color-primary)] !font-bold": isPathActive(
-                    "/resources/bookmarks"
+                    "/resources/bookmarks",
                   ),
                   "text-gray-700": !isPathActive("/resources/bookmarks"),
                 })}
@@ -111,7 +111,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
                 to="/resources/my-resources"
                 className={classNames("transition-colors", {
                   "!text-[var(--color-primary)] !font-bold": isPathActive(
-                    "/resources/my-resources"
+                    "/resources/my-resources",
                   ),
                   "text-gray-700": !isPathActive("/resources/my-resources"),
                 })}
