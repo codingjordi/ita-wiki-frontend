@@ -61,18 +61,19 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
               React.SVGProps<SVGSVGElement>
             >;
             return (
-              <li
-                key={index}
-                className={classNames("flex items-center space-x-3", {
-                  "text-[var(--color-primary)]": isActive,
-                  "text-gray-500": !isActive,
-                })}
-              >
-                <IconComponent className="w-6 h-6" />
+              <li key={index} className="flex items-center space-x-3">
+                <IconComponent
+                  className={classNames("w-6 h-6", {
+                    "text-[var(--color-primary)]": isActive,
+                    "text-gray-500": !isActive,
+                  })}
+                />
+
                 <Link
                   to={path}
                   className={classNames("transition-colors", {
-                    "!font-bold": isActive,
+                    "!text-[var(--color-primary)] !font-bold": isActive,
+                    "text-gray-700": !isActive,
                   })}
                 >
                   {item.label}
