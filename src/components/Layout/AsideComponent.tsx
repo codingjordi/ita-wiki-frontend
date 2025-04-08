@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
-
+import { SVGProps, FC } from "react";
 import classNames from "classnames";
 import { Bookmark, PenSquare } from "lucide-react";
 
@@ -9,8 +9,9 @@ import { useCtxUser } from "../../hooks/useCtxUser";
 import SearchComponent from "./header/SearchComponent";
 import ButtonComponent from "../atoms/ButtonComponent";
 
+type SvgIcon = FC<SVGProps<SVGSVGElement>>;
 type AsideItem = {
-  icon: string;
+  icon: SvgIcon;
   label: string;
 };
 
@@ -95,7 +96,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
                 to="/resources/bookmarks"
                 className={classNames("transition-colors", {
                   "!text-[var(--color-primary)] !font-bold": isPathActive(
-                    "/resources/bookmarks",
+                    "/resources/bookmarks"
                   ),
                   "text-gray-700": !isPathActive("/resources/bookmarks"),
                 })}
@@ -110,7 +111,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
                 to="/resources/my-resources"
                 className={classNames("transition-colors", {
                   "!text-[var(--color-primary)] !font-bold": isPathActive(
-                    "/resources/my-resources",
+                    "/resources/my-resources"
                   ),
                   "text-gray-700": !isPathActive("/resources/my-resources"),
                 })}
