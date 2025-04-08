@@ -278,7 +278,7 @@ export default function CreateResourcePage() {
             </div>
 
             <div>
-              <hr className="w-full border-t border-gray-300"/>
+              <hr className="w-full border-t border-gray-300" />
 
               <h2 className="text-base font-semibold mt-4 ">
                 Información adicional
@@ -293,7 +293,6 @@ export default function CreateResourcePage() {
                 errors={errors.description?.message}
                 className="max-w-[482px] max-h-[4.5rem] border-[0.06rem] border-gray-300 focus:border-[#B91879] outline-none"
               />
-              
             </div>
           </form>
         </div>
