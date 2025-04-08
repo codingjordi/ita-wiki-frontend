@@ -57,10 +57,17 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
           {asideContent.map((item, index) => {
             const path = `/resources/${item.label}`;
             const isActive = isPathActive(path);
-
+            const IconComponent = item.icon as unknown as React.FC<
+              React.SVGProps<SVGSVGElement>
+            >;
             return (
               <li key={index} className="flex items-center space-x-3">
-                <img src={item.icon} alt={item.label} className="w-6 h-6" />
+                <IconComponent
+                  className={classNames("w-6 h-6", {
+                    "text-[var(--color-primary)]": isActive,
+                    "text-gray-500": !isActive,
+                  })}
+                />
                 <Link
                   to={path}
                   className={classNames("transition-colors", {
@@ -87,7 +94,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
                 to="/resources/bookmarks"
                 className={classNames("transition-colors", {
                   "!text-[var(--color-primary)] !font-bold": isPathActive(
-                    "/resources/bookmarks",
+                    "/resources/bookmarks"
                   ),
                   "text-gray-700": !isPathActive("/resources/bookmarks"),
                 })}
@@ -102,7 +109,7 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
                 to="/resources/my-resources"
                 className={classNames("transition-colors", {
                   "!text-[var(--color-primary)] !font-bold": isPathActive(
-                    "/resources/my-resources",
+                    "/resources/my-resources"
                   ),
                   "text-gray-700": !isPathActive("/resources/my-resources"),
                 })}
