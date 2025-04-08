@@ -13,6 +13,7 @@ interface ResourcesContextType {
   loadingBookmarks: boolean;
   isBookmarked: (resource: IntResource) => boolean;
   toggleBookmark: (resource: IntResource) => void;
+  getBookmarkCount: (resourceId: number | string) => number;
 }
 
 const ResourcesContext = createContext<ResourcesContextType>({
@@ -22,6 +23,7 @@ const ResourcesContext = createContext<ResourcesContextType>({
   loadingBookmarks: true,
   isBookmarked: () => false,
   toggleBookmark: () => {},
+  getBookmarkCount: () => 0,
 });
 
 export const useResources = () => useContext(ResourcesContext);
@@ -38,15 +40,35 @@ export const ResourcesProvider = ({
     IntBookmarkElement[]
   >([]);
   const [loadingBookmarks, setLoadingBookmarks] = useState(true);
+  const [bookmarkCounts, setBookmarkCounts] = useState<
+    Record<string | number, number>
+  >({});
 
   useEffect(() => {
     const fetchResources = async () => {
       try {
         const data = await getResources();
         setResources(data);
+
+        const initialCounts: Record<string | number, number> = {};
+        data.forEach((resource) => {
+          if (resource.id && resource.bookmark_count !== undefined) {
+            initialCounts[resource.id] = resource.bookmark_count;
+          }
+        });
+        setBookmarkCounts(initialCounts);
       } catch (err) {
         console.error("Error loading resources, using mock.", err);
-        setResources(mock.resources as IntResource[]);
+        const mockData = mock.resources as IntResource[];
+        setResources(mockData);
+
+        const initialCounts: Record<string | number, number> = {};
+        mockData.forEach((resource) => {
+          if (resource.id && resource.bookmark_count !== undefined) {
+            initialCounts[resource.id] = resource.bookmark_count;
+          }
+        });
+        setBookmarkCounts(initialCounts);
       } finally {
         setIsLoading(false);
       }
@@ -113,7 +135,20 @@ export const ResourcesProvider = ({
   const toggleBookmark = async (resource: IntResource) => {
     if (!user) return;
 
+    const isCurrentlyBookmarked = isBookmarked(resource);
+
     try {
+      setBookmarkCounts((prev) => {
+        const resourceId = resource.id!;
+        const currentCount = prev[resourceId] || 0;
+        return {
+          ...prev,
+          [resourceId]: isCurrentlyBookmarked
+            ? currentCount - 1
+            : currentCount + 1,
+        };
+      });
+
       await toggleBookmarkAction(
         resource,
         bookmarkedResources,
@@ -121,6 +156,17 @@ export const ResourcesProvider = ({
       );
     } catch (error) {
       console.error("Error in toggleBookmark:", error);
+
+      setBookmarkCounts((prev) => {
+        const resourceId = resource.id!;
+        const currentCount = prev[resourceId] || 0;
+        return {
+          ...prev,
+          [resourceId]: isCurrentlyBookmarked
+            ? currentCount + 1
+            : currentCount - 1,
+        };
+      });
 
       if (user && resources.length > 0) {
         try {
@@ -154,6 +200,10 @@ export const ResourcesProvider = ({
     return bookmarkedResources.some((bookmark) => bookmark.id === resource.id);
   };
 
+  const getBookmarkCount = (resourceId: number | string) => {
+    return bookmarkCounts[resourceId] || 0;
+  };
+
   return (
     <ResourcesContext.Provider
       value={{
@@ -163,6 +213,7 @@ export const ResourcesProvider = ({
         loadingBookmarks,
         isBookmarked,
         toggleBookmark,
+        getBookmarkCount,
       }}
     >
       {children}

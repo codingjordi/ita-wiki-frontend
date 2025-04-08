@@ -226,13 +226,38 @@ const HeaderComponent = () => {
                 type="checkbox"
                 onChange={handleCheckboxChange}
                 checked={isChecked}
+                className="hidden"
               />
-              Acepto términos legales
+              <div
+                className={`w-5 h-5 flex items-center justify-center rounded border ${
+                  isChecked
+                    ? "bg-[#B91879] border-[#B91879]"
+                    : "border-gray-400"
+                }`}
+              >
+                {isChecked && (
+                  <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                )}
+              </div>
+              Acepto <u>términos legales</u>
             </label>
             {loginError && (
-              <div className="text-red-600 text-sm mt-2 text-center">
+              <div className="text-red-500 text-[1rem] mt-8 text-center font-medium">
                 Lo sentimos, no se ha podido iniciar sesión,
-                <br /> contacte con el administrador.
+                <br /> contacte con el administrador
               </div>
             )}
           </Modal>

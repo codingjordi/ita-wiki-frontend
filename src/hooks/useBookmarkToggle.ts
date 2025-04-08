@@ -12,7 +12,7 @@ export function useBookmarkToggle() {
       React.SetStateAction<IntBookmarkElement[]>
     >,
   ) => {
-    if (!user) {
+    if (!user || user.role === "anonymous") {
       return;
     }
 
