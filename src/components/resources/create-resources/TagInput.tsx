@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { themes } from "../../../data/themes";
+import { useState } from 'react';
+import { themes } from '../../../data/themes';
 
 interface TagInputProps {
   selectedTheme: (typeof themes)[number] | null;
@@ -12,7 +12,7 @@ const TagInput: React.FC<TagInputProps> = ({
   selectedTheme,
   setSelectedTheme,
 }) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [filteredSuggestions, setFilteredSuggestions] = useState<
     (typeof themes)[number][]
   >([]);
@@ -36,18 +36,18 @@ const TagInput: React.FC<TagInputProps> = ({
     if (selectedTheme !== theme) {
       setSelectedTheme(theme);
     }
-    setInputValue("");
+    setInputValue('');
     setFilteredSuggestions([]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputValue.trim() !== "") {
+    if (e.key === 'Enter' && inputValue.trim() !== '') {
       const trimmedValue = inputValue.trim();
 
       if (themes.includes(trimmedValue as (typeof themes)[number])) {
         addTag(trimmedValue as (typeof themes)[number]);
       } else {
-        console.error("El valor ingresado no es válido.");
+        console.error('El valor ingresado no es válido.');
       }
     }
   };
@@ -62,17 +62,15 @@ const TagInput: React.FC<TagInputProps> = ({
     <div className="w-full max-w-[482px]">
       <p className="font-medium mb-2 text-sm text-gray-800">Tags</p>
 
-      <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2">
+      <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2 ">
         {selectedTheme && (
           <div
             key={selectedTheme}
-            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-1 rounded-md"
-          >
+            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-1 rounded-md ">
             <span>{selectedTheme}</span>
             <button
               onClick={() => removeTag(selectedTheme)}
-              className="ml-2 text-black hover:text-gray-700"
-            >
+              className="ml-2 text-black hover:text-gray-700 ">
               ✕
             </button>
           </div>
@@ -95,8 +93,7 @@ const TagInput: React.FC<TagInputProps> = ({
             <li
               key={theme}
               className="cursor-pointer p-2 hover:bg-[#B91879] hover:text-white"
-              onClick={() => addTag(theme)}
-            >
+              onClick={() => addTag(theme)}>
               {theme}
             </li>
           ))}
