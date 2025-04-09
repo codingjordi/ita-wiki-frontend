@@ -22,11 +22,11 @@ export default function FormInput({
         type="text"
         id={id}
         placeholder={placeholder}
-        className={`w-full px-6 py-4 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879] ${className}`}
+        className={`w-full px-6 py-4 mb-1 border border-[#dddddd] rounded-lg placeholder:font-medium outline-[#B91879] ${className}`}
         {...register(id)}
       />
       <div className="h-6">
-        {errors && <p className="text-red-500 text-sm">{errors}</p>}
+        {errors && <p className="text-red-500 text-xs">{errors}</p>}
       </div>
     </div>
   );

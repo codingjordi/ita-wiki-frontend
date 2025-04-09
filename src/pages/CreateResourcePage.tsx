@@ -68,7 +68,7 @@ export default function CreateResourcePage() {
   return (
     <>
       <PageTitle title="Create Resource" />
-      <div className="my-9 mx-18 w-full lg:w-6/7 bg-white py-10 px-15  rounded-xl ">
+      <div className="mx-18 w-full lg:w-6/7 bg-white py-13 px-15  rounded-xl ">
         <div className="md:flex justify-between items-center">
           <div>
             <h3 className="text-sm font-medium text-gray-500">
@@ -87,7 +87,7 @@ export default function CreateResourcePage() {
             <ButtonComponent
               type="button"
               variant="primary"
-              className="min-w-[8rem] max-h-[2.75rem]"
+              className="min-w-[8rem] max-h-[2.75rem] "
               onClick={handleSubmit(onSubmit)}
             >
               Publicar
@@ -96,9 +96,9 @@ export default function CreateResourcePage() {
         </div>
         <hr className="w-full border-t border-gray-300 mt-3" />
 
-        <div className="flex mt-8 overflow-y-scroll">
+        <div className="flex mt-6 overflow-y-scroll">
           <form onSubmit={handleSubmit(onSubmit)} className=" ">
-            <h2 className="text-sm text-black font-medium mb-3">Título</h2>
+            <h2 className="text-sm text-black font-medium mb-2">Título</h2>
             <FormInput
               id="title"
               placeholder=""
@@ -106,7 +106,7 @@ export default function CreateResourcePage() {
               errors={errors.title?.message}
               className="max-w-[482px] max-h-[2.6rem] border-[0.06rem] border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
             />
-            <h2 className="text-sm text-black font-medium mb-3">URL</h2>
+            <h2 className="text-sm text-black font-medium mb-2">URL</h2>
             <FormInput
               id="url"
               placeholder=""
@@ -115,7 +115,7 @@ export default function CreateResourcePage() {
               className="max-w-[482px] max-h-[2.6rem] border-[0.06rem] border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
             />
 
-            <h2 className="text-sm text-black font-medium mb-3">Lenguaje</h2>
+            <h2 className="text-sm text-black font-medium mb-2">Lenguaje</h2>
             <div className="flex gap-x-3">
               <ButtonComponent
                 type="button"
@@ -212,13 +212,13 @@ export default function CreateResourcePage() {
 
             <div className="h-6">
               {errors.category && (
-                <p className="text-red-500 text-sm mt-2">
+                <p className="text-red-500 text-xs mt-2">
                   {errors.category.message}
                 </p>
               )}
             </div>
 
-            <h2 className="text-sm text-black font-medium mb-5">
+            <h2 className="text-sm text-black font-medium mb-2">
               Tipo de recurso
             </h2>
             <div className="flex justify-start gap-x-10 mb-1">
@@ -262,7 +262,7 @@ export default function CreateResourcePage() {
 
             <div className="h-6">
               {errors.type && (
-                <p className="text-red-500 text-sm">{errors.type.message}</p>
+                <p className="text-red-500 text-xs">{errors.type.message}</p>
               )}
             </div>
 
@@ -273,7 +273,7 @@ export default function CreateResourcePage() {
 
             <div className="h-6">
               {errors.theme && (
-                <p className="text-red-500 text-sm">{errors.theme.message}</p>
+                <p className="text-red-500 text-xs">{errors.theme.message}</p>
               )}
             </div>
 
@@ -283,7 +283,7 @@ export default function CreateResourcePage() {
               <h2 className="text-base font-semibold mt-4 ">
                 Información adicional
               </h2>
-              <h2 className="text-sm text-black font-medium vmb-5 mt-2 mb-2">
+              <h2 className="text-sm text-black font-medium mt-2 mb-2">
                 Descripción
               </h2>
               <FormInput
