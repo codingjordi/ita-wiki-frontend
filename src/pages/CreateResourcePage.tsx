@@ -87,7 +87,7 @@ export default function CreateResourcePage() {
             <ButtonComponent
               type="button"
               variant="primary"
-              className="min-w-[8rem] max-h-[2.75rem]"
+              className="min-w-[8rem] max-h-[2.75rem] "
               onClick={handleSubmit(onSubmit)}
             >
               Publicar
