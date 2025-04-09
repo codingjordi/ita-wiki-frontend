@@ -56,7 +56,7 @@ export default function CreateResourcePage() {
       await createResource(resourceWithGithubId);
       toast.success("¡Recurso creado con éxito!");
       setTimeout(() => {
-        window.location.href = `/resources/${data?.category?.toLowerCase()}`;
+        window.location.href = `/resources/${data?.category}`;
       }, 1000);
       reset();
     } catch (error) {
