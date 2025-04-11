@@ -64,7 +64,9 @@ export default function CreateResourcePage() {
       toast.error("Hubo un error al crear el recurso");
     }
   };
-
+  const [charCount, setCharCount] = useState(0);
+  const charLimitTitle = 65;
+  const charLimitDescription = 120;
   return (
     <>
       <PageTitle title="Create Resource" />
@@ -97,16 +99,24 @@ export default function CreateResourcePage() {
         <hr className="w-full border-t border-gray-300 mt-3" />
 
         <div className="flex mt-6 overflow-y-scroll">
-          <form onSubmit={handleSubmit(onSubmit)} className=" ">
-            <h2 className="text-sm text-black font-medium mb-2">Título</h2>
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full ">
+            <h2 className="text-sm text-black font-medium mb-3">Título</h2>
             <FormInput
               id="title"
               placeholder=""
               register={register}
               errors={errors.title?.message}
-              className="max-w-[482px] max-h-[2.6rem] border-[0.06rem] border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
+              className="max-w-[482px] max-h-[2.6rem] border-[0.06rem]  border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
+              maxLength={charLimitTitle}
+              onChange={(e) => setCharCount(e.target.value.length)}
             />
-            <h2 className="text-sm text-black font-medium mb-2">URL</h2>
+            <div className="w-1/2">
+              <p className="text-sm text-slate-600 -mt-5 text-center ml-75">
+                {charCount}/{charLimitTitle}
+              </p>
+            </div>
+
+            <h2 className="text-sm text-black font-medium mb-2 ">URL</h2>
             <FormInput
               id="url"
               placeholder=""
@@ -116,13 +126,15 @@ export default function CreateResourcePage() {
             />
 
             <h2 className="text-sm text-black font-medium mb-2">Lenguaje</h2>
-            <div className="flex gap-x-3">
+            <div className="flex gap-x-3 w-1/2">
               <ButtonComponent
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Java")}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black  ${
-                  selectedCategory === "Java" ? "border-2 border-[#B91879]" : ""
+                className={`min-w-[8rem] max-h-[5rem] text-black  ${
+                  selectedCategory === "Java"
+                    ? "border-2 focus:border-[#B91879]"
+                    : ""
                 }`}
               >
                 <div className="flex justify-center items-center gap-1 h-fit">
@@ -137,7 +149,7 @@ export default function CreateResourcePage() {
                 onClick={() => handleCategorySelect("Fullstack PHP")}
                 className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
                   selectedCategory === "Fullstack PHP"
-                    ? "border-2 border-[#B91879]"
+                    ? "border-2 focus:border-[#B91879]"
                     : ""
                 }`}
               >
@@ -153,7 +165,7 @@ export default function CreateResourcePage() {
                 onClick={() => handleCategorySelect("Javascript")}
                 className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
                   selectedCategory === "Javascript"
-                    ? "border-2 border-[#B91879]"
+                    ? "border-2 focus:border-[#B91879]"
                     : ""
                 }`}
               >
@@ -169,7 +181,7 @@ export default function CreateResourcePage() {
                 onClick={() => handleCategorySelect("TypeScript")}
                 className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
                   selectedCategory === "TypeScript"
-                    ? "border-2 border-[#B91879]"
+                    ? "border-2 focus:border-[#B91879]"
                     : ""
                 }`}
               >
@@ -185,7 +197,7 @@ export default function CreateResourcePage() {
                 onClick={() => handleCategorySelect("Python")}
                 className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
                   selectedCategory === "Python"
-                    ? "border-2 border-[#B91879]"
+                    ? "border-2 focus:border-[#B91879]"
                     : ""
                 }`}
               >
@@ -200,7 +212,9 @@ export default function CreateResourcePage() {
                 variant="secondary"
                 onClick={() => handleCategorySelect("SQL")}
                 className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
-                  selectedCategory === "SQL" ? "border-2 border-[#B91879]" : ""
+                  selectedCategory === "SQL"
+                    ? "border-2  focus:border-[#B91879]"
+                    : ""
                 }`}
               >
                 <div className="flex justify-center items-center gap-1">
@@ -209,7 +223,6 @@ export default function CreateResourcePage() {
                 </div>
               </ButtonComponent>
             </div>
-
             <div className="h-6">
               {errors.category && (
                 <p className="text-red-500 text-xs mt-2">
@@ -217,8 +230,7 @@ export default function CreateResourcePage() {
                 </p>
               )}
             </div>
-
-            <h2 className="text-sm text-black font-medium mb-2">
+            <h2 className="text-sm text-black font-medium mb-4">
               Tipo de recurso
             </h2>
             <div className="flex justify-start gap-x-10 mb-1">
@@ -259,28 +271,24 @@ export default function CreateResourcePage() {
                 </label>
               </div>
             </div>
-
             <div className="h-6">
               {errors.type && (
                 <p className="text-red-500 text-xs">{errors.type.message}</p>
               )}
             </div>
-
             <TagInput
               selectedTheme={selectedTheme}
               setSelectedTheme={handleThemeChange}
             />
-
             <div className="h-6">
               {errors.theme && (
                 <p className="text-red-500 text-xs">{errors.theme.message}</p>
               )}
             </div>
-
             <div>
-              <hr className="w-full border-t border-gray-300" />
+              <hr className="w-full border-t border-gray-300 mt-3" />
 
-              <h2 className="text-base font-semibold mt-4 ">
+              <h2 className="text-base font-semibold mt-6 mb-6">
                 Información adicional
               </h2>
               <h2 className="text-sm text-black font-medium mt-2 mb-2">
@@ -292,7 +300,14 @@ export default function CreateResourcePage() {
                 register={register}
                 errors={errors.description?.message}
                 className="max-w-[482px] max-h-[4.5rem] border-[0.06rem] border-gray-300 focus:border-[#B91879] outline-none"
+                maxLength={charLimitDescription}
+                onChange={(e) => setCharCount(e.target.value.length)}
               />
+              <div className="w-1/2">
+                <p className="text-sm text-slate-600 -mt-5 text-center ml-75">
+                  {charCount}/{charLimitDescription}
+                </p>
+              </div>
             </div>
           </form>
         </div>

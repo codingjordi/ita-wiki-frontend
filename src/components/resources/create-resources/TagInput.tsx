@@ -62,16 +62,16 @@ const TagInput: React.FC<TagInputProps> = ({
     <div className="w-full max-w-[482px]">
       <p className="font-medium mb-2 text-sm text-gray-800">Tags</p>
 
-      <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2">
+      <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2 ">
         {selectedTheme && (
           <div
             key={selectedTheme}
-            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-1 rounded-md"
+            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-1 rounded-md "
           >
             <span>{selectedTheme}</span>
             <button
               onClick={() => removeTag(selectedTheme)}
-              className="ml-2 text-black hover:text-gray-700"
+              className="ml-2 text-black hover:text-gray-700 "
             >
               ✕
             </button>
@@ -84,7 +84,7 @@ const TagInput: React.FC<TagInputProps> = ({
           value={inputValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder="Escribe un tema..."
+          placeholder="Escribe un tag..."
           className="w-full border-none outline-none bg-transparent"
         />
       </div>
