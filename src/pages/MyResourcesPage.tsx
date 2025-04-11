@@ -12,7 +12,7 @@ const MyResourcesPage: FC = () => {
   const { user } = useCtxUser();
 
   const myResources = resources.filter(
-    (resource) => resource.github_id === user?.id
+    (resource) => resource.github_id === user?.id,
   );
 
   return (

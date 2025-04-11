@@ -55,7 +55,7 @@ export const ListResources: FC<ListResourceProps> = ({
   const { isBookmarked, toggleBookmark } = useResources();
 
   const visibleResources = sortedResources.filter((resource) =>
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase())
+    resource.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
