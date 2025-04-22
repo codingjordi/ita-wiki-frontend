@@ -30,10 +30,6 @@ const HeaderComponent = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
 
-  const goToResourcesPage = () => {
-    navigate("/resources/add");
-  };
-
   useEffect(() => {
     const resourcePath =
       location.pathname.split("/resources/")[1]?.split("?")[0] || "";
@@ -116,14 +112,6 @@ const HeaderComponent = () => {
             variant="icon"
             text="Añadir Usuario"
           ></ButtonComponent>
-        )}
-
-        {user && (
-          <ButtonComponent
-            icon={addIcon}
-            variant="icon"
-            onClick={goToResourcesPage}
-          />
         )}
 
         {/* LANG SELECT DROPDOWN */}
