@@ -35,7 +35,7 @@ export default function CreateResourcePage() {
   });
 
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
+    null,
   );
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
 
