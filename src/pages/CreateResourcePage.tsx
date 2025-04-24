@@ -17,9 +17,12 @@ import logoSql from "../../src/assets/sqlVector.svg";
 import TagInput from "../components/resources/create-resources/TagInput";
 import { useState } from "react";
 import { themes } from "../data/themes";
+import arrowLeft from "../assets/arrow-left.svg";
+import { useNavigate } from "react-router";
 
 export default function CreateResourcePage() {
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -32,7 +35,7 @@ export default function CreateResourcePage() {
   });
 
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null,
+    null
   );
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
 
@@ -67,15 +70,28 @@ export default function CreateResourcePage() {
   const [charCount, setCharCount] = useState(0);
   const charLimitTitle = 65;
   const charLimitDescription = 120;
+
+  const goBack = () => {
+    if (window.history.length > 2) {
+      navigate(-1);
+    } else {
+      navigate("/resources/node");
+    }
+  };
+
   return (
     <>
       <PageTitle title="Create Resource" />
       <div className="mx-18 w-full lg:w-6/7 bg-white py-13 px-15  rounded-xl ">
         <div className="md:flex justify-between items-center">
-          <div>
-            <h3 className="text-sm font-medium text-gray-500">
-              Recursos / crear recurso
-            </h3>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={goBack}
+              className="text-md font-medium text-primary flex items-center gap-2 cursor-pointer hover:opacity-80"
+            >
+              <img className="w-4 h-4" src={arrowLeft} alt="Arrow Left" />
+              <span>Volver a recursos</span>
+            </button>
             <h1 className="text-[26px] font-black ">Nuevo recurso</h1>
           </div>
           <div className="flex  ">
