@@ -182,16 +182,17 @@ const HeaderComponent = () => {
             </button>
 
             {showDropdown && (
-              <div className="absolute right-0 mt-2 bg-white border rounded-md shadow-lg z-50 px-2 py-2 flex flex-col gap-2">
+              <div className="absolute right-0 mt-2 bg-white border border-gray-300 rounded-xl shadow-lg z-50 px-2 py-2 flex flex-col gap-2">
                 <button
                   title="Cerrar sesión"
                   onClick={() => {
                     setShowConfirmLogout(true);
                     setShowDropdown(false);
                   }}
-                  className="w-10 h-10 flex items-center justify-center hover:bg-[#fcecec] transition rounded-md cursor-pointer"
+                  className="flex items-center justify-center gap-3 px-3 py-1 mx-3 text-[0.85rem] whitespace-nowrap hover:bg-[#fcecec] transition rounded-md cursor-pointer"
                 >
-                  <img src={logOutIcon} alt="logout icon" className="w-5 h-5" />
+                  <span>Cerrar sesión</span>
+                  <img src={logOutIcon} alt="logout icon" className="w-4 h-4" />
                 </button>
               </div>
             )}
