@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { MessageCircle, PlayCircle, Clock, Triangle } from "lucide-react";
+import { MessageCircle, PlayCircle, Clock } from "lucide-react";
 import { IntResource } from "../../types";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import { useResources } from "../../context/ResourcesContext";
 
 import BookmarkIconComponent from "../resources/BookmarkIconComponent";
-
+import LikeIcon from "../resources/LikeIcon";
 interface ResourceCardProps {
   resource: IntResource;
   isBookmarked?: boolean;
@@ -88,7 +88,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
           <span className="text-sm font-medium">{comment_count ?? 0}</span>
         </div>
         <div className="flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2">
-          <Triangle size={16} className="text-black" />
+          <LikeIcon liked />
           <span className="text-sm font-medium">{votes ?? 0}</span>
         </div>
       </div>
