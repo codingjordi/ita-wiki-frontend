@@ -19,6 +19,7 @@ export const resourceSchema: z.ZodType<Partial<IntResource>> = z.object({
     .string()
     .url({ message: "Debe ser una URL válida. Indica el protocolo" })
     .max(300, { message: "La URL debe tener menos de 300 caracteres" }),
+
   category: z.enum(categories, {
     message: "Por favor, selecciona una categoría válida.",
   }),
