@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { MessageCircle, PlayCircle, Clock } from "lucide-react";
 import { IntResource } from "../../types";
 import { useCtxUser } from "../../hooks/useCtxUser";
@@ -6,6 +6,8 @@ import { useResources } from "../../context/ResourcesContext";
 
 import BookmarkIconComponent from "../resources/BookmarkIconComponent";
 import LikeIcon from "../resources/LikeIcon";
+import { useLikeToggle } from "../../hooks/useLikeToggle";
+
 interface ResourceCardProps {
   resource: IntResource;
   isBookmarked?: boolean;
@@ -21,6 +23,12 @@ const ResourceCard: FC<ResourceCardProps> = ({
     resource;
 
   const { user } = useCtxUser();
+
+  const [likedResources, setLikedResources] = useState<number[]>([]);
+  const [voteCount, setVoteCount] = useState<number>(votes ?? 0);
+
+  const { toggleLike } = useLikeToggle();
+
   const { getBookmarkCount } = useResources();
 
   const bookmarkCount = resource.id ? getBookmarkCount(resource.id) : 0;
@@ -40,10 +48,10 @@ const ResourceCard: FC<ResourceCardProps> = ({
       ? created_at
       : created_at
         ? new Date(created_at).toLocaleDateString("es-ES", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
         : "Fecha desconocida";
 
   return (
@@ -87,9 +95,17 @@ const ResourceCard: FC<ResourceCardProps> = ({
           <MessageCircle size={16} className="text-black" />
           <span className="text-sm font-medium">{comment_count ?? 0}</span>
         </div>
-        <div className="flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2">
-          <LikeIcon liked />
-          <span className="text-sm font-medium">{votes ?? 0}</span>
+        <div
+          onClick={() => {
+            if (user && user.role === "alumno") {
+              toggleLike(resource, likedResources, setLikedResources, setVoteCount);
+            }
+          }}
+          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${user?.role !== "alumno" ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
+            }`}
+        >
+          <LikeIcon liked={likedResources.includes(resource.id!)} />
+          <span className="text-sm font-medium">{voteCount}</span>
         </div>
       </div>
     </div>
