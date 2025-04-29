@@ -5,7 +5,8 @@ type EndPoints =
   | "users/lists"
   | "roles/"
   | "bookmarks/"
-  | "bookmarks";
+  | "bookmarks"
+  |"tags/";
 
 const END_POINTS = {
   resources: {
@@ -21,6 +22,9 @@ const END_POINTS = {
     lists: "users/user-signedin-as?github_id=" as EndPoints,
     post: "roles/" as EndPoints,
   },
+  tags: {
+    get: "tags/" as EndPoints,
+  }
 };
 
 export { API_URL, END_POINTS };

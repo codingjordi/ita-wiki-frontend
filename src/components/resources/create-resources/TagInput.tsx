@@ -1,60 +1,74 @@
-import { useState } from "react";
-import { themes } from "../../../data/themes";
+import { useEffect, useState } from "react";
+import { getTags } from "../../../api/endPointTags";
+import { Tag } from "../../../types";
+import { formatText } from "../../../utils/formatText";
 
 interface TagInputProps {
-  selectedTheme: (typeof themes)[number] | null;
-  setSelectedTheme: (theme: (typeof themes)[number] | null) => void;
+  selectedTheme: Tag[];
+  setSelectedTheme: (theme: Tag[]) => void;
 }
-
-const suggestions = themes;
 
 const TagInput: React.FC<TagInputProps> = ({
   selectedTheme,
   setSelectedTheme,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  const [filteredSuggestions, setFilteredSuggestions] = useState<
-    (typeof themes)[number][]
-  >([]);
+  const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      const tags = await getTags();
+      setTags(tags);
+    };
+    fetchTags();
+    setSelectedTheme([])
+  }, []);
+
+  const tagNames = tags?.map((tag) => tag.name) || [];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
 
-    if (value) {
-      setFilteredSuggestions(
-        suggestions.filter((theme) =>
-          theme.toLowerCase().includes(value.toLowerCase()),
-        ),
+    if (value && tags) {
+      const filtered = tags.filter((suggestion) =>
+        suggestion.name.toLowerCase().includes(value.toLowerCase())
       );
+      setFilteredTags(filtered);
     } else {
-      setFilteredSuggestions([]);
+      setFilteredTags([]);
     }
   };
 
-  const addTag = (theme: (typeof themes)[number]) => {
-    if (selectedTheme !== theme) {
-      setSelectedTheme(theme);
+  const addTag = (tag: Tag) => {
+    if (!selectedTheme.includes(tag)) {
+      setSelectedTheme([...selectedTheme, tag]);
     }
     setInputValue("");
-    setFilteredSuggestions([]);
+    setFilteredTags([]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputValue.trim() !== "") {
       const trimmedValue = inputValue.trim();
 
-      if (themes.includes(trimmedValue as (typeof themes)[number])) {
-        addTag(trimmedValue as (typeof themes)[number]);
+      if (tagNames.includes(trimmedValue)) {
+        const selectedTag = tags?.find((tag) => tag.name === trimmedValue);
+        if (selectedTag && !selectedTheme.includes(selectedTag)) {
+          setSelectedTheme([...selectedTheme, selectedTag]);
+          setInputValue("");
+          setFilteredTags([]);
+        }
       } else {
         console.error("El valor ingresado no es válido.");
       }
     }
   };
 
-  const removeTag = (theme: (typeof themes)[number]) => {
-    if (selectedTheme === theme) {
-      setSelectedTheme(null);
+  const removeTag = (theme: Tag) => {
+    if (selectedTheme.includes(theme)) {
+      setSelectedTheme(selectedTheme.filter(tag => tag.id !== theme.id));
     }
   };
 
@@ -63,20 +77,20 @@ const TagInput: React.FC<TagInputProps> = ({
       <p className="font-medium mb-2 text-sm text-gray-800">Tags</p>
 
       <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2 ">
-        {selectedTheme && (
+        {selectedTheme && selectedTheme.length > 0 && selectedTheme.map(tag => (
           <div
-            key={selectedTheme}
-            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-1 rounded-md "
+            key={tag.id}
+            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-2 rounded-md mb-2 text-sm border border-[#828282]"
           >
-            <span>{selectedTheme}</span>
+            <span>{formatText(tag.name)}</span>
             <button
-              onClick={() => removeTag(selectedTheme)}
+              onClick={() => removeTag(tag)}
               className="ml-2 text-black hover:text-gray-700 "
             >
               ✕
             </button>
           </div>
-        )}
+        ))}
 
         <input
           type="text"
@@ -85,19 +99,19 @@ const TagInput: React.FC<TagInputProps> = ({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Escribe un tag..."
-          className="w-full border-none outline-none bg-transparent"
+          className="w-full border-none outline-none bg-transparent px-2 py-1"
         />
       </div>
 
-      {filteredSuggestions.length > 0 && (
-        <ul className="bg-white border border-[#DEDEDE] rounded-md shadow-md mt-2 max-h-48 overflow-y-auto">
-          {filteredSuggestions.map((theme) => (
+      {filteredTags.length > 0 && (
+        <ul className="bg-white border border-[#DEDEDE] rounded-md shadow-md max-h-48 overflow-y-auto">
+          {filteredTags.map((tag) => (
             <li
-              key={theme}
+              key={tag.id}
               className="cursor-pointer p-2 hover:bg-[#B91879] hover:text-white"
-              onClick={() => addTag(theme)}
+              onClick={() => addTag(tag)}
             >
-              {theme}
+              {formatText(tag.name)}
             </li>
           ))}
         </ul>
