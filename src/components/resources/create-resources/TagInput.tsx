@@ -30,16 +30,21 @@ const TagInput: React.FC<TagInputProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
-
-    if (value && tags) {
-      const filtered = tags.filter((suggestion) =>
-        suggestion.name.toLowerCase().includes(value.toLowerCase())
+  
+    if (value && tags.length) {
+      const lowerValue = value.toLowerCase();
+  
+      const filtered = tags.filter((tag) => 
+        tag.name.toLowerCase().includes(lowerValue) &&
+        !selectedTheme.some((t) => t.id === tag.id)
       );
+  
       setFilteredTags(filtered);
     } else {
       setFilteredTags([]);
     }
   };
+  
 
   const addTag = (tag: Tag) => {
     if (!selectedTheme.includes(tag)) {
