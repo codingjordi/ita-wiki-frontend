@@ -189,13 +189,10 @@ const HeaderComponent = () => {
                   title={user.displayName}
                   disabled={true}
                 />
-                <hr className="h-px -mx-2 bg-gray-300 border-0"/>
+                <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Role*/}
-                <DropdownButtonComponent
-                  title={userRole}
-                  disabled={true}
-                />
-                <hr className="h-px -mx-2 bg-gray-300 border-0"/>
+                <DropdownButtonComponent title={userRole} disabled={true} />
+                <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Cerrar sesión*/}
                 <DropdownButtonComponent
                   title="Cerrar sesión"
@@ -203,7 +200,8 @@ const HeaderComponent = () => {
                     setShowConfirmLogout(true);
                     setShowDropdown(false);
                   }}
-                  icon={logOutIcon} />
+                  icon={logOutIcon}
+                />
               </div>
             )}
           </div>
@@ -235,10 +233,11 @@ const HeaderComponent = () => {
                 className="hidden"
               />
               <div
-                className={`w-5 h-5 flex items-center justify-center rounded border ${isChecked
-                  ? "bg-[#B91879] border-[#B91879]"
-                  : "border-gray-400"
-                  }`}
+                className={`w-5 h-5 flex items-center justify-center rounded border ${
+                  isChecked
+                    ? "bg-[#B91879] border-[#B91879]"
+                    : "border-gray-400"
+                }`}
               >
                 {isChecked && (
                   <svg
