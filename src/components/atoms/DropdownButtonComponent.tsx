@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 interface DropdownButtonComponentProps {
-    title: string;
-    onClick: () => void;
+    title: string | null;
+    onClick?: () => void;
     icon?: string;
     disabled?: boolean;
 };
@@ -15,12 +15,12 @@ const DropdownButtonComponent: FC<DropdownButtonComponentProps> = ({
 }) => {
     return (
         <button
-            title={title}
+            title={title || "Usuario"}
             onClick={onClick}
-            className={`w-10 h-10 flex items-center justify-center transition rounded-md cursor-pointer
-                ${disabled ? "cursor-not-allowed" : "hover:bg-[#fcecec]"}`}
+            className={`flex items-center justify-center gap-3 px-3 py-1 mx-3 text-[0.85rem] whitespace-nowrap transition rounded-md cursor-pointer ${disabled ? "cursor-not-allowed" : "hover:bg-[#fcecec]"}`}
             disabled={disabled}
         >
+            <span>{title && title.charAt(0).toUpperCase() + title.slice(1)}</span>
             {icon && <img src={icon} alt={`${title} icon`} className="w-4 h-4" />}
         </button>
     );

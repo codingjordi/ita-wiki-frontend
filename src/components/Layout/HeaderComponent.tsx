@@ -5,6 +5,7 @@ import userIcon from "../../assets/user2.svg";
 import arrowDown from "../../assets/arrow-down.svg";
 import logOutIcon from "../../assets/logout-svgrepo-com.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
+import DropdownButtonComponent from "../atoms/DropdownButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "../Modal/Modal";
@@ -183,16 +184,24 @@ const HeaderComponent = () => {
 
             {showDropdown && (
               <div className="absolute right-0 mt-2 bg-white border rounded-md shadow-lg z-50 px-2 py-2 flex flex-col gap-2">
-                <button
+                {/*Username*/}
+                <DropdownButtonComponent
+                  title={user.displayName}
+                  disabled={true}
+                />
+                {/*Role*/}
+                <DropdownButtonComponent
+                  title={userRole}
+                  disabled={true}
+                />
+                {/*Cerrar sesión*/}
+                <DropdownButtonComponent
                   title="Cerrar sesión"
                   onClick={() => {
                     setShowConfirmLogout(true);
                     setShowDropdown(false);
                   }}
-                  className="w-10 h-10 flex items-center justify-center hover:bg-[#fcecec] transition rounded-md cursor-pointer"
-                >
-                  <img src={logOutIcon} alt="logout icon" className="w-5 h-5" />
-                </button>
+                  icon={logOutIcon} />
               </div>
             )}
           </div>
@@ -224,11 +233,10 @@ const HeaderComponent = () => {
                 className="hidden"
               />
               <div
-                className={`w-5 h-5 flex items-center justify-center rounded border ${
-                  isChecked
-                    ? "bg-[#B91879] border-[#B91879]"
-                    : "border-gray-400"
-                }`}
+                className={`w-5 h-5 flex items-center justify-center rounded border ${isChecked
+                  ? "bg-[#B91879] border-[#B91879]"
+                  : "border-gray-400"
+                  }`}
               >
                 {isChecked && (
                   <svg
