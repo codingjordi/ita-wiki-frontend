@@ -4,13 +4,13 @@ import { Tag } from "../../../types";
 import { formatText } from "../../../utils/formatText";
 
 interface TagInputProps {
-  selectedTheme: Tag[];
-  setSelectedTheme: (theme: Tag[]) => void;
+  selectedTags: Tag[];
+  setselectedTags: (tag: Tag[]) => void;
 }
 
 const TagInput: React.FC<TagInputProps> = ({
-  selectedTheme,
-  setSelectedTheme,
+  selectedTags,
+  setselectedTags,
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
@@ -22,7 +22,7 @@ const TagInput: React.FC<TagInputProps> = ({
       setTags(tags);
     };
     fetchTags();
-    setSelectedTheme([])
+    setselectedTags([])
   }, []);
 
   const tagNames = tags?.map((tag) => tag.name) || [];
@@ -36,7 +36,7 @@ const TagInput: React.FC<TagInputProps> = ({
   
       const filtered = tags.filter((tag) => 
         tag.name.toLowerCase().includes(lowerValue) &&
-        !selectedTheme.some((t) => t.id === tag.id)
+        !selectedTags.some((t) => t.id === tag.id)
       );
   
       setFilteredTags(filtered);
@@ -47,8 +47,8 @@ const TagInput: React.FC<TagInputProps> = ({
   
 
   const addTag = (tag: Tag) => {
-    if (!selectedTheme.includes(tag)) {
-      setSelectedTheme([...selectedTheme, tag]);
+    if (!selectedTags.includes(tag)) {
+      setselectedTags([...selectedTags, tag]);
     }
     setInputValue("");
     setFilteredTags([]);
@@ -60,8 +60,8 @@ const TagInput: React.FC<TagInputProps> = ({
 
       if (tagNames.includes(trimmedValue)) {
         const selectedTag = tags?.find((tag) => tag.name === trimmedValue);
-        if (selectedTag && !selectedTheme.includes(selectedTag)) {
-          setSelectedTheme([...selectedTheme, selectedTag]);
+        if (selectedTag && !selectedTags.includes(selectedTag)) {
+          setselectedTags([...selectedTags, selectedTag]);
           setInputValue("");
           setFilteredTags([]);
         }
@@ -72,8 +72,8 @@ const TagInput: React.FC<TagInputProps> = ({
   };
 
   const removeTag = (theme: Tag) => {
-    if (selectedTheme.includes(theme)) {
-      setSelectedTheme(selectedTheme.filter(tag => tag.id !== theme.id));
+    if (selectedTags.includes(theme)) {
+      setselectedTags(selectedTags.filter(tag => tag.id !== theme.id));
     }
   };
 
@@ -82,7 +82,7 @@ const TagInput: React.FC<TagInputProps> = ({
       <p className="font-medium mb-2 text-sm text-gray-800">Tags</p>
 
       <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2 ">
-        {selectedTheme && selectedTheme.length > 0 && selectedTheme.map(tag => (
+        {selectedTags && selectedTags.length > 0 && selectedTags.map(tag => (
           <div
             key={tag.id}
             className="flex items-center bg-[#F6F6F6] font-medium px-3 py-2 rounded-md mb-2 text-sm border border-[#828282]"

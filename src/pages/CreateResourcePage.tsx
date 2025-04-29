@@ -1,4 +1,4 @@
-import { IntResource, Theme, Category } from "../types";
+import { IntResource, Category, Tag } from "../types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resourceSchema } from "../validations/resourceSchema";
@@ -16,7 +16,6 @@ import logoPython from "../../src/assets/pythonVector.svg";
 import logoSql from "../../src/assets/sqlVector.svg";
 import TagInput from "../components/resources/create-resources/TagInput";
 import { useState } from "react";
-import { themes } from "../data/themes";
 import arrowLeft from "../assets/arrow-left.svg";
 import { useNavigate } from "react-router";
 
@@ -37,11 +36,10 @@ export default function CreateResourcePage() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null,
   );
-  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
+  const [selectedTags, setselectedTags] = useState<Tag[]>([]);
 
-  const handleThemeChange = (theme: (typeof themes)[number] | null) => {
-    setSelectedTheme(theme);
-    setValue("theme", theme);
+  const handleTagChange = (tags: Tag[]) => {
+    setselectedTags(tags);
   };
 
   const handleCategorySelect = (category: Category) => {
@@ -299,8 +297,8 @@ export default function CreateResourcePage() {
               )}
             </div>
             <TagInput
-              selectedTheme={selectedTheme}
-              setSelectedTheme={handleThemeChange}
+              selectedTags={selectedTags}
+              setselectedTags={handleTagChange}
             />
             <div className="h-6">
               {errors.theme && (
