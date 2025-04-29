@@ -20,7 +20,7 @@ const DropdownButtonComponent: FC<DropdownButtonComponentProps> = ({
       className={`flex items-center justify-start gap-3 px-3 py-1 mx-3 text-[0.85rem] whitespace-nowrap transition rounded-md ${disabled ? "cursor-default" : "cursor-pointer hover:bg-[#fcecec]"}`}
       disabled={disabled}
     >
-      <span>{title && title.charAt(0).toUpperCase() + title.slice(1)}</span>
+      <span>{title ? title.charAt(0).toUpperCase() + title.slice(1) : "Usuario"}</span>
       {icon && <img src={icon} alt={`${title} icon`} className="w-4 h-4" />}
     </button>
   );
