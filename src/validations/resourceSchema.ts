@@ -4,6 +4,13 @@ import { themes } from "../data/themes";
 import { categories } from "../data/categories";
 import { resourceTypes } from "../data/resourceTypes";
 
+const tagSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+
 export const resourceSchema: z.ZodType<Partial<IntResource>> = z.object({
   title: z
     .string()
@@ -25,7 +32,7 @@ export const resourceSchema: z.ZodType<Partial<IntResource>> = z.object({
   }),
 
   tags: z
-    .array(z.string())
+    .array(tagSchema)
     .max(10, { message: "No puedes agregar más de 10 tags." })
     .optional(),
 

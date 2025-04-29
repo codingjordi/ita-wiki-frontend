@@ -40,6 +40,7 @@ export default function CreateResourcePage() {
 
   const handleTagChange = (tags: Tag[]) => {
     setselectedTags(tags);
+    setValue("tags", tags);
   };
 
   const handleCategorySelect = (category: Category) => {
