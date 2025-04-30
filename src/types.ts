@@ -33,7 +33,7 @@ export interface IntResource {
   votes: number;
   bookmark_count?: number;
   comment_count?: number;
-  tags?: string[];
+  tags?: Tag[];
 }
 
 export type TypTechnologyResource =
@@ -67,4 +67,11 @@ export interface IntBookmarkElement {
   description: string;
   url: string;
   created_at: string;
+}
+
+export interface Tag {
+  id: number;
+  name: string;
+  created_at: string;
+  updated_at: string;
 }
