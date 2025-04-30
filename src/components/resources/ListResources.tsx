@@ -62,7 +62,7 @@ export const ListResources: FC<ListResourceProps> = ({
   return (
     resources && (
       <Container>
-        <div className="flex flex-col gap-6 py-3 lg:gap-12 xl:gap-14 lg:flex-row">
+        <div className="flex flex-col gap-6 py-3 lg:gap-12 xl:gap-20 lg:flex-row">
           {/* Sidebar Filters (Visible on larger screens, on the left) */}
           <div className="hidden sm:block">
             <h2 className="text-[26px] font-bold">Filtros</h2>

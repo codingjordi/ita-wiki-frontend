@@ -55,7 +55,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
         : "Fecha desconocida";
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-400 p-6 flex justify-between items-center gap-2 w-full max-w-[710px] h-[109px]">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-400 p-6 flex justify-between items-center gap-2 w-full h-[109px]">
       {/* Left Section */}
       <div className="flex flex-col space-y-2 overflow-hidden">
         <a
