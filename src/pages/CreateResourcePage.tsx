@@ -148,12 +148,12 @@ export default function CreateResourcePage() {
             />
 
             <h2 className="text-sm text-black font-medium mb-2">Lenguaje</h2>
-            <div className="flex gap-x-3 w-1/2">
+            <div className="flex flex-wrap gap-3">
               <ButtonComponent
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Java")}
-                className={`min-w-[8rem] max-h-[5rem] text-black  ${
+                className={`!w-fit text-black  ${
                   selectedCategory === "Java"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -169,7 +169,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Fullstack PHP")}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "Fullstack PHP"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -185,7 +185,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Javascript")}
-                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "Javascript"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -201,7 +201,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("TypeScript")}
-                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "TypeScript"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -217,7 +217,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Python")}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "Python"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -233,7 +233,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("SQL")}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "SQL"
                     ? "border-2  focus:border-[#B91879]"
                     : ""

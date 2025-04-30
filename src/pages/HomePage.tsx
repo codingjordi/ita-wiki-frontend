@@ -61,7 +61,7 @@ export default function HomePage() {
   return (
     <>
     <PageTitle title="" />
-      <Container>
+      <Container className="!px-6">
         <div className="flex flex-col gap-10 justify-center items-center h-full text-center">
         <h1 className="font-bold text-3xl">
           ¡Bienvenid@ a la wiki de la IT Academy!

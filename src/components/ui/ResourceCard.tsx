@@ -55,7 +55,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
         : "Fecha desconocida";
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-400 p-6 flex justify-between items-center w-full max-w-[710px] h-[109px]">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-400 p-6 flex justify-between items-center gap-2 w-full max-w-[710px] h-[109px]">
       {/* Left Section */}
       <div className="flex flex-col space-y-2 overflow-hidden">
         <a
@@ -64,8 +64,8 @@ const ResourceCard: FC<ResourceCardProps> = ({
           rel="noopener noreferrer"
           className="block space-y-2"
         >
-          <h3 className="text-lg font-bold text-black truncate">{title}</h3>
-          <p className="text-gray-500 text-sm truncate">{description}</p>
+          <h3 className="text-lg font-bold text-black line-clamp-1">{title}</h3>
+          <p className="text-gray-500 text-sm line-clamp-1">{description}</p>
         </a>
         <div className="flex items-center gap-4 text-gray-500 text-sm">
           <span className="flex items-center gap-1">
