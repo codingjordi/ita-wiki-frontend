@@ -5,6 +5,7 @@ import userIcon from "../../assets/user2.svg";
 import arrowDown from "../../assets/arrow-down.svg";
 import logOutIcon from "../../assets/logout-svgrepo-com.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
+import DropdownButtonComponent from "../atoms/DropdownButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "../Modal/Modal";
@@ -183,17 +184,24 @@ const HeaderComponent = () => {
 
             {showDropdown && (
               <div className="absolute right-0 mt-2 bg-white border border-gray-300 rounded-xl shadow-lg z-50 px-2 py-2 flex flex-col gap-2">
-                <button
+                {/*Username*/}
+                <DropdownButtonComponent
+                  title={user.displayName}
+                  disabled={true}
+                />
+                <hr className="h-px -mx-2 bg-gray-300 border-0" />
+                {/*Role*/}
+                <DropdownButtonComponent title={userRole} disabled={true} />
+                <hr className="h-px -mx-2 bg-gray-300 border-0" />
+                {/*Cerrar sesión*/}
+                <DropdownButtonComponent
                   title="Cerrar sesión"
                   onClick={() => {
                     setShowConfirmLogout(true);
                     setShowDropdown(false);
                   }}
-                  className="flex items-center justify-center gap-3 px-3 py-1 mx-3 text-[0.85rem] whitespace-nowrap hover:bg-[#fcecec] transition rounded-md cursor-pointer"
-                >
-                  <span>Cerrar sesión</span>
-                  <img src={logOutIcon} alt="logout icon" className="w-4 h-4" />
-                </button>
+                  icon={logOutIcon}
+                />
               </div>
             )}
           </div>
