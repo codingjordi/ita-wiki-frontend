@@ -18,6 +18,7 @@ import TagInput from "../components/resources/create-resources/TagInput";
 import { useState, useCallback } from "react";
 import arrowLeft from "../assets/arrow-left.svg";
 import { useNavigate } from "react-router";
+import Container from "../components/ui/Container";
 
 export default function CreateResourcePage() {
   const { user } = useUser();
@@ -81,7 +82,7 @@ export default function CreateResourcePage() {
   return (
     <>
       <PageTitle title="Create Resource" />
-      <div className="mx-18 w-full lg:w-6/7 bg-white py-13 px-15  rounded-xl ">
+      <Container>
         <div className="md:flex justify-between items-center">
           <div className="flex flex-col gap-3">
             <button
@@ -335,7 +336,7 @@ export default function CreateResourcePage() {
             </div>
           </form>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

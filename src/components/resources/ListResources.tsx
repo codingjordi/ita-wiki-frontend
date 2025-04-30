@@ -14,6 +14,7 @@ import { resourceTypes } from "../../data/resourceTypes";
 import FilterButton from "./FilterButton";
 import { useSearchParams } from "react-router";
 import ResourceCard from "../ui/ResourceCard";
+import Container from "../ui/Container";
 
 interface ListResourceProps {
   resources: IntResource[];
@@ -60,8 +61,8 @@ export const ListResources: FC<ListResourceProps> = ({
 
   return (
     resources && (
-      <div className="flex h-full">
-        <div className="flex flex-1 flex-col lg:flex-row bg-white rounded-xl lg:px-4 lg:px-8 py-4 sm:py-6 mb-6 mx-6">
+      <Container>
+        <div className="flex flex-col lg:flex-row">
           {/* Sidebar Filters (Visible on larger screens, on the left) */}
           <div className="hidden sm:block px-4 py-6 sm:px-6 lg:pr-8 lg:w-80 xl:shrink-0 xl:pr-6">
             <h2 className="text-[26px] font-bold">Filtros</h2>
@@ -123,7 +124,7 @@ export const ListResources: FC<ListResourceProps> = ({
             </ul>
           </div>
         </div>
-      </div>
+      </Container>
     )
   );
 };
