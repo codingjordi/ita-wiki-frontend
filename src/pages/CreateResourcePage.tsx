@@ -15,7 +15,7 @@ import logoTypeS from "../../src/assets/TypescriptVector.svg";
 import logoPython from "../../src/assets/pythonVector.svg";
 import logoSql from "../../src/assets/sqlVector.svg";
 import TagInput from "../components/resources/create-resources/TagInput";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import arrowLeft from "../assets/arrow-left.svg";
 import { useNavigate } from "react-router";
 
@@ -38,10 +38,10 @@ export default function CreateResourcePage() {
   );
   const [selectedTags, setselectedTags] = useState<Tag[]>([]);
 
-  const handleTagChange = (tags: Tag[]) => {
+  const handleTagChange = useCallback((tags: Tag[]) => {
     setselectedTags(tags);
     setValue("tags", tags);
-  };
+  }, []);
 
   const handleCategorySelect = (category: Category) => {
     setSelectedCategory(category);

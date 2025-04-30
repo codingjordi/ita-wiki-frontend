@@ -23,7 +23,7 @@ const TagInput: React.FC<TagInputProps> = ({
     };
     fetchTags();
     setselectedTags([]);
-  }, []);
+  }, [setselectedTags]);
 
   const tagNames = tags?.map((tag) => tag.name) || [];
 
