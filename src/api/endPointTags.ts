@@ -20,7 +20,7 @@ export const getTags = async (): Promise<Tag[]> => {
 
     return tags;
   } catch (error) {
-        console.error("Error fetching tags:", error);
-        return []
+    console.error("Error fetching tags:", error);
+    return [];
   }
 };

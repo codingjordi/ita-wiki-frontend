@@ -22,7 +22,7 @@ const TagInput: React.FC<TagInputProps> = ({
       setTags(tags);
     };
     fetchTags();
-    setselectedTags([])
+    setselectedTags([]);
   }, []);
 
   const tagNames = tags?.map((tag) => tag.name) || [];
@@ -30,21 +30,21 @@ const TagInput: React.FC<TagInputProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
-  
+
     if (value && tags.length) {
       const lowerValue = value.toLowerCase();
-  
-      const filtered = tags.filter((tag) => 
-        tag.name.toLowerCase().includes(lowerValue) &&
-        !selectedTags.some((t) => t.id === tag.id)
+
+      const filtered = tags.filter(
+        (tag) =>
+          tag.name.toLowerCase().includes(lowerValue) &&
+          !selectedTags.some((t) => t.id === tag.id),
       );
-  
+
       setFilteredTags(filtered);
     } else {
       setFilteredTags([]);
     }
   };
-  
 
   const addTag = (tag: Tag) => {
     if (!selectedTags.includes(tag)) {
@@ -73,7 +73,7 @@ const TagInput: React.FC<TagInputProps> = ({
 
   const removeTag = (theme: Tag) => {
     if (selectedTags.includes(theme)) {
-      setselectedTags(selectedTags.filter(tag => tag.id !== theme.id));
+      setselectedTags(selectedTags.filter((tag) => tag.id !== theme.id));
     }
   };
 
@@ -82,20 +82,22 @@ const TagInput: React.FC<TagInputProps> = ({
       <p className="font-medium mb-2 text-sm text-gray-800">Tags</p>
 
       <div className="p-2 border rounded-md border-gray-200 flex flex-wrap gap-2 focus:border-2 ">
-        {selectedTags && selectedTags.length > 0 && selectedTags.map(tag => (
-          <div
-            key={tag.id}
-            className="flex items-center bg-[#F6F6F6] font-medium px-3 py-2 rounded-md mb-2 text-sm border border-[#828282]"
-          >
-            <span>{formatText(tag.name)}</span>
-            <button
-              onClick={() => removeTag(tag)}
-              className="ml-2 text-black hover:text-gray-700 "
+        {selectedTags &&
+          selectedTags.length > 0 &&
+          selectedTags.map((tag) => (
+            <div
+              key={tag.id}
+              className="flex items-center bg-[#F6F6F6] font-medium px-3 py-2 rounded-md mb-2 text-sm border border-[#828282]"
             >
-              ✕
-            </button>
-          </div>
-        ))}
+              <span>{formatText(tag.name)}</span>
+              <button
+                onClick={() => removeTag(tag)}
+                className="ml-2 text-black hover:text-gray-700 "
+              >
+                ✕
+              </button>
+            </div>
+          ))}
 
         <input
           type="text"

@@ -6,7 +6,7 @@ type EndPoints =
   | "roles/"
   | "bookmarks/"
   | "bookmarks"
-  |"tags/";
+  | "tags/";
 
 const END_POINTS = {
   resources: {
@@ -24,7 +24,7 @@ const END_POINTS = {
   },
   tags: {
     get: "tags/" as EndPoints,
-  }
+  },
 };
 
 export { API_URL, END_POINTS };
