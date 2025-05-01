@@ -227,9 +227,7 @@ const HeaderComponent = () => {
           <Modal closeModal={closeModal} title="Inicio de sesión">
             <GitHubLogin onClick={handleSignIn} isLoading={isLoading} />
             <section className="flex items-center gap-2 mt-8 font-medium">
-              <label
-                htmlFor="terms"                
-              >
+              <label htmlFor="terms">
                 <input
                   name="terms"
                   id="terms"
@@ -239,10 +237,11 @@ const HeaderComponent = () => {
                   className="hidden"
                 />
                 <div
-                  className={`w-5 h-5 flex items-center justify-center rounded border ${isChecked
-                    ? "bg-[#B91879] border-[#B91879]"
-                    : "border-gray-400"
-                    }`}
+                  className={`w-5 h-5 flex items-center justify-center rounded border ${
+                    isChecked
+                      ? "bg-[#B91879] border-[#B91879]"
+                      : "border-gray-400"
+                  }`}
                 >
                   {isChecked && (
                     <svg
@@ -262,9 +261,15 @@ const HeaderComponent = () => {
                   )}
                 </div>
               </label>
-              <p>Acepto <span className="underline cursor-pointer" onClick={() => openTermsModal()}>
-                términos legales
-              </span></p>
+              <p>
+                Acepto{" "}
+                <span
+                  className="underline cursor-pointer"
+                  onClick={() => openTermsModal()}
+                >
+                  términos legales
+                </span>
+              </p>
             </section>
 
             {loginError && (

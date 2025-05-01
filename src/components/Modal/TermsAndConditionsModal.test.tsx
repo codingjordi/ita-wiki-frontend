@@ -4,32 +4,35 @@ import { TermsAndConditionsModal } from "./TermsAndConditionsModal";
 
 //Mock TermsAndConditionsComponent
 vi.mock("../Layout/header/TermsAndConditionsComponent", () => ({
-    default: ({ closeModal }: { closeModal: () => void }) => (
-        <button onClick={closeModal}>Mocked Component</button>
-    ),
+  default: ({ closeModal }: { closeModal: () => void }) => (
+    <button onClick={closeModal}>Mocked Component</button>
+  ),
 }));
 
 describe("TermsAndConditionsModal", () => {
-    const mockCloseModal = vi.fn();
+  const mockCloseModal = vi.fn();
 
-    afterEach(() => {
-        vi.clearAllMocks();
-    });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
-    it("renders the modal with the provided title", () => {
-        render(
-            <TermsAndConditionsModal closeModal={mockCloseModal} title="Test Title" />
-        );
+  it("renders the modal with the provided title", () => {
+    render(
+      <TermsAndConditionsModal
+        closeModal={mockCloseModal}
+        title="Test Title"
+      />,
+    );
 
-        expect(screen.getByText("Test Title")).toBeInTheDocument();
-    });
+    expect(screen.getByText("Test Title")).toBeInTheDocument();
+  });
 
-    it("calls closeModal when clicking the button", () => {
-        render(<TermsAndConditionsModal closeModal={mockCloseModal} />);
+  it("calls closeModal when clicking the button", () => {
+    render(<TermsAndConditionsModal closeModal={mockCloseModal} />);
 
-        const backdrop = screen.getByRole("button");
-        fireEvent.click(backdrop);
+    const backdrop = screen.getByRole("button");
+    fireEvent.click(backdrop);
 
-        expect(mockCloseModal).toHaveBeenCalledTimes(1);
-    });
+    expect(mockCloseModal).toHaveBeenCalledTimes(1);
+  });
 });
