@@ -1,36 +1,38 @@
+import { createLike, deleteLike } from "../api/likesApi";
 import { IntResource } from "../types";
 import { useCtxUser } from "./useCtxUser";
 
 export function useLikeToggle() {
-  const { user } = useCtxUser();
+    const { user } = useCtxUser();
 
-  const toggleLike = (
-    resource: IntResource,
-    likedResources: number[],
-    setLikedResources: React.Dispatch<React.SetStateAction<number[]>>,
-    setVoteCount: React.Dispatch<React.SetStateAction<number>>,
-  ) => {
-    if (!user || user.role !== "student") {
-      return;
-    }
+    const toggleLike = async (
+        resource: IntResource,
+        likedResources: number[],
+        setLikedResources: React.Dispatch<React.SetStateAction<number[]>>,
+        setVoteCount: React.Dispatch<React.SetStateAction<number>>,
+    ) => {
+        if (!user || user.role !== "student") {
+            return;
+        }
 
-    const isAlreadyLiked = likedResources.includes(resource.id!);
+        const isAlreadyLiked = likedResources.includes(resource.id!);
 
-    setLikedResources((prev) => {
-      if (isAlreadyLiked) {
-        return prev.filter((id) => id !== resource.id);
-      } else {
-        return [...prev, resource.id!];
-      }
-    });
+        if (isAlreadyLiked) {
+            const success = await deleteLike(user.github_id!, resource.id!);
+            if (success) {
+                setLikedResources((prev) => prev.filter((id) => id !== resource.id!));
+                setVoteCount((prev) => prev - 1);
+            }
+        } else {
+            const result = await createLike(user.github_id!, resource.id!);
+            if (result) {
+                setLikedResources((prev) => [...prev, resource.id!]);
+                setVoteCount((prev) => prev + 1);
+            }
+        }
+    };
 
-    setVoteCount((prevCount) => {
-      const newCount = isAlreadyLiked ? prevCount - 1 : prevCount + 1;
-      return newCount;
-    });
-  };
-
-  return {
-    toggleLike,
-  };
+    return {
+        toggleLike,
+    };
 }
