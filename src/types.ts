@@ -68,3 +68,12 @@ export interface IntBookmarkElement {
   url: string;
   created_at: string;
 }
+
+export interface Like {
+  id: number;
+  github_id: number;
+  resource_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
