@@ -303,8 +303,8 @@ export default function CreateResourcePage() {
               setselectedTags={handleTagChange}
             />
             <div className="h-6">
-              {errors.theme && (
-                <p className="text-red-500 text-xs">{errors.theme.message}</p>
+              {errors.tags && (
+                <p className="text-red-500 text-xs">{errors.tags.message}</p>
               )}
             </div>
             <div>
