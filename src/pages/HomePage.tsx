@@ -60,41 +60,41 @@ export default function HomePage() {
 
   return (
     <>
-    <PageTitle title="" />
+      <PageTitle title="" />
       <Container className="!px-6">
         <div className="flex flex-col gap-10 justify-center items-center h-full text-center">
-        <h1 className="font-bold text-3xl">
-          ¡Bienvenid@ a la wiki de la IT Academy!
-        </h1>
-        <div>
-          <ButtonComponent onClick={handleNavigate}>
-            Ver Recursos
-          </ButtonComponent>
-        </div>
-        <h2>Funcionalidades básicas que te ofrece esta plataforma:</h2>
-        <section className="flex flex-col gap-8 items-center md:items-stretch md:flex-row">
-          <Card
-            number={1}
-            imageSource={folder}
-            imageAlt="folder"
-            title="Guarda tus recursos favoritos"
-            text="Ten tus recursos bien organizados"
-          />
-          <Card
-            number={2}
-            imageSource={puzzle}
-            imageAlt="puzzle"
-            title="Colabora con tus compañer@s"
-            text="Recursos compartidos"
-          />
-          <Card
-            number={3}
-            imageSource={ok}
-            imageAlt="ok"
-            title="Vota los recursos"
-            text="La comunidad decide cuáles son más relevantes"
-          />
-        </section>
+          <h1 className="font-bold text-3xl">
+            ¡Bienvenid@ a la wiki de la IT Academy!
+          </h1>
+          <div>
+            <ButtonComponent onClick={handleNavigate}>
+              Ver Recursos
+            </ButtonComponent>
+          </div>
+          <h2>Funcionalidades básicas que te ofrece esta plataforma:</h2>
+          <section className="flex flex-col gap-8 items-center md:items-stretch md:flex-row">
+            <Card
+              number={1}
+              imageSource={folder}
+              imageAlt="folder"
+              title="Guarda tus recursos favoritos"
+              text="Ten tus recursos bien organizados"
+            />
+            <Card
+              number={2}
+              imageSource={puzzle}
+              imageAlt="puzzle"
+              title="Colabora con tus compañer@s"
+              text="Recursos compartidos"
+            />
+            <Card
+              number={3}
+              imageSource={ok}
+              imageAlt="ok"
+              title="Vota los recursos"
+              text="La comunidad decide cuáles son más relevantes"
+            />
+          </section>
         </div>
       </Container>
     </>

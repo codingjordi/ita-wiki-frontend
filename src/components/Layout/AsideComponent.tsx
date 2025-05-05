@@ -44,12 +44,11 @@ const AsideComponent: React.FC<AsideComponentProps> = ({ asideContent }) => {
 
   return (
     <aside className="flex flex-col px-6 lg:w-56">
-      
-        <SearchComponent
-          onSearch={handleSearch}
-          disabled={isSearchDisabled}
-          resetTrigger={resource}
-        />
+      <SearchComponent
+        onSearch={handleSearch}
+        disabled={isSearchDisabled}
+        resetTrigger={resource}
+      />
 
       <section>
         <p className="space-y-3 py-6 font-bold text-lg">Categorias</p>
