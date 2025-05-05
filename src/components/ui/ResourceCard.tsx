@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { MessageCircle, PlayCircle, Clock } from "lucide-react";
 import { IntResource } from "../../types";
 import { useCtxUser } from "../../hooks/useCtxUser";
@@ -6,7 +6,7 @@ import { useResources } from "../../context/ResourcesContext";
 
 import BookmarkIconComponent from "../resources/BookmarkIconComponent";
 import LikeIcon from "../resources/LikeIcon";
-import { useLikeToggle } from "../../hooks/useLikeToggle";
+import { useLikeResources } from "../../hooks/useLikeResources";
 
 interface ResourceCardProps {
   resource: IntResource;
@@ -19,15 +19,12 @@ const ResourceCard: FC<ResourceCardProps> = ({
   isBookmarked,
   toggleBookmark,
 }) => {
-  const { title, description, type, created_at, votes, comment_count } =
+  const { title, description, type, created_at, comment_count } =
     resource;
 
   const { user } = useCtxUser();
 
-  const [likedResources, setLikedResources] = useState<number[]>([]);
-  const [voteCount, setVoteCount] = useState<number>(votes ?? 0);
-
-  const { toggleLike } = useLikeToggle();
+  const { liked, voteCount, handleLike, disabled } = useLikeResources(resource);
 
   const { getBookmarkCount } = useResources();
 
@@ -48,10 +45,10 @@ const ResourceCard: FC<ResourceCardProps> = ({
       ? created_at
       : created_at
         ? new Date(created_at).toLocaleDateString("es-ES", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
         : "Fecha desconocida";
 
   return (
@@ -96,23 +93,11 @@ const ResourceCard: FC<ResourceCardProps> = ({
           <span className="text-sm font-medium">{comment_count ?? 0}</span>
         </div>
         <div
-          onClick={() => {
-            if (user && user.role === "student") {
-              toggleLike(
-                resource,
-                likedResources,
-                setLikedResources,
-                setVoteCount,
-              );
-            }
-          }}
-          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${
-            user?.role !== "student"
-              ? "opacity-70 cursor-not-allowed"
-              : "cursor-pointer"
-          }`}
+          onClick={() => !disabled && handleLike()}
+          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
+            }`}
         >
-          <LikeIcon liked={likedResources.includes(resource.id!)} />
+          <LikeIcon liked={liked} />
           <span className="text-sm font-medium">{voteCount}</span>
         </div>
       </div>

@@ -1,21 +1,23 @@
-import { API_URL, END_POINTS } from "../config";
+import { API_URL } from "../config";
 import { Like } from "../types";
 
 export const getLikes = async (github_id: number): Promise<Like[]> => {
-  const url = `${API_URL}${END_POINTS.likes.get}/${github_id}`;
-
+  const url = `${API_URL}likes/${github_id}`;
   try {
     const response = await fetch(url);
     if (!response.ok) return [];
     return await response.json();
-  } catch (error) {
-    console.error("Error fetching likes:", error);
+  } catch (err) {
+    console.error("Error fetching likes:", err);
     return [];
   }
 };
 
-export const createLike = async (github_id: number, resource_id: number): Promise<Like> => {
-  const url = `${API_URL}${END_POINTS.likes.post}`;
+export const createLike = async (
+  github_id: number,
+  resource_id: number
+): Promise<Like | null> => {
+  const url = `${API_URL}likes`;
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -23,16 +25,19 @@ export const createLike = async (github_id: number, resource_id: number): Promis
       body: JSON.stringify({ github_id, resource_id }),
     });
 
-    if (!response.ok) throw new Error("Error creating like");
+    if (!response.ok) return null;
     return await response.json();
-  } catch (error) {
-    console.error("Error creating like:", error);
-    throw error;
+  } catch (err) {
+    console.error("Error creating like:", err);
+    return null;
   }
 };
 
-export const deleteLike = async (github_id: number, resource_id: number): Promise<boolean> => {
-  const url = `${API_URL}${END_POINTS.likes.delete}`;
+export const deleteLike = async (
+  github_id: number,
+  resource_id: number
+): Promise<boolean> => {
+  const url = `${API_URL}likes`;
   try {
     const response = await fetch(url, {
       method: "DELETE",
@@ -41,8 +46,8 @@ export const deleteLike = async (github_id: number, resource_id: number): Promis
     });
 
     return response.ok;
-  } catch (error) {
-    console.error("Error deleting like:", error);
+  } catch (err) {
+    console.error("Error deleting like:", err);
     return false;
   }
 };

@@ -23,9 +23,9 @@ const END_POINTS = {
     post: "roles/" as EndPoints,
   },
   likes: {
-    get: "likes/" as EndPoints,
-    post: "likes/" as EndPoints,
-    delete: "likes/" as EndPoints,
+    get: "likes" as EndPoints,
+    post: "likes" as EndPoints,
+    delete: "likes" as EndPoints,
   },
 };
 

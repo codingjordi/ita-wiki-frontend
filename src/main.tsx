@@ -6,12 +6,14 @@ import UserCtxProvider from "./context/UserCtxProvider.tsx";
 import { BrowserRouter } from "react-router";
 import { Toaster } from "sonner";
 import { ResourcesProvider } from "./context/ResourcesContext.tsx";
+import { LikesProvider } from "./context/LikeContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <UserCtxProvider>
     <StrictMode>
       <BrowserRouter>
         <ResourcesProvider>
+          <LikesProvider>
           <Toaster
             richColors
             toastOptions={{
@@ -31,6 +33,7 @@ createRoot(document.getElementById("root")!).render(
               },
             }}
           />
+          </LikesProvider>
         </ResourcesProvider>
       </BrowserRouter>
     </StrictMode>

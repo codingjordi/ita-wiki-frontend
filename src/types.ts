@@ -30,7 +30,7 @@ export interface IntResource {
   category: Category;
   theme: Theme;
   type: ResourceType;
-  votes: number;
+  like_count?: number;
   bookmark_count?: number;
   comment_count?: number;
   tags?: string[];

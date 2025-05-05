@@ -1,34 +1,68 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { LikeContext } from "../context/LikeContext";
+import { useLikeToggle } from "./useLikeToggle";
 import { IntResource } from "../types";
 import { useCtxUser } from "./useCtxUser";
-import { useLikeToggle } from "./useLikeToggle";
-import { getLikes } from "../api/likesApi";
+import { useResources } from "../context/ResourcesContext";
 
-export function useResourceLike(resource: IntResource) {
-    const { user } = useCtxUser();
-    const [likedResources, setLikedResources] = useState<number[]>([]);
-    const [voteCount, setVoteCount] = useState<number>(resource.votes ?? 0);
-
+export function useLikeResources(resource: IntResource) {
+    const { likedResourceIds, refreshLikes, setLikedResourceIds } = useContext(LikeContext);
     const { toggleLike } = useLikeToggle();
+    const { user } = useCtxUser();
+    const { resources, refreshResources } = useResources();
+
+
+    const github_id = user?.github_id;
+    const resourceId = resource.id!;
+    const updatedResource = resources.find((r) => r.id === resource.id);
+
+    const [voteCount, setVoteCount] = useState<number>(updatedResource?.like_count ?? 0);
 
     useEffect(() => {
-        const fetchLikes = async () => {
-            if (!user || user.role !== "student" || !user.github_id) return;
-            const likes = await getLikes(user.github_id);
-            const likedIds = likes.map((like) => like.resource_id);
-            setLikedResources(likedIds);
-        };
-        fetchLikes();
-    }, [user]);
+        if (updatedResource?.like_count !== undefined) {
+            setVoteCount(updatedResource.like_count);
+        }
+    }, [updatedResource]);
 
-    const handleLike = () => {
-        toggleLike(resource, likedResources, setLikedResources, setVoteCount);
+
+    useEffect(() => {
+    }, [voteCount]);
+
+    const isLiked = useMemo(
+        () => likedResourceIds.includes(resourceId),
+        [likedResourceIds, resourceId]
+    );
+
+    const handleLike = async () => {
+        if (!github_id) return;
+        const optimisticLikedIds = isLiked
+            ? likedResourceIds.filter((id) => id !== resourceId)
+            : [...likedResourceIds, resourceId];
+
+        setLikedResourceIds(optimisticLikedIds);
+        setVoteCount((prev) => prev + (isLiked ? -1 : 1));
+
+        try {
+            const result = await toggleLike(resourceId, isLiked);
+            if (!result?.success) {
+                setLikedResourceIds(likedResourceIds);
+                setVoteCount((prev) => prev - (isLiked ? -1 : 1));
+            } else {
+                refreshLikes();
+                refreshResources();
+            }
+        } catch (err) {
+            console.error("Error toggling like:", err);
+            setLikedResourceIds(likedResourceIds);
+            setVoteCount((prev) => prev - (isLiked ? -1 : 1));
+        }
     };
 
+
     return {
-        liked: likedResources.includes(resource.id!),
+        liked: isLiked,
         voteCount,
         handleLike,
-        disabled: !user || user.role !== "student",
+        disabled: !github_id,
     };
 }
