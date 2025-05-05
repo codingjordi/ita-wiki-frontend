@@ -8,7 +8,7 @@ interface CardProps {
 
 const Card = ({ number, imageSource, imageAlt, title, text }: CardProps) => {
   return (
-    <div className="relative flex flex-col items-center gap-4 bg-card w-64 px-4 rounded-lg py-8">
+    <div className="relative flex flex-col items-center gap-4 bg-card w-64 lg:w-52 xl:w-64 px-4 rounded-lg py-8">
       <span className="absolute left-0 top-1 p-3 text-sm text-gray-foreground tracking-widest">
         /0{number}
       </span>
