@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { IntResource } from "../types";
-import { themes } from "../data/themes";
 import { categories } from "../data/categories";
 import { resourceTypes } from "../data/resourceTypes";
 
