@@ -50,8 +50,24 @@ export default function CreateResourcePage() {
   };
 
   const onSubmit = async (data: Partial<IntResource>) => {
+    // el backend solo espera las etiquetas con nombre y nada mas
+    // por lo cual creamos un array de solo nombres antes de mandarlo
+    let tagsWithName;
+    if (data.tags && data.tags.length) {
+      tagsWithName = [];
+      data.tags.forEach((tag) => {
+        tagsWithName.push(tag.name);
+      });
+    }
+
+    // todo manual porque si no typescript se pone a gritar
     const resourceWithGithubId = {
-      ...data,
+      title: data.title,
+      description: data.description,
+      url: data.url,
+      category: data.category,
+      tags: tagsWithName,
+      type: data.type,
       github_id: user?.id,
     };
 
@@ -303,8 +319,8 @@ export default function CreateResourcePage() {
               setselectedTags={handleTagChange}
             />
             <div className="h-6">
-              {errors.theme && (
-                <p className="text-red-500 text-xs">{errors.theme.message}</p>
+              {errors.tags && (
+                <p className="text-red-500 text-xs">{errors.tags.message}</p>
               )}
             </div>
             <div>

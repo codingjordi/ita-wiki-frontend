@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { IntResource } from "../types";
-import { themes } from "../data/themes";
 import { categories } from "../data/categories";
 import { resourceTypes } from "../data/resourceTypes";
 
@@ -35,11 +34,6 @@ export const resourceSchema: z.ZodType<Partial<IntResource>> = z.object({
     .array(tagSchema)
     .max(10, { message: "No puedes agregar más de 10 tags." })
     .optional(),
-
-  theme: z.union([
-    z.enum(themes, { message: "Por favor, selecciona un tema válido" }),
-    z.null(),
-  ]),
 
   type: z.enum(resourceTypes, {
     message: "Debes seleccionar al menos un tipo de recurso.",
