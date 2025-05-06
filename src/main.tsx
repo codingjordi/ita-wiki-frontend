@@ -14,25 +14,25 @@ createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <ResourcesProvider>
           <LikesProvider>
-          <Toaster
-            richColors
-            toastOptions={{
-              style: {
-                padding: "2rem",
-                fontSize: "1rem",
-              },
-            }}
-          />
-          <App />
-          <Toaster
-            richColors
-            toastOptions={{
-              style: {
-                padding: "2rem",
-                fontSize: "1rem",
-              },
-            }}
-          />
+            <Toaster
+              richColors
+              toastOptions={{
+                style: {
+                  padding: "2rem",
+                  fontSize: "1rem",
+                },
+              }}
+            />
+            <App />
+            <Toaster
+              richColors
+              toastOptions={{
+                style: {
+                  padding: "2rem",
+                  fontSize: "1rem",
+                },
+              }}
+            />
           </LikesProvider>
         </ResourcesProvider>
       </BrowserRouter>

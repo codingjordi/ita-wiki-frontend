@@ -9,7 +9,6 @@ type EndPoints =
   | "likes/"
   | "tags/";
 
-
 const END_POINTS = {
   resources: {
     lists: "resources/" as EndPoints,

@@ -23,9 +23,9 @@ const ResourcesContext = createContext<ResourcesContextType>({
   bookmarkedResources: [],
   loadingBookmarks: true,
   isBookmarked: () => false,
-  toggleBookmark: () => { },
+  toggleBookmark: () => {},
   getBookmarkCount: () => 0,
-  refreshResources: () => { },
+  refreshResources: () => {},
 });
 
 export const useResources = () => useContext(ResourcesContext);
@@ -87,7 +87,6 @@ export const ResourcesProvider = ({
       console.error("Error refreshing resources:", err);
     }
   };
-
 
   useEffect(() => {
     if (!user || resources.length === 0) {

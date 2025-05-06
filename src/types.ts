@@ -83,4 +83,3 @@ export interface Tag {
   created_at: string;
   updated_at: string;
 }
-
