@@ -6,7 +6,9 @@ type EndPoints =
   | "roles/"
   | "bookmarks/"
   | "bookmarks"
-  | "likes/";
+  | "likes/"
+  | "tags/";
+
 
 const END_POINTS = {
   resources: {
@@ -26,6 +28,9 @@ const END_POINTS = {
     get: "likes" as EndPoints,
     post: "likes" as EndPoints,
     delete: "likes" as EndPoints,
+  },
+  tags: {
+    get: "tags/" as EndPoints,
   },
 };
 

@@ -33,7 +33,7 @@ export interface IntResource {
   like_count?: number;
   bookmark_count?: number;
   comment_count?: number;
-  tags?: string[];
+  tags?: Tag[];
 }
 
 export type TypTechnologyResource =
@@ -73,6 +73,13 @@ export interface Like {
   id: number;
   github_id: number;
   resource_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Tag {
+  id: number;
+  name: string;
   created_at: string;
   updated_at: string;
 }

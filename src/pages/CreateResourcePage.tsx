@@ -1,4 +1,4 @@
-import { IntResource, Theme, Category } from "../types";
+import { IntResource, Category, Tag } from "../types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resourceSchema } from "../validations/resourceSchema";
@@ -15,10 +15,10 @@ import logoTypeS from "../../src/assets/TypescriptVector.svg";
 import logoPython from "../../src/assets/pythonVector.svg";
 import logoSql from "../../src/assets/sqlVector.svg";
 import TagInput from "../components/resources/create-resources/TagInput";
-import { useState } from "react";
-import { themes } from "../data/themes";
+import { useState, useCallback } from "react";
 import arrowLeft from "../assets/arrow-left.svg";
 import { useNavigate } from "react-router";
+import Container from "../components/ui/Container";
 
 export default function CreateResourcePage() {
   const { user } = useUser();
@@ -37,12 +37,12 @@ export default function CreateResourcePage() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null,
   );
-  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
+  const [selectedTags, setselectedTags] = useState<Tag[]>([]);
 
-  const handleThemeChange = (theme: (typeof themes)[number] | null) => {
-    setSelectedTheme(theme);
-    setValue("theme", theme);
-  };
+  const handleTagChange = useCallback((tags: Tag[]) => {
+    setselectedTags(tags);
+    setValue("tags", tags);
+  }, []);
 
   const handleCategorySelect = (category: Category) => {
     setSelectedCategory(category);
@@ -82,7 +82,7 @@ export default function CreateResourcePage() {
   return (
     <>
       <PageTitle title="Create Resource" />
-      <div className="mx-18 w-full lg:w-6/7 bg-white py-13 px-15  rounded-xl ">
+      <Container>
         <div className="md:flex justify-between items-center">
           <div className="flex flex-col gap-3">
             <button
@@ -148,12 +148,12 @@ export default function CreateResourcePage() {
             />
 
             <h2 className="text-sm text-black font-medium mb-2">Lenguaje</h2>
-            <div className="flex gap-x-3 w-1/2">
+            <div className="flex flex-wrap gap-3">
               <ButtonComponent
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Java")}
-                className={`min-w-[8rem] max-h-[5rem] text-black  ${
+                className={`!w-fit text-black  ${
                   selectedCategory === "Java"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -169,7 +169,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Fullstack PHP")}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "Fullstack PHP"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -185,7 +185,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Javascript")}
-                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "Javascript"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -201,7 +201,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("TypeScript")}
-                className={`min-w-[12rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "TypeScript"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -217,7 +217,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("Python")}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "Python"
                     ? "border-2 focus:border-[#B91879]"
                     : ""
@@ -233,7 +233,7 @@ export default function CreateResourcePage() {
                 type="button"
                 variant="secondary"
                 onClick={() => handleCategorySelect("SQL")}
-                className={`min-w-[8rem] max-h-[3.5rem] text-black py-2 ${
+                className={`!w-fit text-black py-2 ${
                   selectedCategory === "SQL"
                     ? "border-2  focus:border-[#B91879]"
                     : ""
@@ -299,8 +299,8 @@ export default function CreateResourcePage() {
               )}
             </div>
             <TagInput
-              selectedTheme={selectedTheme}
-              setSelectedTheme={handleThemeChange}
+              selectedTags={selectedTags}
+              setselectedTags={handleTagChange}
             />
             <div className="h-6">
               {errors.theme && (
@@ -336,7 +336,7 @@ export default function CreateResourcePage() {
             </div>
           </form>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

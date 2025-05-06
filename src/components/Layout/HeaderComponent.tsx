@@ -5,12 +5,14 @@ import userIcon from "../../assets/user2.svg";
 import arrowDown from "../../assets/arrow-down.svg";
 import logOutIcon from "../../assets/logout-svgrepo-com.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
+import DropdownButtonComponent from "../atoms/DropdownButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
 import { AddUsersModal } from "../resources/AddUserModal";
 import { getUserRole } from "../../api/userApi";
+import { TermsAndConditionsModal } from "../Modal/TermsAndConditionsModal";
 
 const HeaderComponent = () => {
   const { user, signIn, signOut } = useCtxUser();
@@ -30,6 +32,8 @@ const HeaderComponent = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const langDropdownRef = useRef<HTMLDivElement>(null);
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
+
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const resourcePath =
@@ -64,6 +68,9 @@ const HeaderComponent = () => {
 
   const openAddUserModal = () => setIsAddUserModalOpen(true);
   const closeAddUserModal = () => setIsAddUserModalOpen(false);
+
+  const openTermsModal = () => setIsTermsModalOpen(true);
+  const closeTermsModal = () => setIsTermsModalOpen(false);
 
   const [userRole, setUserRole] = useState<string | null>(null);
 
@@ -183,17 +190,24 @@ const HeaderComponent = () => {
 
             {showDropdown && (
               <div className="absolute right-0 mt-2 bg-white border border-gray-300 rounded-xl shadow-lg z-50 px-2 py-2 flex flex-col gap-2">
-                <button
+                {/*Username*/}
+                <DropdownButtonComponent
+                  title={user.displayName}
+                  disabled={true}
+                />
+                <hr className="h-px -mx-2 bg-gray-300 border-0" />
+                {/*Role*/}
+                <DropdownButtonComponent title={userRole} disabled={true} />
+                <hr className="h-px -mx-2 bg-gray-300 border-0" />
+                {/*Cerrar sesión*/}
+                <DropdownButtonComponent
                   title="Cerrar sesión"
                   onClick={() => {
                     setShowConfirmLogout(true);
                     setShowDropdown(false);
                   }}
-                  className="flex items-center justify-center gap-3 px-3 py-1 mx-3 text-[0.85rem] whitespace-nowrap hover:bg-[#fcecec] transition rounded-md cursor-pointer"
-                >
-                  <span>Cerrar sesión</span>
-                  <img src={logOutIcon} alt="logout icon" className="w-4 h-4" />
-                </button>
+                  icon={logOutIcon}
+                />
               </div>
             )}
           </div>
@@ -212,44 +226,52 @@ const HeaderComponent = () => {
         {isModalOpen && (
           <Modal closeModal={closeModal} title="Inicio de sesión">
             <GitHubLogin onClick={handleSignIn} isLoading={isLoading} />
-            <label
-              htmlFor="terms"
-              className=" flex items-center gap-2 mt-8 cursor-pointer font-medium text-[1rem]"
-            >
-              <input
-                name="terms"
-                id="terms"
-                type="checkbox"
-                onChange={handleCheckboxChange}
-                checked={isChecked}
-                className="hidden"
-              />
-              <div
-                className={`w-5 h-5 flex items-center justify-center rounded border ${
-                  isChecked
-                    ? "bg-[#B91879] border-[#B91879]"
-                    : "border-gray-400"
-                }`}
-              >
-                {isChecked && (
-                  <svg
-                    className="w-4 h-4 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 13l4 4L19 7"
-                    ></path>
-                  </svg>
-                )}
-              </div>
-              Acepto <u>términos legales</u>
-            </label>
+            <section className="flex items-center gap-2 mt-8 font-medium">
+              <label htmlFor="terms">
+                <input
+                  name="terms"
+                  id="terms"
+                  type="checkbox"
+                  onChange={handleCheckboxChange}
+                  checked={isChecked}
+                  className="hidden"
+                />
+                <div
+                  className={`w-5 h-5 flex items-center justify-center rounded border ${
+                    isChecked
+                      ? "bg-[#B91879] border-[#B91879]"
+                      : "border-gray-400"
+                  }`}
+                >
+                  {isChecked && (
+                    <svg
+                      className="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  )}
+                </div>
+              </label>
+              <p>
+                Acepto{" "}
+                <span
+                  className="underline cursor-pointer"
+                  onClick={() => openTermsModal()}
+                >
+                  términos legales
+                </span>
+              </p>
+            </section>
+
             {loginError && (
               <div className="text-red-500 text-[1rem] mt-8 text-center font-medium">
                 Lo sentimos, no se ha podido iniciar sesión,
@@ -289,6 +311,15 @@ const HeaderComponent = () => {
           </Modal>
         )}
 
+        {/* MODAL TERMS AND CONDITIONS */}
+        {isTermsModalOpen && (
+          <TermsAndConditionsModal
+            closeModal={closeTermsModal}
+            title="Términos Legales"
+          />
+        )}
+
+        {/* MODAL ADD USER */}
         {isAddUserModalOpen && hasPermission && (
           <AddUsersModal
             onClose={closeAddUserModal}
