@@ -24,7 +24,6 @@ export const signInWithGitHub = async () => {
     const result = await signInWithPopup(auth, gitHubProvider);
     const newUser: IntUser = {
       id: Number(result.user.providerData[0].uid),
-      github_id: Number(result.user.providerData[0].uid),
       displayName: result.user.providerData[0].displayName ?? "",
       photoURL: result.user.providerData[0].photoURL ?? "",
     };

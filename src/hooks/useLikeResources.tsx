@@ -13,7 +13,7 @@ export function useLikeResources(resource: IntResource) {
   const { refreshResources } = useResources();
 
   const github_id = user?.github_id;
-  const resourceId = resource.id!;
+  const resourceId = Number(resource.id);
 
   const [localLiked, setLocalLiked] = useState<boolean>(
     likedResourceIds.includes(resourceId),
@@ -29,6 +29,17 @@ export function useLikeResources(resource: IntResource) {
       setLocalCount(resource.like_count ?? 0);
     }
   }, [likedResourceIds, resource.like_count, resourceId, syncBlocked]);
+
+  useEffect(() => {
+    refreshResources();
+  }, [resourceId]);
+
+  const rollback = (wasLiked: boolean) => {
+    setLocalLiked(wasLiked);
+    // Revert optimistic like count update
+    setLocalCount((prev) => prev + (wasLiked ? -1 : 1));
+    setLikedResourceIds(likedResourceIds);
+  };
 
   const handleLike = async () => {
     if (!github_id) return;
@@ -46,23 +57,18 @@ export function useLikeResources(resource: IntResource) {
 
     try {
       const result = await toggleLike(resourceId, wasLiked);
+
       if (!result?.success) {
-        setLocalLiked(wasLiked);
-        setLocalCount((prev) => prev - (wasLiked ? -1 : 1));
-        setLikedResourceIds(likedResourceIds);
+        rollback(wasLiked);
       } else {
         await refreshLikes();
         await refreshResources();
       }
     } catch (err) {
       console.error("Error toggling like:", err);
-      setLocalLiked(wasLiked);
-      setLocalCount((prev) => prev - (wasLiked ? -1 : 1));
-      setLikedResourceIds(likedResourceIds);
+      rollback(wasLiked);
     } finally {
-      setTimeout(() => {
-        setSyncBlocked(false);
-      }, 1000);
+      setSyncBlocked(false);
     }
   };
 
