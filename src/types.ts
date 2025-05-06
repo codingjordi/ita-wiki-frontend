@@ -47,7 +47,7 @@ export type TypTechnologyResource =
   | "Data Science"
   | "BBDD";
 
-export type SortOption = "recent" | "oldest" | "year" | "votes";
+export type SortOption = "recent" | "oldest" | "year" | "likes";
 
 export interface Bookmark {
   id: number;

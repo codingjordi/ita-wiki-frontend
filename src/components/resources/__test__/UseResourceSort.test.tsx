@@ -8,7 +8,7 @@ describe("useResourceSort hook", () => {
       id: 1,
       title: "Resource 1",
       created_at: "2022-01-01",
-      votes: 10,
+      like_count: 10,
       github_id: 123456,
       description: "Description 1",
       url: "https://example.com/resource1",
@@ -20,7 +20,7 @@ describe("useResourceSort hook", () => {
       id: 2,
       title: "Resource 2",
       created_at: "2021-01-01",
-      votes: 20,
+      like_count: 20,
       github_id: 123457,
       description: "Description 2",
       url: "https://example.com/resource2",
@@ -32,7 +32,7 @@ describe("useResourceSort hook", () => {
       id: 3,
       title: "Resource 3",
       created_at: "2023-01-01",
-      votes: 5,
+      like_count: 5,
       github_id: 123458,
       description: "Description 3",
       url: "https://example.com/resource3",
@@ -62,11 +62,11 @@ describe("useResourceSort hook", () => {
     expect(result.current.sortedResources[0].title).toBe("Resource 2");
   });
 
-  it("should return sorted resources by votes", () => {
+  it("should return sorted resources by likes", () => {
     const { result } = renderHook(() => useResourceSort({ resources }));
 
     act(() => {
-      result.current.setSortOption("votes");
+      result.current.setSortOption("likes");
     });
 
     expect(result.current.sortedResources[0].title).toBe("Resource 2");

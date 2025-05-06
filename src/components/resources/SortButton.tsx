@@ -75,9 +75,9 @@ const SortButton: React.FC<SortButtonProps> = ({
           </li>
           <li
             className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
-              sortOption === "votes" ? "bg-gray-300" : ""
+              sortOption === "likes" ? "bg-gray-300" : ""
             }`}
-            onClick={() => setSortOption("votes")}
+            onClick={() => setSortOption("likes")}
           >
             Más votados
           </li>
