@@ -15,7 +15,7 @@ export const getLikes = async (github_id: number): Promise<Like[]> => {
 
 export const createLike = async (
   github_id: number,
-  resource_id: number
+  resource_id: number,
 ): Promise<Like | null> => {
   const url = `${API_URL}likes`;
   try {
@@ -35,7 +35,7 @@ export const createLike = async (
 
 export const deleteLike = async (
   github_id: number,
-  resource_id: number
+  resource_id: number,
 ): Promise<boolean> => {
   const url = `${API_URL}likes`;
   try {

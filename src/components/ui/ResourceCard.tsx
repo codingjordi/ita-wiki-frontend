@@ -19,8 +19,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
   isBookmarked,
   toggleBookmark,
 }) => {
-  const { title, description, type, created_at, comment_count } =
-    resource;
+  const { title, description, type, created_at, comment_count } = resource;
 
   const { user } = useCtxUser();
 
@@ -45,10 +44,10 @@ const ResourceCard: FC<ResourceCardProps> = ({
       ? created_at
       : created_at
         ? new Date(created_at).toLocaleDateString("es-ES", {
-          day: "2-digit",
-          month: "short",
-          year: "numeric",
-        })
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })
         : "Fecha desconocida";
 
   return (
@@ -94,8 +93,9 @@ const ResourceCard: FC<ResourceCardProps> = ({
         </div>
         <div
           onClick={() => !disabled && handleLike()}
-          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
-            }`}
+          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${
+            disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
+          }`}
         >
           <LikeIcon liked={liked} />
           <span className="text-sm font-medium">{voteCount}</span>
