@@ -6,6 +6,7 @@ type EndPoints =
   | "roles/"
   | "bookmarks/"
   | "bookmarks"
+  | "likes/"
   | "tags/";
 
 const END_POINTS = {
@@ -21,6 +22,11 @@ const END_POINTS = {
   roles: {
     lists: "users/user-signedin-as?github_id=" as EndPoints,
     post: "roles/" as EndPoints,
+  },
+  likes: {
+    get: "likes" as EndPoints,
+    post: "likes" as EndPoints,
+    delete: "likes" as EndPoints,
   },
   tags: {
     get: "tags/" as EndPoints,

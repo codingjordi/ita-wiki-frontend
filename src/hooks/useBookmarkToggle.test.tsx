@@ -32,7 +32,7 @@ describe("useBookmarkToggle", () => {
     type: "tutorial" as ResourceType,
     category: "frontend" as Category,
     theme: "react" as Theme,
-    votes: 10,
+    like_count: 10,
     bookmark_count: 5,
     comment_count: 3,
   };

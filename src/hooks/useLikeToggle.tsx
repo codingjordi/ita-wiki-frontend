@@ -1,36 +1,38 @@
-import { IntResource } from "../types";
-import { useCtxUser } from "./useCtxUser";
+import { useCallback } from "react";
+import { createLike, deleteLike } from "../api/likesApi";
+import { useCtxUser } from "../hooks/useCtxUser";
 
-export function useLikeToggle() {
+export const useLikeToggle = () => {
   const { user } = useCtxUser();
 
-  const toggleLike = (
-    resource: IntResource,
-    likedResources: number[],
-    setLikedResources: React.Dispatch<React.SetStateAction<number[]>>,
-    setVoteCount: React.Dispatch<React.SetStateAction<number>>,
-  ) => {
-    if (!user || user.role !== "student") {
-      return;
-    }
-
-    const isAlreadyLiked = likedResources.includes(resource.id!);
-
-    setLikedResources((prev) => {
-      if (isAlreadyLiked) {
-        return prev.filter((id) => id !== resource.id);
-      } else {
-        return [...prev, resource.id!];
+  const toggleLike = useCallback(
+    async (resource_id: number, isLiked: boolean) => {
+      if (
+        !user ||
+        user.role !== "student" ||
+        typeof user.github_id !== "number"
+      ) {
+        console.warn("User not allowed to vote.");
+        return { success: false };
       }
-    });
 
-    setVoteCount((prevCount) => {
-      const newCount = isAlreadyLiked ? prevCount - 1 : prevCount + 1;
-      return newCount;
-    });
-  };
+      const github_id = user.github_id;
 
-  return {
-    toggleLike,
-  };
-}
+      try {
+        if (isLiked) {
+          const ok = await deleteLike(github_id, resource_id);
+          return { success: ok, action: "deleted" };
+        } else {
+          const like = await createLike(github_id, resource_id);
+          return { success: !!like, action: "created" };
+        }
+      } catch (err) {
+        console.error("Toggle error:", err);
+        return { success: false };
+      }
+    },
+    [user],
+  );
+
+  return { toggleLike };
+};

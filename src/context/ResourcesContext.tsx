@@ -14,6 +14,7 @@ interface ResourcesContextType {
   isBookmarked: (resource: IntResource) => boolean;
   toggleBookmark: (resource: IntResource) => void;
   getBookmarkCount: (resourceId: number | string) => number;
+  refreshResources: () => void;
 }
 
 const ResourcesContext = createContext<ResourcesContextType>({
@@ -24,6 +25,7 @@ const ResourcesContext = createContext<ResourcesContextType>({
   isBookmarked: () => false,
   toggleBookmark: () => {},
   getBookmarkCount: () => 0,
+  refreshResources: () => {},
 });
 
 export const useResources = () => useContext(ResourcesContext);
@@ -76,6 +78,15 @@ export const ResourcesProvider = ({
 
     fetchResources();
   }, []);
+
+  const refreshResources = async () => {
+    try {
+      const data = await getResources();
+      setResources(data);
+    } catch (err) {
+      console.error("Error refreshing resources:", err);
+    }
+  };
 
   useEffect(() => {
     if (!user || resources.length === 0) {
@@ -214,6 +225,7 @@ export const ResourcesProvider = ({
         isBookmarked,
         toggleBookmark,
         getBookmarkCount,
+        refreshResources,
       }}
     >
       {children}

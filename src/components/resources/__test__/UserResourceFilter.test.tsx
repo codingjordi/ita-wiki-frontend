@@ -25,7 +25,7 @@ describe("useResourceFilter", () => {
       category: "React",
       theme: "Componentes",
       type: "Video",
-      votes: 10,
+      like_count: 10,
     },
     {
       id: 2,
@@ -36,7 +36,7 @@ describe("useResourceFilter", () => {
       category: "React",
       theme: "UseState & UseEffect",
       type: "Blog",
-      votes: 20,
+      like_count: 20,
     },
     {
       id: 3,
@@ -47,7 +47,7 @@ describe("useResourceFilter", () => {
       category: "Angular",
       theme: "Componentes",
       type: "Cursos",
-      votes: 15,
+      like_count: 15,
     },
   ];
 

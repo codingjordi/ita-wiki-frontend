@@ -12,7 +12,7 @@ const resourceMock = {
   description: "Learn React step-by-step",
   type: "Video",
   created_at: "1 abril de 2023",
-  votes: 22,
+  like_count: 22,
   bookmark_count: 5,
   comment_count: 10,
 } as IntResource;
@@ -48,7 +48,7 @@ test("renders title and description with zero counts", () => {
     <ResourceCard
       resource={{
         ...resourceMock,
-        votes: 0,
+        like_count: 0,
         bookmark_count: 0,
         comment_count: 0,
       }}

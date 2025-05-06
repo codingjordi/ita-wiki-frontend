@@ -30,7 +30,7 @@ export interface IntResource {
   category: Category;
   theme: Theme;
   type: ResourceType;
-  votes: number;
+  like_count?: number;
   bookmark_count?: number;
   comment_count?: number;
   tags?: Tag[];
@@ -47,7 +47,7 @@ export type TypTechnologyResource =
   | "Data Science"
   | "BBDD";
 
-export type SortOption = "recent" | "oldest" | "year" | "votes";
+export type SortOption = "recent" | "oldest" | "year" | "likes";
 
 export interface Bookmark {
   id: number;
@@ -67,6 +67,14 @@ export interface IntBookmarkElement {
   description: string;
   url: string;
   created_at: string;
+}
+
+export interface Like {
+  id: number;
+  github_id: number;
+  resource_id: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Tag {
