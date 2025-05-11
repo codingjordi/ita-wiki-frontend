@@ -14,9 +14,11 @@ import GitHubLogin from "../github-login/GitHubLogin";
 import { AddUsersModal } from "../resources/AddUserModal";
 import { getUserRole } from "../../api/userApi";
 import { TermsAndConditionsModal } from "../Modal/TermsAndConditionsModal";
+import RoleDropdownComponent from "./header/RoleDropdownComponent";
 
 const HeaderComponent = () => {
-  const { user, signIn, signOut } = useCtxUser();  
+  const { user, signIn, signOut } = useCtxUser();
+  const { isChanging, updateUserRole } = useChangeUserRole();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -83,6 +85,12 @@ const HeaderComponent = () => {
     };
   }, [showChangeRoleDropdown, devMode]);
 
+  const handleRoleChange = async (newRole: string) => {
+    const success = await updateUserRole(newRole);
+    if (success) {
+      setShowChangeRoleDropdown(false);
+    }
+  };
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -218,8 +226,23 @@ const HeaderComponent = () => {
                 />
                 <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Role*/}
-
-                <DropdownButtonComponent title={userRole} disabled={true} />
+                {devMode ? (
+                  <div className="relative">
+                    <DropdownButtonComponent
+                      title={userRole}
+                      onClick={() => setShowChangeRoleDropdown(!showChangeRoleDropdown)}
+                      disabled={false}
+                    />
+                    {showChangeRoleDropdown &&
+                      <RoleDropdownComponent
+                        userRole={userRole}
+                        isChanging={isChanging}
+                        onRoleChange={handleRoleChange} />
+                    }
+                  </div>
+                ) : (
+                  <DropdownButtonComponent title={userRole} disabled={true} />
+                )}
                 <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Cerrar sesión*/}
                 <DropdownButtonComponent
