@@ -7,7 +7,9 @@ type EndPoints =
   | "bookmarks/"
   | "bookmarks"
   | "likes/"
-  | "tags/";
+  | "tags/"
+  | "feature-flags/"
+  | "feature-flags/role-self-assignment";
 
 const END_POINTS = {
   resources: {
@@ -31,6 +33,10 @@ const END_POINTS = {
   tags: {
     get: "tags/" as EndPoints,
   },
+  devTools: {
+    roleChange: "feature-flags/role-self-assignment" as EndPoints,
+  },
+
 };
 
 export { API_URL, END_POINTS };
