@@ -7,6 +7,7 @@ import logOutIcon from "../../assets/logout-svgrepo-com.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import DropdownButtonComponent from "../atoms/DropdownButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
+import { useChangeUserRole } from "../../hooks/useChangeUserRole";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
@@ -15,7 +16,7 @@ import { getUserRole } from "../../api/userApi";
 import { TermsAndConditionsModal } from "../Modal/TermsAndConditionsModal";
 
 const HeaderComponent = () => {
-  const { user, signIn, signOut } = useCtxUser();
+  const { user, signIn, signOut } = useCtxUser();  
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,6 +26,8 @@ const HeaderComponent = () => {
   const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showChangeRoleDropdown, setShowChangeRoleDropdown] = useState<boolean>(false);
+  const [devMode, setDevMode] = useState<boolean>(false);
   const [showConfirmLogout, setShowConfirmLogout] = useState(false);
   const [selectedLang, setSelectedLang] = useState<"ES" | "EN">("ES");
   const [showLangDropdown, setShowLangDropdown] = useState(false);
@@ -32,7 +35,6 @@ const HeaderComponent = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const langDropdownRef = useRef<HTMLDivElement>(null);
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
-
   const [isTermsModalOpen, setIsTermsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -62,6 +64,25 @@ const HeaderComponent = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.altKey && e.key === 'R') {
+        e.preventDefault();
+        setDevMode(prev => !prev);
+      }
+
+      if (showChangeRoleDropdown) {
+        setShowChangeRoleDropdown(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showChangeRoleDropdown, devMode]);
+
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -197,6 +218,7 @@ const HeaderComponent = () => {
                 />
                 <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Role*/}
+
                 <DropdownButtonComponent title={userRole} disabled={true} />
                 <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Cerrar sesión*/}
@@ -237,11 +259,10 @@ const HeaderComponent = () => {
                   className="hidden"
                 />
                 <div
-                  className={`w-5 h-5 flex items-center justify-center rounded border ${
-                    isChecked
-                      ? "bg-[#B91879] border-[#B91879]"
-                      : "border-gray-400"
-                  }`}
+                  className={`w-5 h-5 flex items-center justify-center rounded border ${isChecked
+                    ? "bg-[#B91879] border-[#B91879]"
+                    : "border-gray-400"
+                    }`}
                 >
                   {isChecked && (
                     <svg
@@ -328,6 +349,13 @@ const HeaderComponent = () => {
           />
         )}
       </div>
+      {
+        devMode && (
+          <div className="fixed bottom-2 right-2 bg-yellow-300 text-xs rounded px-2 py-1 opacity-70 z-50">
+            Modo dev activo
+          </div>
+        )
+      }
     </header>
   );
 };
