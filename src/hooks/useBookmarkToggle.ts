@@ -1,6 +1,7 @@
 import { IntResource, IntBookmarkElement } from "../types";
 import { useCtxUser } from "./useCtxUser";
 import { createBookmark, deleteBookmark } from "../api/endPointBookmark";
+import { canBookmark } from "../data/tempRoles";
 
 export function useBookmarkToggle() {
   const { user } = useCtxUser();
@@ -12,9 +13,9 @@ export function useBookmarkToggle() {
       React.SetStateAction<IntBookmarkElement[]>
     >,
   ) => {
-    if (!user || user.role === "anonymous") {
+    if (!user || !canBookmark(user.role)) {
       return;
-    }
+    };
 
     const isAlreadyBookmarked: boolean = bookmarkedResources.some(
       (item: IntBookmarkElement) => item.id === resource.id,

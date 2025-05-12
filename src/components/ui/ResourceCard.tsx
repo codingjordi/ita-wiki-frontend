@@ -5,6 +5,7 @@ import { useCtxUser } from "../../hooks/useCtxUser";
 import { useResources } from "../../context/ResourcesContext";
 
 import BookmarkIconComponent from "../resources/BookmarkIconComponent";
+import { canBookmark } from "../../data/tempRoles";
 import LikeIcon from "../resources/LikeIcon";
 import { useLikeResources } from "../../hooks/useLikeResources";
 
@@ -29,8 +30,10 @@ const ResourceCard: FC<ResourceCardProps> = ({
 
   const bookmarkCount = resource.id ? getBookmarkCount(resource.id) : 0;
 
+  const hasBookmarkPermission = user && canBookmark(user.role);
+
   const handleBookmarkClick = () => {
-    if (!user) {
+    if (!user || !canBookmark(user.role)) {
       return;
     }
 
@@ -44,10 +47,10 @@ const ResourceCard: FC<ResourceCardProps> = ({
       ? created_at
       : created_at
         ? new Date(created_at).toLocaleDateString("es-ES", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
         : "Fecha desconocida";
 
   return (
@@ -71,8 +74,8 @@ const ResourceCard: FC<ResourceCardProps> = ({
           <span className="flex items-center gap-1">
             <div
               onClick={handleBookmarkClick}
-              className={`${user ? "cursor-pointer" : "cursor-not-allowed opacity-70"}`}
-              title={user ? undefined : "Inicia sesión para guardar recursos"}
+              className={`${hasBookmarkPermission ? "cursor-pointer" : "cursor-not-allowed opacity-70"}`}
+              title={!user ? "Inicia sesión para guardar recursos" : !hasBookmarkPermission ? "No tienes permiso para guardar recursos. Contacta con un administrador" : undefined}
             >
               <BookmarkIconComponent marked={isBookmarked} />
             </div>
@@ -93,9 +96,8 @@ const ResourceCard: FC<ResourceCardProps> = ({
         </div>
         <div
           onClick={() => !disabled && handleLike()}
-          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${
-            disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
-          }`}
+          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
+            }`}
         >
           <LikeIcon liked={liked} />
           <span className="text-sm font-medium">{voteCount}</span>
