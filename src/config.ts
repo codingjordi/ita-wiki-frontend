@@ -24,6 +24,7 @@ const END_POINTS = {
   roles: {
     lists: "users/user-signedin-as?github_id=" as EndPoints,
     post: "roles/" as EndPoints,
+    put: "roles/" as EndPoints, //TEMPORAL
   },
   likes: {
     get: "likes" as EndPoints,

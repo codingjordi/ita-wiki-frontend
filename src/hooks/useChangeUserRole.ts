@@ -14,6 +14,7 @@ export function useChangeUserRole() {
 
         try {
             const request = {
+                authorized_github_id: 1, //TEMPORAL
                 github_id: user.id,
                 role: newRole
             };
