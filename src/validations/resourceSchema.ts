@@ -14,7 +14,7 @@ export const resourceSchema: z.ZodType<Partial<IntResource>> = z.object({
   title: z
     .string()
     .min(10, { message: "El título debe tener al menos 10 caracteres" })
-    .max(50, { message: "El título debe tener menos de 50 caracteres" }),
+    .max(65, { message: "El título debe tener menos de 65 caracteres" }),
 
   description: z
     .string()
