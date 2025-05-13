@@ -175,6 +175,7 @@ export default function CreateResourcePage() {
                         ? "border-2 focus:border-[#B91879]"
                         : ""
                     }`}
+                    key={cat.label}
                   >
                     <div className="flex justify-center items-center gap-1 h-fit">
                       <IconComponent className="w-7" />
