@@ -37,7 +37,6 @@ const END_POINTS = {
   devTools: {
     roleChange: "feature-flags/role-self-assignment" as EndPoints,
   },
-
 };
 
 export { API_URL, END_POINTS };
