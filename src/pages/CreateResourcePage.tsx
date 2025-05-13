@@ -8,17 +8,12 @@ import { toast } from "sonner";
 import ButtonComponent from "../components/atoms/ButtonComponent";
 import { useUser } from "../hooks/useUser";
 import PageTitle from "../components/ui/PageTitle";
-import logoJava from "../../src/assets/logo-java 1.svg";
-import logoPhp from "../../src/assets/logo-php 1.svg";
-import logoJavaS from "../../src/assets/javascript.svg";
-import logoTypeS from "../../src/assets/TypescriptVector.svg";
-import logoPython from "../../src/assets/pythonVector.svg";
-import logoSql from "../../src/assets/sqlVector.svg";
 import TagInput from "../components/resources/create-resources/TagInput";
 import { useState, useCallback } from "react";
 import arrowLeft from "../assets/arrow-left.svg";
 import { useNavigate } from "react-router";
 import Container from "../components/ui/Container";
+import { asideContent } from "../components/Layout/aside/asideContent";
 
 export default function CreateResourcePage() {
   const { user } = useUser();
@@ -165,101 +160,30 @@ export default function CreateResourcePage() {
 
             <h2 className="text-sm text-black font-medium mb-2">Lenguaje</h2>
             <div className="flex flex-wrap gap-3">
-              <ButtonComponent
-                type="button"
-                variant="secondary"
-                onClick={() => handleCategorySelect("Java")}
-                className={`!w-fit text-black  ${
-                  selectedCategory === "Java"
-                    ? "border-2 focus:border-[#B91879]"
-                    : ""
-                }`}
-              >
-                <div className="flex justify-center items-center gap-1 h-fit">
-                  <img src={logoJava} alt="LogoJava" className="w-7" />
-                  <h1 className="text-sm font-medium">Java</h1>
-                </div>
-              </ButtonComponent>
+              {asideContent.map((cat) => {
+                const IconComponent = cat.icon as unknown as React.FC<
+                  React.SVGProps<SVGSVGElement>
+                >;
 
-              <ButtonComponent
-                type="button"
-                variant="secondary"
-                onClick={() => handleCategorySelect("Fullstack PHP")}
-                className={`!w-fit text-black py-2 ${
-                  selectedCategory === "Fullstack PHP"
-                    ? "border-2 focus:border-[#B91879]"
-                    : ""
-                }`}
-              >
-                <div className="flex justify-center items-center gap-1">
-                  <img src={logoPhp} alt="LogoPHP" className="w-7" />
-                  <h1 className="text-sm font-medium">PHP</h1>
-                </div>
-              </ButtonComponent>
-
-              <ButtonComponent
-                type="button"
-                variant="secondary"
-                onClick={() => handleCategorySelect("Javascript")}
-                className={`!w-fit text-black py-2 ${
-                  selectedCategory === "Javascript"
-                    ? "border-2 focus:border-[#B91879]"
-                    : ""
-                }`}
-              >
-                <div className="flex justify-center items-center gap-1">
-                  <img src={logoJavaS} alt="LogoJavaS" className="w-5" />
-                  <h1 className="text-sm font-medium">JavaScript</h1>
-                </div>
-              </ButtonComponent>
-
-              <ButtonComponent
-                type="button"
-                variant="secondary"
-                onClick={() => handleCategorySelect("TypeScript")}
-                className={`!w-fit text-black py-2 ${
-                  selectedCategory === "TypeScript"
-                    ? "border-2 focus:border-[#B91879]"
-                    : ""
-                }`}
-              >
-                <div className="flex justify-center items-center gap-1">
-                  <img src={logoTypeS} alt="LogoTypeS" className="w-6" />
-                  <h1 className="text-sm font-medium">TypeScript</h1>
-                </div>
-              </ButtonComponent>
-
-              <ButtonComponent
-                type="button"
-                variant="secondary"
-                onClick={() => handleCategorySelect("Python")}
-                className={`!w-fit text-black py-2 ${
-                  selectedCategory === "Python"
-                    ? "border-2 focus:border-[#B91879]"
-                    : ""
-                }`}
-              >
-                <div className="flex justify-center items-center gap-1">
-                  <img src={logoPython} alt="LogoPython" className="w-6" />
-                  <h1 className="text-sm font-medium">Python</h1>
-                </div>
-              </ButtonComponent>
-
-              <ButtonComponent
-                type="button"
-                variant="secondary"
-                onClick={() => handleCategorySelect("SQL")}
-                className={`!w-fit text-black py-2 ${
-                  selectedCategory === "SQL"
-                    ? "border-2  focus:border-[#B91879]"
-                    : ""
-                }`}
-              >
-                <div className="flex justify-center items-center gap-1">
-                  <img src={logoSql} alt="LogoSQL" className="w-5" />
-                  <h1 className="text-sm font-medium">SQL</h1>
-                </div>
-              </ButtonComponent>
+                return (
+                  <ButtonComponent
+                    type="button"
+                    variant="secondary"
+                    onClick={() => handleCategorySelect(cat.label)}
+                    className={`!w-fit text-black  ${
+                      selectedCategory === cat.label
+                        ? "border-2 focus:border-[#B91879]"
+                        : ""
+                    }`}
+                    key={cat.label}
+                  >
+                    <div className="flex justify-center items-center gap-1 h-fit">
+                      <IconComponent className="w-7" />
+                      <h1 className="text-sm font-medium">{cat.label}</h1>
+                    </div>
+                  </ButtonComponent>
+                );
+              })}
             </div>
             <div className="h-6">
               {errors.category && (
