@@ -3,7 +3,6 @@ import { useCtxUser } from "./useCtxUser";
 import { changeRole } from "../api/endPointChangeRole";
 import { toast } from "sonner";
 
-
 export function useChangeUserRole() {
     const { user, saveUser } = useCtxUser();
     const [isChanging, setIsChanging] = useState<boolean>(false);
@@ -14,7 +13,6 @@ export function useChangeUserRole() {
 
         try {
             const request = {
-                authorized_github_id: 1, //TEMPORAL
                 github_id: user.id,
                 role: newRole
             };
@@ -23,9 +21,10 @@ export function useChangeUserRole() {
 
             if (response && response.role) {
                 saveUser({ ...user, role: newRole });
-                toast.success(`Rol cambiado a: ${newRole}`);
+                toast.success(`Rol cambiado a ${newRole}`);
                 return true;
             };
+
             return false;
         } catch (error) {
             console.error("Error changing role:", error);

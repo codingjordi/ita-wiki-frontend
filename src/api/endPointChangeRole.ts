@@ -1,7 +1,6 @@
 import { API_URL, END_POINTS } from "../config";
 
 interface RoleChangeRequest {
-    authorized_github_id: number; //TEMPORAL
     github_id: number;
     role: string;
 }
@@ -20,7 +19,7 @@ const changeRole = async (body: RoleChangeRequest): Promise<RoleChangeResponse> 
     const timeout = setTimeout(() => controller.abort(), 10000);
 
     try {
-        const url = `${API_URL}${END_POINTS.roles.put}`; //TEMPORAL
+        const url = `${API_URL}${END_POINTS.devTools.roleChange}`;
 
         const response = await fetch(url, {
             method: "PUT",
@@ -44,27 +43,15 @@ const changeRole = async (body: RoleChangeRequest): Promise<RoleChangeResponse> 
 
         // Succesful
         if (data && typeof data === "object") {
-            //EMPIEZA TEMPORAL
-            if (data.message) {
-                return {
-                    message: data.message,
-                    role: {
-                        github_id: body.github_id,
-                        role: body.role
-                    }
-                };
+            if (data.message && data.role && typeof data === "object" && "github_id" in data.role && "role" in data.role) {
+                return data as RoleChangeResponse;
             }
-            //TERMINA TEMPORAL
-            
-            if (data.role) {
-                return data.role as RoleChangeResponse;
-            };
 
             if (data.error) {
                 throw new Error(`API Error: ${data.error}`)
             };
         };
-
+        
         //  Unexpected
         throw new Error("Unexpected response from API.");
 
