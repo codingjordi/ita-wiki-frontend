@@ -14,7 +14,7 @@ const RoleDropdownComponent: FC<RoleDropdownComponentProps> = ({
     const availableRoles = ["student", "mentor", "admin", "superadmin"]; //TO DO GET roles backend
     return (
                
-                <div className="absolute right-0 mt-1 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-50 py-1">
+                <div className="absolute mt-1 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-50 py-1">
                     <p className="text-xs text-gray-500 px-3 py-1 italic">Cambiar a:</p>
                     {availableRoles.map((role) => (
                         <button

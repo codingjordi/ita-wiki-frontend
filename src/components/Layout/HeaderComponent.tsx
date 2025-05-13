@@ -233,6 +233,7 @@ const HeaderComponent = () => {
                       title={userRole}
                       onClick={() => setShowChangeRoleDropdown(!showChangeRoleDropdown)}
                       disabled={false}
+                      icon={arrowDown}
                     />
                     {showChangeRoleDropdown &&
                       <RoleDropdownComponent
