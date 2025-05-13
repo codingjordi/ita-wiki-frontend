@@ -10,8 +10,9 @@ import JavaIcon from "@/assets/logo-java 1.svg?react";
 import PhpIcon from "@/assets/logo-php 1.svg?react";
 import DataScienceIcon from "@/assets/data-science.svg?react";
 import BbddIcon from "@/assets/logo-bbdd 1.svg?react";
+import { Category } from "../../../types";
 
-export const asideContent: { icon: SvgIcon; label: string }[] = [
+export const asideContent: { icon: SvgIcon; label: Category }[] = [
   { icon: NodeIcon, label: "Node" },
   { icon: ReactIcon, label: "React" },
   { icon: AngularIcon, label: "Angular" },
