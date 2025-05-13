@@ -3,18 +3,24 @@ import { API_URL, END_POINTS } from "../config";
 import {
   RoleChangeRequest,
   RoleChangeResponse,
-  changeRole
+  changeRole,
 } from "./endPointChangeRole";
 
 beforeEach(() => {
-  vi.spyOn(console, "error").mockImplementation(() => { });
-  vi.spyOn(console, "log").mockImplementation(() => { });
-  vi.spyOn(console, "warn").mockImplementation(() => { });
+  vi.spyOn(console, "error").mockImplementation(() => {});
+  vi.spyOn(console, "log").mockImplementation(() => {});
+  vi.spyOn(console, "warn").mockImplementation(() => {});
 });
 
 describe("changeRole", () => {
-  const mockRoleRequest: RoleChangeRequest = { github_id: 12345, role: "mentor" };
-  const mockRoleResponse: RoleChangeResponse = { message: "Role updated successfully", role: { github_id: 12345, role: "mentor" } };
+  const mockRoleRequest: RoleChangeRequest = {
+    github_id: 12345,
+    role: "mentor",
+  };
+  const mockRoleResponse: RoleChangeResponse = {
+    message: "Role updated successfully",
+    role: { github_id: 12345, role: "mentor" },
+  };
 
   it("should change role successfully", async () => {
     global.fetch = vi.fn().mockResolvedValue({
@@ -44,7 +50,7 @@ describe("changeRole", () => {
 
   it("should throw error when API returns error field", async () => {
     const errorResponse = {
-      error: "Invalid role specified"
+      error: "Invalid role specified",
     };
 
     global.fetch = vi.fn().mockResolvedValue({
@@ -52,14 +58,21 @@ describe("changeRole", () => {
       json: () => Promise.resolve(errorResponse),
     });
 
-    await expect(changeRole(mockRoleRequest)).rejects.toThrow("API Error: Invalid role specified");
+    await expect(changeRole(mockRoleRequest)).rejects.toThrow(
+      "API Error: Invalid role specified",
+    );
   });
 
   it("should handle AbortError on timeout", async () => {
-    const abortError = new DOMException("The operation was aborted", "AbortError");
+    const abortError = new DOMException(
+      "The operation was aborted",
+      "AbortError",
+    );
     global.fetch = vi.fn().mockRejectedValue(abortError);
 
-    await expect(changeRole(mockRoleRequest)).rejects.toThrow("The operation was aborted");
+    await expect(changeRole(mockRoleRequest)).rejects.toThrow(
+      "The operation was aborted",
+    );
 
     expect(console.warn).toHaveBeenCalledWith("Petition cancelled.");
   });
