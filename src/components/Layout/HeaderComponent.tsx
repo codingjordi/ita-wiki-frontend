@@ -36,6 +36,7 @@ const HeaderComponent = () => {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const langDropdownRef = useRef<HTMLDivElement>(null);
+  const roleDropdownRef = useRef<HTMLDivElement>(null);
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState<boolean>(false);
 
@@ -47,20 +48,20 @@ const HeaderComponent = () => {
     }
   }, [location.pathname, resource]);
 
+  const dropdowns = [
+    { ref: dropdownRef, setter: setShowDropdown },
+    { ref: langDropdownRef, setter: setShowLangDropdown },
+    { ref: roleDropdownRef, setter: setShowChangeRoleDropdown }
+  ];
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowDropdown(false);
-      }
-      if (
-        langDropdownRef.current &&
-        !langDropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowLangDropdown(false);
-      }
+      dropdowns.forEach(({ ref, setter }) => {
+        if (ref.current &&
+          !ref.current.contains(event.target as Node)) {
+          setter(false);
+        }
+      });
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -227,7 +228,7 @@ const HeaderComponent = () => {
                 <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Role*/}
                 {devMode ? (
-                  <div className="relative">
+                  <div className="relative" ref={roleDropdownRef}>
                     <DropdownButtonComponent
                       title={userRole}
                       onClick={() => setShowChangeRoleDropdown(!showChangeRoleDropdown)}
