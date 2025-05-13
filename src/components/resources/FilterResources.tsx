@@ -57,9 +57,10 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     resetTheme,
   ]);
 
-  const tagsFromCategory = category && tagsByCategory[category]
-    ? Object.keys(tagsByCategory[category])
-    : [];
+  const tagsFromCategory =
+    category && tagsByCategory[category]
+      ? Object.keys(tagsByCategory[category])
+      : [];
 
   const tags = ["Todos", ...tagsFromCategory];
 
@@ -81,8 +82,11 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               className="hidden"
             />
             <div
-              className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${selectedTheme === tagName ? "border-[#B91879]" : "border-gray-400"
-                }`}
+              className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
+                selectedTheme === tagName
+                  ? "border-[#B91879]"
+                  : "border-gray-400"
+              }`}
             >
               {selectedTheme === tagName && (
                 <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
@@ -95,7 +99,6 @@ export const FilterResources: FC<FilterResourcesProps> = ({
           <p className="text-sm text-gray-500">No hay temas disponibles.</p>
         )}
       </div>
-
 
       <div>
         <h3 className="text-lg font-bold mb-3">Tipo de recurso</h3>
@@ -111,10 +114,11 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               className="hidden"
             />
             <div
-              className={`w-5 h-5 flex items-center justify-center rounded border ${selectedResourceTypes.includes(resourceType)
+              className={`w-5 h-5 flex items-center justify-center rounded border ${
+                selectedResourceTypes.includes(resourceType)
                   ? "bg-[#B91879] border-[#B91879]"
                   : "border-gray-400"
-                }`}
+              }`}
             >
               {selectedResourceTypes.includes(resourceType) && (
                 <svg

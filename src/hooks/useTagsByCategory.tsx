@@ -3,20 +3,20 @@ import { TagsByCategory } from "../types";
 import { fetchTagsByCategory } from "../api/endPointTagsByCategory";
 
 export const useTagsByCategory = () => {
-    const [tagsByCategory, setTagsByCategory] = useState<TagsByCategory>({});
+  const [tagsByCategory, setTagsByCategory] = useState<TagsByCategory>({});
 
-    useEffect(() => {
-        const loadTags = async () => {
-            try {
-                const data = await fetchTagsByCategory();
-                setTagsByCategory(data);
-            } catch (err) {
-                console.error("Error fetching tags by category:", err);
-            }
-        };
+  useEffect(() => {
+    const loadTags = async () => {
+      try {
+        const data = await fetchTagsByCategory();
+        setTagsByCategory(data);
+      } catch (err) {
+        console.error("Error fetching tags by category:", err);
+      }
+    };
 
-        loadTags();
-    }, []);
+    loadTags();
+  }, []);
 
-    return { tagsByCategory };
+  return { tagsByCategory };
 };
