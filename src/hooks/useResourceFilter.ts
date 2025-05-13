@@ -24,6 +24,8 @@ export const useResourceFilter = ({
   const [selectedTheme, setSelectedTheme] = useState<string>(initialTheme);
   const [selectedResourceTypes, setSelectedResourceTypes] =
     useState<string[]>(initialResourceTypes);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
 
   useEffect(() => {
     if (category) {
@@ -45,6 +47,10 @@ export const useResourceFilter = ({
     if (!params.has("search") && searchQuery) {
       params.set("search", searchQuery);
     }
+    if (selectedTags.length > 0) {
+  params.set("tags", selectedTags.join(","));
+}
+
     setSearchParams(params);
   }, [selectedTheme, selectedResourceTypes, searchQuery, setSearchParams]);
 
@@ -55,20 +61,28 @@ export const useResourceFilter = ({
     if (!resources || !category) return [];
 
     return resources.filter((resource) => {
-      const categoryMatch = !category || resource.category === category;
-      const themeMatch =
-        selectedTheme === "Todos" || resource.theme === selectedTheme;
-      const typeMatch =
-        selectedResourceTypes.length === 0 ||
-        selectedResourceTypes.some(
-          (selectedType) => resource.type === selectedType,
-        );
-      const searchMatch =
-        !searchQuery ||
-        resource.title.toLowerCase().includes(searchQuery.toLowerCase());
+  const categoryMatch = !category || resource.category === category;
+  const themeMatch =
+    selectedTheme === "Todos" || resource.theme === selectedTheme;
+  const typeMatch =
+    selectedResourceTypes.length === 0 ||
+    selectedResourceTypes.some(
+      (selectedType) => resource.type === selectedType,
+    );
+  const searchMatch =
+    !searchQuery ||
+    resource.title.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return categoryMatch && themeMatch && typeMatch && searchMatch;
-    });
+  const tagMatch =
+  selectedTags.length === 0 ||
+  selectedTags.some((tag) =>
+    resource.tags?.some((t) => t.name === tag)
+  );
+
+
+  return categoryMatch && themeMatch && typeMatch && searchMatch && tagMatch;
+});
+
   }, [resources, category, selectedTheme, selectedResourceTypes, searchQuery]);
 
   return {
@@ -78,5 +92,7 @@ export const useResourceFilter = ({
     selectedResourceTypes,
     setSelectedResourceTypes,
     resetTheme,
+    selectedTags,
+    setSelectedTags
   };
 };

@@ -7,7 +7,8 @@ type EndPoints =
   | "bookmarks/"
   | "bookmarks"
   | "likes/"
-  | "tags/";
+  | "tags/"
+  | "tags/category-frequency";
 
 const END_POINTS = {
   resources: {
@@ -30,6 +31,7 @@ const END_POINTS = {
   },
   tags: {
     get: "tags/" as EndPoints,
+    categoryFrequency: "tags/category-frequency" as EndPoints,
   },
 };
 
