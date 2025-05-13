@@ -375,7 +375,7 @@ const HeaderComponent = () => {
       </div>
       {
         devMode && (
-          <div className="fixed bottom-2 right-2 bg-yellow-300 text-xs rounded px-2 py-1 opacity-70 z-50">
+          <div className="fixed bottom-2 right-2 bg-yellow-200 text-xs rounded px-2 py-1 opacity-70 z-50">
             Modo dev activo
           </div>
         )
