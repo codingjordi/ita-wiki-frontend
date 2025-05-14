@@ -24,6 +24,7 @@ export const useResourceFilter = ({
   const [selectedTheme, setSelectedTheme] = useState<string>(initialTheme);
   const [selectedResourceTypes, setSelectedResourceTypes] =
     useState<string[]>(initialResourceTypes);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
     if (category) {
@@ -45,6 +46,10 @@ export const useResourceFilter = ({
     if (!params.has("search") && searchQuery) {
       params.set("search", searchQuery);
     }
+    if (selectedTags.length > 0) {
+      params.set("tags", selectedTags.join(","));
+    }
+
     setSearchParams(params);
   }, [selectedTheme, selectedResourceTypes, searchQuery, setSearchParams]);
 
@@ -67,7 +72,13 @@ export const useResourceFilter = ({
         !searchQuery ||
         resource.title.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return categoryMatch && themeMatch && typeMatch && searchMatch;
+      const tagMatch =
+        selectedTags.length === 0 ||
+        selectedTags.some((tag) => resource.tags?.some((t) => t.name === tag));
+
+      return (
+        categoryMatch && themeMatch && typeMatch && searchMatch && tagMatch
+      );
     });
   }, [resources, category, selectedTheme, selectedResourceTypes, searchQuery]);
 
@@ -78,5 +89,7 @@ export const useResourceFilter = ({
     selectedResourceTypes,
     setSelectedResourceTypes,
     resetTheme,
+    selectedTags,
+    setSelectedTags,
   };
 };

@@ -8,6 +8,7 @@ type EndPoints =
   | "bookmarks"
   | "likes/"
   | "tags/"
+  | "tags/category-frequency"
   | "feature-flags/"
   | "feature-flags/role-self-assignment";
 
@@ -33,6 +34,7 @@ const END_POINTS = {
   },
   tags: {
     get: "tags/" as EndPoints,
+    categoryFrequency: "tags/category-frequency" as EndPoints,
   },
   devTools: {
     roleChange: "feature-flags/role-self-assignment" as EndPoints,
