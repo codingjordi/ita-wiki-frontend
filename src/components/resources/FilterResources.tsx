@@ -3,22 +3,19 @@ import { useParams } from "react-router";
 import { useTagsByCategory } from "../../hooks/useTagsByCategory";
 
 interface FilterResourcesProps {
-  themes: readonly string[]; // Se mantiene para compatibilidad pero no se usa más
   resourceTypes: readonly string[];
-  selectedTheme: string;
-  setSelectedTheme: (theme: string) => void;
+  selectedTags: string[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   selectedResourceTypes: string[];
   setSelectedResourceTypes: (resourceTypes: string[]) => void;
-  resetTheme: () => void;
 }
 
 export const FilterResources: FC<FilterResourcesProps> = ({
   resourceTypes,
-  selectedTheme,
-  setSelectedTheme,
+  selectedTags,
+  setSelectedTags,
   selectedResourceTypes,
   setSelectedResourceTypes,
-  resetTheme,
 }) => {
   const toggleResourceType = (resourceType: string) => {
     if (
@@ -42,8 +39,8 @@ export const FilterResources: FC<FilterResourcesProps> = ({
   useEffect(() => {
     if (category !== prevCategory) {
       setSelectedResourceTypes([...resourceTypes]);
+      setSelectedTags([]);
       setPrevCategory(category ?? null);
-      resetTheme();
     }
     if (selectedResourceTypes.length === 0 && resourceTypes.length > 0) {
       setSelectedResourceTypes([...resourceTypes]);
@@ -54,7 +51,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     resourceTypes,
     selectedResourceTypes,
     setSelectedResourceTypes,
-    resetTheme,
+    setSelectedTags,
   ]);
 
   const tagsFromCategory =
@@ -63,6 +60,18 @@ export const FilterResources: FC<FilterResourcesProps> = ({
       : [];
 
   const tags = ["Todos", ...tagsFromCategory];
+
+  const toggleTag = (tag: string) => {
+    if (tag === "Todos") {
+      setSelectedTags([]);
+    } else {
+      setSelectedTags((prevTags) =>
+        prevTags.includes(tag)
+          ? prevTags.filter((t) => t !== tag)
+          : [...prevTags.filter((t) => t !== "Todos"), tag],
+      );
+    }
+  };
 
   return (
     <div className="mt-6">
@@ -75,22 +84,23 @@ export const FilterResources: FC<FilterResourcesProps> = ({
           >
             <input
               type="radio"
-              name="theme"
+              name="Tema"
               value={tagName}
-              checked={selectedTheme === tagName}
-              onChange={() => setSelectedTheme(tagName)}
+              checked={tagName === "Todos" ? selectedTags.length === 0 : selectedTags.includes(tagName)}
+              onChange={() => toggleTag(tagName)}
               className="hidden"
             />
             <div
-              className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
-                selectedTheme === tagName
-                  ? "border-[#B91879]"
-                  : "border-gray-400"
-              }`}
+              className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${(tagName === "Todos" && selectedTags.length === 0) ||
+                selectedTags.includes(tagName)
+                ? "border-[#B91879]"
+                : "border-gray-400"
+                }`}
             >
-              {selectedTheme === tagName && (
-                <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
-              )}
+              {((tagName === "Todos" && selectedTags.length === 0) ||
+                selectedTags.includes(tagName)) && (
+                  <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
+                )}
             </div>
             <span className="text-gray-800">{tagName}</span>
           </label>
@@ -114,11 +124,10 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               className="hidden"
             />
             <div
-              className={`w-5 h-5 flex items-center justify-center rounded border ${
-                selectedResourceTypes.includes(resourceType)
-                  ? "bg-[#B91879] border-[#B91879]"
-                  : "border-gray-400"
-              }`}
+              className={`w-5 h-5 flex items-center justify-center rounded border ${selectedResourceTypes.includes(resourceType)
+                ? "bg-[#B91879] border-[#B91879]"
+                : "border-gray-400"
+                }`}
             >
               {selectedResourceTypes.includes(resourceType) && (
                 <svg

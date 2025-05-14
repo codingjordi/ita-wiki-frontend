@@ -8,7 +8,6 @@ import { FilterResources } from "./FilterResources";
 import SortButton from "./SortButton";
 
 import { categories } from "../../data/categories";
-import { themes } from "../../data/themes";
 import { resourceTypes } from "../../data/resourceTypes";
 
 import FilterButton from "./FilterButton";
@@ -32,14 +31,12 @@ export const ListResources: FC<ListResourceProps> = ({
 
   const {
     filteredResources,
-    selectedTheme,
-    setSelectedTheme,
     selectedResourceTypes,
     setSelectedResourceTypes,
-    resetTheme,
+    selectedTags,
+    setSelectedTags,
   } = useResourceFilter({
     resources: resources || [],
-    themes,
     resourceTypes,
   });
 
@@ -67,13 +64,11 @@ export const ListResources: FC<ListResourceProps> = ({
           <div className="hidden sm:block">
             <h2 className="text-[26px] font-bold">Filtros</h2>
             <FilterResources
-              themes={[...themes]}
               resourceTypes={[...resourceTypes]}
-              selectedTheme={selectedTheme}
-              setSelectedTheme={setSelectedTheme}
               selectedResourceTypes={selectedResourceTypes}
               setSelectedResourceTypes={setSelectedResourceTypes}
-              resetTheme={resetTheme}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
             />
           </div>
 
@@ -101,13 +96,11 @@ export const ListResources: FC<ListResourceProps> = ({
               <div className="sm:hidden mt-4 p-4 bg-gray-100 rounded-lg">
                 <h2 className="text-2xl font-bold">Filtros</h2>
                 <FilterResources
-                  themes={themes}
                   resourceTypes={resourceTypes}
-                  selectedTheme={selectedTheme}
-                  setSelectedTheme={setSelectedTheme}
                   selectedResourceTypes={selectedResourceTypes}
                   setSelectedResourceTypes={setSelectedResourceTypes}
-                  resetTheme={resetTheme}
+                  selectedTags={selectedTags}
+                  setSelectedTags={setSelectedTags}
                 />
               </div>
             )}

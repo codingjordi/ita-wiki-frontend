@@ -4,27 +4,25 @@ import { IntResource } from "../types";
 
 interface UseResourceFilterProps {
   resources: IntResource[];
-  themes: readonly string[];
   resourceTypes: readonly string[];
 }
 
 export const useResourceFilter = ({
   resources,
-  themes,
   resourceTypes,
 }: UseResourceFilterProps) => {
   const { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const initialTheme = searchParams.get("theme") || themes[0];
   const initialResourceTypes = searchParams
     .get("resourceTypes")
     ?.split(",") || [resourceTypes[0]];
   const searchQuery = searchParams.get("search") || "";
-  const [selectedTheme, setSelectedTheme] = useState<string>(initialTheme);
+  const initialTags = searchParams.get("tags")?.split(",") || [];
+
   const [selectedResourceTypes, setSelectedResourceTypes] =
     useState<string[]>(initialResourceTypes);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>(initialTags);
 
   useEffect(() => {
     if (category) {
@@ -34,9 +32,6 @@ export const useResourceFilter = ({
 
   useEffect(() => {
     const params = new URLSearchParams();
-    if (selectedTheme) {
-      params.set("theme", selectedTheme);
-    }
     if (
       selectedResourceTypes.length > 0 &&
       selectedResourceTypes.some((type) => type.trim() !== "")
@@ -50,19 +45,15 @@ export const useResourceFilter = ({
       params.set("tags", selectedTags.join(","));
     }
 
-    setSearchParams(params);
-  }, [selectedTheme, selectedResourceTypes, searchQuery, setSearchParams]);
+    setSearchParams(params, { replace: true });
+  }, [selectedResourceTypes, searchQuery, selectedTags, setSearchParams]);
 
-  const resetTheme = () => {
-    setSelectedTheme(() => themes[0]);
-  };
+
   const filteredResources = useMemo(() => {
     if (!resources || !category) return [];
 
     return resources.filter((resource) => {
       const categoryMatch = !category || resource.category === category;
-      const themeMatch =
-        selectedTheme === "Todos" || resource.theme === selectedTheme;
       const typeMatch =
         selectedResourceTypes.length === 0 ||
         selectedResourceTypes.some(
@@ -74,21 +65,23 @@ export const useResourceFilter = ({
 
       const tagMatch =
         selectedTags.length === 0 ||
-        selectedTags.some((tag) => resource.tags?.some((t) => t.name === tag));
+        selectedTags.some((tag) =>
+          resource.tags?.some((t) => {
+            const tagName = typeof t === 'string' ? t : t.name;
+            return tagName === tag;
+          }),
+        );
 
       return (
-        categoryMatch && themeMatch && typeMatch && searchMatch && tagMatch
+        categoryMatch && typeMatch && searchMatch && tagMatch
       );
     });
-  }, [resources, category, selectedTheme, selectedResourceTypes, searchQuery]);
+  }, [resources, category, selectedResourceTypes, searchQuery, selectedTags]);
 
   return {
     filteredResources,
-    selectedTheme,
-    setSelectedTheme,
     selectedResourceTypes,
     setSelectedResourceTypes,
-    resetTheme,
     selectedTags,
     setSelectedTags,
   };
