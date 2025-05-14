@@ -287,10 +287,11 @@ const HeaderComponent = () => {
                   className="hidden"
                 />
                 <div
-                  className={`w-5 h-5 flex items-center justify-center rounded border ${isChecked
+                  className={`w-5 h-5 flex items-center justify-center rounded border ${
+                    isChecked
                       ? "bg-[#B91879] border-[#B91879]"
                       : "border-gray-400"
-                    }`}
+                  }`}
                 >
                   {isChecked && (
                     <svg
