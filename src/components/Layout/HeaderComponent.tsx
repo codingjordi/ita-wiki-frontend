@@ -70,7 +70,7 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey || (e.metaKey && e.shiftKey && e.altKey && e.key === "R")) {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.altKey && e.key === "R") {
         e.preventDefault();
         setDevMode((prev) => !prev);
       }
@@ -287,11 +287,10 @@ const HeaderComponent = () => {
                   className="hidden"
                 />
                 <div
-                  className={`w-5 h-5 flex items-center justify-center rounded border ${
-                    isChecked
+                  className={`w-5 h-5 flex items-center justify-center rounded border ${isChecked
                       ? "bg-[#B91879] border-[#B91879]"
                       : "border-gray-400"
-                  }`}
+                    }`}
                 >
                   {isChecked && (
                     <svg
