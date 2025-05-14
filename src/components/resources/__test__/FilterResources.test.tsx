@@ -25,7 +25,6 @@ vi.mock("react-router", async () => {
   };
 });
 
-
 describe("FilterResources Component", () => {
   let selectedTheme: string;
   let selectedResourceTypes: string[];
