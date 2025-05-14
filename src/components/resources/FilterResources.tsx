@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useTagsByCategory } from "../../hooks/useTagsByCategory";
 
 interface FilterResourcesProps {
-  themes: readonly string[];
+  themes: readonly string[]; // Se mantiene para compatibilidad pero no se usa más
   resourceTypes: readonly string[];
   selectedTheme: string;
   setSelectedTheme: (theme: string) => void;
@@ -12,7 +13,6 @@ interface FilterResourcesProps {
 }
 
 export const FilterResources: FC<FilterResourcesProps> = ({
-  themes,
   resourceTypes,
   selectedTheme,
   setSelectedTheme,
@@ -29,9 +29,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     } else {
       setSelectedResourceTypes(
         selectedResourceTypes.includes(resourceType)
-          ? selectedResourceTypes.filter(
-              (rType: string) => rType !== resourceType,
-            )
+          ? selectedResourceTypes.filter((rType) => rType !== resourceType)
           : [...selectedResourceTypes, resourceType],
       );
     }
@@ -39,6 +37,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
 
   const { category } = useParams();
   const [prevCategory, setPrevCategory] = useState<string | null>(null);
+  const { tagsByCategory } = useTagsByCategory();
 
   useEffect(() => {
     if (category !== prevCategory) {
@@ -58,35 +57,47 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     resetTheme,
   ]);
 
+  const tagsFromCategory =
+    category && tagsByCategory[category]
+      ? Object.keys(tagsByCategory[category])
+      : [];
+
+  const tags = ["Todos", ...tagsFromCategory];
+
   return (
     <div className="mt-6">
       <div className="mb-6">
         <h3 className="text-lg font-bold mb-3">Temas</h3>
-        {themes.map((theme) => (
+        {tags.map((tagName) => (
           <label
-            key={theme}
+            key={tagName}
             className="flex items-center gap-2 mb-2 cursor-pointer"
           >
             <input
               type="radio"
               name="theme"
-              value={theme}
-              checked={selectedTheme === theme}
-              onChange={() => setSelectedTheme(theme)}
+              value={tagName}
+              checked={selectedTheme === tagName}
+              onChange={() => setSelectedTheme(tagName)}
               className="hidden"
             />
             <div
               className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
-                selectedTheme === theme ? "border-[#B91879]" : "border-gray-400"
+                selectedTheme === tagName
+                  ? "border-[#B91879]"
+                  : "border-gray-400"
               }`}
             >
-              {selectedTheme === theme && (
+              {selectedTheme === tagName && (
                 <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
               )}
             </div>
-            <span className="text-gray-800">{theme}</span>
+            <span className="text-gray-800">{tagName}</span>
           </label>
         ))}
+        {tagsFromCategory.length === 0 && (
+          <p className="text-sm text-gray-500">No hay temas disponibles.</p>
+        )}
       </div>
 
       <div>
