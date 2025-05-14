@@ -82,27 +82,25 @@ export const FilterResources: FC<FilterResourcesProps> = ({
             key={tagName}
             className="flex items-center gap-2 mb-2 cursor-pointer"
           >
-            <input
-              type="radio"
-              name="Tema"
-              value={tagName}
-              checked={tagName === "Todos" ? selectedTags.length === 0 : selectedTags.includes(tagName)}
-              onChange={() => toggleTag(tagName)}
-              className="hidden"
-            />
-            <div
-              className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${(tagName === "Todos" && selectedTags.length === 0) ||
-                selectedTags.includes(tagName)
-                ? "border-[#B91879]"
-                : "border-gray-400"
-                }`}
+            <button
+              type="button"
+              onClick={() => toggleTag(tagName)}
+              className="flex items-center gap-2 mb-2 cursor-pointer"
             >
-              {((tagName === "Todos" && selectedTags.length === 0) ||
-                selectedTags.includes(tagName)) && (
-                  <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
-                )}
-            </div>
-            <span className="text-gray-800">{tagName}</span>
+              <div
+                className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${(tagName === "Todos" && selectedTags.length === 0) ||
+                  selectedTags.includes(tagName)
+                  ? "border-[#B91879]"
+                  : "border-gray-400"
+                  }`}
+              >
+                {((tagName === "Todos" && selectedTags.length === 0) ||
+                  selectedTags.includes(tagName)) && (
+                    <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
+                  )}
+              </div>
+              <span className="text-gray-800">{tagName}</span>
+            </button>
           </label>
         ))}
         {tagsFromCategory.length === 0 && (
