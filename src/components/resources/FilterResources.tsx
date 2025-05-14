@@ -88,16 +88,17 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               className="flex items-center gap-2 mb-2 cursor-pointer"
             >
               <div
-                className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${(tagName === "Todos" && selectedTags.length === 0) ||
+                className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
+                  (tagName === "Todos" && selectedTags.length === 0) ||
                   selectedTags.includes(tagName)
-                  ? "border-[#B91879]"
-                  : "border-gray-400"
-                  }`}
+                    ? "border-[#B91879]"
+                    : "border-gray-400"
+                }`}
               >
                 {((tagName === "Todos" && selectedTags.length === 0) ||
                   selectedTags.includes(tagName)) && (
-                    <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
-                  )}
+                  <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
+                )}
               </div>
               <span className="text-gray-800">{tagName}</span>
             </button>
@@ -122,10 +123,11 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               className="hidden"
             />
             <div
-              className={`w-5 h-5 flex items-center justify-center rounded border ${selectedResourceTypes.includes(resourceType)
-                ? "bg-[#B91879] border-[#B91879]"
-                : "border-gray-400"
-                }`}
+              className={`w-5 h-5 flex items-center justify-center rounded border ${
+                selectedResourceTypes.includes(resourceType)
+                  ? "bg-[#B91879] border-[#B91879]"
+                  : "border-gray-400"
+              }`}
             >
               {selectedResourceTypes.includes(resourceType) && (
                 <svg

@@ -25,7 +25,6 @@ vi.mock("react-router", async () => {
   };
 });
 
-
 describe("FilterResources Component", () => {
   let selectedTags: string[];
   let selectedResourceTypes: string[];
@@ -86,4 +85,3 @@ describe("FilterResources Component", () => {
     expect(setSelectedTags).toHaveBeenCalledWith(["Eventos"]);
   });
 });
-

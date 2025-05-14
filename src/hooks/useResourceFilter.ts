@@ -48,7 +48,6 @@ export const useResourceFilter = ({
     setSearchParams(params, { replace: true });
   }, [selectedResourceTypes, searchQuery, selectedTags, setSearchParams]);
 
-
   const filteredResources = useMemo(() => {
     if (!resources || !category) return [];
 
@@ -67,14 +66,12 @@ export const useResourceFilter = ({
         selectedTags.length === 0 ||
         selectedTags.some((tag) =>
           resource.tags?.some((t) => {
-            const tagName = typeof t === 'string' ? t : t.name;
+            const tagName = typeof t === "string" ? t : t.name;
             return tagName === tag;
           }),
         );
 
-      return (
-        categoryMatch && typeMatch && searchMatch && tagMatch
-      );
+      return categoryMatch && typeMatch && searchMatch && tagMatch;
     });
   }, [resources, category, selectedResourceTypes, searchQuery, selectedTags]);
 

@@ -145,7 +145,6 @@ describe("useResourceFilter", () => {
           mockSetCategory("reset detected");
         }
 
-
         return result;
       },
       { initialProps: { category: "React" } },
