@@ -65,10 +65,10 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     if (tag === "Todos") {
       setSelectedTags([]);
     } else {
-      setSelectedTags((prevTags) =>
-        prevTags.includes(tag)
-          ? prevTags.filter((t) => t !== tag)
-          : [...prevTags.filter((t) => t !== "Todos"), tag],
+      setSelectedTags(
+        selectedTags.includes(tag)
+          ? selectedTags.filter((t) => t !== tag)
+          : [...selectedTags.filter((t) => t !== "Todos"), tag],
       );
     }
   };

@@ -25,29 +25,24 @@ vi.mock("react-router", async () => {
   };
 });
 
+
 describe("FilterResources Component", () => {
-  let selectedTheme: string;
+  let selectedTags: string[];
   let selectedResourceTypes: string[];
 
-  let setSelectedTheme: ReturnType<typeof vi.fn>;
+  let setSelectedTags: ReturnType<typeof vi.fn>;
   let setSelectedResourceTypes: ReturnType<typeof vi.fn>;
-  let resetTheme: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    selectedTheme = "Todos";
+    selectedTags = [];
     selectedResourceTypes = [];
 
-    setSelectedTheme = vi.fn((theme: string) => {
-      selectedTheme = theme;
+    setSelectedTags = vi.fn((tags: string[]) => {
+      selectedTags = tags;
     });
 
     setSelectedResourceTypes = vi.fn((types: string[]) => {
       selectedResourceTypes = types;
-    });
-
-    resetTheme = vi.fn(() => {
-      selectedTheme = "Todos";
-      selectedResourceTypes = [];
     });
   });
 
@@ -55,23 +50,19 @@ describe("FilterResources Component", () => {
     render(
       <MemoryRouter>
         <FilterResources
-          themes={[]} // no se usa ya
           resourceTypes={[...resourceTypes]}
-          selectedTheme={selectedTheme}
-          setSelectedTheme={setSelectedTheme}
+          selectedTags={[]}
+          setSelectedTags={setSelectedTags}
           selectedResourceTypes={selectedResourceTypes}
           setSelectedResourceTypes={setSelectedResourceTypes}
-          resetTheme={resetTheme}
         />
       </MemoryRouter>,
     );
 
-    // Verificamos que se muestren los tags del mock
     expect(screen.getByText("Todos")).toBeInTheDocument();
     expect(screen.getByText("Eventos")).toBeInTheDocument();
     expect(screen.getByText("Conferencias")).toBeInTheDocument();
 
-    // Verificamos que se muestren los tipos de recurso
     resourceTypes.forEach((type) => {
       expect(screen.getByText(type)).toBeInTheDocument();
     });
@@ -81,19 +72,18 @@ describe("FilterResources Component", () => {
     render(
       <MemoryRouter>
         <FilterResources
-          themes={[]} // ya no se usa
           resourceTypes={[...resourceTypes]}
-          selectedTheme={selectedTheme}
-          setSelectedTheme={setSelectedTheme}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
           selectedResourceTypes={selectedResourceTypes}
           setSelectedResourceTypes={setSelectedResourceTypes}
-          resetTheme={resetTheme}
         />
       </MemoryRouter>,
     );
 
     const eventosRadio = screen.getByText("Eventos");
     fireEvent.click(eventosRadio);
-    expect(setSelectedTheme).toHaveBeenCalledWith("Eventos");
+    expect(setSelectedTags).toHaveBeenCalledWith(["Eventos"]);
   });
 });
+
