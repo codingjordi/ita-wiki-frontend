@@ -17,13 +17,14 @@ vi.mock("../../../hooks/useTagsByCategory", () => ({
 }));
 
 // 👇 Mock del useParams para definir category
-vi.mock("react-router", async (importOriginal) => {
-  const actual = await importOriginal<any>();
+vi.mock("react-router", async () => {
+  const actual = await import("react-router");
   return {
     ...actual,
     useParams: () => ({ category: "eventos" }),
   };
 });
+
 
 describe("FilterResources Component", () => {
   let selectedTheme: string;
