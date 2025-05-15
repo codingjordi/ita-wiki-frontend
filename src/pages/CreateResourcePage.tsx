@@ -148,7 +148,6 @@ export default function CreateResourcePage() {
               className="max-w-[482px] max-h-[2.6rem] border-[0.06rem]  border-gray-300 focus:border-2 focus:border-[#B91879] outline-none "
               maxLength={charLimitTitle}
               onChange={(e) => {
-                // setCharCount(e.target.value.length);
                 setValue("title", e.target.value);
               }}
             />
@@ -276,7 +275,6 @@ export default function CreateResourcePage() {
                 className="max-w-[482px] max-h-[4.5rem] border-[0.06rem] border-gray-300 focus:border-[#B91879] outline-none"
                 maxLength={charLimitDescription}
                 onChange={(e) => {
-                  // setCharCount(e.target.value.length); // TODO separar contador
                   setValue("description", e.target.value);
                 }}
               />
