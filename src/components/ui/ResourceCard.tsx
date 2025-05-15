@@ -75,7 +75,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
             <div
               onClick={handleBookmarkClick}
               className={`${hasBookmarkPermission ? "cursor-pointer" : "cursor-not-allowed opacity-70"}`}
-              title={!user ? "Inicia sesión para guardar recursos" : !hasBookmarkPermission ? "No tienes permiso para guardar recursos. Contacta con un administrador" : undefined}
+              title={!user ? "Inicia sesión para guardar recursos" : !hasBookmarkPermission ? "No tienes permiso para guardar recursos. Contacta con un admin." : undefined}
             >
               <BookmarkIconComponent marked={isBookmarked} />
             </div>
