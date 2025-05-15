@@ -7,11 +7,7 @@ export const useLikeToggle = () => {
 
   const toggleLike = useCallback(
     async (resource_id: number, isLiked: boolean) => {
-      if (
-        !user ||
-        user.role !== "student" ||
-        typeof user.id !== "number"
-      ) {
+      if (!user || user.role !== "student" || typeof user.id !== "number") {
         console.warn("User not allowed to vote.");
         return { success: false };
       }
