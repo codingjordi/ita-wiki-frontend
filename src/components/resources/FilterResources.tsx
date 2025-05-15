@@ -3,22 +3,19 @@ import { useParams } from "react-router";
 import { useTagsByCategory } from "../../hooks/useTagsByCategory";
 
 interface FilterResourcesProps {
-  themes: readonly string[]; // Se mantiene para compatibilidad pero no se usa más
   resourceTypes: readonly string[];
-  selectedTheme: string;
-  setSelectedTheme: (theme: string) => void;
+  selectedTags: string[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   selectedResourceTypes: string[];
   setSelectedResourceTypes: (resourceTypes: string[]) => void;
-  resetTheme: () => void;
 }
 
 export const FilterResources: FC<FilterResourcesProps> = ({
   resourceTypes,
-  selectedTheme,
-  setSelectedTheme,
+  selectedTags,
+  setSelectedTags,
   selectedResourceTypes,
   setSelectedResourceTypes,
-  resetTheme,
 }) => {
   const toggleResourceType = (resourceType: string) => {
     if (
@@ -42,8 +39,8 @@ export const FilterResources: FC<FilterResourcesProps> = ({
   useEffect(() => {
     if (category !== prevCategory) {
       setSelectedResourceTypes([...resourceTypes]);
+      setSelectedTags([]);
       setPrevCategory(category ?? null);
-      resetTheme();
     }
     if (selectedResourceTypes.length === 0 && resourceTypes.length > 0) {
       setSelectedResourceTypes([...resourceTypes]);
@@ -54,7 +51,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     resourceTypes,
     selectedResourceTypes,
     setSelectedResourceTypes,
-    resetTheme,
+    setSelectedTags,
   ]);
 
   const tagsFromCategory =
@@ -64,37 +61,56 @@ export const FilterResources: FC<FilterResourcesProps> = ({
 
   const tags = ["Todos", ...tagsFromCategory];
 
+  const toggleTag = (tag: string) => {
+    if (tag === "Todos") {
+      setSelectedTags([]);
+    } else {
+      setSelectedTags(
+        selectedTags.includes(tag)
+          ? selectedTags.filter((t) => t !== tag)
+          : [...selectedTags.filter((t) => t !== "Todos"), tag],
+      );
+    }
+  };
+
   return (
     <div className="mt-6">
       <div className="mb-6">
         <h3 className="text-lg font-bold mb-3">Temas</h3>
-        {tags.map((tagName) => (
-          <label
-            key={tagName}
-            className="flex items-center gap-2 mb-2 cursor-pointer"
-          >
-            <input
-              type="radio"
-              name="theme"
-              value={tagName}
-              checked={selectedTheme === tagName}
-              onChange={() => setSelectedTheme(tagName)}
-              className="hidden"
-            />
+        {tags.map((tagName) => {
+          const isSelected =
+            (tagName === "Todos" && selectedTags.length === 0) ||
+            selectedTags.includes(tagName);
+
+          return (
             <div
-              className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
-                selectedTheme === tagName
-                  ? "border-[#B91879]"
-                  : "border-gray-400"
-              }`}
+              key={tagName}
+              className="flex items-center gap-2 mb-2 cursor-pointer"
             >
-              {selectedTheme === tagName && (
-                <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
-              )}
+              <button
+                type="button"
+                onClick={() => toggleTag(tagName)}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <div
+                  className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
+                    isSelected ? "border-[#B91879]" : "border-gray-400"
+                  }`}
+                >
+                  {isSelected && (
+                    <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
+                  )}
+                </div>
+                <span
+                  className="text-gray-800 max-w-[120px] truncate inline-block"
+                  title={tagName}
+                >
+                  {tagName}
+                </span>
+              </button>
             </div>
-            <span className="text-gray-800">{tagName}</span>
-          </label>
-        ))}
+          );
+        })}
         {tagsFromCategory.length === 0 && (
           <p className="text-sm text-gray-500">No hay temas disponibles.</p>
         )}
