@@ -155,7 +155,7 @@ export default function CreateResourcePage() {
             />
             <div className="w-1/2">
               <p className="text-sm text-slate-600 -mt-5 text-center ml-75">
-                {charCount}/{charLimitTitle}
+                {titleValue?.length}/{charLimitTitle}
               </p>
             </div>
 
@@ -283,7 +283,7 @@ export default function CreateResourcePage() {
               />
               <div className="w-1/2">
                 <p className="text-sm text-slate-600 -mt-5 text-center ml-75">
-                  {charCount}/{charLimitDescription}
+                  {descriptionValue?.length}/{charLimitDescription}
                 </p>
               </div>
             </div>
