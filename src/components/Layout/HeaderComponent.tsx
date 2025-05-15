@@ -28,7 +28,8 @@ const HeaderComponent = () => {
   const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showChangeRoleDropdown, setShowChangeRoleDropdown] = useState<boolean>(false);
+  const [showChangeRoleDropdown, setShowChangeRoleDropdown] =
+    useState<boolean>(false);
   const [devMode, setDevMode] = useState<boolean>(false);
   const [showConfirmLogout, setShowConfirmLogout] = useState(false);
   const [selectedLang, setSelectedLang] = useState<"ES" | "EN">("ES");
@@ -36,6 +37,7 @@ const HeaderComponent = () => {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const langDropdownRef = useRef<HTMLDivElement>(null);
+  const roleDropdownRef = useRef<HTMLDivElement>(null);
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState<boolean>(false);
 
@@ -47,20 +49,19 @@ const HeaderComponent = () => {
     }
   }, [location.pathname, resource]);
 
+  const dropdowns = [
+    { ref: dropdownRef, setter: setShowDropdown },
+    { ref: langDropdownRef, setter: setShowLangDropdown },
+    { ref: roleDropdownRef, setter: setShowChangeRoleDropdown },
+  ];
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowDropdown(false);
-      }
-      if (
-        langDropdownRef.current &&
-        !langDropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowLangDropdown(false);
-      }
+      dropdowns.forEach(({ ref, setter }) => {
+        if (ref.current && !ref.current.contains(event.target as Node)) {
+          setter(false);
+        }
+      });
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -69,9 +70,9 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.altKey && e.key === 'R') {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.altKey && e.key === "R") {
         e.preventDefault();
-        setDevMode(prev => !prev);
+        setDevMode((prev) => !prev);
       }
 
       if (showChangeRoleDropdown) {
@@ -79,9 +80,9 @@ const HeaderComponent = () => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [showChangeRoleDropdown, devMode]);
 
@@ -227,18 +228,22 @@ const HeaderComponent = () => {
                 <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Role*/}
                 {devMode ? (
-                  <div className="relative">
+                  <div className="relative" ref={roleDropdownRef}>
                     <DropdownButtonComponent
                       title={userRole}
-                      onClick={() => setShowChangeRoleDropdown(!showChangeRoleDropdown)}
+                      onClick={() =>
+                        setShowChangeRoleDropdown(!showChangeRoleDropdown)
+                      }
                       disabled={false}
+                      icon={arrowDown}
                     />
-                    {showChangeRoleDropdown &&
+                    {showChangeRoleDropdown && (
                       <RoleDropdownComponent
                         userRole={userRole}
                         isChanging={isChanging}
-                        onRoleChange={handleRoleChange} />
-                    }
+                        onRoleChange={handleRoleChange}
+                      />
+                    )}
                   </div>
                 ) : (
                   <DropdownButtonComponent title={userRole} disabled={true} />
@@ -282,10 +287,11 @@ const HeaderComponent = () => {
                   className="hidden"
                 />
                 <div
-                  className={`w-5 h-5 flex items-center justify-center rounded border ${isChecked
-                    ? "bg-[#B91879] border-[#B91879]"
-                    : "border-gray-400"
-                    }`}
+                  className={`w-5 h-5 flex items-center justify-center rounded border ${
+                    isChecked
+                      ? "bg-[#B91879] border-[#B91879]"
+                      : "border-gray-400"
+                  }`}
                 >
                   {isChecked && (
                     <svg
@@ -372,13 +378,11 @@ const HeaderComponent = () => {
           />
         )}
       </div>
-      {
-        devMode && (
-          <div className="fixed bottom-2 right-2 bg-yellow-300 text-xs rounded px-2 py-1 opacity-70 z-50">
-            Modo dev activo
-          </div>
-        )
-      }
+      {devMode && (
+        <div className="fixed bottom-2 right-2 bg-yellow-200 text-xs rounded px-2 py-1 opacity-70 z-50">
+          Modo dev activo
+        </div>
+      )}
     </header>
   );
 };

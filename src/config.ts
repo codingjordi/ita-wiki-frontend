@@ -8,6 +8,7 @@ type EndPoints =
   | "bookmarks"
   | "likes/"
   | "tags/"
+  | "tags/category-frequency"
   | "feature-flags/"
   | "feature-flags/role-self-assignment";
 
@@ -24,7 +25,7 @@ const END_POINTS = {
   roles: {
     lists: "users/user-signedin-as?github_id=" as EndPoints,
     post: "roles/" as EndPoints,
-    put: "roles/" as EndPoints, //TEMPORAL
+    put: "roles/" as EndPoints,
   },
   likes: {
     get: "likes" as EndPoints,
@@ -33,11 +34,11 @@ const END_POINTS = {
   },
   tags: {
     get: "tags/" as EndPoints,
+    categoryFrequency: "tags/category-frequency" as EndPoints,
   },
   devTools: {
     roleChange: "feature-flags/role-self-assignment" as EndPoints,
   },
-
 };
 
 export { API_URL, END_POINTS };

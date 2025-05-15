@@ -1,101 +1,87 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { describe, it, expect, vi, beforeEach, Mock } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { FilterResources } from "../FilterResources";
-import { themes } from "../../../data/themes";
 import { resourceTypes } from "../../../data/resourceTypes";
 
+// 👇 Mock explícito del hook que trae los tags
+vi.mock("../../../hooks/useTagsByCategory", () => ({
+  useTagsByCategory: () => ({
+    tagsByCategory: {
+      eventos: {
+        Eventos: 5,
+        Conferencias: 2,
+      },
+    },
+  }),
+}));
+
+// 👇 Mock del useParams para definir category
+vi.mock("react-router", async () => {
+  const actual = await import("react-router");
+  return {
+    ...actual,
+    useParams: () => ({ category: "eventos" }),
+  };
+});
+
 describe("FilterResources Component", () => {
-  let selectedTheme: (typeof themes)[number];
+  let selectedTags: string[];
   let selectedResourceTypes: string[];
 
-  let setSelectedTheme: ReturnType<typeof vi.fn>;
+  let setSelectedTags: ReturnType<typeof vi.fn>;
   let setSelectedResourceTypes: ReturnType<typeof vi.fn>;
 
-  let resetTheme: Mock;
-
   beforeEach(() => {
-    selectedTheme = themes[0];
+    selectedTags = [];
     selectedResourceTypes = [];
 
-    setSelectedTheme = vi.fn((theme: (typeof themes)[number]) => {
-      selectedTheme = theme;
+    setSelectedTags = vi.fn((tags: string[]) => {
+      selectedTags = tags;
     });
 
-    setSelectedResourceTypes = vi.fn((newResourceTypes: string[]) => {
-      selectedResourceTypes = newResourceTypes;
-    });
-
-    resetTheme = vi.fn(() => {
-      selectedTheme = themes[0]; // Reset to first theme (usually "Todos")
-      selectedResourceTypes = []; // Reset to empty array
+    setSelectedResourceTypes = vi.fn((types: string[]) => {
+      selectedResourceTypes = types;
     });
   });
 
-  it("should render categories and types from filter.json", () => {
+  it("should render dynamic category tags and resource types", () => {
     render(
       <MemoryRouter>
         <FilterResources
-          themes={[...themes]}
           resourceTypes={[...resourceTypes]}
-          selectedTheme={selectedTheme}
-          setSelectedTheme={setSelectedTheme}
+          selectedTags={[]}
+          setSelectedTags={setSelectedTags}
           selectedResourceTypes={selectedResourceTypes}
           setSelectedResourceTypes={setSelectedResourceTypes}
-          resetTheme={resetTheme}
         />
       </MemoryRouter>,
     );
 
-    themes.forEach((theme) => {
-      expect(screen.getByText(theme)).toBeInTheDocument();
-    });
+    expect(screen.getByText("Todos")).toBeInTheDocument();
+    expect(screen.getByText("Eventos")).toBeInTheDocument();
+    expect(screen.getByText("Conferencias")).toBeInTheDocument();
 
     resourceTypes.forEach((type) => {
       expect(screen.getByText(type)).toBeInTheDocument();
     });
   });
 
-  it("should update selected category when clicked", () => {
+  it("should allow selecting a tag", () => {
     render(
       <MemoryRouter>
         <FilterResources
-          themes={[...themes]}
           resourceTypes={[...resourceTypes]}
-          selectedTheme={selectedTheme}
-          setSelectedTheme={setSelectedTheme}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
           selectedResourceTypes={selectedResourceTypes}
           setSelectedResourceTypes={setSelectedResourceTypes}
-          resetTheme={resetTheme}
         />
       </MemoryRouter>,
     );
 
-    const eventCategory = screen.getByText("Eventos");
-    fireEvent.click(eventCategory);
-
-    expect(setSelectedTheme).toHaveBeenCalledWith("Eventos");
-  });
-
-  it("should toggle type checkboxes when clicked", () => {
-    render(
-      <MemoryRouter>
-        <FilterResources
-          themes={[...themes]}
-          resourceTypes={[...resourceTypes]}
-          selectedTheme={selectedTheme}
-          setSelectedTheme={setSelectedTheme}
-          selectedResourceTypes={selectedResourceTypes}
-          setSelectedResourceTypes={setSelectedResourceTypes}
-          resetTheme={resetTheme}
-        />
-      </MemoryRouter>,
-    );
-
-    const videoCheckbox = screen.getByLabelText("Video");
-    fireEvent.click(videoCheckbox);
-
-    expect(setSelectedResourceTypes).toHaveBeenCalled();
-    expect(setSelectedResourceTypes).toHaveBeenCalledWith(["Video"]);
+    const eventosRadio = screen.getByText("Eventos");
+    fireEvent.click(eventosRadio);
+    expect(setSelectedTags).toHaveBeenCalledWith(["Eventos"]);
   });
 });

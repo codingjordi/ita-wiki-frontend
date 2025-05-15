@@ -12,7 +12,6 @@ vi.mock("react-router", () => ({
 import { useParams, useSearchParams } from "react-router";
 
 describe("useResourceFilter", () => {
-  const mockThemes = ["Todos", "Componentes", "UseState & UseEffect"] as const;
   const mockResourceTypes = ["Video", "Cursos", "Blog"] as const;
 
   const mockResources: IntResource[] = [
@@ -88,12 +87,12 @@ describe("useResourceFilter", () => {
     const { result } = renderHook(() =>
       useResourceFilter({
         resources: mockResources,
-        themes: mockThemes,
         resourceTypes: mockResourceTypes,
       }),
     );
 
-    expect(result.current.selectedTheme).toBe(mockThemes[0]);
+    expect(result.current.selectedTags).toEqual([]);
+
     expect(result.current.selectedResourceTypes).toEqual(mockResourceTypes);
   });
 
@@ -101,13 +100,12 @@ describe("useResourceFilter", () => {
     const { result } = renderHook(() =>
       useResourceFilter({
         resources: mockResources,
-        themes: mockThemes,
         resourceTypes: mockResourceTypes,
       }),
     );
 
     act(() => {
-      result.current.setSelectedTheme("Componentes");
+      result.current.setSelectedTags(["Componentes"]);
     });
 
     expect(mockSetSearchParams).toHaveBeenCalled();
@@ -121,7 +119,6 @@ describe("useResourceFilter", () => {
     const { result } = renderHook(() =>
       useResourceFilter({
         resources: mockResources,
-        themes: mockThemes,
         resourceTypes: mockResourceTypes,
       }),
     );
@@ -141,11 +138,10 @@ describe("useResourceFilter", () => {
 
         const result = useResourceFilter({
           resources: mockResources,
-          themes: mockThemes,
           resourceTypes: mockResourceTypes,
         });
 
-        if (result.selectedTheme === "Todos" && props.category === "Angular") {
+        if (result.selectedTags.length === 0 && props.category === "Angular") {
           mockSetCategory("reset detected");
         }
 
