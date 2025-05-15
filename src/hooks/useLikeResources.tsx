@@ -12,7 +12,7 @@ export function useLikeResources(resource: IntResource) {
   const { refreshResources } = useResources();
 
   const allowedToVote = user?.role == "student" ? true : false;
-  
+
   const resourceId = Number(resource.id);
 
   const [localLiked, setLocalLiked] = useState<boolean>(
