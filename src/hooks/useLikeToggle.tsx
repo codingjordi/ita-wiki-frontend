@@ -10,13 +10,13 @@ export const useLikeToggle = () => {
       if (
         !user ||
         user.role !== "student" ||
-        typeof user.github_id !== "number"
+        typeof user.id !== "number"
       ) {
         console.warn("User not allowed to vote.");
         return { success: false };
       }
 
-      const github_id = user.github_id;
+      const github_id = user.id;
 
       try {
         if (isLiked) {

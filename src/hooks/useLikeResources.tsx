@@ -11,7 +11,8 @@ export function useLikeResources(resource: IntResource) {
   const { user } = useCtxUser();
   const { refreshResources } = useResources();
 
-  const github_id = user?.github_id;
+  const allowedToVote = user?.role == "student" ? true : false;
+  
   const resourceId = Number(resource.id);
 
   const [localLiked, setLocalLiked] = useState<boolean>(
@@ -37,7 +38,7 @@ export function useLikeResources(resource: IntResource) {
   };
 
   const handleLike = async () => {
-    if (!github_id || syncing) return;
+    if (!allowedToVote || syncing) return;
 
     const wasLiked = localLiked;
     const newCount = localCount + (wasLiked ? -1 : 1);
@@ -70,6 +71,6 @@ export function useLikeResources(resource: IntResource) {
     liked: localLiked,
     voteCount: localCount,
     handleLike,
-    disabled: !github_id,
+    disabled: !allowedToVote,
   };
 }
