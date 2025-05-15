@@ -1,5 +1,5 @@
 import { IntResource, Category, Tag } from "../types";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resourceSchema } from "../validations/resourceSchema";
 import FormInput from "../components/resources/create-resources/FormInput";
@@ -24,9 +24,22 @@ export default function CreateResourcePage() {
     handleSubmit,
     setValue,
     reset,
+    control,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(resourceSchema),
+  });
+
+  const titleValue = useWatch({
+    control,
+    name: "title",
+    defaultValue: "",
+  });
+
+  const descriptionValue = useWatch({
+    control,
+    name: "description",
+    defaultValue: "",
   });
 
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
