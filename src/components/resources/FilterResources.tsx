@@ -77,33 +77,34 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     <div className="mt-6">
       <div className="mb-6">
         <h3 className="text-lg font-bold mb-3">Temas</h3>
-        {tags.map((tagName) => (
-          <label
-            key={tagName}
-            className="flex items-center gap-2 mb-2 cursor-pointer"
-          >
-            <button
-              type="button"
-              onClick={() => toggleTag(tagName)}
+        {tags.map((tagName) => {
+          const isSelected =
+            (tagName === "Todos" && selectedTags.length === 0) ||
+            selectedTags.includes(tagName);
+
+          return (
+            <div
+              key={tagName}
               className="flex items-center gap-2 mb-2 cursor-pointer"
             >
-              <div
-                className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
-                  (tagName === "Todos" && selectedTags.length === 0) ||
-                  selectedTags.includes(tagName)
-                    ? "border-[#B91879]"
-                    : "border-gray-400"
-                }`}
+              <button
+                type="button"
+                onClick={() => toggleTag(tagName)}
+                className="flex items-center gap-2 cursor-pointer"
               >
-                {((tagName === "Todos" && selectedTags.length === 0) ||
-                  selectedTags.includes(tagName)) && (
-                  <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
-                )}
-              </div>
-              <span className="text-gray-800">{tagName}</span>
-            </button>
-          </label>
-        ))}
+                <div
+                  className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${isSelected ? "border-[#B91879]" : "border-gray-400"
+                    }`}
+                >
+                  {isSelected && (
+                    <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
+                  )}
+                </div>
+                <span className="text-gray-800">{tagName}</span>
+              </button>
+            </div>
+          );
+        })}
         {tagsFromCategory.length === 0 && (
           <p className="text-sm text-gray-500">No hay temas disponibles.</p>
         )}
@@ -123,11 +124,10 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               className="hidden"
             />
             <div
-              className={`w-5 h-5 flex items-center justify-center rounded border ${
-                selectedResourceTypes.includes(resourceType)
+              className={`w-5 h-5 flex items-center justify-center rounded border ${selectedResourceTypes.includes(resourceType)
                   ? "bg-[#B91879] border-[#B91879]"
                   : "border-gray-400"
-              }`}
+                }`}
             >
               {selectedResourceTypes.includes(resourceType) && (
                 <svg
