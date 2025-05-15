@@ -93,14 +93,20 @@ export const FilterResources: FC<FilterResourcesProps> = ({
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <div
-                  className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${isSelected ? "border-[#B91879]" : "border-gray-400"
-                    }`}
+                  className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
+                    isSelected ? "border-[#B91879]" : "border-gray-400"
+                  }`}
                 >
                   {isSelected && (
                     <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
                   )}
                 </div>
-                <span className="text-gray-800">{tagName}</span>
+                <span
+                  className="text-gray-800 max-w-[120px] truncate inline-block"
+                  title={tagName}
+                >
+                  {tagName}
+                </span>
               </button>
             </div>
           );
@@ -124,10 +130,11 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               className="hidden"
             />
             <div
-              className={`w-5 h-5 flex items-center justify-center rounded border ${selectedResourceTypes.includes(resourceType)
+              className={`w-5 h-5 flex items-center justify-center rounded border ${
+                selectedResourceTypes.includes(resourceType)
                   ? "bg-[#B91879] border-[#B91879]"
                   : "border-gray-400"
-                }`}
+              }`}
             >
               {selectedResourceTypes.includes(resourceType) && (
                 <svg
