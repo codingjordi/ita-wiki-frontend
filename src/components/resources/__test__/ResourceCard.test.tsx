@@ -27,6 +27,13 @@ const userContextMock: PropsContext = {
   setError: vi.fn(),
 };
 
+const userRoleCantBookmarkMock = {
+  id: 123,
+  displayName: "Test User",
+  photoURL: undefined,
+  role: "mentor",
+} as IntUser;
+
 interface RenderWithUserContextProps {
   ui: React.ReactElement;
   contextValue?: PropsContext;
@@ -73,20 +80,30 @@ test("displays resource type", () => {
   expect(screen.getByText("Video")).toBeInTheDocument();
 });
 
-test("bookmark icon is clickable when user is logged in", () => {
+test("bookmark icon is not clickable when user role has no permission", () => {
   const toggleBookmarkMock = vi.fn();
+  const noRoleUserPermission = {
+    ...userContextMock,
+    user: userRoleCantBookmarkMock,
+    isAuthenticated: true,
+  };
+
   renderWithUserContext(
     <ResourceCard
       resource={resourceMock}
       isBookmarked={false}
       toggleBookmark={toggleBookmarkMock}
     />,
+    noRoleUserPermission,
   );
 
-  const bookmarkContainer = screen.getByTestId("bookmarkIcon");
+  const bookmarkContainer = screen.getByTitle(
+    "No tienes permiso para guardar recursos. Contacta con un admin.",
+  );
+  expect(bookmarkContainer.className).toContain("cursor-not-allowed");
   bookmarkContainer.click();
 
-  expect(toggleBookmarkMock).toHaveBeenCalledWith(resourceMock);
+  expect(toggleBookmarkMock).not.toHaveBeenCalled();
 });
 
 test("bookmark icon is not clickable when user is not logged in", () => {
