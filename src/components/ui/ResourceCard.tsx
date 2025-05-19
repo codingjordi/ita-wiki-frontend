@@ -5,7 +5,7 @@ import { useCtxUser } from "../../hooks/useCtxUser";
 import { useResources } from "../../context/ResourcesContext";
 
 import BookmarkIconComponent from "../resources/BookmarkIconComponent";
-import { canBookmark } from "../../data/tempRoles";
+import { canBookmark } from "../../data/permission/tempRolesPremission";
 import LikeIcon from "../resources/LikeIcon";
 import { useLikeResources } from "../../hooks/useLikeResources";
 
