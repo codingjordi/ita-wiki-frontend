@@ -19,15 +19,15 @@ export const LikesProvider = ({ children }: { children: React.ReactNode }) => {
   const { user } = useCtxUser();
 
   const fetchLikes = async () => {
-    if (!user?.github_id) return;
-    const likes = await getLikes(user.github_id);
+    if (!user?.id) return;
+    const likes = await getLikes(user.id);
     const ids = likes.map((like) => like.resource_id);
     setLikedResourceIds(ids);
   };
 
   useEffect(() => {
     fetchLikes();
-  }, [user?.github_id]);
+  }, [user?.id]);
 
   const value = {
     likedResourceIds,
