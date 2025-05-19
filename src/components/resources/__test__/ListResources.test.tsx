@@ -9,11 +9,10 @@ import { describe, it, expect, vi } from "vitest";
 vi.mock("../../../hooks/useResourceFilter", () => ({
   useResourceFilter: () => ({
     filteredResources: moockResources,
-    selectedTheme: "Todos",
-    setSelectedTheme: vi.fn(),
+    selectedTags: [],
+    setSelectedTags: vi.fn(),
     selectedResourceTypes: ["Video"],
     setSelectedResourceTypes: vi.fn(),
-    resetTheme: vi.fn(),
   }),
 }));
 
