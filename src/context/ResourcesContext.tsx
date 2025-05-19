@@ -5,7 +5,7 @@ import { getBookmarks } from "../api/endPointBookmark";
 import mock from "../moock/resources.json";
 import { useBookmarkToggle } from "../hooks/useBookmarkToggle";
 import { useCtxUser } from "../hooks/useCtxUser";
-import { canBookmark } from "../data/tempRoles";
+import { canBookmark } from "../data/permission/tempRolesPremission";
 
 interface ResourcesContextType {
   resources: IntResource[];

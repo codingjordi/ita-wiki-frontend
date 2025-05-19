@@ -1,7 +1,7 @@
 import { IntResource, IntBookmarkElement } from "../types";
 import { useCtxUser } from "./useCtxUser";
 import { createBookmark, deleteBookmark } from "../api/endPointBookmark";
-import { canBookmark } from "../data/tempRoles";
+import { canBookmark } from "../data/permission/tempRolesPremission";
 
 export function useBookmarkToggle() {
   const { user } = useCtxUser();
