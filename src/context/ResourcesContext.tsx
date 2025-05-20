@@ -5,6 +5,7 @@ import { getBookmarks } from "../api/endPointBookmark";
 import mock from "../moock/resources.json";
 import { useBookmarkToggle } from "../hooks/useBookmarkToggle";
 import { useCtxUser } from "../hooks/useCtxUser";
+import { canBookmark } from "../data/permission/tempRolesPremission";
 
 interface ResourcesContextType {
   resources: IntResource[];
@@ -144,7 +145,7 @@ export const ResourcesProvider = ({
   const { toggleBookmark: toggleBookmarkAction } = useBookmarkToggle();
 
   const toggleBookmark = async (resource: IntResource) => {
-    if (!user) return;
+    if (!user || !canBookmark(user.role)) return;
 
     const isCurrentlyBookmarked = isBookmarked(resource);
 

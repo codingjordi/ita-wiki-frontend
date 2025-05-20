@@ -20,6 +20,15 @@ describe("useBookmarkToggle", () => {
     name: "Test User",
     displayName: "Test Display Name",
     photoURL: "https://example.com/photo.jpg",
+    role: "student",
+  };
+
+  const mockUserRoleCantBookmark = {
+    id: 123,
+    name: "Test User",
+    displayName: "Test Display Name",
+    photoURL: "https://example.com/photo.jpg",
+    role: "mentor",
   };
 
   const mockResource: IntResource = {
@@ -240,6 +249,35 @@ describe("useBookmarkToggle", () => {
       vi.mocked(useCtxUser).mockReturnValue({
         user: null,
         isAuthenticated: false,
+        signIn: vi.fn(),
+        signOut: vi.fn(),
+        saveUser: vi.fn(),
+        setError: vi.fn(),
+        error: null,
+      });
+
+      const { result } = renderHook(() => useBookmarkToggle());
+      const bookmarkedResources: IntBookmarkElement[] = [];
+
+      await act(async () => {
+        await result.current.toggleBookmark(
+          mockResource,
+          bookmarkedResources,
+          mockSetBookmarkedResources,
+        );
+      });
+
+      // Verify no state update or API calls occurred
+      expect(mockSetBookmarkedResources).not.toHaveBeenCalled();
+      expect(createBookmark).not.toHaveBeenCalled();
+      expect(deleteBookmark).not.toHaveBeenCalled();
+    });
+
+    it("does nothing when user role has no permission to bookmark", async () => {
+      // Mock user as role mentor to simulate unauthorized role
+      vi.mocked(useCtxUser).mockReturnValue({
+        user: mockUserRoleCantBookmark,
+        isAuthenticated: true,
         signIn: vi.fn(),
         signOut: vi.fn(),
         saveUser: vi.fn(),
