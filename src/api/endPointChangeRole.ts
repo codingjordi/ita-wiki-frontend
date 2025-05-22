@@ -16,7 +16,7 @@ interface RoleChangeResponse {
 }
 
 const changeRole = async (
-  body: RoleChangeRequest,
+  body: RoleChangeRequest
 ): Promise<RoleChangeResponse> => {
   const controller = new AbortController();
   const signal = controller.signal;
@@ -61,7 +61,7 @@ const changeRole = async (
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(
-        errorData.message || `Error ${response.status}: ${response.statusText}`,
+        errorData.message || `Error ${response.status}: ${response.statusText}`
       );
     }
 
