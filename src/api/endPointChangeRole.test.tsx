@@ -39,7 +39,7 @@ describe("changeRole", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(mockRoleRequest),
         signal: expect.any(AbortSignal),
-      },
+      }
     );
     expect(result).toEqual(mockRoleResponse);
   });
@@ -61,19 +61,19 @@ describe("changeRole", () => {
     });
 
     await expect(changeRole(mockRoleRequest)).rejects.toThrow(
-      "API Error: Invalid role specified",
+      "API Error: Invalid role specified"
     );
   });
 
   it("should handle AbortError on timeout", async () => {
     const abortError = new DOMException(
       "The operation was aborted",
-      "AbortError",
+      "AbortError"
     );
     global.fetch = vi.fn().mockRejectedValue(abortError);
 
     await expect(changeRole(mockRoleRequest)).rejects.toThrow(
-      "The operation was aborted",
+      "The operation was aborted"
     );
 
     expect(console.warn).toHaveBeenCalledWith("Petition cancelled.");
