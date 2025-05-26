@@ -1,6 +1,7 @@
 import { API_URL, END_POINTS } from "../config";
 import { getCurrentUserId } from "../utils/getCurrentUserId";
 import { createRole } from "./endPointRoles";
+import { getUserRole } from "./userApi";
 
 interface RoleChangeRequest {
   github_id: number;
@@ -36,25 +37,21 @@ const changeRole = async (
 
     clearTimeout(timeout);
 
-    // Handle 422 error - User id not found in the database
-    if (response.status === 422 && ["student", "mentor"].includes(body.role)) {
-      try {
-        const GithubId = getCurrentUserId();
-        if (!GithubId) {
-          throw new Error("No user ID found on localStorage/context.");
-        }
-
+    // Check if user has no role (anonymous) and allow creation of student or mentor role
+    const GithubId = getCurrentUserId();
+    if (GithubId) {
+      const userRole = await getUserRole(GithubId);
+      if (
+        (userRole === null || userRole === "anonymous") &&
+        ["student", "mentor"].includes(body.role)
+      ) {
         const createRoleRequest = {
           github_id: GithubId,
           role: body.role,
           authorized_github_id: 1,
         };
         const result = await createRole(createRoleRequest);
-
         return result;
-      } catch (fallbackError) {
-        console.error("Fallback role creation error:", fallbackError);
-        throw fallbackError;
       }
     }
 
