@@ -7,6 +7,7 @@ import {
 } from "./endPointChangeRole";
 import * as getCurrentUserIdModule from "../utils/getCurrentUserId";
 import * as endPointRolesModule from "./endPointRoles";
+import * as userApiModule from "./userApi";
 
 beforeEach(() => {
   vi.spyOn(console, "error").mockImplementation(() => {});
@@ -80,14 +81,18 @@ describe("changeRole", () => {
   });
 });
 
-// Tests for the 422 error handling
-describe("422 Error Handling", () => {
+// Tests for anonymous user role handling (null/"anonymous" role)
+describe("422 Error Handling (anonymous user)", () => {
   const mockCurrentUserId = 9999;
 
   beforeEach(() => {
+    vi.resetAllMocks();
+
     vi.spyOn(getCurrentUserIdModule, "getCurrentUserId").mockReturnValue(
       mockCurrentUserId
     );
+
+    vi.spyOn(userApiModule, "getUserRole").mockResolvedValue("anonymous");
 
     vi.spyOn(endPointRolesModule, "createRole").mockResolvedValue({
       message: "Role created successfully",
@@ -101,19 +106,12 @@ describe("422 Error Handling", () => {
     });
   });
 
-  it("should attempt to create role when status is 422 and role is student", async () => {
+  it("should allow anonymous user to create student role when status is 422", async () => {
     const studentRoleRequest = { github_id: 12345, role: "student" };
 
     const result = await changeRole(studentRoleRequest);
 
-    expect(global.fetch).toHaveBeenCalledWith(
-      `${API_URL}${END_POINTS.devTools.roleChange}`,
-      expect.objectContaining({
-        method: "PUT",
-        body: JSON.stringify(studentRoleRequest),
-      })
-    );
-
+    expect(userApiModule.getUserRole).toHaveBeenCalledWith(mockCurrentUserId);
     expect(getCurrentUserIdModule.getCurrentUserId).toHaveBeenCalled();
 
     expect(endPointRolesModule.createRole).toHaveBeenCalledWith({
@@ -128,10 +126,12 @@ describe("422 Error Handling", () => {
     });
   });
 
-  it("should attempt to create role when status is 422 and role is mentor", async () => {
+  it("should allow anonymous user to create mentor role when status is 422", async () => {
     const mentorRoleRequest = { github_id: 12345, role: "mentor" };
 
     const result = await changeRole(mentorRoleRequest);
+
+    expect(userApiModule.getUserRole).toHaveBeenCalledWith(mockCurrentUserId);
 
     expect(endPointRolesModule.createRole).toHaveBeenCalledWith({
       github_id: mockCurrentUserId,
@@ -145,25 +145,27 @@ describe("422 Error Handling", () => {
     });
   });
 
-  it("should not attempt to create role when status is 422 but role is admin", async () => {
+  it("should NOT allow anonymous user to create admin role when status is 422", async () => {
     const adminRoleRequest = { github_id: 12345, role: "admin" };
 
     await expect(changeRole(adminRoleRequest)).rejects.toThrow(
       "User not found"
     );
 
+    expect(userApiModule.getUserRole).toHaveBeenCalledWith(mockCurrentUserId);
     expect(global.fetch).toHaveBeenCalled();
 
     expect(endPointRolesModule.createRole).not.toHaveBeenCalled();
   });
 
-  it("should not attempt to create role when status is 422 but role is superadmin", async () => {
+  it("should NOT allow anonymous user to create superadmin role when status is 422", async () => {
     const superadminRoleRequest = { github_id: 12345, role: "superadmin" };
 
     await expect(changeRole(superadminRoleRequest)).rejects.toThrow(
       "User not found"
     );
 
+    expect(userApiModule.getUserRole).toHaveBeenCalledWith(mockCurrentUserId);
     expect(endPointRolesModule.createRole).not.toHaveBeenCalled();
   });
 });
