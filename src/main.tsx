@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router";
 import { Toaster } from "sonner";
 import { ResourcesProvider } from "./context/ResourcesContext.tsx";
 import { LikesProvider } from "./context/LikeContext.tsx";
-import { UserProvider } from './contexts/UserContext';
+import { UserProvider } from './context/UserContext';
 
 createRoot(document.getElementById("root")!).render(
   <UserCtxProvider>

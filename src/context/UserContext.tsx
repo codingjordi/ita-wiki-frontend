@@ -3,7 +3,7 @@ import { IntUser } from "../types";
 
 interface UserContextType {
   user: IntUser | null;
-  setUser: (user: IntUser) => void;
+  setUser: (user: IntUser | null) => void;
   logout: () => void;
 }
 
@@ -21,7 +21,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useUser = () => {
+export const useUserContext = () => {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error('useUser must be used within a UserProvider');
