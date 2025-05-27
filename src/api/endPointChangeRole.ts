@@ -38,15 +38,15 @@ const changeRole = async (
     clearTimeout(timeout);
 
     // Check if user has no role (anonymous) and allow creation of student or mentor role
-    const GithubId = getCurrentUserId();
-    if (GithubId) {
-      const userRole = await getUserRole(GithubId);
+    const githubId = getCurrentUserId();
+    if (githubId) {
+      const userRole = await getUserRole(githubId);
       if (
         (userRole === null || userRole === "anonymous") &&
         ["student", "mentor"].includes(body.role)
       ) {
         const createRoleRequest = {
-          github_id: GithubId,
+          github_id: githubId,
           role: body.role,
           authorized_github_id: 1,
         };
