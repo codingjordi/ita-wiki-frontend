@@ -94,10 +94,12 @@ describe("422 Error Handling (anonymous user)", () => {
 
     vi.spyOn(userApiModule, "getUserRole").mockResolvedValue("anonymous");
 
-    vi.spyOn(endPointRolesModule, "createRole").mockResolvedValue({
-      message: "Role created successfully",
-      role: { github_id: mockCurrentUserId, role: "student" },
-    });
+    vi.spyOn(endPointRolesModule, "createRole").mockImplementation(
+      async (req) => ({
+        message: "Role created successfully",
+        role: { github_id: req.github_id, role: req.role },
+      }),
+    );
 
     global.fetch = vi.fn().mockResolvedValue({
       ok: false,
@@ -141,7 +143,7 @@ describe("422 Error Handling (anonymous user)", () => {
 
     expect(result).toEqual({
       message: "Role created successfully",
-      role: { github_id: mockCurrentUserId, role: "student" },
+      role: { github_id: mockCurrentUserId, role: "mentor" },
     });
   });
 
