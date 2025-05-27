@@ -6,11 +6,13 @@ import { formatText } from "../../../utils/formatText";
 interface TagInputProps {
   selectedTags: Tag[];
   setselectedTags: (tag: Tag[]) => void;
+  selectedCategory: string | null;
 }
 
 const TagInput: React.FC<TagInputProps> = ({
   selectedTags,
   setselectedTags,
+  selectedCategory,
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
@@ -25,6 +27,11 @@ const TagInput: React.FC<TagInputProps> = ({
     fetchTags();
     setselectedTags([]);
   }, [setselectedTags]);
+
+  useEffect(() => {
+    console.log("Selected Tags Updated:", selectedTags);
+    console.log("selected category: ", selectedCategory);
+  }, [selectedTags, selectedCategory]);
 
   const tagNames = tags?.map((tag) => tag.name) || [];
 
