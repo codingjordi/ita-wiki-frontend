@@ -19,6 +19,7 @@ const TagInput: React.FC<TagInputProps> = ({
   useEffect(() => {
     const fetchTags = async () => {
       const tags = await getTags();
+      console.log("Fetched tags:", tags);
       setTags(tags);
     };
     fetchTags();
@@ -37,7 +38,7 @@ const TagInput: React.FC<TagInputProps> = ({
       const filtered = tags.filter(
         (tag) =>
           tag.name.toLowerCase().includes(lowerValue) &&
-          !selectedTags.some((t) => t.id === tag.id),
+          !selectedTags.some((t) => t.id === tag.id)
       );
 
       setFilteredTags(filtered);

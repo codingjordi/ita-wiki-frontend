@@ -10,7 +10,8 @@ type EndPoints =
   | "tags/"
   | "tags/category-frequency"
   | "feature-flags/"
-  | "feature-flags/role-self-assignment";
+  | "feature-flags/role-self-assignment"
+  | "tags/by-category";
 
 const END_POINTS = {
   resources: {
@@ -35,6 +36,7 @@ const END_POINTS = {
   tags: {
     get: "tags/" as EndPoints,
     categoryFrequency: "tags/category-frequency" as EndPoints,
+    byCategory: "tags/by-category" as EndPoints,
   },
   devTools: {
     roleChange: "feature-flags/role-self-assignment" as EndPoints,
