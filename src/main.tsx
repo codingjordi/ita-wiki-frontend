@@ -7,10 +7,12 @@ import { BrowserRouter } from "react-router";
 import { Toaster } from "sonner";
 import { ResourcesProvider } from "./context/ResourcesContext.tsx";
 import { LikesProvider } from "./context/LikeContext.tsx";
+import { UserProvider } from './contexts/UserContext';
 
 createRoot(document.getElementById("root")!).render(
   <UserCtxProvider>
     <StrictMode>
+    <UserProvider>
       <BrowserRouter>
         <ResourcesProvider>
           <LikesProvider>
@@ -36,6 +38,7 @@ createRoot(document.getElementById("root")!).render(
           </LikesProvider>
         </ResourcesProvider>
       </BrowserRouter>
+    </UserProvider>
     </StrictMode>
   </UserCtxProvider>,
 );
