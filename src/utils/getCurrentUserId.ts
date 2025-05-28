@@ -6,15 +6,9 @@
 
 //TODO: Refactor this function to use the context instead of localStorage
 
-export const getCurrentUserId = (): number | null => {
-  try {
-    const userDataString = localStorage.getItem("user");
-    if (!userDataString) return null;
+import { useUserContext } from "../context/UserContext";
 
-    const userData = JSON.parse(userDataString);
-    return userData?.id || null;
-  } catch (error) {
-    console.error("Error getting user ID from localStorage:", error);
-    return null;
-  }
+export const getCurrentUserId = (): number | null => {
+    const { user } = useUserContext();
+    return user?.id || null;
 };
