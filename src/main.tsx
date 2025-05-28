@@ -10,9 +10,9 @@ import { LikesProvider } from "./context/LikeContext.tsx";
 import { UserProvider } from './context/UserContext';
 
 createRoot(document.getElementById("root")!).render(
+    <UserProvider>
   <UserCtxProvider>
     <StrictMode>
-    <UserProvider>
       <BrowserRouter>
         <ResourcesProvider>
           <LikesProvider>
@@ -38,7 +38,7 @@ createRoot(document.getElementById("root")!).render(
           </LikesProvider>
         </ResourcesProvider>
       </BrowserRouter>
-    </UserProvider>
     </StrictMode>
   </UserCtxProvider>,
+    </UserProvider>
 );
