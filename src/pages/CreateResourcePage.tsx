@@ -61,6 +61,8 @@ export default function CreateResourcePage() {
     // el backend solo espera las etiquetas con nombre y nada mas
     // por lo cual creamos un array de solo nombres antes de mandarlo
     // let tagsWithName;
+
+    // Cambio nombres para ids
     let tagsWithIds;
     if (data.tags && data.tags.length) {
       // tagsWithName = [];

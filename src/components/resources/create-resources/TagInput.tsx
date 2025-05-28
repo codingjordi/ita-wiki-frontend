@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getTags } from "../../../api/endPointTags";
 import { Tag } from "../../../types";
 import { formatText } from "../../../utils/formatText";
+import { fetchTagsIdsByCategory } from "../../../api/endPointTagsIdsByCategory";
 
 interface TagInputProps {
   selectedTags: Tag[];
@@ -18,15 +19,52 @@ const TagInput: React.FC<TagInputProps> = ({
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
 
+  // useEffect(() => {
+  //   const fetchTags = async () => {
+  //     const tags = await getTags();
+  //     console.log("Fetched tags:", tags);
+  //     setTags(tags);
+  //   };
+  //   fetchTags();
+  //   setselectedTags([]);
+  // }, [setselectedTags]);
+
+  // TODO: write useEffect function that reads tags id by category
   useEffect(() => {
-    const fetchTags = async () => {
-      const tags = await getTags();
-      console.log("Fetched tags:", tags);
-      setTags(tags);
+    const fetchCategoryTags = async () => {
+      // Return early if no category is selected
+      if (!selectedCategory) {
+        setTags([]);
+        return;
+      }
+
+      //  Fetch both all tags AND the tag IDs by category -
+      // two requests in the same time using Promise instead of await..
+      const [allTags, tagsByCat] = await Promise.all([
+        getTags(),
+        fetchTagsIdsByCategory(),
+      ]);
+
+      // Get the tag IDs for selected category
+      const tagIds = tagsByCat[selectedCategory]; // e.g. tagsByCat["React"] => [1, 3, 5]
+      console.log("Tags id by category", tagIds);
+      if (!tagIds) {
+        setTags([]); // no tags mapped to category
+        return;
+      }
+
+      // Filter only tags that have a matching ID
+      const filteredTags = allTags.filter((tag) => tagIds.includes(tag.id));
+      setTags(filteredTags);
+
+      console.log("🎯 Filtered Tags for", selectedCategory, "→", filteredTags);
+
+      // reset selected tags when category changes
+      setselectedTags([]);
     };
-    fetchTags();
-    setselectedTags([]);
-  }, [setselectedTags]);
+
+    fetchCategoryTags();
+  }, [selectedCategory, setselectedTags]);
 
   useEffect(() => {
     console.log("Selected Tags Updated:", selectedTags);
