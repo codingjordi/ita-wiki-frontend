@@ -177,7 +177,7 @@
       "url": "http://localhost/recurso/10",
       "created_at": "1 junio de 2023",
       "updated_at": "5 junio de 2023",
-      "category": "FullStack PHP",
+      "category": "Fullstack PHP",
       "theme": "FullStack",
       "type": "Cursos",
       "votes": 19
@@ -190,7 +190,7 @@
       "url": "http://localhost/recurso/11",
       "created_at": "10 junio de 2022",
       "updated_at": "12 junio de 2022",
-      "category": "FullStack PHP",
+      "category": "Fullstack PHP",
       "theme": "Base de datos",
       "type": "Blog",
       "votes": 19
