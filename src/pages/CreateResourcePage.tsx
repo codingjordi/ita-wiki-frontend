@@ -43,7 +43,7 @@ export default function CreateResourcePage() {
   });
 
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null,
+    null
   );
   const [selectedTags, setselectedTags] = useState<Tag[]>([]);
 
@@ -60,11 +60,18 @@ export default function CreateResourcePage() {
   const onSubmit = async (data: Partial<IntResource>) => {
     // el backend solo espera las etiquetas con nombre y nada mas
     // por lo cual creamos un array de solo nombres antes de mandarlo
-    let tagsWithName;
+    // let tagsWithName;
+    let tagsWithIds;
     if (data.tags && data.tags.length) {
-      tagsWithName = [];
+      // tagsWithName = [];
+      // data.tags.forEach((tag) => {
+      //   //tagsWithName.push(tag.name);
+      //   tagsWithName.push(tag.id);
+      // });
+
+      tagsWithIds = [];
       data.tags.forEach((tag) => {
-        tagsWithName.push(tag.name);
+        tagsWithIds.push(tag.id);
       });
     }
 
@@ -74,10 +81,12 @@ export default function CreateResourcePage() {
       description: data.description,
       url: data.url,
       category: data.category,
-      tags: tagsWithName,
+      tags: tagsWithIds,
       type: data.type,
       github_id: user?.id,
     };
+
+    console.log("Data being sent to backend:", resourceWithGithubId);
 
     try {
       await createResource(resourceWithGithubId);
@@ -252,6 +261,7 @@ export default function CreateResourcePage() {
             <TagInput
               selectedTags={selectedTags}
               setselectedTags={handleTagChange}
+              selectedCategory={selectedCategory}
             />
             <div className="h-6">
               {errors.tags && (
