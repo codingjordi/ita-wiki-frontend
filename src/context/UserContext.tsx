@@ -1,10 +1,14 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { IntUser } from "../types";
+import { signInWithGitHub } from '../api/firebase';
+import { getUserRole } from '../api/userApi';
 
 interface UserContextType {
   user: IntUser | null;
   setUser: (user: IntUser | null) => void;
   logout: () => void;
+  signIn: () => Promise<void>;
+  saveUser: (user: IntUser) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -12,10 +16,33 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IntUser | null>(null);
 
+  const saveUser = (user: IntUser) => {
+    setUser(user);
+  };
+  const signIn = async () => {
+    try {
+      const newUser = await signInWithGitHub();
+      setUser(newUser);
+      await handleSetRole(newUser);
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  };
+
+  const handleSetRole = async (user: IntUser) => {
+    try {
+      const userRole = await getUserRole(user.id);
+      const updatedUser = { ...user, role: userRole };
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Error setting user role:', error);
+    }
+  };
+
   const logout = () => setUser(null);
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout }}>
+    <UserContext.Provider value={{ user, setUser, logout, signIn, saveUser }}>
       {children}
     </UserContext.Provider>
   );

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useCtxUser } from "./useCtxUser";
+import { useUserContext } from "../context/UserContext";
 import { changeRole } from "../api/endPointChangeRole";
 import { toast } from "sonner";
 
 export function useChangeUserRole() {
-  const { user, saveUser } = useCtxUser();
+  const { user, saveUser } = useUserContext();
   const [isChanging, setIsChanging] = useState<boolean>(false);
 
   const updateUserRole = async (newRole: string) => {
