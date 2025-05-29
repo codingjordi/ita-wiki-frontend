@@ -5,16 +5,20 @@ import { getUserRole } from '../api/userApi';
 
 interface UserContextType {
   user: IntUser | null;
+  isAuthenticated: boolean;
   setUser: (user: IntUser | null) => void;
-  logout: () => void;
+  signOut: () => void;
   signIn: () => Promise<void>;
   saveUser: (user: IntUser) => void;
+  error: string | null;
+  setError: (error: string | null) => void;  
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IntUser | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const saveUser = (user: IntUser) => {
     setUser(user);
@@ -24,8 +28,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       const newUser = await signInWithGitHub();
       setUser(newUser);
       await handleSetRole(newUser);
-    } catch (error) {
-      throw new Error(error as string);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Unknown error during sign in");
+      }
     }
   };
 
@@ -39,10 +47,15 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logout = () => setUser(null);
+  const signOut = () => {
+    setUser(null);
+    setError(null);
+  };
+
+  const isAuthenticated = !!user;
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout, signIn, saveUser }}>
+    <UserContext.Provider value={{ user, setUser, signOut, signIn, saveUser, isAuthenticated, error, setError }}>
       {children}
     </UserContext.Provider>
   );
