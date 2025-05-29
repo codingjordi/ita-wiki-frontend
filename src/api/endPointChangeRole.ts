@@ -1,5 +1,5 @@
 import { API_URL, END_POINTS } from "../config";
-import { getCurrentUserId } from "../utils/getCurrentUserId";
+import { useCurrentUserId } from "../utils/useCurrentUserId";
 import { createRole } from "./endPointRoles";
 import { getUserRole } from "./userApi";
 
@@ -38,7 +38,7 @@ const changeRole = async (
     clearTimeout(timeout);
 
     // Check if user has no role (anonymous) and allow creation of student or mentor role
-    const githubId = getCurrentUserId();
+    const githubId = useCurrentUserId();
     if (githubId) {
       const userRole = await getUserRole(githubId);
       if (

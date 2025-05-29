@@ -5,7 +5,7 @@ import {
   RoleChangeResponse,
   changeRole,
 } from "./endPointChangeRole";
-import * as getCurrentUserIdModule from "../utils/getCurrentUserId";
+import * as useCurrentUserIdModule from "../utils/useCurrentUserId";
 import * as endPointRolesModule from "./endPointRoles";
 import * as userApiModule from "./userApi";
 
@@ -88,7 +88,7 @@ describe("422 Error Handling (anonymous user)", () => {
   beforeEach(() => {
     vi.resetAllMocks();
 
-    vi.spyOn(getCurrentUserIdModule, "getCurrentUserId").mockReturnValue(
+    vi.spyOn(useCurrentUserIdModule, "useCurrentUserId").mockReturnValue(
       mockCurrentUserId,
     );
 
@@ -114,7 +114,7 @@ describe("422 Error Handling (anonymous user)", () => {
     const result = await changeRole(studentRoleRequest);
 
     expect(userApiModule.getUserRole).toHaveBeenCalledWith(mockCurrentUserId);
-    expect(getCurrentUserIdModule.getCurrentUserId).toHaveBeenCalled();
+    expect(useCurrentUserIdModule.useCurrentUserId).toHaveBeenCalled();
 
     expect(endPointRolesModule.createRole).toHaveBeenCalledWith({
       github_id: mockCurrentUserId,
