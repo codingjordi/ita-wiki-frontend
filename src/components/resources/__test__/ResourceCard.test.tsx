@@ -55,7 +55,11 @@ vi.mock("../../../context/UserContext", () => {
   return {
     ...actual,
     useUserContext: () => ({
-      user: { id: 123, displayName: "Test User", photoURL: undefined } as IntUser,
+      user: {
+        id: 123,
+        displayName: "Test User",
+        photoURL: undefined,
+      } as IntUser,
       isAuthenticated: true,
       saveUser: vi.fn(),
       signIn: vi.fn(),
