@@ -17,7 +17,7 @@ export function useChangeUserRole() {
         role: newRole,
       };
 
-      const response = await changeRole(request);
+      const response = await changeRole(request, user.id);
 
       if (response && response.role) {
         saveUser({ ...user, role: newRole });
