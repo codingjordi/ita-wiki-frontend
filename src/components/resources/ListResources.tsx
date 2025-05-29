@@ -40,11 +40,7 @@ export const ListResources: FC<ListResourceProps> = ({
     resourceTypes,
   });
 
-  const {
-    sortedResources,
-    setSortOption,
-    sortOption,
-  } = useResourceSort({
+  const { sortedResources, setSortOption, sortOption } = useResourceSort({
     resources: filteredResources,
   });
 
