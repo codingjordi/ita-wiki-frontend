@@ -1,7 +1,7 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 import { IntUser } from "../types";
-import { signInWithGitHub } from '../api/firebase';
-import { getUserRole } from '../api/userApi';
+import { signInWithGitHub } from "../api/firebase";
+import { getUserRole } from "../api/userApi";
 
 interface UserContextType {
   user: IntUser | null;
@@ -11,7 +11,7 @@ interface UserContextType {
   signIn: () => Promise<void>;
   saveUser: (user: IntUser) => void;
   error: string | null;
-  setError: (error: string | null) => void;  
+  setError: (error: string | null) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -43,7 +43,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       const updatedUser = { ...user, role: userRole };
       setUser(updatedUser);
     } catch (error) {
-      console.error('Error setting user role:', error);
+      console.error("Error setting user role:", error);
     }
   };
 
@@ -55,7 +55,18 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const isAuthenticated = !!user;
 
   return (
-    <UserContext.Provider value={{ user, setUser, signOut, signIn, saveUser, isAuthenticated, error, setError }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        signOut,
+        signIn,
+        saveUser,
+        isAuthenticated,
+        error,
+        setError,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
@@ -64,7 +75,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 export const useUserContext = () => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
+    throw new Error("useUser must be used within a UserProvider");
   }
   return context;
 };
