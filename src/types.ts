@@ -43,7 +43,7 @@ export type TypTechnologyResource =
   | "Angular"
   | "JavaScript"
   | "Java"
-  | "FullStack PHP"
+  | "Fullstack PHP"
   | "Data Science"
   | "BBDD";
 
@@ -82,4 +82,10 @@ export interface Tag {
   name: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface TagsByCategory {
+  [category: string]: {
+    [tagName: string]: number;
+  };
 }

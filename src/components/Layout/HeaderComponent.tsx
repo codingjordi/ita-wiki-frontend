@@ -7,15 +7,18 @@ import logOutIcon from "../../assets/logout-svgrepo-com.svg";
 import ButtonComponent from "../atoms/ButtonComponent";
 import DropdownButtonComponent from "../atoms/DropdownButtonComponent";
 import { useCtxUser } from "../../hooks/useCtxUser";
+import { useChangeUserRole } from "../../hooks/useChangeUserRole";
 import { useEffect, useRef, useState } from "react";
 import { Modal } from "../Modal/Modal";
 import GitHubLogin from "../github-login/GitHubLogin";
 import { AddUsersModal } from "../resources/AddUserModal";
 import { getUserRole } from "../../api/userApi";
 import { TermsAndConditionsModal } from "../Modal/TermsAndConditionsModal";
+import RoleDropdownComponent from "./header/RoleDropdownComponent";
 
 const HeaderComponent = () => {
   const { user, signIn, signOut } = useCtxUser();
+  const { isChanging, updateUserRole } = useChangeUserRole();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,14 +28,17 @@ const HeaderComponent = () => {
   const [loginError, setLoginError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showChangeRoleDropdown, setShowChangeRoleDropdown] =
+    useState<boolean>(false);
+  const [devMode, setDevMode] = useState<boolean>(false);
   const [showConfirmLogout, setShowConfirmLogout] = useState(false);
   const [selectedLang, setSelectedLang] = useState<"ES" | "EN">("ES");
   const [showLangDropdown, setShowLangDropdown] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const langDropdownRef = useRef<HTMLDivElement>(null);
+  const roleDropdownRef = useRef<HTMLDivElement>(null);
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
-
   const [isTermsModalOpen, setIsTermsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -43,25 +49,53 @@ const HeaderComponent = () => {
     }
   }, [location.pathname, resource]);
 
+  const dropdowns = [
+    { ref: dropdownRef, setter: setShowDropdown },
+    { ref: langDropdownRef, setter: setShowLangDropdown },
+    { ref: roleDropdownRef, setter: setShowChangeRoleDropdown },
+  ];
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowDropdown(false);
-      }
-      if (
-        langDropdownRef.current &&
-        !langDropdownRef.current.contains(event.target as Node)
-      ) {
-        setShowLangDropdown(false);
-      }
+      dropdowns.forEach(({ ref, setter }) => {
+        if (ref.current && !ref.current.contains(event.target as Node)) {
+          setter(false);
+        }
+      });
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        (e.ctrlKey || e.metaKey) &&
+        e.shiftKey &&
+        e.key.toLowerCase() === "r"
+      ) {
+        e.preventDefault();
+        setDevMode((prev) => !prev);
+      }
+
+      if (showChangeRoleDropdown) {
+        setShowChangeRoleDropdown(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showChangeRoleDropdown, devMode]);
+
+  const handleRoleChange = async (newRole: string) => {
+    const success = await updateUserRole(newRole);
+    if (success) {
+      setShowChangeRoleDropdown(false);
+    }
+  };
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -197,7 +231,27 @@ const HeaderComponent = () => {
                 />
                 <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Role*/}
-                <DropdownButtonComponent title={userRole} disabled={true} />
+                {devMode ? (
+                  <div className="relative" ref={roleDropdownRef}>
+                    <DropdownButtonComponent
+                      title={userRole}
+                      onClick={() =>
+                        setShowChangeRoleDropdown(!showChangeRoleDropdown)
+                      }
+                      disabled={false}
+                      icon={arrowDown}
+                    />
+                    {showChangeRoleDropdown && (
+                      <RoleDropdownComponent
+                        userRole={userRole}
+                        isChanging={isChanging}
+                        onRoleChange={handleRoleChange}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <DropdownButtonComponent title={userRole} disabled={true} />
+                )}
                 <hr className="h-px -mx-2 bg-gray-300 border-0" />
                 {/*Cerrar sesión*/}
                 <DropdownButtonComponent
@@ -328,6 +382,11 @@ const HeaderComponent = () => {
           />
         )}
       </div>
+      {devMode && (
+        <div className="fixed bottom-2 right-2 bg-yellow-200 text-xs rounded px-2 py-1 opacity-70 z-50">
+          Modo dev activo
+        </div>
+      )}
     </header>
   );
 };

@@ -6,7 +6,7 @@ export const categories = [
   "TypeScript",
   "Java",
   "Python",
-  "FullStack PHP",
+  "Fullstack PHP",
   "Data Science",
   "BBDD" /* didn't removed BBDD since it's likely that it's been used in Bookmark o ResourceListPage */,
   "SQL",

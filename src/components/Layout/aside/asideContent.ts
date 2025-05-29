@@ -18,7 +18,7 @@ export const asideContent: { icon: SvgIcon; label: Category }[] = [
   { icon: AngularIcon, label: "Angular" },
   { icon: JavascriptIcon, label: "JavaScript" },
   { icon: JavaIcon, label: "Java" },
-  { icon: PhpIcon, label: "FullStack PHP" },
+  { icon: PhpIcon, label: "Fullstack PHP" },
   { icon: DataScienceIcon, label: "Data Science" },
   { icon: BbddIcon, label: "BBDD" },
 ];
