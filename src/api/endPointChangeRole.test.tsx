@@ -70,7 +70,9 @@ describe("changeRole", () => {
       }),
     };
 
-    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(mockFetchResponse as Response);
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(
+      mockFetchResponse as Response,
+    );
 
     const request = {
       github_id: mockGithubId,
