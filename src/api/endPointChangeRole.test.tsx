@@ -1,7 +1,7 @@
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { changeRole } from "./endPointChangeRole";
 import { getUserRole } from "./userApi";
 import { createRole } from "./endPointRoles";
-import { describe, it, expect, vi, beforeEach } from "vitest";
 
 vi.mock("./userApi", () => ({
   getUserRole: vi.fn(),
@@ -17,11 +17,16 @@ describe("changeRole", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    global.fetch = vi.fn();
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("should create a new role for an anonymous user", async () => {
-    (getUserRole as vi.Mock).mockResolvedValueOnce(null);
-    (createRole as vi.Mock).mockResolvedValueOnce({
+    (getUserRole as ReturnType<typeof vi.fn>).mockResolvedValueOnce(null);
+    (createRole as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       message: "Role created successfully",
       role: {
         github_id: mockGithubId,
@@ -52,12 +57,7 @@ describe("changeRole", () => {
   });
 
   it("should update role for a user with existing role", async () => {
-    (getUserRole as vi.Mock).mockResolvedValueOnce("mentor");
-
-    const request = {
-      github_id: mockGithubId,
-      role: "admin",
-    };
+    (getUserRole as ReturnType<typeof vi.fn>).mockResolvedValueOnce("mentor");
 
     const mockFetchResponse = {
       ok: true,
@@ -70,11 +70,17 @@ describe("changeRole", () => {
       }),
     };
 
-    global.fetch = vi.fn().mockResolvedValueOnce(mockFetchResponse);
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(mockFetchResponse as Response);
+
+    const request = {
+      github_id: mockGithubId,
+      role: "admin",
+    };
 
     const response = await changeRole(request, mockGithubId);
 
     expect(getUserRole).toHaveBeenCalledWith(mockGithubId);
+    expect(fetch).toHaveBeenCalled();
     expect(response).toEqual({
       message: "Role updated successfully",
       role: {
