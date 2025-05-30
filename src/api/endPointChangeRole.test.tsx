@@ -1,13 +1,14 @@
 import { changeRole } from "./endPointChangeRole";
 import { getUserRole } from "./userApi";
 import { createRole } from "./endPointRoles";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 
-jest.mock("./userApi", () => ({
-  getUserRole: jest.fn(),
+vi.mock("./userApi", () => ({
+  getUserRole: vi.fn(),
 }));
 
-jest.mock("./endPointRoles", () => ({
-  createRole: jest.fn(),
+vi.mock("./endPointRoles", () => ({
+  createRole: vi.fn(),
 }));
 
 describe("changeRole", () => {
@@ -15,12 +16,12 @@ describe("changeRole", () => {
   const mockRole = "student";
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("should create a new role for an anonymous user", async () => {
-    (getUserRole as jest.Mock).mockResolvedValueOnce(null);
-    (createRole as jest.Mock).mockResolvedValueOnce({
+    (getUserRole as vi.Mock).mockResolvedValueOnce(null);
+    (createRole as vi.Mock).mockResolvedValueOnce({
       message: "Role created successfully",
       role: {
         github_id: mockGithubId,
@@ -51,7 +52,7 @@ describe("changeRole", () => {
   });
 
   it("should update role for a user with existing role", async () => {
-    (getUserRole as jest.Mock).mockResolvedValueOnce("mentor");
+    (getUserRole as vi.Mock).mockResolvedValueOnce("mentor");
 
     const request = {
       github_id: mockGithubId,
@@ -69,7 +70,7 @@ describe("changeRole", () => {
       }),
     };
 
-    global.fetch = jest.fn().mockResolvedValueOnce(mockFetchResponse);
+    global.fetch = vi.fn().mockResolvedValueOnce(mockFetchResponse);
 
     const response = await changeRole(request, mockGithubId);
 
