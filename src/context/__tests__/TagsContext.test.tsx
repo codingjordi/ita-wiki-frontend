@@ -6,8 +6,8 @@ import { fetchTagsIdsByCategory } from "../../api/endPointTagsIdsByCategory";
 
 import { Tag } from "../../types";
 
-jest.mock("../../api/endPointTags");
-jest.mock("../../api/endPointTagsIdsByCategory");
+vi.mock("../../api/endPointTags");
+vi.mock("../../api/endPointTagsIdsByCategory");
 
 const mockTags: Tag[] = [
   {
@@ -49,20 +49,8 @@ test("loads and provides tags and category-filtered tags", async () => {
       <TestComponent />
     </TagsProvider>
   );
-
-  test("loads and provides tags and category-filtered tags", async () => {
-    (getTags as jest.Mock).mockResolvedValue(mockTags);
-    (fetchTagsIdsByCategory as jest.Mock).mockResolvedValue(mockTagsByCategory);
-
-    render(
-      <TagsProvider>
-        <TestComponent />
-      </TagsProvider>
-    );
-
-    await waitFor(() => {
-      expect(screen.getByTestId("tag-count").textContent).toBe("2");
-      expect(screen.getByTestId("react-count").textContent).toBe("1");
-    });
+  await waitFor(() => {
+    expect(screen.getByTestId("tag-count").textContent).toBe("2");
+    expect(screen.getByTestId("react-count").textContent).toBe("1");
   });
 });
