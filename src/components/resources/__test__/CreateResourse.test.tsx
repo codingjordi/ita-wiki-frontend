@@ -37,7 +37,7 @@ test("POST includes tag IDs not names", async () => {
       <MemoryRouter>
         <CreateResourcePage />
       </MemoryRouter>
-    </UserProvider>
+    </UserProvider>,
   );
 
   // Fill title (1st input)
