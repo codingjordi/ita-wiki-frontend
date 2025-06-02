@@ -11,7 +11,7 @@ interface TagsContextType {
   refreshTags: () => Promise<void>;
 }
 
-const TagsContext = createContext<TagsContextType>({
+export const TagsContext = createContext<TagsContextType>({
   tags: [],
   tagsByCategory: {},
   getTagsByCategory: () => [],
