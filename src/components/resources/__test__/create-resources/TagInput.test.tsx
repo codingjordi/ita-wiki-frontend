@@ -32,54 +32,58 @@ vi.mock("../../../../api/endPointTags", () => ({
 describe("TagInput component", () => {
   it("muestra los tags disponibles al hacer focus", async () => {
     const setSelectedTags = vi.fn();
-  
+
     render(<TagInput selectedTags={[]} setselectedTags={setSelectedTags} />);
-  
+
     await waitFor(() => {
-      expect(screen.getByPlaceholderText("Escribe un tag...")).toBeInTheDocument();
+      expect(
+        screen.getByPlaceholderText("Escribe un tag..."),
+      ).toBeInTheDocument();
     });
-  
+
     const input = screen.getByPlaceholderText("Escribe un tag...");
-  
+
     fireEvent.focus(input);
     expect(await screen.findByText(formatText("React"))).toBeInTheDocument();
-    expect(await screen.findByText(formatText("JavaScript"))).toBeInTheDocument();
+    expect(
+      await screen.findByText(formatText("JavaScript")),
+    ).toBeInTheDocument();
     expect(await screen.findByText(formatText("CSS"))).toBeInTheDocument();
   });
 
   it("filtra los tags al escribir en el input", async () => {
     const setSelectedTags = vi.fn();
-  
+
     render(<TagInput selectedTags={[]} setselectedTags={setSelectedTags} />);
 
     await waitFor(() => {
-      expect(screen.getByPlaceholderText("Escribe un tag...")).toBeInTheDocument();
+      expect(
+        screen.getByPlaceholderText("Escribe un tag..."),
+      ).toBeInTheDocument();
     });
-  
+
     const input = screen.getByPlaceholderText("Escribe un tag...");
-  
+
     fireEvent.focus(input);
 
     await screen.findByText("React");
-  
+
     fireEvent.change(input, { target: { value: "Re" } });
-  
+
     await waitFor(() => {
       expect(screen.getByText("React")).toBeInTheDocument();
       expect(screen.queryByText("CSS")).not.toBeInTheDocument();
     });
   });
-  
-  
 
   it("agrega un tag al hacer clic en la opción", async () => {
     const setSelectedTags = vi.fn();
-  
+
     render(<TagInput selectedTags={[]} setselectedTags={setSelectedTags} />);
-  
+
     const input = await screen.findByPlaceholderText("Escribe un tag...");
     fireEvent.focus(input);
-  
+
     const tagOption = await screen.findByText(formatText("React"));
     fireEvent.click(tagOption);
     expect(setSelectedTags).toHaveBeenCalledWith([
@@ -91,5 +95,4 @@ describe("TagInput component", () => {
       },
     ]);
   });
-  
 });

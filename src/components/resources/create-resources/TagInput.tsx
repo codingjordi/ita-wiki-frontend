@@ -22,7 +22,7 @@ const TagInput: React.FC<TagInputProps> = ({
     const fetchTags = async () => {
       const tags = await getTags();
       const sortedTags = tags.sort((a, b) =>
-        a.name.localeCompare(b.name, "es", { sensitivity: "base" })
+        a.name.localeCompare(b.name, "es", { sensitivity: "base" }),
       );
       setTags(sortedTags);
     };
@@ -53,12 +53,12 @@ const TagInput: React.FC<TagInputProps> = ({
 
     const lowerValue = value.toLowerCase();
     const availableTags = tags.filter(
-      (tag) => !selectedTags.some((t) => t.id === tag.id)
+      (tag) => !selectedTags.some((t) => t.id === tag.id),
     );
 
     if (lowerValue) {
       const filtered = availableTags.filter((tag) =>
-        tag.name.toLowerCase().includes(lowerValue)
+        tag.name.toLowerCase().includes(lowerValue),
       );
 
       setFilteredTags(filtered);
@@ -69,7 +69,7 @@ const TagInput: React.FC<TagInputProps> = ({
 
   const handleFocus = () => {
     const availableTags = tags.filter(
-      (tag) => !selectedTags.some((t) => t.id === tag.id)
+      (tag) => !selectedTags.some((t) => t.id === tag.id),
     );
     setFilteredTags(availableTags);
   };
