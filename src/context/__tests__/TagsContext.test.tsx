@@ -41,13 +41,13 @@ const TestComponent = () => {
 };
 
 test("loads and provides tags and category-filtered tags", async () => {
-  (getTags as jest.Mock).mockResolvedValue(mockTags);
-  (fetchTagsIdsByCategory as jest.Mock).mockResolvedValue(mockTagsByCategory);
+  (getTags as vi.Mock).mockResolvedValue(mockTags);
+  (fetchTagsIdsByCategory as vi.Mock).mockResolvedValue(mockTagsByCategory);
 
   render(
     <TagsProvider>
       <TestComponent />
-    </TagsProvider>,
+    </TagsProvider>
   );
   await waitFor(() => {
     expect(screen.getByTestId("tag-count").textContent).toBe("2");
