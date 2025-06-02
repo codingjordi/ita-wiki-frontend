@@ -2,7 +2,6 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import CreateResourcePage from "../../../pages/CreateResourcePage";
 
-// Move this inside the mock to avoid hoisting issues
 vi.mock("../../../api/endPointResources", async () => {
   return {
     createResource: vi.fn(),
@@ -48,9 +47,7 @@ test("POST includes tag IDs not names", async () => {
   });
 
   // Select category
-  fireEvent.click(
-    screen.getByRole("button", { name: /react/i }) // Case-insensitive match
-  );
+  fireEvent.click(screen.getByRole("button", { name: /react/i }));
 
   // Select resource type
   fireEvent.click(screen.getByLabelText("Blog"));

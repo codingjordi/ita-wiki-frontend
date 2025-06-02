@@ -26,12 +26,6 @@ const TagInput: React.FC<TagInputProps> = ({
     setTimeout(() => setFilteredTags(filtered), 0);
   }, [selectedCategory]);
 
-  useEffect(() => {
-    console.log("Selected Tags Updated:", selectedTags);
-    console.log("selected category: ", selectedCategory);
-  }, [selectedTags, selectedCategory]);
-
-  //const tagNames = tags?.map((tag) => tag.name) || [];
   const tags = getTagsByCategory(selectedCategory);
   const tagNames = tags.map((tag) => tag.name);
 
