@@ -5,19 +5,19 @@ import {
   deleteBookmark,
 } from "./endPointBookmark";
 
-const getApiUrl = () => {
-  return process.env.NODE_ENV === "test"
-    ? "http://localhost:8000/api/"
-    : "https://ita-wiki-backend-production.up.railway.app/api/";
-};
-
-const endpoints = {
-  bookmarks: {
-    get: "bookmarks/",
-    post: "bookmarks",
-    delete: "bookmarks",
+// 👇 Mock de los valores de configuración reales
+vi.mock("../config", () => ({
+  API_URL: "http://localhost:8000/api/",
+  END_POINTS: {
+    bookmarks: {
+      get: "bookmarks",
+      post: "bookmarks",
+      delete: "bookmarks",
+    },
   },
-};
+}));
+
+import { API_URL, END_POINTS } from "../config";
 
 beforeEach(() => {
   vi.spyOn(console, "error").mockImplementation(() => {});
@@ -37,7 +37,7 @@ describe("getBookmarks", () => {
     const result = await getBookmarks(String(mockGithubId));
 
     expect(global.fetch).toHaveBeenCalledWith(
-      `${getApiUrl()}${endpoints.bookmarks.get}${mockGithubId}`,
+      `${API_URL}${END_POINTS.bookmarks.get}/${mockGithubId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -94,7 +94,7 @@ describe("createBookmark", () => {
     const result = await createBookmark(mockGithubId, mockResourceId);
 
     expect(global.fetch).toHaveBeenCalledWith(
-      `${getApiUrl()}${endpoints.bookmarks.post}`,
+      `${API_URL}${END_POINTS.bookmarks.post}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -152,7 +152,7 @@ describe("deleteBookmark", () => {
     const result = await deleteBookmark(mockGithubId, mockResourceId);
 
     expect(global.fetch).toHaveBeenCalledWith(
-      `${getApiUrl()}${endpoints.bookmarks.delete}`,
+      `${API_URL}${END_POINTS.bookmarks.delete}`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },

@@ -10,6 +10,6 @@ export default defineConfig({
     mockReset: true,
   },
   define: {
-    "import.meta.env.VITE_API_URL": JSON.stringify("http://localhost:3000"),
+    "import.meta.env.VITE_API_URL": JSON.stringify("http://localhost:8000"),
   },
 });
