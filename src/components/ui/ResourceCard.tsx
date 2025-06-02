@@ -106,8 +106,15 @@ const ResourceCard: FC<ResourceCardProps> = ({
             disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
-          <LikeIcon liked={liked} />
-          <span className="text-sm font-medium">{voteCount}</span>
+          <LikeIcon liked={voteCount > 0} />
+
+          <span
+            className={`text-sm font-medium ${
+              voteCount > 0 ? "text-green-custom" : "text-black"
+            }`}
+          >
+            {voteCount}
+          </span>
         </div>
       </div>
     </div>
