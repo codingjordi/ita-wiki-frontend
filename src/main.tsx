@@ -2,15 +2,17 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import UserCtxProvider from "./context/UserCtxProvider.tsx";
 import { BrowserRouter } from "react-router";
 import { Toaster } from "sonner";
 import { ResourcesProvider } from "./context/ResourcesContext.tsx";
 import { LikesProvider } from "./context/LikeContext.tsx";
+
 import { TagsProvider } from "./context/TagsContext.tsx";
+import { UserProvider } from "./context/UserContext";
+
 
 createRoot(document.getElementById("root")!).render(
-  <UserCtxProvider>
+  <UserProvider>
     <StrictMode>
       <BrowserRouter>
         <ResourcesProvider>
@@ -40,5 +42,5 @@ createRoot(document.getElementById("root")!).render(
         </ResourcesProvider>
       </BrowserRouter>
     </StrictMode>
-  </UserCtxProvider>,
+  </UserProvider>,
 );
