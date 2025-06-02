@@ -25,4 +25,9 @@ export default defineConfig({
       "@": path.resolve("./src"),
     },
   },
+  server: {
+    proxy: {
+      "/api": "https://ita-wiki-backend-production.up.railway.app",
+    },
+  },
 });
