@@ -25,6 +25,10 @@ const TagInput: React.FC<TagInputProps> = ({
     setFilteredTags(filtered);
   }, [selectedCategory]);
 
+  useEffect(() => {
+    console.log("tags by category: ", filteredTags);
+  });
+
   const tags = getTagsByCategory(selectedCategory);
   const tagNames = tags.map((tag) => tag.name);
 
@@ -38,7 +42,7 @@ const TagInput: React.FC<TagInputProps> = ({
       const filtered = tags.filter(
         (tag) =>
           tag.name.toLowerCase().includes(lowerValue) &&
-          !selectedTags.some((t) => t.id === tag.id),
+          !selectedTags.some((t) => t.id === tag.id)
       );
 
       setFilteredTags(filtered);
