@@ -24,7 +24,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
 
   const { user } = useUserContext();
 
-  const { liked, voteCount, handleLike, disabled } = useLikeResources(resource);
+  const { voteCount, handleLike, disabled } = useLikeResources(resource);
 
   const { getBookmarkCount } = useResources();
 
@@ -106,7 +106,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
             disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
-          <LikeIcon liked={voteCount > 0} />
+          <LikeIcon active={voteCount > 0} />
 
           <span
             className={`text-sm font-medium ${
