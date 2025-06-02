@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import CreateResourcePage from "../../../pages/CreateResourcePage";
+import type { Mock } from "vitest";
 
 vi.mock("../../../api/endPointResources", async () => {
   return {
@@ -33,7 +34,7 @@ test("POST includes tag IDs not names", async () => {
   render(
     <MemoryRouter>
       <CreateResourcePage />
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   // Fill title (1st input)
@@ -70,7 +71,7 @@ test("POST includes tag IDs not names", async () => {
 
   await waitFor(() => {
     expect(createResource).toHaveBeenCalled();
-    const payload = (createResource as any).mock.calls[0][0];
+    const payload = (createResource as Mock).mock.calls[0][0];
     expect(payload.tags).toEqual([23]);
   });
 });
