@@ -70,7 +70,11 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.altKey && e.key === "R") {
+      if (
+        (e.ctrlKey || e.metaKey) &&
+        e.shiftKey &&
+        e.key.toLowerCase() === "r"
+      ) {
         e.preventDefault();
         setDevMode((prev) => !prev);
       }
