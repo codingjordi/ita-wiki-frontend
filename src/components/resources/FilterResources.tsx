@@ -27,7 +27,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
       setSelectedResourceTypes(
         selectedResourceTypes.includes(resourceType)
           ? selectedResourceTypes.filter((rType) => rType !== resourceType)
-          : [...selectedResourceTypes, resourceType],
+          : [...selectedResourceTypes, resourceType]
       );
     }
   };
@@ -68,7 +68,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
       setSelectedTags(
         selectedTags.includes(tag)
           ? selectedTags.filter((t) => t !== tag)
-          : [...selectedTags.filter((t) => t !== "Todos"), tag],
+          : [...selectedTags.filter((t) => t !== "Todos"), tag]
       );
     }
   };
@@ -83,32 +83,47 @@ export const FilterResources: FC<FilterResourcesProps> = ({
             selectedTags.includes(tagName);
 
           return (
-            <div
+            <label
               key={tagName}
               className="flex items-center gap-2 mb-2 cursor-pointer"
             >
-              <button
-                type="button"
-                onClick={() => toggleTag(tagName)}
-                className="flex items-center gap-2 cursor-pointer"
+              <input
+                type="checkbox"
+                checked={isSelected}
+                onChange={() => toggleTag(tagName)}
+                className="hidden"
+              />
+              <div
+                className={`w-5 h-5 flex items-center justify-center rounded border ${
+                  isSelected
+                    ? "bg-[#B91879] border-[#B91879]"
+                    : "border-gray-400"
+                }`}
               >
-                <div
-                  className={`w-4 h-4 border-2 rounded-full flex items-center justify-center ${
-                    isSelected ? "border-[#B91879]" : "border-gray-400"
-                  }`}
-                >
-                  {isSelected && (
-                    <div className="w-2.5 h-2.5 bg-[#B91879] rounded-full"></div>
-                  )}
-                </div>
-                <span
-                  className="text-gray-800 max-w-[120px] truncate inline-block"
-                  title={tagName}
-                >
-                  {tagName}
-                </span>
-              </button>
-            </div>
+                {isSelected && (
+                  <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                )}
+              </div>
+              <span
+                className="text-gray-800 max-w-[120px] truncate inline-block"
+                title={tagName}
+              >
+                {tagName}
+              </span>
+            </label>
           );
         })}
         {tagsFromCategory.length === 0 && (
