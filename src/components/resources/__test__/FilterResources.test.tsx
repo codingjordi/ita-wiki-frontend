@@ -52,10 +52,10 @@ describe("FilterResources Component", () => {
           resourceTypes={[...resourceTypes]}
           selectedTags={[]}
           setSelectedTags={setSelectedTags}
-          selectedResourceTypes={selectedResourceTypes}
+          selectedResourceTypes={[]}
           setSelectedResourceTypes={setSelectedResourceTypes}
         />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     expect(screen.getByText("Todos")).toBeInTheDocument();
@@ -74,14 +74,14 @@ describe("FilterResources Component", () => {
           resourceTypes={[...resourceTypes]}
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
-          selectedResourceTypes={selectedResourceTypes}
+          selectedResourceTypes={[]}
           setSelectedResourceTypes={setSelectedResourceTypes}
         />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
-    const eventosRadio = screen.getByText("Eventos");
-    fireEvent.click(eventosRadio);
+    const eventosCheckbox = screen.getByLabelText("Eventos");
+    fireEvent.click(eventosCheckbox);
     expect(setSelectedTags).toHaveBeenCalledWith(["Eventos"]);
   });
 });
