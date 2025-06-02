@@ -102,7 +102,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
         </div>
         <div
           onClick={() => !disabled && handleLike()}
-          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${
+          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-4 py-2 ${
             disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
