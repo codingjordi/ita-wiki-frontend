@@ -27,22 +27,18 @@ vi.mock("react-router", async () => {
 
 describe("FilterResources Component", () => {
   let selectedTags: string[];
-  let selectedResourceTypes: string[];
 
   let setSelectedTags: ReturnType<typeof vi.fn>;
   let setSelectedResourceTypes: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     selectedTags = [];
-    selectedResourceTypes = [];
 
     setSelectedTags = vi.fn((tags: string[]) => {
       selectedTags = tags;
     });
 
-    setSelectedResourceTypes = vi.fn((types: string[]) => {
-      selectedResourceTypes = types;
-    });
+    setSelectedResourceTypes = vi.fn();
   });
 
   it("should render dynamic category tags and resource types", () => {
