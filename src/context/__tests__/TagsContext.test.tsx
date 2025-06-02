@@ -47,7 +47,7 @@ test("loads and provides tags and category-filtered tags", async () => {
   render(
     <TagsProvider>
       <TestComponent />
-    </TagsProvider>
+    </TagsProvider>,
   );
   await waitFor(() => {
     expect(screen.getByTestId("tag-count").textContent).toBe("2");

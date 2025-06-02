@@ -39,7 +39,7 @@ const TagInput: React.FC<TagInputProps> = ({
       const filtered = tags.filter(
         (tag) =>
           tag.name.toLowerCase().includes(lowerValue) &&
-          !selectedTags.some((t) => t.id === tag.id)
+          !selectedTags.some((t) => t.id === tag.id),
       );
 
       setFilteredTags(filtered);

@@ -30,7 +30,7 @@ describe("fetchTagsIdsByCategory", () => {
     });
 
     await expect(fetchTagsIdsByCategory()).rejects.toThrow(
-      "Failed to fetch tags by category"
+      "Failed to fetch tags by category",
     );
   });
 });
