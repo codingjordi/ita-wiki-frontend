@@ -25,10 +25,6 @@ const TagInput: React.FC<TagInputProps> = ({
     setFilteredTags(filtered);
   }, [selectedCategory]);
 
-  useEffect(() => {
-    console.log("tags by category: ", filteredTags);
-  });
-
   const tags = getTagsByCategory(selectedCategory);
   const tagNames = tags.map((tag) => tag.name);
 

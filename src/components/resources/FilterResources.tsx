@@ -69,9 +69,6 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     }
   };
 
-  console.log("🔥 category from URL:", category);
-  console.log("tagsOptions", tagsOptions);
-
   return (
     <div className="mt-6">
       <div className="mb-6">
