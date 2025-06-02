@@ -52,12 +52,12 @@ const TagInput: React.FC<TagInputProps> = ({
 
     const lowerValue = value.toLowerCase();
     const availableTags = tags.filter(
-      (tag) => !selectedTags.some((t) => t.id === tag.id)
+      (tag) => !selectedTags.some((t) => t.id === tag.id),
     );
 
     if (lowerValue) {
       const filtered = availableTags.filter((tag) =>
-        tag.name.toLowerCase().includes(lowerValue)
+        tag.name.toLowerCase().includes(lowerValue),
       );
 
       setFilteredTags(filtered);
@@ -68,7 +68,7 @@ const TagInput: React.FC<TagInputProps> = ({
 
   const handleFocus = () => {
     const availableTags = tags.filter(
-      (tag) => !selectedTags.some((t) => t.id === tag.id)
+      (tag) => !selectedTags.some((t) => t.id === tag.id),
     );
     setFilteredTags(availableTags);
   };
