@@ -1,7 +1,6 @@
 import { vi, describe, it, expect, beforeEach } from "vitest";
 import { fetchTagsIdsByCategory } from "../endPointTagsIdsByCategory";
 
-// ✅ Tell TypeScript that fetch is a mocked function
 const globalAny = globalThis as unknown as {
   fetch: vi.Mock;
 };
@@ -30,7 +29,7 @@ describe("fetchTagsIdsByCategory", () => {
     });
 
     await expect(fetchTagsIdsByCategory()).rejects.toThrow(
-      "Failed to fetch tags by category",
+      "Failed to fetch tags by category"
     );
   });
 });
