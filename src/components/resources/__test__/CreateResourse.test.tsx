@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import CreateResourcePage from "../../../pages/CreateResourcePage";
 import type { Mock } from "vitest";
+import UserProvider from "../../../context/UserContext";
 
 vi.mock("../../../api/endPointResources", async () => {
   return {
@@ -32,9 +33,11 @@ test("POST includes tag IDs not names", async () => {
   const { createResource } = await import("../../../api/endPointResources");
 
   render(
-    <MemoryRouter>
-      <CreateResourcePage />
-    </MemoryRouter>,
+    <UserProvider>
+      <MemoryRouter>
+        <CreateResourcePage />
+      </MemoryRouter>
+    </UserProvider>
   );
 
   // Fill title (1st input)
