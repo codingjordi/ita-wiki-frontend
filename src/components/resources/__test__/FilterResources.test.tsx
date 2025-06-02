@@ -55,7 +55,7 @@ describe("FilterResources Component", () => {
           selectedResourceTypes={[]}
           setSelectedResourceTypes={setSelectedResourceTypes}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Todos")).toBeInTheDocument();
@@ -77,7 +77,7 @@ describe("FilterResources Component", () => {
           selectedResourceTypes={[]}
           setSelectedResourceTypes={setSelectedResourceTypes}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const eventosCheckbox = screen.getByLabelText("Eventos");
