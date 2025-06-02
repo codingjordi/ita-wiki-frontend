@@ -33,7 +33,13 @@ export const TagsProvider = ({ children }: { children: React.ReactNode }) => {
         getTags(),
         fetchTagsIdsByCategory(),
       ]);
-      setTags(allTags);
+
+      // He movido la lógica de ordenamiento de Lini al contexto
+      // para que los tags se ordenen globalmente
+      const sortedTags = allTags.sort((a, b) =>
+        a.name.localeCompare(b.name, "es", { sensitivity: "base" })
+      );
+      setTags(sortedTags);
       setTagsByCategory(tagsByCat);
     } catch (err) {
       console.error("Error fetching tags:", err);
