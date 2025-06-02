@@ -10,7 +10,7 @@ const LikeIcon: FC<LikeIconProps> = ({ liked = false }) => {
     <Triangle
       size={16}
       fill={liked ? "rgb(39, 174, 96)" : "none"}
-      color={liked ? "rgb(39, 174, 96)" : "gray"}
+      color={liked ? "rgb(39, 174, 96)" : "black"}
       aria-label={liked ? "Me gusta" : ""}
     />
   );
