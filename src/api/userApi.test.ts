@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { getUserRole } from "../api/userApi";
-
-const API_URL = "http://localhost:8000/api/";
+import { API_URL } from "../config";
 
 describe("getUserRole", () => {
   afterEach(() => {

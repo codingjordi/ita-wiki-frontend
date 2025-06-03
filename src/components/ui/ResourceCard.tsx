@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { MessageCircle, PlayCircle, Clock } from "lucide-react";
 import { IntResource } from "../../types";
-import { useCtxUser } from "../../hooks/useCtxUser";
+import { useUserContext } from "../../context/UserContext";
 import { useResources } from "../../context/ResourcesContext";
 
 import BookmarkIconComponent from "../resources/BookmarkIconComponent";
@@ -22,9 +22,9 @@ const ResourceCard: FC<ResourceCardProps> = ({
 }) => {
   const { title, description, type, created_at, comment_count } = resource;
 
-  const { user } = useCtxUser();
+  const { user } = useUserContext();
 
-  const { liked, voteCount, handleLike, disabled } = useLikeResources(resource);
+  const { voteCount, handleLike, disabled } = useLikeResources(resource);
 
   const { getBookmarkCount } = useResources();
 
@@ -108,12 +108,19 @@ const ResourceCard: FC<ResourceCardProps> = ({
         </div>
         <div
           onClick={() => !disabled && handleLike()}
-          className={`flex flex-col items-center justify-center border-2 border-gray-200 rounded-lg px-3 py-2 hover:border-2 hover:border-[#c20087] ${
+          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${
             disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
-          <LikeIcon liked={liked} />
-          <span className="text-sm font-medium">{voteCount}</span>
+          <LikeIcon active={voteCount > 0} />
+
+          <span
+            className={`text-sm font-medium ${
+              voteCount > 0 ? "text-green-custom" : "text-black"
+            }`}
+          >
+            {voteCount}
+          </span>
         </div>
       </div>
     </div>

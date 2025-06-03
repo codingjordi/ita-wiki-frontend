@@ -2,16 +2,15 @@ import { FC } from "react";
 import { Triangle } from "lucide-react";
 
 interface LikeIconProps {
-  liked?: boolean;
+  active?: boolean;
 }
 
-const LikeIcon: FC<LikeIconProps> = ({ liked = false }) => {
+const LikeIcon: FC<LikeIconProps> = ({ active = false }) => {
   return (
     <Triangle
       size={16}
-      fill={liked ? "green" : "none"}
-      color={liked ? "green" : "gray"}
-      aria-label={liked ? "Me gusta" : ""}
+      className={`${active ? "text-green-custom fill-green-custom" : "text-black"}`}
+      aria-label={active ? "Me gusta" : ""}
     />
   );
 };
