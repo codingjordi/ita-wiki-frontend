@@ -108,7 +108,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
         </div>
         <div
           onClick={() => !disabled && handleLike()}
-          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${
+          className={`flex flex-col items-center justify-center border-2 border-gray-200 rounded-lg px-3 py-2 hover:border-2 hover:border-[#c20087] ${
             disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
