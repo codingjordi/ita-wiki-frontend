@@ -27,22 +27,18 @@ vi.mock("react-router", async () => {
 
 describe("FilterResources Component", () => {
   let selectedTags: string[];
-  let selectedResourceTypes: string[];
 
   let setSelectedTags: ReturnType<typeof vi.fn>;
   let setSelectedResourceTypes: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     selectedTags = [];
-    selectedResourceTypes = [];
 
     setSelectedTags = vi.fn((tags: string[]) => {
       selectedTags = tags;
     });
 
-    setSelectedResourceTypes = vi.fn((types: string[]) => {
-      selectedResourceTypes = types;
-    });
+    setSelectedResourceTypes = vi.fn();
   });
 
   it("should render dynamic category tags and resource types", () => {
@@ -52,7 +48,7 @@ describe("FilterResources Component", () => {
           resourceTypes={[...resourceTypes]}
           selectedTags={[]}
           setSelectedTags={setSelectedTags}
-          selectedResourceTypes={selectedResourceTypes}
+          selectedResourceTypes={[]}
           setSelectedResourceTypes={setSelectedResourceTypes}
         />
       </MemoryRouter>,
@@ -74,14 +70,14 @@ describe("FilterResources Component", () => {
           resourceTypes={[...resourceTypes]}
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
-          selectedResourceTypes={selectedResourceTypes}
+          selectedResourceTypes={[]}
           setSelectedResourceTypes={setSelectedResourceTypes}
         />
       </MemoryRouter>,
     );
 
-    const eventosRadio = screen.getByText("Eventos");
-    fireEvent.click(eventosRadio);
+    const eventosCheckbox = screen.getByLabelText("Eventos");
+    fireEvent.click(eventosCheckbox);
     expect(setSelectedTags).toHaveBeenCalledWith(["Eventos"]);
   });
 });
