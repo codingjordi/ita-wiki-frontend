@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import TagInput from "../../create-resources/TagInput";
 import { Tag } from "../../../../types";
 import { formatText } from "../../../../utils/formatText";
+import { TagsProvider } from "../../../../context/TagsContext";
 
 const mockTags: Tag[] = [
   {
@@ -29,19 +30,30 @@ vi.mock("../../../../api/endPointTags", () => ({
   getTags: vi.fn(() => Promise.resolve(mockTags)),
 }));
 
+vi.mock("../../../../api/endPointTagsIdsByCategory", () => ({
+  fetchTagsIdsByCategory: vi.fn(() =>
+    Promise.resolve({
+      Frontend: [1, 2, 3],
+    }),
+  ),
+}));
+
 describe("TagInput component", () => {
   it("muestra los tags disponibles al hacer focus", async () => {
     const setSelectedTags = vi.fn();
 
-    render(<TagInput selectedTags={[]} setselectedTags={setSelectedTags} />);
+    render(
+      <TagsProvider>
+        <TagInput
+          selectedTags={[]}
+          setselectedTags={setSelectedTags}
+          selectedCategory="Frontend"
+        />
+      </TagsProvider>,
+    );
 
-    await waitFor(() => {
-      expect(
-        screen.getByPlaceholderText("Escribe un tag..."),
-      ).toBeInTheDocument();
-    });
-
-    const input = screen.getByPlaceholderText("Escribe un tag...");
+    const input = await screen.findByPlaceholderText("Escribe un tag...");
+    fireEvent.focus(input);
 
     fireEvent.focus(input);
     expect(await screen.findByText(formatText("React"))).toBeInTheDocument();
@@ -54,7 +66,15 @@ describe("TagInput component", () => {
   it("filtra los tags al escribir en el input", async () => {
     const setSelectedTags = vi.fn();
 
-    render(<TagInput selectedTags={[]} setselectedTags={setSelectedTags} />);
+    render(
+      <TagsProvider>
+        <TagInput
+          selectedTags={[]}
+          setselectedTags={setSelectedTags}
+          selectedCategory="Frontend"
+        />
+      </TagsProvider>,
+    );
 
     await waitFor(() => {
       expect(
@@ -79,7 +99,15 @@ describe("TagInput component", () => {
   it("agrega un tag al hacer clic en la opción", async () => {
     const setSelectedTags = vi.fn();
 
-    render(<TagInput selectedTags={[]} setselectedTags={setSelectedTags} />);
+    render(
+      <TagsProvider>
+        <TagInput
+          selectedTags={[]}
+          setselectedTags={setSelectedTags}
+          selectedCategory="Frontend"
+        />
+      </TagsProvider>,
+    );
 
     const input = await screen.findByPlaceholderText("Escribe un tag...");
     fireEvent.focus(input);

@@ -61,13 +61,12 @@ export default function CreateResourcePage() {
   };
 
   const onSubmit = async (data: Partial<IntResource>) => {
-    // el backend solo espera las etiquetas con nombre y nada mas
-    // por lo cual creamos un array de solo nombres antes de mandarlo
-    let tagsWithName;
+    // Cambio nombres para ids
+    let tagsWithIds;
     if (data.tags && data.tags.length) {
-      tagsWithName = [];
+      tagsWithIds = [];
       data.tags.forEach((tag) => {
-        tagsWithName.push(tag.name);
+        tagsWithIds.push(tag.id);
       });
     }
 
@@ -77,7 +76,7 @@ export default function CreateResourcePage() {
       description: data.description,
       url: data.url,
       category: data.category,
-      tags: tagsWithName,
+      tags: tagsWithIds,
       type: data.type,
       github_id: user?.id,
     };
@@ -255,6 +254,7 @@ export default function CreateResourcePage() {
             <TagInput
               selectedTags={selectedTags}
               setselectedTags={handleTagChange}
+              selectedCategory={selectedCategory}
             />
             <div className="h-6">
               {errors.tags && (

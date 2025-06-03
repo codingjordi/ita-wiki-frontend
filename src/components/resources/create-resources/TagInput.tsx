@@ -1,34 +1,34 @@
 import { useEffect, useState, useRef } from "react";
-import { getTags } from "../../../api/endPointTags";
 import { Tag } from "../../../types";
 import { formatText } from "../../../utils/formatText";
+import { useTags } from "../../../context/TagsContext";
 
 interface TagInputProps {
   selectedTags: Tag[];
   setselectedTags: (tag: Tag[]) => void;
+  selectedCategory: string | null;
 }
 
 const TagInput: React.FC<TagInputProps> = ({
   selectedTags,
   setselectedTags,
+  selectedCategory,
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
-  const [tags, setTags] = useState<Tag[]>([]);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const { tags: allTags, getTagsByCategory } = useTags();
 
   useEffect(() => {
-    const fetchTags = async () => {
-      const tags = await getTags();
-      const sortedTags = tags.sort((a, b) =>
-        a.name.localeCompare(b.name, "es", { sensitivity: "base" }),
-      );
-      setTags(sortedTags);
-    };
-    fetchTags();
+    const filtered = getTagsByCategory(selectedCategory);
     setselectedTags([]);
-  }, [setselectedTags]);
+    setInputValue("");
+    setFilteredTags(filtered);
+  }, [selectedCategory]);
+
+  const tags = selectedCategory ? getTagsByCategory(selectedCategory) : allTags;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -36,7 +36,7 @@ const TagInput: React.FC<TagInputProps> = ({
         wrapperRef.current &&
         !wrapperRef.current.contains(event.target as Node)
       ) {
-        setFilteredTags([]);
+        setShowDropdown(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -65,13 +65,16 @@ const TagInput: React.FC<TagInputProps> = ({
     } else {
       setFilteredTags(availableTags);
     }
+    setShowDropdown(true);
   };
 
   const handleFocus = () => {
     const availableTags = tags.filter(
       (tag) => !selectedTags.some((t) => t.id === tag.id),
     );
+
     setFilteredTags(availableTags);
+    setShowDropdown(true);
   };
 
   const addTag = (tag: Tag) => {
@@ -147,7 +150,7 @@ const TagInput: React.FC<TagInputProps> = ({
         />
       </div>
 
-      {filteredTags.length > 0 && (
+      {showDropdown && (
         <ul className="bg-white border border-[#DEDEDE] rounded-md shadow-md max-h-48 overflow-y-auto">
           {filteredTags.map((tag) => (
             <li

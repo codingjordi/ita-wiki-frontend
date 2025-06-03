@@ -89,3 +89,7 @@ export interface TagsByCategory {
     [tagName: string]: number;
   };
 }
+
+export interface TagsIdsByCategory {
+  [category: string]: number[];
+}

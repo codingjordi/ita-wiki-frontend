@@ -10,12 +10,13 @@ type EndPoints =
   | "tags/"
   | "tags/category-frequency"
   | "feature-flags/"
-  | "feature-flags/role-self-assignment";
+  | "feature-flags/role-self-assignment"
+  | "tags/by-category";
 
 const END_POINTS = {
   resources: {
     lists: "resources/" as EndPoints,
-    post: "resources/" as EndPoints,
+    post: "v2/resources/" as EndPoints,
   },
   bookmarks: {
     get: "bookmarks" as EndPoints,
@@ -35,6 +36,7 @@ const END_POINTS = {
   tags: {
     get: "tags/" as EndPoints,
     categoryFrequency: "tags/category-frequency" as EndPoints,
+    byCategory: "tags/by-category" as EndPoints,
   },
   devTools: {
     roleChange: "feature-flags/role-self-assignment" as EndPoints,

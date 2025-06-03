@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useTagsByCategory } from "../../hooks/useTagsByCategory";
+import { useTags } from "../../context/TagsContext";
 
 interface FilterResourcesProps {
   resourceTypes: readonly string[];
@@ -34,7 +34,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
 
   const { category } = useParams();
   const [prevCategory, setPrevCategory] = useState<string | null>(null);
-  const { tagsByCategory } = useTagsByCategory();
+  const { getTagsByCategory } = useTags();
 
   useEffect(() => {
     if (category !== prevCategory) {
@@ -54,12 +54,8 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     setSelectedTags,
   ]);
 
-  const tagsFromCategory =
-    category && tagsByCategory[category]
-      ? Object.keys(tagsByCategory[category])
-      : [];
-
-  const tags = ["Todos", ...tagsFromCategory];
+  const tagsForCategory = getTagsByCategory(category ?? null);
+  const tagsOptions = ["Todos", ...tagsForCategory.map((tag) => tag.name)];
 
   const toggleTag = (tag: string) => {
     if (tag === "Todos") {
@@ -77,7 +73,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     <div className="mt-6">
       <div className="mb-6">
         <h3 className="text-lg font-bold mb-3">Temas</h3>
-        {tags.map((tagName) => {
+        {tagsOptions.map((tagName) => {
           const isSelected =
             (tagName === "Todos" && selectedTags.length === 0) ||
             selectedTags.includes(tagName);
@@ -126,7 +122,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
             </label>
           );
         })}
-        {tagsFromCategory.length === 0 && (
+        {tagsForCategory.length === 0 && (
           <p className="text-sm text-gray-500">No hay temas disponibles.</p>
         )}
       </div>
