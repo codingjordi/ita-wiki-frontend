@@ -60,7 +60,7 @@ describe("FilterResources Component", () => {
             setSelectedResourceTypes={setSelectedResourceTypes}
           />
         </MemoryRouter>
-      </TagsContext.Provider>
+      </TagsContext.Provider>,
     );
   };
 
