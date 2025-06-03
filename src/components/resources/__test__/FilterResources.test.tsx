@@ -5,19 +5,6 @@ import { FilterResources } from "../FilterResources";
 import { resourceTypes } from "../../../data/resourceTypes";
 import { TagsContext } from "../../../context/TagsContext";
 
-// 👇 Mock explícito del hook que trae los tags
-// vi.mock("../../../hooks/useTagsByCategory", () => ({
-//   useTagsByCategory: () => ({
-//     tagsByCategory: {
-//       eventos: {
-//         Eventos: 5,
-//         Conferencias: 2,
-//       },
-//     },
-//   }),
-// }));
-
-// 👇 Mock del useParams para definir category
 vi.mock("react-router", async () => {
   const actual = await import("react-router");
   return {
@@ -55,7 +42,6 @@ describe("FilterResources Component", () => {
     });
   });
 
-  // "Helper"
   const renderWithTagsContext = () => {
     return render(
       <TagsContext.Provider
@@ -77,7 +63,7 @@ describe("FilterResources Component", () => {
             setSelectedResourceTypes={setSelectedResourceTypes}
           />
         </MemoryRouter>
-      </TagsContext.Provider>,
+      </TagsContext.Provider>
     );
   };
 
@@ -96,8 +82,8 @@ describe("FilterResources Component", () => {
   it("should allow selecting a tag", () => {
     renderWithTagsContext();
 
-    const eventosRadio = screen.getByText("Eventos");
-    fireEvent.click(eventosRadio);
+    const eventosCheckbox = screen.getByLabelText("Eventos");
+    fireEvent.click(eventosCheckbox);
     expect(setSelectedTags).toHaveBeenCalledWith(["Eventos"]);
   });
 });
