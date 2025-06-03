@@ -40,6 +40,15 @@ body {
   background-color: #ebebeb;
 }
 
+.text-green-custom {
+  color: rgb(39, 174, 96);
+}
+
+.fill-green-custom {
+  fill: rgb(39, 174, 96);
+  stroke: rgb(39, 174, 96);
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
