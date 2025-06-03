@@ -54,7 +54,10 @@ const ResourceCard: FC<ResourceCardProps> = ({
         : "Fecha desconocida";
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-400 p-6 flex justify-between items-center gap-2 w-full h-[109px]">
+    <div
+      className="bg-white rounded-2xl shadow-sm border border-gray-400 p-6 flex justify-between items-center gap-2 w-full h-[109px] hover:bg-gray-100
+"
+    >
       {/* Left Section */}
       <div className="flex flex-col space-y-2 overflow-hidden">
         <a
@@ -96,13 +99,16 @@ const ResourceCard: FC<ResourceCardProps> = ({
 
       {/* Right Section */}
       <div className="flex items-center gap-4 shrink-0">
-        <div className="flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2">
+        <div
+          className="flex flex-col items-center justify-center border-2 border-gray-200 rounded-lg px-3 py-2 hover:border-2 hover:border-[#c20087]
+"
+        >
           <MessageCircle size={16} className="text-black" />
           <span className="text-sm font-medium">{comment_count ?? 0}</span>
         </div>
         <div
           onClick={() => !disabled && handleLike()}
-          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-4 py-2 ${
+          className={`flex flex-col items-center justify-center border border-gray-200 rounded-lg px-3 py-2 ${
             disabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
           }`}
         >
