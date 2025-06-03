@@ -27,7 +27,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
       setSelectedResourceTypes(
         selectedResourceTypes.includes(resourceType)
           ? selectedResourceTypes.filter((rType) => rType !== resourceType)
-          : [...selectedResourceTypes, resourceType]
+          : [...selectedResourceTypes, resourceType],
       );
     }
   };
@@ -64,7 +64,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
       setSelectedTags(
         selectedTags.includes(tag)
           ? selectedTags.filter((t) => t !== tag)
-          : [...selectedTags.filter((t) => t !== "Todos"), tag]
+          : [...selectedTags.filter((t) => t !== "Todos"), tag],
       );
     }
   };
