@@ -38,7 +38,6 @@ describe("FilterResources Component", () => {
     setSelectedResourceTypes = vi.fn();
   });
 
-  // ✅ Move it here, inside the describe but after beforeEach
   const renderWithTagsContext = () => {
     return render(
       <TagsContext.Provider
@@ -60,7 +59,7 @@ describe("FilterResources Component", () => {
             setSelectedResourceTypes={setSelectedResourceTypes}
           />
         </MemoryRouter>
-      </TagsContext.Provider>,
+      </TagsContext.Provider>
     );
   };
 
