@@ -24,7 +24,8 @@ const ResourceCard: FC<ResourceCardProps> = ({
 
   const { user } = useUserContext();
 
-  const { voteCount, handleLike, disabled, isLikedByUser } = useLikeResources(resource);
+  const { voteCount, handleLike, disabled, isLikedByUser } =
+    useLikeResources(resource);
 
   const { getBookmarkCount } = useResources();
 

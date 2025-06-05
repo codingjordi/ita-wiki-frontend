@@ -17,7 +17,6 @@ interface ResourcesContextType {
   getBookmarkCount: (resourceId: number | string) => number;
   refreshResources: () => void;
   updateResourceLikeCount: (resourceId: number, newCount: number) => void;
-
 }
 
 const ResourcesContext = createContext<ResourcesContextType>({
@@ -49,8 +48,6 @@ export const ResourcesProvider = ({
   const [bookmarkCounts, setBookmarkCounts] = useState<
     Record<string | number, number>
   >({});
-
-  
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -95,14 +92,14 @@ export const ResourcesProvider = ({
   };
 
   const updateResourceLikeCount = (resourceId: number, newCount: number) => {
-  setResources(prev => 
-    prev.map(resource => 
-      resource.id === resourceId 
-        ? { ...resource, like_count: newCount }
-        : resource
-    )
-  );
-};
+    setResources((prev) =>
+      prev.map((resource) =>
+        resource.id === resourceId
+          ? { ...resource, like_count: newCount }
+          : resource,
+      ),
+    );
+  };
 
   useEffect(() => {
     if (!user || resources.length === 0) {
