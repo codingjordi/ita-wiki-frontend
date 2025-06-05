@@ -65,5 +65,6 @@ export function useLikeResources(resource: IntResource) {
     voteCount: localCount,
     handleLike,
     disabled: !allowedToVote,
+    isLikedByUser: likedResourceIds.includes(resourceId),
   };
 }
