@@ -16,6 +16,8 @@ interface ResourcesContextType {
   toggleBookmark: (resource: IntResource) => void;
   getBookmarkCount: (resourceId: number | string) => number;
   refreshResources: () => void;
+  updateResourceLikeCount: (resourceId: number, newCount: number) => void;
+
 }
 
 const ResourcesContext = createContext<ResourcesContextType>({
@@ -27,6 +29,7 @@ const ResourcesContext = createContext<ResourcesContextType>({
   toggleBookmark: () => {},
   getBookmarkCount: () => 0,
   refreshResources: () => {},
+  updateResourceLikeCount: () => {},
 });
 
 export const useResources = () => useContext(ResourcesContext);
@@ -46,6 +49,8 @@ export const ResourcesProvider = ({
   const [bookmarkCounts, setBookmarkCounts] = useState<
     Record<string | number, number>
   >({});
+
+  
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -88,6 +93,16 @@ export const ResourcesProvider = ({
       console.error("Error refreshing resources:", err);
     }
   };
+
+  const updateResourceLikeCount = (resourceId: number, newCount: number) => {
+  setResources(prev => 
+    prev.map(resource => 
+      resource.id === resourceId 
+        ? { ...resource, like_count: newCount }
+        : resource
+    )
+  );
+};
 
   useEffect(() => {
     if (!user || resources.length === 0) {
@@ -140,7 +155,7 @@ export const ResourcesProvider = ({
     };
 
     fetchBookmarks();
-  }, [user, resources]);
+  }, [user]);
 
   const { toggleBookmark: toggleBookmarkAction } = useBookmarkToggle();
 
@@ -227,6 +242,7 @@ export const ResourcesProvider = ({
         toggleBookmark,
         getBookmarkCount,
         refreshResources,
+        updateResourceLikeCount,
       }}
     >
       {children}
