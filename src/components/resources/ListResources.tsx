@@ -64,7 +64,6 @@ export const ListResources: FC<ListResourceProps> = ({
       : resources;
   }, [resources, currentCategory]);
 
-  // MANTENGO EL SORTING EXACTAMENTE IGUAL AL ORIGINAL
   const {
     filteredResources,
     selectedResourceTypes,
@@ -72,7 +71,7 @@ export const ListResources: FC<ListResourceProps> = ({
     selectedTags,
     setSelectedTags,
   } = useResourceFilter({
-    resources: categoryFilteredResources, // Solo cambio esto: usar recursos filtrados por categoría
+    resources: categoryFilteredResources,
     resourceTypes,
   });
 
@@ -98,7 +97,6 @@ export const ListResources: FC<ListResourceProps> = ({
     [currentPath],
   );
 
-  // Optimized category click handler
   const handleCategoryClick = useCallback(
     (categoryLabel: string) => {
       const path = `/resources/${encodeURIComponent(categoryLabel)}`;
@@ -106,19 +104,16 @@ export const ListResources: FC<ListResourceProps> = ({
       const isCurrentlyExpanded = expandedCategories.has(categoryLabel);
 
       if (isCurrentlyActive) {
-        // Toggle dropdown for active category
         setExpandedCategories(
           isCurrentlyExpanded ? new Set() : new Set([categoryLabel]),
         );
       } else {
-        // Navigate to new category
         navigate(path, { replace: false });
       }
     },
     [currentCategory, expandedCategories, navigate],
   );
 
-  // Render category item function
   const renderCategoryItem = useCallback(
     (
       item: {
