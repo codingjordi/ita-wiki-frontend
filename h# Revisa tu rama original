@@ -1,0 +1,90 @@
+[33mcommit 340e33f18f0c95d063d3ad3fc2ac02d201784f80[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: e37f2be 5f8589e
+Author: Lali Bibilashvili <lalibibilashvili@gmail.com>
+Date:   Tue Jun 3 14:55:04 2025 +0200
+
+    Merge pull request #102 from IT-Academy-BCN/tags-id-category
+    
+    Tags id context y categories
+
+[33mcommit a294ccc94fecd3eebd783add498377c93ce3feb6[m
+Author: Lali Bibilashvili <lalibibilashvili@gmail.com>
+Date:   Tue Jun 3 13:07:14 2025 +0200
+
+    deleted unused hook
+
+[33mcommit 01e2e77583d2185762f37fc3daa5cc3886af16df[m
+Merge: c0240eb e37f2be
+Author: Lali Bibilashvili <lalibibilashvili@gmail.com>
+Date:   Tue Jun 3 11:34:20 2025 +0200
+
+    Merge branch 'main' into tags-id-category
+
+[33mcommit 9c02ec85a84e5dc219b6711791da74fb0734ec4f[m[33m ([m[1;31morigin/tags-id-category[m[33m)[m
+Merge: 7b5700e ff1d377
+Author: Lali Bibilashvili <lalibibilashvili@gmail.com>
+Date:   Tue Jun 3 01:35:45 2025 +0200
+
+    Merge branch 'main' into tags-id-category
+
+[33mcommit f13e6369169dca26799578107844cbec3ff7ed87[m
+Merge: 0bff693 75093ad
+Author: Lali Bibilashvili <lalibibilashvili@gmail.com>
+Date:   Tue Jun 3 00:54:40 2025 +0200
+
+    Merge main into tags-id-category and resolve conflicts
+
+[33mcommit 770e24049b9783ebe3574593040718f626885d1a[m
+Author: Lali Bibilashvili <lalibibilashvili@gmail.com>
+Date:   Mon Jun 2 22:05:27 2025 +0200
+
+    implemented context in filtered-fixed ui error
+
+[33mcommit 21bf7b0c82369c2b7bb8336b65e01bce454cda79[m
+Merge: c7abcc7 64c5fd5
+Author: LuisAlejandroCortesGalan <wincho_04@hotmail.com>
+Date:   Thu May 29 13:24:31 2025 +0200
+
+    Merge remote-tracking branch 'origin/main' into feature/alejandrocortes-onbording
+
+[33mcommit f57ec54837c8da1191fefbd124ff3a2a242d6739[m
+Merge: 5f2f392 f702da5
+Author: LaraBerenguer <laraberenguer@outlook.com>
+Date:   Thu May 15 13:58:54 2025 +0200
+
+    Merge branch 'main' of https://github.com/IT-Academy-BCN/ita-wiki-frontend into feature/195-disable-bookmarks-likes-by-role
+
+[33mcommit facb2773a52caf4b8e4b6a0ee4148bca6281225a[m
+Merge: 09941ec 35b5d2d
+Author: LaraBerenguer <laraberenguer@outlook.com>
+Date:   Wed May 14 12:41:03 2025 +0200
+
+    Merge branch 'main' of https://github.com/IT-Academy-BCN/ita-wiki-frontend into feature/role-switch-dropdown
+
+[33mcommit 35b5d2d301ba36932d35afe6d0f76afdfb797497[m
+Merge: 9ead3b6 d749bf6
+Author: Varos Snkhchyan <85431234+Varos1009@users.noreply.github.com>
+Date:   Wed May 14 12:32:45 2025 +0200
+
+    Merge pull request #84 from IT-Academy-BCN/feature/185-dynamic-tags-per-category
+    
+    Feature/185 dynamic tags per category
+
+[33mcommit d032445fc6326c5bf0373622e16ce02f7e7858b4[m
+Merge: 35f455b 9ead3b6
+Author: Varos Snkhchyan <85431234+Varos1009@users.noreply.github.com>
+Date:   Tue May 13 23:27:28 2025 +0200
+
+    Merge branch 'main' into feature/185-dynamic-tags-per-category
+
+[33mcommit 3b160bb1a3abab996f9ec1257aecd071f8e3188a[m
+Author: Varos1009 <varos1009@gmail.com>
+Date:   Tue May 13 22:03:45 2025 +0200
+
+    format code with Prettier
+
+[33mcommit ac859988645250993a6852e3989c24c2667ea38a[m
+Author: Varos1009 <varos1009@gmail.com>
+Date:   Tue May 13 21:45:36 2025 +0200
+
+    replace hardcoded themes with category tags

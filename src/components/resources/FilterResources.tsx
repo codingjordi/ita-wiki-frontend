@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router";
-// import { useTagsByCategory } from "../../hooks/useTagsByCategory"; // TODO: restaurar cuando esté disponible
+import { useTags } from "../../context/TagsContext"; // ← Nuevo import
 
 interface FilterResourcesProps {
   resourceTypes: readonly string[];
@@ -19,28 +19,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
 }) => {
   const { category } = useParams();
   const [prevCategory, setPrevCategory] = useState<string | null>(null);
-
-  // Hardcoded tags por ahora - TODO: restaurar useTagsByCategory cuando esté disponible
-  const getTagsForCategory = (category: string | undefined): string[] => {
-    if (!category) return [];
-
-    const mockTags: { [key: string]: string[] } = {
-      React: ["hooks", "components", "state", "props", "jsx"],
-      Node: ["express", "mongodb", "api", "server", "npm"],
-      JavaScript: ["async", "promises", "es6", "dom", "functions"],
-      CSS: ["flexbox", "grid", "animations", "responsive", "sass"],
-      TypeScript: ["types", "interfaces", "generics", "decorators"],
-      Vue: ["composition", "directives", "router", "vuex"],
-      Angular: ["components", "services", "routing", "rxjs"],
-      Python: ["django", "flask", "pandas", "numpy"],
-      Java: ["spring", "hibernate", "maven", "gradle"],
-      PHP: ["laravel", "symfony", "composer", "pdo"],
-    };
-
-    return mockTags[category] || [];
-  };
-
-  const tagsFromCategory = getTagsForCategory(category);
+  const { getTagsByCategory } = useTags(); // ← Nuevo hook
 
   useEffect(() => {
     if (category !== prevCategory) {
@@ -60,7 +39,10 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     setSelectedTags,
   ]);
 
-  const tags = ["Todos", ...tagsFromCategory];
+  // ✅ Nuevo sistema - reemplaza el hardcode
+  const categoryTags = getTagsByCategory(category || null);
+  const tagNames = categoryTags.map((tag) => tag.name);
+  const tags = ["Todos", ...tagNames];
 
   const toggleTag = (tag: string) => {
     if (tag === "Todos") {
@@ -128,7 +110,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
           );
         })}
 
-        {tagsFromCategory.length === 0 && (
+        {tagNames.length === 0 && (
           <p className="text-sm text-gray-500">No hay temas disponibles.</p>
         )}
       </div>
