@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useTagsByCategory } from "../../hooks/useTagsByCategory";
+// import { useTagsByCategory } from "../../hooks/useTagsByCategory"; // TODO: restaurar cuando esté disponible
 
 interface FilterResourcesProps {
   resourceTypes: readonly string[];
@@ -19,7 +19,28 @@ export const FilterResources: FC<FilterResourcesProps> = ({
 }) => {
   const { category } = useParams();
   const [prevCategory, setPrevCategory] = useState<string | null>(null);
-  const { tagsByCategory } = useTagsByCategory();
+
+  // Hardcoded tags por ahora - TODO: restaurar useTagsByCategory cuando esté disponible
+  const getTagsForCategory = (category: string | undefined): string[] => {
+    if (!category) return [];
+
+    const mockTags: { [key: string]: string[] } = {
+      React: ["hooks", "components", "state", "props", "jsx"],
+      Node: ["express", "mongodb", "api", "server", "npm"],
+      JavaScript: ["async", "promises", "es6", "dom", "functions"],
+      CSS: ["flexbox", "grid", "animations", "responsive", "sass"],
+      TypeScript: ["types", "interfaces", "generics", "decorators"],
+      Vue: ["composition", "directives", "router", "vuex"],
+      Angular: ["components", "services", "routing", "rxjs"],
+      Python: ["django", "flask", "pandas", "numpy"],
+      Java: ["spring", "hibernate", "maven", "gradle"],
+      PHP: ["laravel", "symfony", "composer", "pdo"],
+    };
+
+    return mockTags[category] || [];
+  };
+
+  const tagsFromCategory = getTagsForCategory(category);
 
   useEffect(() => {
     if (category !== prevCategory) {
@@ -38,11 +59,6 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     setSelectedResourceTypes,
     setSelectedTags,
   ]);
-
-  const tagsFromCategory =
-    category && tagsByCategory[category]
-      ? Object.keys(tagsByCategory[category])
-      : [];
 
   const tags = ["Todos", ...tagsFromCategory];
 

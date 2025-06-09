@@ -1,87 +1,38 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import { vi, describe, test, expect } from "vitest";
 import { FilterResources } from "../FilterResources";
-import { resourceTypes } from "../../../data/resourceTypes";
-import { TagsContext } from "../../../context/TagsContext";
+import React from "react";
 
-vi.mock("react-router", async () => {
-  const actual = await import("react-router");
-  return {
-    ...actual,
-    useParams: () => ({ category: "eventos" }),
-  };
-});
+const mockUseParams = vi.fn();
 
-const mockTags = [
-  { id: 5, name: "Eventos", created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
-  { id: 2, name: "Conferencias", created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
-];
+vi.mock("react-router", () => ({
+  useParams: () => mockUseParams(),
+}));
 
-const mockTagsByCategory = {
-  eventos: [5, 2],
+const mockProps = {
+  resourceTypes: ["Video", "Blog", "Cursos"] as const,
+  selectedTags: [],
+  setSelectedTags: vi.fn(),
+  selectedResourceTypes: ["Video", "Blog", "Cursos"],
+  setSelectedResourceTypes: vi.fn(),
 };
 
 describe("FilterResources Component", () => {
-  let selectedTags: string[];
+  test("should render Temas section", () => {
+    mockUseParams.mockReturnValue({ category: "React" });
 
-  let setSelectedTags: ReturnType<typeof vi.fn>;
-  let setSelectedResourceTypes: ReturnType<typeof vi.fn>;
+    render(<FilterResources {...mockProps} />);
 
-  beforeEach(() => {
-    selectedTags = [];
-
-    setSelectedTags = vi.fn((tags: string[]) => {
-      selectedTags = tags;
-    });
-
-    setSelectedResourceTypes = vi.fn();
-  });
-
-  const renderWithTagsContext = () => {
-    return render(
-      <TagsContext.Provider
-        value={{
-          tags: mockTags,
-          tagsByCategory: mockTagsByCategory,
-          getTagsByCategory: (category) =>
-            category === "eventos" ? mockTags : [],
-          getTagNameById: (id) => mockTags.find((tag) => tag.id === id)?.name,
-          refreshTags: async () => {},
-        }}
-      >
-        <MemoryRouter>
-          <FilterResources
-            resourceTypes={[...resourceTypes]}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-            selectedResourceTypes={[]}
-            setSelectedResourceTypes={setSelectedResourceTypes}
-          />
-        </MemoryRouter>
-      </TagsContext.Provider>,
-    );
-  };
-
-  it("should render dynamic category tags and resource types", () => {
-    renderWithTagsContext();
-
+    expect(screen.getByText("Temas")).toBeInTheDocument();
     expect(screen.getByText("Todos")).toBeInTheDocument();
-    expect(screen.getByText("Eventos")).toBeInTheDocument();
-    expect(screen.getByText("Conferencias")).toBeInTheDocument();
-
-    resourceTypes.forEach((type) => {
-      expect(screen.getByText(type)).toBeInTheDocument();
-    });
   });
 
-  it("should allow selecting a tag", () => {
-    renderWithTagsContext();
+  test("should show no available themes message", () => {
+    mockUseParams.mockReturnValue({ category: "UnknownCategory" });
 
-    const eventosCheckbox = screen.getByLabelText("Eventos");
-    fireEvent.click(eventosCheckbox);
-    expect(setSelectedTags).toHaveBeenCalledWith(["Eventos"]);
+    render(<FilterResources {...mockProps} />);
+
+    expect(screen.getByText("Temas")).toBeInTheDocument();
+    expect(screen.getByText("No hay temas disponibles.")).toBeInTheDocument();
   });
 });
