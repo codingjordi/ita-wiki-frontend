@@ -28,19 +28,21 @@ export const ListResources: FC<ListResourceProps> = ({
   category,
 }) => {
   const [showFilters, setShowFilters] = useState<boolean>(false);
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+    new Set(),
+  );
 
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  
+
   const currentPath = location.pathname;
   const searchTerm = searchParams.get("search") || "";
 
   // Extract category from URL with memoization
   const currentCategory = useMemo(() => {
-    const pathSegments = currentPath.split('/');
-    if (pathSegments[1] === 'resources' && pathSegments[2]) {
+    const pathSegments = currentPath.split("/");
+    if (pathSegments[1] === "resources" && pathSegments[2]) {
       return decodeURIComponent(pathSegments[2]);
     }
     return category ? String(category) : undefined;
@@ -56,9 +58,9 @@ export const ListResources: FC<ListResourceProps> = ({
   // Memoized category filtering
   const categoryFilteredResources = useMemo(() => {
     if (!resources?.length) return [];
-    
-    return currentCategory 
-      ? resources.filter(resource => resource.category === currentCategory)
+
+    return currentCategory
+      ? resources.filter((resource) => resource.category === currentCategory)
       : resources;
   }, [resources, currentCategory]);
 
@@ -83,108 +85,133 @@ export const ListResources: FC<ListResourceProps> = ({
   // Memoized search filtering
   const visibleResources = useMemo(() => {
     if (!searchTerm) return sortedResources;
-    
+
     const lowerSearchTerm = searchTerm.toLowerCase();
     return sortedResources.filter((resource) =>
-      resource.title.toLowerCase().includes(lowerSearchTerm)
+      resource.title.toLowerCase().includes(lowerSearchTerm),
     );
   }, [sortedResources, searchTerm]);
 
   // Optimized path checking
-  const isPathActive = useCallback((path: string) => currentPath === path, [currentPath]);
+  const isPathActive = useCallback(
+    (path: string) => currentPath === path,
+    [currentPath],
+  );
 
   // Optimized category click handler
-  const handleCategoryClick = useCallback((categoryLabel: string) => {
-    const path = `/resources/${encodeURIComponent(categoryLabel)}`;
-    const isCurrentlyActive = currentCategory === categoryLabel;
-    const isCurrentlyExpanded = expandedCategories.has(categoryLabel);
-    
-    if (isCurrentlyActive) {
-      // Toggle dropdown for active category
-      setExpandedCategories(
-        isCurrentlyExpanded 
-          ? new Set() 
-          : new Set([categoryLabel])
-      );
-    } else {
-      // Navigate to new category
-      navigate(path, { replace: false });
-    }
-  }, [currentCategory, expandedCategories, navigate]);
+  const handleCategoryClick = useCallback(
+    (categoryLabel: string) => {
+      const path = `/resources/${encodeURIComponent(categoryLabel)}`;
+      const isCurrentlyActive = currentCategory === categoryLabel;
+      const isCurrentlyExpanded = expandedCategories.has(categoryLabel);
+
+      if (isCurrentlyActive) {
+        // Toggle dropdown for active category
+        setExpandedCategories(
+          isCurrentlyExpanded ? new Set() : new Set([categoryLabel]),
+        );
+      } else {
+        // Navigate to new category
+        navigate(path, { replace: false });
+      }
+    },
+    [currentCategory, expandedCategories, navigate],
+  );
 
   // Render category item function
-  const renderCategoryItem = useCallback((item: { label: string; icon: React.ComponentType<React.SVGProps<SVGSVGElement>> }, index: number) => {
-    const path = `/resources/${encodeURIComponent(item.label)}`;
-    const isActive = isPathActive(path);
-    const isExpanded = expandedCategories.has(item.label);
-    const IconComponent = item.icon;
+  const renderCategoryItem = useCallback(
+    (
+      item: {
+        label: string;
+        icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+      },
+      index: number,
+    ) => {
+      const path = `/resources/${encodeURIComponent(item.label)}`;
+      const isActive = isPathActive(path);
+      const isExpanded = expandedCategories.has(item.label);
+      const IconComponent = item.icon;
 
-    return (
-      <div key={index} className="mb-2">
-        <div className="overflow-hidden">
-          {/* Header de la categoría - TODO clickeable */}
-          <div
-            className={classNames(
-              "flex items-center justify-between p-1 cursor-pointer transition-colors select-none",
-              {
-                "text-[var(--color-primary)]": isActive,
-                "": !isActive,
-              }
-            )}
-            onClick={() => handleCategoryClick(item.label)}
-          >
-            {/* Contenido de la categoría */}
-            <div className="flex items-center space-x-3 flex-1">
-              <IconComponent
-                className={classNames("w-5 h-5", {
+      return (
+        <div key={index} className="mb-2">
+          <div className="overflow-hidden">
+            {/* Header de la categoría - TODO clickeable */}
+            <div
+              className={classNames(
+                "flex items-center justify-between p-1 cursor-pointer transition-colors select-none",
+                {
                   "text-[var(--color-primary)]": isActive,
-                  "text-gray-500": !isActive,
-                })}
-              />
-              <span
-                className={classNames("transition-colors font-medium", {
-                  "text-[var(--color-primary)]": isActive,
-                  "text-gray-700": !isActive,
-                })}
-              >
-                {item.label}
-              </span>
-            </div>
-            
-            {/* Chevron */}
-            <div className="p-1 hover:bg-black/10 rounded">
-              {isExpanded ? (
-                <ChevronUp className={classNames("w-4 h-4", {
-                  "text-[var(--color-primary)]": isActive,
-                  "text-gray-400": !isActive,
-                })} />
-              ) : (
-                <ChevronDown className={classNames("w-4 h-4", {
-                  "text-[var(--color-primary)]": isActive,
-                  "text-gray-400": !isActive,
-                })} />
+                  "": !isActive,
+                },
               )}
-            </div>
-          </div>
-          
-          {/* Contenido expandible con filtros */}
-          {isExpanded && (
-            <div className="px-3 pb-3">
-              <div className="pt-1">
-                <FilterResources
-                  resourceTypes={resourceTypes}
-                  selectedResourceTypes={selectedResourceTypes}
-                  setSelectedResourceTypes={setSelectedResourceTypes}
-                  selectedTags={selectedTags}
-                  setSelectedTags={setSelectedTags}
+              onClick={() => handleCategoryClick(item.label)}
+            >
+              {/* Contenido de la categoría */}
+              <div className="flex items-center space-x-3 flex-1">
+                <IconComponent
+                  className={classNames("w-5 h-5", {
+                    "text-[var(--color-primary)]": isActive,
+                    "text-gray-500": !isActive,
+                  })}
                 />
+                <span
+                  className={classNames("transition-colors font-medium", {
+                    "text-[var(--color-primary)]": isActive,
+                    "text-gray-700": !isActive,
+                  })}
+                >
+                  {item.label}
+                </span>
+              </div>
+
+              {/* Chevron */}
+              <div className="p-1 hover:bg-black/10 rounded">
+                {isExpanded ? (
+                  <ChevronUp
+                    className={classNames("w-4 h-4", {
+                      "text-[var(--color-primary)]": isActive,
+                      "text-gray-400": !isActive,
+                    })}
+                  />
+                ) : (
+                  <ChevronDown
+                    className={classNames("w-4 h-4", {
+                      "text-[var(--color-primary)]": isActive,
+                      "text-gray-400": !isActive,
+                    })}
+                  />
+                )}
               </div>
             </div>
-          )}
+
+            {/* Contenido expandible con filtros */}
+            {isExpanded && (
+              <div className="px-3 pb-3">
+                <div className="pt-1">
+                  <FilterResources
+                    resourceTypes={resourceTypes}
+                    selectedResourceTypes={selectedResourceTypes}
+                    setSelectedResourceTypes={setSelectedResourceTypes}
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    );
-  }, [isPathActive, expandedCategories, handleCategoryClick, selectedResourceTypes, setSelectedResourceTypes, selectedTags, setSelectedTags]);
+      );
+    },
+    [
+      isPathActive,
+      expandedCategories,
+      handleCategoryClick,
+      selectedResourceTypes,
+      setSelectedResourceTypes,
+      selectedTags,
+      setSelectedTags,
+    ],
+  );
 
   // Early return if no resources
   if (!resources?.length) {
@@ -203,12 +230,14 @@ export const ListResources: FC<ListResourceProps> = ({
         {/* Sidebar Filters (Desktop) */}
         <div className="hidden sm:block">
           <h2 className="text-[26px] font-bold mb-2">Filtros</h2>
-          
+
           {/* Categories */}
           <div className="mb-6">
             <h3 className="text-lg font-bold mb-3">Categorías</h3>
             <div className="space-y-2">
-              {asideContent.map((item, index) => renderCategoryItem(item, index))}
+              {asideContent.map((item, index) =>
+                renderCategoryItem(item, index),
+              )}
             </div>
           </div>
 
@@ -230,10 +259,13 @@ export const ListResources: FC<ListResourceProps> = ({
                       onChange={() => {
                         if (isSelected) {
                           setSelectedResourceTypes(
-                            selectedResourceTypes.filter((t) => t !== type)
+                            selectedResourceTypes.filter((t) => t !== type),
                           );
                         } else {
-                          setSelectedResourceTypes([...selectedResourceTypes, type]);
+                          setSelectedResourceTypes([
+                            ...selectedResourceTypes,
+                            type,
+                          ]);
                         }
                       }}
                       className="hidden"
@@ -278,11 +310,8 @@ export const ListResources: FC<ListResourceProps> = ({
             </h2>
 
             {/* SORTBUTTON EXACTAMENTE IGUAL AL ORIGINAL */}
-            <SortButton
-              setSortOption={setSortOption}
-              sortOption={sortOption}
-            />
-            
+            <SortButton setSortOption={setSortOption} sortOption={sortOption} />
+
             {/* Mobile Filter Button */}
             <FilterButton
               setShowFilters={setShowFilters}
@@ -294,11 +323,13 @@ export const ListResources: FC<ListResourceProps> = ({
           {showFilters && (
             <div className="sm:hidden mt-4 p-4 bg-gray-100 rounded-lg">
               <h2 className="text-2xl font-bold">Filtros</h2>
-              
+
               <div className="mb-6">
                 <h3 className="text-lg font-bold mb-3">Categorías</h3>
                 <div className="space-y-2">
-                  {asideContent.map((item, index) => renderCategoryItem(item, index))}
+                  {asideContent.map((item, index) =>
+                    renderCategoryItem(item, index),
+                  )}
                 </div>
               </div>
             </div>
@@ -308,10 +339,9 @@ export const ListResources: FC<ListResourceProps> = ({
           {visibleResources.length === 0 ? (
             <div className="flex flex-col gap-2 py-8">
               <div className="text-center py-8 text-gray-500">
-                {categoryFilteredResources.length === 0 
+                {categoryFilteredResources.length === 0
                   ? "No hay recursos disponibles para esta categoría."
-                  : "No se encontraron recursos que coincidan con tu búsqueda."
-                }
+                  : "No se encontraron recursos que coincidan con tu búsqueda."}
               </div>
             </div>
           ) : (
