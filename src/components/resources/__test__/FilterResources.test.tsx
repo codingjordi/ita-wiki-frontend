@@ -1,13 +1,17 @@
-import { render, screen } from "@testing-library/react";
-import { vi, describe, test, expect } from "vitest";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import "@testing-library/jest-dom";
 import { FilterResources } from "../FilterResources";
 import React from "react";
 
 const mockUseParams = vi.fn();
 
-vi.mock("react-router", () => ({
-  useParams: () => mockUseParams(),
-}));
+const mockTags = [
+  { id: 5, name: "Eventos", created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
+  { id: 2, name: "Conferencias", created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
+];
 
 const mockProps = {
   resourceTypes: ["Video", "Blog", "Cursos"] as const,
