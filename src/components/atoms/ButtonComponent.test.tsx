@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import ButtonComponent from "./ButtonComponent";
 import { vi } from "vitest";
+import React from "react";
 import closeIcon from "../../assets/close.svg";
 import addIcon from "../../assets/add.svg";
 
@@ -52,7 +53,7 @@ describe("Render Button", () => {
       "min-w-[152px]",
       "text-white",
       "bg-primary",
-      "hover:opacity-90",
+      "hover:opacity-90"
     );
   });
   it("should have secondary classes", () => {
@@ -66,7 +67,7 @@ describe("Render Button", () => {
       "font-[600]",
       "text-gray-foregorund",
       "hover:bg-neutral-50",
-      "min-w-[138px]",
+      "min-w-[138px]"
     );
   });
   it("should be close button", () => {
@@ -79,7 +80,7 @@ describe("Render Button", () => {
       "inline-flex",
       "w-[21px]",
       "h-[19px]",
-      "text-[#282828]",
+      "text-[#282828]"
     );
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute("src", closeIcon);
@@ -106,7 +107,7 @@ describe("Render Button", () => {
         text="boton customizado"
         variant="custom"
         className="bg-[#33df72] text-white p-4"
-      />,
+      />
     );
     const button = screen.getByRole("button");
 
@@ -118,7 +119,7 @@ describe("Render Button", () => {
     const { container } = render(
       <ButtonComponent variant="primary">
         X<span className="align-super text-sm">2</span>
-      </ButtonComponent>,
+      </ButtonComponent>
     );
     const button = container.querySelector("button");
     const span = button?.querySelector("span");
