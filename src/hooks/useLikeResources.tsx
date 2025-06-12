@@ -9,7 +9,7 @@ export function useLikeResources(resource: IntResource) {
   const { likedResourceIds, setLikedResourceIds } = useContext(LikeContext);
   const { toggleLike } = useLikeToggle();
   const { user } = useUserContext();
-  const { refreshResources } = useResources();
+  const { updateResourceLikeCount } = useResources();
 
   const allowedToVote = user?.role == "student" ? true : false;
 
@@ -51,7 +51,7 @@ export function useLikeResources(resource: IntResource) {
       if (!result?.success) {
         rollback(wasLiked);
       } else {
-        await refreshResources();
+        await updateResourceLikeCount(resourceId, newCount);
       }
     } catch (err) {
       console.error("Error toggling like:", err);
@@ -65,5 +65,6 @@ export function useLikeResources(resource: IntResource) {
     voteCount: localCount,
     handleLike,
     disabled: !allowedToVote,
+    isLikedByUser: likedResourceIds.includes(resourceId),
   };
 }
