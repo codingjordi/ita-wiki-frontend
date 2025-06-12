@@ -13,11 +13,7 @@ type AsideItem = {
   label: string;
 };
 
-type AsideComponentProps = {
-  asideContent: AsideItem[];
-};
-
-const AsideComponent: React.FC<AsideComponentProps> = () => {
+const AsideComponent: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const [searchParams] = useSearchParams();
