@@ -1,17 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
-import { SVGProps, FC } from "react";
+
 import classNames from "classnames";
 import { Bookmark, PenSquare } from "lucide-react";
 import { useUserContext } from "../../context/UserContext";
 import SearchComponent from "./header/SearchComponent";
 import ButtonComponent from "../atoms/ButtonComponent";
 
-type SvgIcon = FC<SVGProps<SVGSVGElement>>;
-type AsideItem = {
-  icon: SvgIcon;
-  label: string;
-};
 
 const AsideComponent: React.FC = () => {
   const location = useLocation();
