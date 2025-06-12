@@ -7,7 +7,6 @@ import { useUserContext } from "../../context/UserContext";
 import SearchComponent from "./header/SearchComponent";
 import ButtonComponent from "../atoms/ButtonComponent";
 
-
 const AsideComponent: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname;
