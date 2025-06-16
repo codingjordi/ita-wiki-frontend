@@ -11,13 +11,14 @@ interface UiButtonProps {
   size?: ButtonSize;
   className?: string;
   disabled?: boolean;
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-    type?: "button" | "submit" | "reset";
-    icon?: ReactNode;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: "button" | "submit" | "reset";
+  icon?: ReactNode;
 }
 
-// Estilos de base// 
-const baseStyles = "inline-flex items-center justify-center font-semibold transition-all duration-200 focus:outline-none rounded-md";
+// Estilos de base//
+const baseStyles =
+  "inline-flex items-center justify-center font-semibold transition-all duration-200 focus:outline-none rounded-md";
 
 // Estilos por variante visual
 
@@ -31,39 +32,38 @@ const variantStyles = {
 // Estilos por tamaño
 
 const sizeStyles = {
-    sm: "text-sm px-3 py-1",
-    md: "text-base px-4 py-2",
-    lg: "text-lg px-6 py-3",
+  sm: "text-sm px-3 py-1",
+  md: "text-base px-4 py-2",
+  lg: "text-lg px-6 py-3",
 };
 
 export const UiButton: FC<UiButtonProps> = ({
-    children,
-    variant = "primary",
-    size = "md",
-    className = "",
-    disabled = false,
-    onClick,
-    type = "button",
-    icon,
+  children,
+  variant = "primary",
+  size = "md",
+  className = "",
+  disabled = false,
+  onClick,
+  type = "button",
+  icon,
 }) => {
-    return (
-        <button
-            className={clsx(
-                baseStyles,
-                variantStyles[variant],
-                sizeStyles[size],
-                className,
-                disabled && "opacity-60 cursor-not-allowed"
-            )}
-            onClick={onClick}
-            type={type}
-            disabled={disabled}
-        >
-            {icon && <span className="mr-2">{icon}</span>}
-            {children}
-        </button>
-    );
-
+  return (
+    <button
+      className={clsx(
+        baseStyles,
+        variantStyles[variant],
+        sizeStyles[size],
+        className,
+        disabled && "opacity-60 cursor-not-allowed",
+      )}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
+      {icon && <span className="mr-2">{icon}</span>}
+      {children}
+    </button>
+  );
 };
 
 export default UiButton;
