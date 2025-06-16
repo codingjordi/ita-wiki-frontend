@@ -1,3 +1,4 @@
+<<<<<<< linibeth/style-wrapper-component
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
@@ -12,6 +13,17 @@ const mockTags = [
   { id: 5, name: "Eventos", created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
   { id: 2, name: "Conferencias", created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
 ];
+=======
+import { render, screen } from "@testing-library/react";
+import { vi, describe, test, expect } from "vitest";
+import { FilterResources } from "../FilterResources";
+
+const mockUseParams = vi.fn();
+
+vi.mock("react-router", () => ({
+  useParams: () => mockUseParams(),
+}));
+>>>>>>> main
 
 const mockProps = {
   resourceTypes: ["Video", "Blog", "Cursos"] as const,
