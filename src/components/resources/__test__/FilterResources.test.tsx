@@ -6,21 +6,6 @@ import { FilterResources } from "../FilterResources";
 
 const mockUseParams = vi.fn();
 
-const mockTags = [
-  {
-    id: 5,
-    name: "Eventos",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    name: "Conferencias",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-];
-
 const mockProps = {
   resourceTypes: ["Video", "Blog", "Cursos"] as const,
   selectedTags: [],

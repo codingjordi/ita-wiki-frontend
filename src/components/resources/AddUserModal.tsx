@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ButtonComponent from "../atoms/ButtonComponent";
 import { createRole } from "../../api/endPointRoles";
 import { toast } from "sonner";
-import UiButton from "../ui/shared-ui/UiButton";
 
 interface AddUsersModalProps {
   onClose: () => void;
