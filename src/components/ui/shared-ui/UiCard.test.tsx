@@ -14,7 +14,7 @@ describe("UiCard", () => {
     render(
       <UiCard className="custom-class" testId="custom-card">
         Card con clase
-      </UiCard>
+      </UiCard>,
     );
     const card = screen.getByTestId("custom-card"); // 👈 ahora seleccionas el div correcto
     expect(card).toHaveClass("custom-class");
