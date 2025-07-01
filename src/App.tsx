@@ -8,6 +8,7 @@ import AsideComponent from "./components/Layout/AsideComponent";
 import ResourcesPage from "./pages/ResourcesPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import MyResourcesPage from "./pages/MyResourcesPage";
+import TechnicalTestCreatePage from "./pages/TechnicalTestCreatePage";
 
 import RequireAuth from "./components/RequireAuth";
 
@@ -36,6 +37,11 @@ const App: FC = () => {
 
             {/* Fallback route */}
             <Route path="*" element={<Navigate to="/" replace />} />
+
+            <Route
+              path="/resources/technical-test/create"
+              element={<TechnicalTestCreatePage />}
+            />
           </Routes>
         </div>
       </div>
