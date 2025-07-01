@@ -3,8 +3,6 @@ import { asideContent } from "../Layout/aside/asideContent";
 import { createTechnicalTest } from "../../api/endPointTechnicalTests";
 import { API_URL, END_POINTS } from "../../config";
 
-
-
 export const TechnicalTestForm = () => {
   const [title, setTitle] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
@@ -17,7 +15,7 @@ export const TechnicalTestForm = () => {
     formData.append("title", title);
     formData.append("language", selectedLanguage);
     formData.append("contentType", contentType);
-  
+
     if (contentType === "text") {
       formData.append("content", content);
     } else if (file) {
@@ -26,16 +24,14 @@ export const TechnicalTestForm = () => {
 
     const url = `${API_URL}${END_POINTS.technicaltests.create}`;
     console.log("Enviando a:", url);
-  
+
     try {
       const result = await createTechnicalTest(formData);
       console.log("Guardado:", result);
     } catch (error) {
       console.error("Error:", error);
     }
-
   };
- 
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-md">
@@ -113,9 +109,10 @@ export const TechnicalTestForm = () => {
         <button className="px-4 py-2 border border-gray-400 rounded">
           Cancelar
         </button>
-        <button 
-        onClick={handleSubmit}
-        className="px-4 py-2 bg-[#B91879] text-white rounded">
+        <button
+          onClick={handleSubmit}
+          className="px-4 py-2 bg-[#B91879] text-white rounded"
+        >
           Publicar
         </button>
       </div>

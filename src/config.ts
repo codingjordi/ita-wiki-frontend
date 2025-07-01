@@ -12,7 +12,7 @@ type EndPoints =
   | "feature-flags/"
   | "feature-flags/role-self-assignment"
   | "tags/by-category"
-  |"technicaltests";
+  | "technicaltests";
 
 const END_POINTS = {
   resources: {
