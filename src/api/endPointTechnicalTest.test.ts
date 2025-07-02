@@ -16,7 +16,7 @@ describe("createTechnicalTest", () => {
   it("debe hacer POST al endpoint correcto y retornar respuesta exitosa", async () => {
     const mockResponseData = { message: "Guardado exitoso" };
 
-    // @ts-ignore
+    //@ts-expect-error: mocking FormData for test
     fetch.mockResolvedValueOnce({
       ok: true,
       json: async () => mockResponseData,
@@ -29,14 +29,14 @@ describe("createTechnicalTest", () => {
       expect.objectContaining({
         method: "POST",
         body: mockFormData,
-      }),
+      })
     );
 
     expect(result).toEqual(mockResponseData);
   });
 
   it("debe lanzar error si la respuesta no es ok", async () => {
-    // @ts-expect-error instead, as per the @typescript-eslint/ba
+    // @ts-expect-error instead of using fetch.mockResolvedValueOnce, we use fetch.mockRejectedValueOnce
     fetch.mockResolvedValueOnce({
       ok: false,
       json: async () => ({ message: "Error de prueba" }),
@@ -45,7 +45,7 @@ describe("createTechnicalTest", () => {
     });
 
     await expect(createTechnicalTest(mockFormData)).rejects.toThrow(
-      "Error de prueba",
+      "Error de prueba"
     );
   });
 });
