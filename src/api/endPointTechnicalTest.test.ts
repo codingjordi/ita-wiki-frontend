@@ -36,7 +36,7 @@ describe("createTechnicalTest", () => {
   });
 
   it("debe lanzar error si la respuesta no es ok", async () => {
-    // @ts-ignore
+    // @ts-expect-error instead, as per the @typescript-eslint/ba
     fetch.mockResolvedValueOnce({
       ok: false,
       json: async () => ({ message: "Error de prueba" }),
