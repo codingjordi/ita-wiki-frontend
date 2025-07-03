@@ -13,10 +13,10 @@ describe("UiCard", () => {
   it("applies custom className if provided", () => {
     render(
       <UiCard className="custom-class" testId="custom-card">
-        Card con clase
-      </UiCard>,
+        <>{}</>
+      </UiCard>
     );
-    const card = screen.getByTestId("custom-card"); // 👈 ahora seleccionas el div correcto
+    const card = screen.getByTestId("custom-card");
     expect(card).toHaveClass("custom-class");
   });
 });
