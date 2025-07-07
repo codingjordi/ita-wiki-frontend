@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import classNames from "classnames";
 import BookmarkFigmaIcon from "../../icons/BookmarkFigmaIcon";
 import CreatedFigmaIcon from "../../icons/CreatedFigmaIcon";
-import { useUserContext } from "../../context/UserContext";
+//import { useUserContext } from "../../context/UserContext";
 import SearchComponent from "./header/SearchComponent";
 import ButtonComponent from "../atoms/ButtonComponent";
 
@@ -15,7 +15,7 @@ const AsideComponent: React.FC = () => {
   const navigate = useNavigate();
   const [resource] = useState("");
   const isSearchDisabled = location.pathname === "/";
-  const { user } = useUserContext();
+  //const { user } = useUserContext();
 
   const handleSearch = (query: string) => {
     const params = new URLSearchParams(searchParams);
