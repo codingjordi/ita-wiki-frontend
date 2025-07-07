@@ -38,52 +38,90 @@ const AsideComponent: React.FC = () => {
         resetTrigger={resource}
       />
 
-      {user && (
-        <>
-          <section className="py-6">
-            <p className="pb-3 font-bold text-lg">Mis recursos</p>
+      <section>
+        <ButtonComponent
+          className="mt-4"
+          type="button"
+          variant="primary"
+          onClick={goToResourcesPage}
+        >
+          Crear recurso
+        </ButtonComponent>
+      </section>
 
-            <div className="flex items-center space-x-3 py-1">
-              <Bookmark size={25} />
-              <Link
-                to="/resources/bookmarks"
-                className={classNames("transition-colors", {
-                  "!text-[var(--color-primary)] !font-bold": isPathActive(
-                    "/resources/bookmarks",
-                  ),
-                  "text-gray-700": !isPathActive("/resources/bookmarks"),
-                })}
-              >
-                Guardados
-              </Link>
-            </div>
-
-            <div className="flex items-center space-x-3 py-1">
-              <PenSquare size={25} />
-              <Link
-                to="/resources/my-resources"
-                className={classNames("transition-colors", {
-                  "!text-[var(--color-primary)] !font-bold": isPathActive(
-                    "/resources/my-resources",
-                  ),
-                  "text-gray-700": !isPathActive("/resources/my-resources"),
-                })}
-              >
-                Creados
-              </Link>
-            </div>
-          </section>
-          <section>
-            <ButtonComponent
-              type="button"
-              variant="primary"
-              onClick={goToResourcesPage}
+      <section>
+        <ul className="py-6 space-y-3">
+          <li className="flex items-center space-x-3">
+            <span
+              className={classNames("w-3 h-3 rounded-full", {
+                "bg-primary": isPathActive("/resources/React"),
+                "bg-gray-400": !isPathActive("/resources/React"),
+              })}
+            />
+            <Link
+              to="/resources/React"
+              className={classNames("transition-colors", {
+                "!text-black !font-bold": isPathActive("/resources/React"),
+                "text-gray-700": !isPathActive("/resources/React"),
+              })}
             >
-              Crear recurso
-            </ButtonComponent>
-          </section>
-        </>
-      )}
+              Recursos
+            </Link>
+          </li>
+
+          <li className="flex items-center space-x-3">
+            <span
+              className={classNames("w-3 h-3 rounded-full", {
+                "bg-primary": isPathActive("/pruebas-tecnicas"),
+                "bg-gray-400": !isPathActive("/pruebas-tecnicas"),
+              })}
+            />
+            <Link
+              to="/pruebas-tecnicas"
+              className={classNames("transition-colors", {
+                "!text-black !font-bold": isPathActive("/pruebas-tecnicas"),
+                "text-gray-700": !isPathActive("/pruebas-tecnicas"),
+              })}
+            >
+              Pruebas técnicas
+            </Link>
+          </li>
+        </ul>
+      </section>
+
+      <section className="py-6">
+        <p className="pb-3 font-bold text-lg mb-2">Mis recursos</p>
+
+        <div className="flex items-center space-x-3 py-1 mb-4">
+          <Bookmark size={25} />
+          <Link
+            to="/resources/bookmarks"
+            className={classNames("transition-colors", {
+              "!text-[var(--color-primary)] !font-bold": isPathActive(
+                "/resources/bookmarks"
+              ),
+              "text-gray-700": !isPathActive("/resources/bookmarks"),
+            })}
+          >
+            Guardados
+          </Link>
+        </div>
+
+        <div className="flex items-center space-x-3 py-1">
+          <PenSquare size={25} />
+          <Link
+            to="/resources/my-resources"
+            className={classNames("transition-colors", {
+              "!text-[var(--color-primary)] !font-bold": isPathActive(
+                "/resources/my-resources"
+              ),
+              "text-gray-700": !isPathActive("/resources/my-resources"),
+            })}
+          >
+            Creados
+          </Link>
+        </div>
+      </section>
     </aside>
   );
 };
