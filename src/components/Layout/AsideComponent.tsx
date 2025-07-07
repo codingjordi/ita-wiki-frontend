@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 
 import classNames from "classnames";
-import { Bookmark, PenSquare } from "lucide-react";
 import BookmarkFigmaIcon from "../../icons/BookmarkFigmaIcon";
+import CreatedFigmaIcon from "../../icons/CreatedFigmaIcon";
 import { useUserContext } from "../../context/UserContext";
 import SearchComponent from "./header/SearchComponent";
 import ButtonComponent from "../atoms/ButtonComponent";
@@ -96,18 +96,14 @@ const AsideComponent: React.FC = () => {
         <div className="flex items-center space-x-3 py-1 mb-4">
           <BookmarkFigmaIcon
             className={classNames("w-6 h-6", {
-              "text-primary": isPathActive(
-                "/resources/bookmarks"
-              ),
+              "text-primary": isPathActive("/resources/bookmarks"),
               "text-gray-600": !isPathActive("/resources/bookmarks"),
             })}
           />
           <Link
             to="/resources/bookmarks"
             className={classNames("transition-colors", {
-              "!text-black !font-bold": isPathActive(
-                "/resources/bookmarks"
-              ),
+              "!text-black !font-bold": isPathActive("/resources/bookmarks"),
               "text-gray-700": !isPathActive("/resources/bookmarks"),
             })}
           >
@@ -116,13 +112,16 @@ const AsideComponent: React.FC = () => {
         </div>
 
         <div className="flex items-center space-x-3 py-1">
-          <PenSquare size={25} />
+          <CreatedFigmaIcon
+            className={classNames("w-6 h-6", {
+              "text-primary": isPathActive("/resources/my-resources"),
+              "text-gray-600": !isPathActive("/resources/my-resources"),
+            })}
+          />
           <Link
             to="/resources/my-resources"
             className={classNames("transition-colors", {
-              "!text-[var(--color-primary)] !font-bold": isPathActive(
-                "/resources/my-resources"
-              ),
+              "!text-black !font-bold": isPathActive("/resources/my-resources"),
               "text-gray-700": !isPathActive("/resources/my-resources"),
             })}
           >
