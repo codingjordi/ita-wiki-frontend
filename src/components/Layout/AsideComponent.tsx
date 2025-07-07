@@ -32,7 +32,7 @@ const AsideComponent: React.FC = () => {
   };
 
   return (
-    <aside className="flex flex-col px-6 lg:w-56">
+    <aside className="flex flex-col px-6 lg:w-56 py-4">
       <SearchComponent
         onSearch={handleSearch}
         disabled={isSearchDisabled}
@@ -41,7 +41,7 @@ const AsideComponent: React.FC = () => {
 
       <section>
         <ButtonComponent
-          className="mt-4"
+          className="my-5"
           type="button"
           variant="primary"
           onClick={goToResourcesPage}
@@ -52,7 +52,7 @@ const AsideComponent: React.FC = () => {
 
       <section>
         <ul className="py-6 space-y-3">
-          <li className="flex items-center space-x-3">
+          <li className="flex items-center space-x-3 mb-5">
             <span
               className={classNames("w-3 h-3 rounded-full", {
                 "bg-primary": isPathActive("/resources/React"),
@@ -91,7 +91,7 @@ const AsideComponent: React.FC = () => {
       </section>
 
       <section className="py-6">
-        <p className="pb-3 font-bold text-lg mb-2">Mis recursos</p>
+        <p className="pb-3 font-bold text-lg mb-2 text-black">Mis recursos</p>
 
         <div className="flex items-center space-x-3 py-1 mb-4">
           <BookmarkFigmaIcon
