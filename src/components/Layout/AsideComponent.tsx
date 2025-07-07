@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 
 import classNames from "classnames";
 import { Bookmark, PenSquare } from "lucide-react";
+import BookmarkFigmaIcon from "../../icons/BookmarkFigmaIcon";
 import { useUserContext } from "../../context/UserContext";
 import SearchComponent from "./header/SearchComponent";
 import ButtonComponent from "../atoms/ButtonComponent";
@@ -62,7 +63,7 @@ const AsideComponent: React.FC = () => {
               to="/resources/React"
               className={classNames("transition-colors", {
                 "!text-black !font-bold": isPathActive("/resources/React"),
-                "text-gray-700": !isPathActive("/resources/React"),
+                "text-gray-400": !isPathActive("/resources/React"),
               })}
             >
               Recursos
@@ -80,7 +81,7 @@ const AsideComponent: React.FC = () => {
               to="/pruebas-tecnicas"
               className={classNames("transition-colors", {
                 "!text-black !font-bold": isPathActive("/pruebas-tecnicas"),
-                "text-gray-700": !isPathActive("/pruebas-tecnicas"),
+                "text-gray-400": !isPathActive("/pruebas-tecnicas"),
               })}
             >
               Pruebas técnicas
@@ -93,11 +94,18 @@ const AsideComponent: React.FC = () => {
         <p className="pb-3 font-bold text-lg mb-2">Mis recursos</p>
 
         <div className="flex items-center space-x-3 py-1 mb-4">
-          <Bookmark size={25} />
+          <BookmarkFigmaIcon
+            className={classNames("w-6 h-6", {
+              "text-primary": isPathActive(
+                "/resources/bookmarks"
+              ),
+              "text-gray-600": !isPathActive("/resources/bookmarks"),
+            })}
+          />
           <Link
             to="/resources/bookmarks"
             className={classNames("transition-colors", {
-              "!text-[var(--color-primary)] !font-bold": isPathActive(
+              "!text-black !font-bold": isPathActive(
                 "/resources/bookmarks"
               ),
               "text-gray-700": !isPathActive("/resources/bookmarks"),
