@@ -44,7 +44,7 @@ const App: FC = () => {
             />
 
             <Route
-              path="/resources/technical-test/my-tech-tests"
+              path="/resources/technical-test/all-tech-tests"
               element={<MyTechTestsPage />}
             />
           </Routes>
