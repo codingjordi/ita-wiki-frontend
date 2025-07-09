@@ -5,7 +5,15 @@ import { useLocation } from "react-router";
 function MyTechTestsPage() {
   const location = useLocation();
 
-  const [techTests, setTechTests] = useState<any[]>([]);
+  const [techTests, setTechTests] = useState<TechTest[]>([]);
+
+  interface TechTest {
+    id: string;
+    title: string;
+    lanuage: string;
+    description: string;
+    tags: Array<string>;
+  }
 
   // const getTechTestList = async () => {
 
@@ -55,8 +63,8 @@ function MyTechTestsPage() {
         rounded shadow-xl
         "
     >
-      <ul className="">
-        {techTests.map((test: object) => (
+      <ul>
+        {techTests.map((test: TechTest) => (
           <li key={test.id}>- {test.title}</li>
         ))}
       </ul>
