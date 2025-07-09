@@ -1,4 +1,4 @@
-import closeIcon from "../../assets/close2.svg"
+import closeIcon from "../../assets/close2.svg";
 interface ModalProps {
   visible: boolean;
   onClose: () => void;
