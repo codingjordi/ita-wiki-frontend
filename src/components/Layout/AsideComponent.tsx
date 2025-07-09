@@ -48,10 +48,7 @@ const AsideComponent: React.FC = () => {
 
   return (
     <aside className="flex flex-col px-6 lg:w-56 py-4">
-      <SearchComponent
-        onSearch={handleSearch}
-        resetTrigger={resource}
-      />
+      <SearchComponent onSearch={handleSearch} resetTrigger={resource} />
       <LoginModal visible={isLoginModalOpen} onClose={handleLoginModalClose} />
       <section>
         <ButtonComponent
