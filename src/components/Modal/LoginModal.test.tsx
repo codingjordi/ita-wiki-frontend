@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import LoginModal from "./LoginModal";
 import { describe, test, vi, expect } from "vitest";
+import "@testing-library/jest-dom";
 
 describe("LoginModal Component", () => {
   test("does not render when visible is false", () => {
