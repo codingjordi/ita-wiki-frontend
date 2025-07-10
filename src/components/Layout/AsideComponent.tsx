@@ -64,7 +64,9 @@ const AsideComponent: React.FC = () => {
       <section>
         <ul className="py-6 space-y-3">
           <li className="flex items-center space-x-3 mb-5">
-            {isPathActive("/") && <span className="w-3 h-3 rounded-full bg-primary"/>}
+            {isPathActive("/") && (
+              <span className="w-3 h-3 rounded-full bg-primary" />
+            )}
             <Link
               to="/"
               className={classNames("transition-colors", {
@@ -76,7 +78,9 @@ const AsideComponent: React.FC = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-3 mb-5">
-            {isPathActive("/resources/React") && <span className="w-3 h-3 rounded-full bg-primary"/>}
+            {isPathActive("/resources/React") && (
+              <span className="w-3 h-3 rounded-full bg-primary" />
+            )}
             <Link
               to="/resources/React"
               className={classNames("transition-colors", {
@@ -89,12 +93,18 @@ const AsideComponent: React.FC = () => {
           </li>
 
           <li className="flex items-center space-x-3">
-            {isPathActive("/resources/technical-test/all-tech-tests") && <span className="w-3 h-3 rounded-full bg-primary"/>}
+            {isPathActive("/resources/technical-test/all-tech-tests") && (
+              <span className="w-3 h-3 rounded-full bg-primary" />
+            )}
             <Link
               to="/resources/technical-test/all-tech-tests"
               className={classNames("transition-colors", {
-                "!text-black !font-bold": isPathActive("/resources/technical-test/all-tech-tests"),
-                "text-gray-400": !isPathActive("/resources/technical-test/all-tech-tests"),
+                "!text-black !font-bold": isPathActive(
+                  "/resources/technical-test/all-tech-tests",
+                ),
+                "text-gray-400": !isPathActive(
+                  "/resources/technical-test/all-tech-tests",
+                ),
               })}
             >
               Pruebas técnicas
