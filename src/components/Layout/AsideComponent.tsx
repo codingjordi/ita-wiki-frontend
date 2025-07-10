@@ -50,9 +50,9 @@ const AsideComponent: React.FC = () => {
     <aside className="flex flex-col px-6 lg:w-56 py-4">
       <SearchComponent onSearch={handleSearch} resetTrigger={resource} />
       <LoginModal visible={isLoginModalOpen} onClose={handleLoginModalClose} />
-      <section>
+      <section className="w-[200px]">
         <ButtonComponent
-          className="my-5"
+          className="my-5 w-full"
           type="button"
           variant="primary"
           onClick={() => handleProtectedClick("/resources/add")}
