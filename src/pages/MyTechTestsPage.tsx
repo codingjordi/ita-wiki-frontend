@@ -15,23 +15,6 @@ function MyTechTestsPage() {
     tags: Array<string>;
   }
 
-  // const getTechTestList = async () => {
-
-  //     try {
-  //         const response = await fetch(`${import.meta.env.VITE_API_URL}/technicaltests`);
-
-  //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-  //         const data = await response.json();
-
-  //         console.log(data);
-  //         return data;
-
-  //     } catch (err) {
-  //         console.error('Error:', err);
-  //     }
-  // }
-
   const getTechTestListMock = async () => {
     try {
       const response = await fetch("/technical-tests-mock.json");
