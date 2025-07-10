@@ -64,12 +64,19 @@ const AsideComponent: React.FC = () => {
       <section>
         <ul className="py-6 space-y-3">
           <li className="flex items-center space-x-3 mb-5">
-            <span
-              className={classNames("w-3 h-3 rounded-full", {
-                "bg-primary": isPathActive("/resources/React"),
-                "bg-gray-400": !isPathActive("/resources/React"),
+            {isPathActive("/") && <span className="w-3 h-3 rounded-full bg-primary"/>}
+            <Link
+              to="/"
+              className={classNames("transition-colors", {
+                "!text-black !font-bold": isPathActive("/"),
+                "text-gray-400": !isPathActive("/"),
               })}
-            />
+            >
+              Inicio
+            </Link>
+          </li>
+          <li className="flex items-center space-x-3 mb-5">
+            {isPathActive("/resources/React") && <span className="w-3 h-3 rounded-full bg-primary"/>}
             <Link
               to="/resources/React"
               className={classNames("transition-colors", {
@@ -82,17 +89,12 @@ const AsideComponent: React.FC = () => {
           </li>
 
           <li className="flex items-center space-x-3">
-            <span
-              className={classNames("w-3 h-3 rounded-full", {
-                "bg-primary": isPathActive("/pruebas-tecnicas"),
-                "bg-gray-400": !isPathActive("/pruebas-tecnicas"),
-              })}
-            />
+            {isPathActive("/resources/technical-test/all-tech-tests") && <span className="w-3 h-3 rounded-full bg-primary"/>}
             <Link
-              to="/pruebas-tecnicas"
+              to="/resources/technical-test/all-tech-tests"
               className={classNames("transition-colors", {
-                "!text-black !font-bold": isPathActive("/pruebas-tecnicas"),
-                "text-gray-400": !isPathActive("/pruebas-tecnicas"),
+                "!text-black !font-bold": isPathActive("/resources/technical-test/all-tech-tests"),
+                "text-gray-400": !isPathActive("/resources/technical-test/all-tech-tests"),
               })}
             >
               Pruebas técnicas
