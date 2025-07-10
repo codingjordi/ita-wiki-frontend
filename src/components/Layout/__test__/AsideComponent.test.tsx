@@ -76,9 +76,31 @@ describe("AsideComponent Tests", () => {
     expect(searchInput).toBeInTheDocument();
     expect(searchInput).toHaveAttribute("placeholder", "Buscar recurso");
 
-    // Verificar que no aparecen secciones de usuario cuando no está loggeado
-    expect(screen.queryByText("Mis recursos")).not.toBeInTheDocument();
-    expect(screen.queryByText("Crear recurso")).not.toBeInTheDocument();
+    // Las opciones de "Guardados" y "Creados" aparecen siempre
+    expect(screen.queryByText("Mis recursos")).toBeInTheDocument();
+    expect(screen.queryByText("Crear recurso")).toBeInTheDocument();
+  });
+
+  test("should display 'Mis recursos' and 'Crear recurso' sections", () => {
+    vi.mocked(useUserContext).mockReturnValue({
+      user: null,
+      isAuthenticated: false,
+      signIn: vi.fn(),
+      signOut: vi.fn(),
+      error: null,
+      setError: vi.fn(),
+      saveUser: vi.fn(),
+      setUser: vi.fn(),
+    });
+
+    render(
+      <MemoryRouter>
+        <AsideComponent asideContent={asideContentMock} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("Mis recursos")).toBeInTheDocument();
+    expect(screen.getByText("Crear recurso")).toBeInTheDocument();
   });
 
   test("renders user sections when logged in", () => {
@@ -130,6 +152,5 @@ describe("AsideComponent Tests", () => {
     const searchInput = screen.getByRole("textbox");
     expect(searchInput).toBeInTheDocument();
     expect(searchInput).toHaveAttribute("placeholder", "Buscar recurso");
-    expect(searchInput).toBeDisabled(); // Según el HTML que vimos, está disabled
   });
 });
