@@ -97,7 +97,9 @@ describe("useResourceFilter", () => {
 
     // Should return only React resources since category is mocked to "React"
     expect(result.current.filteredResources.length).toBe(2);
-    expect(result.current.filteredResources.every(r => r.category === "React")).toBe(true);
+    expect(
+      result.current.filteredResources.every((r) => r.category === "React"),
+    ).toBe(true);
   });
 
   it("filters resources by category from URL params", () => {
