@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 import { vi, describe, it, expect, beforeEach } from "vitest";
 import { useResourceFilter } from "../../../hooks/useResourceFilter";
 import { IntResource } from "../../../types";
@@ -12,8 +12,6 @@ vi.mock("react-router", () => ({
 import { useParams, useSearchParams } from "react-router";
 
 describe("useResourceFilter", () => {
-  const mockResourceTypes = ["Video", "Cursos", "Blog"] as const;
-
   const mockResources: IntResource[] = [
     {
       id: 1,
