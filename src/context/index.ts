@@ -16,4 +16,7 @@ const CtxUser = createContext<PropsContext | null>(null);
 export default CtxUser;
 
 // Export the new filters context
-export { ResourcesFiltersProvider, useResourcesFilters } from './ResourcesFiltersContext';
+export {
+  ResourcesFiltersProvider,
+  useResourcesFilters,
+} from "./ResourcesFiltersContext";

@@ -1,6 +1,13 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
-import { useSearchParams, useParams } from 'react-router';
-import { resourceTypes } from '../data/resourceTypes';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+  useEffect,
+} from "react";
+import { useSearchParams, useParams } from "react-router";
+import { resourceTypes } from "../data/resourceTypes";
 
 interface ResourcesFiltersContextType {
   // Filter states
@@ -8,13 +15,13 @@ interface ResourcesFiltersContextType {
   selectedTags: string[];
   expandedCategories: Set<string>;
   showMobileFilters: boolean;
-  
+
   // Filter actions
   setSelectedResourceTypes: (types: string[]) => void;
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   setExpandedCategories: (categories: Set<string>) => void;
   setShowMobileFilters: (show: boolean) => void;
-  
+
   // Utility functions
   toggleResourceType: (type: string) => void;
   toggleTag: (tag: string) => void;
@@ -22,42 +29,50 @@ interface ResourcesFiltersContextType {
   clearAllFilters: () => void;
 }
 
-const ResourcesFiltersContext = createContext<ResourcesFiltersContextType | undefined>(undefined);
+const ResourcesFiltersContext = createContext<
+  ResourcesFiltersContextType | undefined
+>(undefined);
 
 interface ResourcesFiltersProviderProps {
   children: ReactNode;
 }
 
-export const ResourcesFiltersProvider: React.FC<ResourcesFiltersProviderProps> = ({ children }) => {
+export const ResourcesFiltersProvider: React.FC<
+  ResourcesFiltersProviderProps
+> = ({ children }) => {
   const { category } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  
-  const initialResourceTypes = searchParams.get("resourceTypes")?.split(",") || [resourceTypes[0]];
+
+  const initialResourceTypes = searchParams
+    .get("resourceTypes")
+    ?.split(",") || [resourceTypes[0]];
   const initialTags = searchParams.get("tags")?.split(",") || [];
-  
-  const [selectedResourceTypes, setSelectedResourceTypes] = useState<string[]>(initialResourceTypes);
+
+  const [selectedResourceTypes, setSelectedResourceTypes] =
+    useState<string[]>(initialResourceTypes);
   const [selectedTags, setSelectedTags] = useState<string[]>(initialTags);
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+    new Set(),
+  );
   const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
 
   const toggleResourceType = useCallback((type: string) => {
-    setSelectedResourceTypes(prev => 
-      prev.includes(type) 
-        ? prev.filter(t => t !== type)
-        : [...prev, type]
+    setSelectedResourceTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
     );
   }, []);
 
-  const toggleTag = useCallback((tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) 
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
-    );
-  }, [setSelectedTags]);
+  const toggleTag = useCallback(
+    (tag: string) => {
+      setSelectedTags((prev) =>
+        prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+      );
+    },
+    [setSelectedTags],
+  );
 
   const toggleCategory = useCallback((category: string) => {
-    setExpandedCategories(prev => {
+    setExpandedCategories((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(category)) {
         newSet.delete(category);
@@ -73,7 +88,7 @@ export const ResourcesFiltersProvider: React.FC<ResourcesFiltersProviderProps> =
     if (category) {
       setSelectedResourceTypes([...resourceTypes]);
     }
-  }, [category, resourceTypes]);
+  }, [category]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -125,7 +140,9 @@ export const ResourcesFiltersProvider: React.FC<ResourcesFiltersProviderProps> =
 export const useResourcesFilters = () => {
   const context = useContext(ResourcesFiltersContext);
   if (context === undefined) {
-    throw new Error('useResourcesFilters must be used within a ResourcesFiltersProvider');
+    throw new Error(
+      "useResourcesFilters must be used within a ResourcesFiltersProvider",
+    );
   }
   return context;
-}; 
+};

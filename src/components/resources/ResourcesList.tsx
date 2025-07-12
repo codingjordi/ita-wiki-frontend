@@ -33,9 +33,7 @@ export const ResourcesList: FC<ResourcesListProps> = ({
   }, [resources, category]);
 
   // Apply filters
-  const {
-    filteredResources,
-  } = useResourceFilter({
+  const { filteredResources } = useResourceFilter({
     resources: categoryFilteredResources,
     selectedResourceTypes,
     selectedTags,
@@ -95,4 +93,4 @@ export const ResourcesList: FC<ResourcesListProps> = ({
       )}
     </div>
   );
-}; 
+};

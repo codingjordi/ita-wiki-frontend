@@ -23,10 +23,7 @@ const ResourcesPage: FC = () => {
       {isLoading ? (
         <div>Obteniendo los recursos...</div>
       ) : (
-        <ResourcesLayout
-          resources={resources}
-          category={category}
-        />
+        <ResourcesLayout resources={resources} category={category} />
       )}
     </ResourcesFiltersProvider>
   );

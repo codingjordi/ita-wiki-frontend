@@ -54,7 +54,10 @@ describe("ResourcesLayout Component", () => {
     render(
       <MemoryRouter>
         <ResourcesFiltersProvider>
-          <ResourcesLayout resources={moockResources} category={String(category)} />
+          <ResourcesLayout
+            resources={moockResources}
+            category={String(category)}
+          />
         </ResourcesFiltersProvider>
       </MemoryRouter>,
     );

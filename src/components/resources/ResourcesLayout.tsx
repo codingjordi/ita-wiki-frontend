@@ -26,9 +26,7 @@ export const ResourcesLayout: FC<ResourcesLayoutProps> = ({
         {/* Main Content */}
         <div className="lg:flex-1">
           <div className="flex justify-between items-center">
-            <h2 className="text-[26px] font-bold">
-              Recursos {category || ""}
-            </h2>
+            <h2 className="text-[26px] font-bold">Recursos {category || ""}</h2>
 
             {/* Mobile Filter Button */}
             <FilterButton
@@ -46,4 +44,4 @@ export const ResourcesLayout: FC<ResourcesLayoutProps> = ({
       </div>
     </Container>
   );
-}; 
+};

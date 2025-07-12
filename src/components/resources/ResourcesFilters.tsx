@@ -11,11 +11,13 @@ interface ResourcesFiltersProps {
   isMobile?: boolean;
 }
 
-export const ResourcesFilters: FC<ResourcesFiltersProps> = ({ isMobile = false }) => {
+export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
+  isMobile = false,
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const currentPath = location.pathname;
-  
+
   const {
     selectedResourceTypes,
     selectedTags,
@@ -27,7 +29,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({ isMobile = false }
   } = useResourcesFilters();
 
   // Extract category from URL
-  const currentCategory = currentPath.split("/")[2] 
+  const currentCategory = currentPath.split("/")[2]
     ? decodeURIComponent(currentPath.split("/")[2])
     : undefined;
 
@@ -42,7 +44,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({ isMobile = false }
         navigate(path, { replace: false });
       }
     },
-    [currentCategory, expandedCategories, navigate, toggleCategory],
+    [currentCategory, navigate, toggleCategory],
   );
 
   const isPathActive = useCallback(
@@ -141,16 +143,20 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({ isMobile = false }
   );
 
   return (
-    <div className={isMobile ? "sm:hidden mt-4 p-4 bg-gray-100 rounded-lg" : "hidden sm:block"}>
+    <div
+      className={
+        isMobile
+          ? "sm:hidden mt-4 p-4 bg-gray-100 rounded-lg"
+          : "hidden sm:block"
+      }
+    >
       <h2 className="text-[26px] font-bold mb-2">Filtros</h2>
 
       {/* Categories */}
       <div className="mb-6">
         <h3 className="text-lg font-bold mb-3">Categorías</h3>
         <div className="space-y-2">
-          {asideContent.map((item, index) =>
-            renderCategoryItem(item, index),
-          )}
+          {asideContent.map((item, index) => renderCategoryItem(item, index))}
         </div>
       </div>
 
@@ -204,4 +210,4 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({ isMobile = false }
       </div>
     </div>
   );
-}; 
+};
