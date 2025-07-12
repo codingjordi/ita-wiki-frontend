@@ -25,6 +25,7 @@ describe("useResourceFilter", () => {
       theme: "Componentes",
       type: "Video",
       like_count: 10,
+      tags: [{ name: "Componentes" }],
     },
     {
       id: 2,
@@ -36,6 +37,7 @@ describe("useResourceFilter", () => {
       theme: "UseState & UseEffect",
       type: "Blog",
       like_count: 20,
+      tags: [{ name: "UseState & UseEffect" }],
     },
     {
       id: 3,
@@ -47,6 +49,7 @@ describe("useResourceFilter", () => {
       theme: "Componentes",
       type: "Cursos",
       like_count: 15,
+      tags: [{ name: "Componentes" }],
     },
   ];
 
@@ -87,28 +90,14 @@ describe("useResourceFilter", () => {
     const { result } = renderHook(() =>
       useResourceFilter({
         resources: mockResources,
-        resourceTypes: mockResourceTypes,
+        selectedResourceTypes: [],
+        selectedTags: [],
       }),
     );
 
-    expect(result.current.selectedTags).toEqual([]);
-
-    expect(result.current.selectedResourceTypes).toEqual(mockResourceTypes);
-  });
-
-  it("updates URL when selection changes", () => {
-    const { result } = renderHook(() =>
-      useResourceFilter({
-        resources: mockResources,
-        resourceTypes: mockResourceTypes,
-      }),
-    );
-
-    act(() => {
-      result.current.setSelectedTags(["Componentes"]);
-    });
-
-    expect(mockSetSearchParams).toHaveBeenCalled();
+    // Should return only React resources since category is mocked to "React"
+    expect(result.current.filteredResources.length).toBe(2);
+    expect(result.current.filteredResources.every(r => r.category === "React")).toBe(true);
   });
 
   it("filters resources by category from URL params", () => {
@@ -119,7 +108,8 @@ describe("useResourceFilter", () => {
     const { result } = renderHook(() =>
       useResourceFilter({
         resources: mockResources,
-        resourceTypes: mockResourceTypes,
+        selectedResourceTypes: [],
+        selectedTags: [],
       }),
     );
 
@@ -127,31 +117,44 @@ describe("useResourceFilter", () => {
     expect(result.current.filteredResources[0].category).toBe("Angular");
   });
 
-  it("resets filters when category changes", () => {
-    const mockSetCategory = vi.fn();
-
-    const { rerender } = renderHook(
-      (props) => {
-        (useParams as ReturnType<typeof vi.fn>).mockReturnValue({
-          category: props.category,
-        });
-
-        const result = useResourceFilter({
-          resources: mockResources,
-          resourceTypes: mockResourceTypes,
-        });
-
-        if (result.selectedTags.length === 0 && props.category === "Angular") {
-          mockSetCategory("reset detected");
-        }
-
-        return result;
-      },
-      { initialProps: { category: "React" } },
+  it("filters resources by selected resource types", () => {
+    const { result } = renderHook(() =>
+      useResourceFilter({
+        resources: mockResources,
+        selectedResourceTypes: ["Video"],
+        selectedTags: [],
+      }),
     );
 
-    rerender({ category: "Angular" });
+    expect(result.current.filteredResources.length).toBe(1);
+    expect(result.current.filteredResources[0].type).toBe("Video");
+  });
 
-    expect(mockSetCategory).toHaveBeenCalledWith("reset detected");
+  it("filters resources by selected tags", () => {
+    const { result } = renderHook(() =>
+      useResourceFilter({
+        resources: mockResources,
+        selectedResourceTypes: [],
+        selectedTags: ["Componentes"],
+      }),
+    );
+
+    expect(result.current.filteredResources.length).toBe(1);
+    expect(result.current.filteredResources[0].theme).toBe("Componentes");
+  });
+
+  it("filters resources by search term", () => {
+    mockParamsData.search = "React";
+
+    const { result } = renderHook(() =>
+      useResourceFilter({
+        resources: mockResources,
+        selectedResourceTypes: [],
+        selectedTags: [],
+      }),
+    );
+
+    expect(result.current.filteredResources.length).toBe(1);
+    expect(result.current.filteredResources[0].title).toContain("React");
   });
 });
