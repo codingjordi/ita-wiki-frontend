@@ -28,6 +28,10 @@ const AsideComponent: React.FC = () => {
     return currentPath === path;
   };
 
+  const isResourcesPathActive = (generalPath: string) => {
+    return location.pathname.startsWith(generalPath);
+  };
+
   const handleProtectedClick = (path: string) => {
     if (user) {
       navigate(path);
@@ -78,14 +82,14 @@ const AsideComponent: React.FC = () => {
             </Link>
           </li>
           <li className="flex items-center space-x-3 mb-5">
-            {isPathActive("/resources/React") && (
+            {isResourcesPathActive("/resources/") && (
               <span className="w-3 h-3 rounded-full bg-primary" />
             )}
             <Link
               to="/resources/React"
               className={classNames("transition-colors", {
-                "!text-black !font-bold": isPathActive("/resources/React"),
-                "text-gray-400": !isPathActive("/resources/React"),
+                "!text-black !font-bold": isResourcesPathActive("/resources/"),
+                "text-gray-400": !isResourcesPathActive("/resources/"),
               })}
             >
               Recursos
