@@ -28,6 +28,10 @@ const AsideComponent: React.FC = () => {
     return currentPath === path;
   };
 
+  const isResourcesPathActive = (generalPath: string) => {
+    return location.pathname.startsWith(generalPath);
+  };
+
   const handleProtectedClick = (path: string) => {
     if (user) {
       navigate(path);
@@ -50,9 +54,9 @@ const AsideComponent: React.FC = () => {
     <aside className="flex flex-col px-6 lg:w-56 py-4">
       <SearchComponent onSearch={handleSearch} resetTrigger={resource} />
       <LoginModal visible={isLoginModalOpen} onClose={handleLoginModalClose} />
-      <section>
+      <section className="w-[200px]">
         <ButtonComponent
-          className="my-5"
+          className="my-5 w-full"
           type="button"
           variant="primary"
           onClick={() => handleProtectedClick("/resources/add")}
@@ -64,17 +68,28 @@ const AsideComponent: React.FC = () => {
       <section>
         <ul className="py-6 space-y-3">
           <li className="flex items-center space-x-3 mb-5">
-            <span
-              className={classNames("w-3 h-3 rounded-full", {
-                "bg-primary": isPathActive("/resources/React"),
-                "bg-gray-400": !isPathActive("/resources/React"),
+            {isPathActive("/") && (
+              <span className="w-3 h-3 rounded-full bg-primary" />
+            )}
+            <Link
+              to="/"
+              className={classNames("transition-colors", {
+                "!text-black !font-bold": isPathActive("/"),
+                "text-gray-400": !isPathActive("/"),
               })}
-            />
+            >
+              Inicio
+            </Link>
+          </li>
+          <li className="flex items-center space-x-3 mb-5">
+            {isResourcesPathActive("/resources/") && (
+              <span className="w-3 h-3 rounded-full bg-primary" />
+            )}
             <Link
               to="/resources/React"
               className={classNames("transition-colors", {
-                "!text-black !font-bold": isPathActive("/resources/React"),
-                "text-gray-400": !isPathActive("/resources/React"),
+                "!text-black !font-bold": isResourcesPathActive("/resources/"),
+                "text-gray-400": !isResourcesPathActive("/resources/"),
               })}
             >
               Recursos
@@ -82,17 +97,18 @@ const AsideComponent: React.FC = () => {
           </li>
 
           <li className="flex items-center space-x-3">
-            <span
-              className={classNames("w-3 h-3 rounded-full", {
-                "bg-primary": isPathActive("/pruebas-tecnicas"),
-                "bg-gray-400": !isPathActive("/pruebas-tecnicas"),
-              })}
-            />
+            {isPathActive("/resources/technical-test/all-tech-tests") && (
+              <span className="w-3 h-3 rounded-full bg-primary" />
+            )}
             <Link
-              to="/pruebas-tecnicas"
+              to="/resources/technical-test/all-tech-tests"
               className={classNames("transition-colors", {
-                "!text-black !font-bold": isPathActive("/pruebas-tecnicas"),
-                "text-gray-400": !isPathActive("/pruebas-tecnicas"),
+                "!text-black !font-bold": isPathActive(
+                  "/resources/technical-test/all-tech-tests",
+                ),
+                "text-gray-400": !isPathActive(
+                  "/resources/technical-test/all-tech-tests",
+                ),
               })}
             >
               Pruebas técnicas
