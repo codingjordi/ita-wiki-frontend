@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useTags } from "../../context/TagsContext"; // ← Nuevo import
+import { useTags } from "../../context/TagsContext";
+import { capitalizeFirstLetter } from "../../utils/capitalize";
 
 interface FilterResourcesProps {
   resourceTypes: readonly string[];
@@ -19,7 +20,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
 }) => {
   const { category } = useParams();
   const [prevCategory, setPrevCategory] = useState<string | null>(null);
-  const { getTagsByCategory } = useTags(); // ← Nuevo hook
+  const { getTagsByCategory } = useTags();
 
   useEffect(() => {
     if (category !== prevCategory) {
@@ -39,9 +40,8 @@ export const FilterResources: FC<FilterResourcesProps> = ({
     setSelectedTags,
   ]);
 
-  // ✅ Nuevo sistema - reemplaza el hardcode
   const categoryTags = getTagsByCategory(category || null);
-  const tagNames = categoryTags.map((tag) => tag.name);
+  const tagNames = categoryTags.map((tag) => capitalizeFirstLetter(tag.name));
   const tags = ["Todos", ...tagNames];
 
   const toggleTag = (tag: string) => {
@@ -57,9 +57,8 @@ export const FilterResources: FC<FilterResourcesProps> = ({
   };
 
   return (
-    <div className="mt-6">
-      <div className="mb-6">
-        <h3 className="text-lg font-bold mb-3">Temas</h3>
+    <div className="mt-1">
+      <div className="mb-1">
         {tags.map((tagName) => {
           const isSelected =
             (tagName === "Todos" && selectedTags.length === 0) ||
@@ -79,7 +78,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
               <div
                 className={`w-5 h-5 flex items-center justify-center rounded border ${
                   isSelected
-                    ? "bg-[#B91879] border-[#B91879]"
+                    ? "bg-[var(--color-primary)] border-[var(--color-primary)]"
                     : "border-gray-400"
                 }`}
               >
@@ -101,7 +100,7 @@ export const FilterResources: FC<FilterResourcesProps> = ({
                 )}
               </div>
               <span
-                className="text-gray-800 max-w-[120px] truncate inline-block"
+                className="text-[14px] text-[#282828] max-w-[120px] truncate inline-block"
                 title={tagName}
               >
                 {tagName}
