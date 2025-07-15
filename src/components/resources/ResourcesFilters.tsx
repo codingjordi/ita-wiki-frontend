@@ -44,12 +44,12 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
         navigate(path, { replace: false });
       }
     },
-    [currentCategory, navigate, toggleCategory],
+    [currentCategory, navigate, toggleCategory]
   );
 
   const isPathActive = useCallback(
     (path: string) => currentPath === path,
-    [currentPath],
+    [currentPath]
   );
 
   const renderCategoryItem = useCallback(
@@ -58,7 +58,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
         label: string;
         icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
       },
-      index: number,
+      index: number
     ) => {
       const path = `/resources/${encodeURIComponent(item.label)}`;
       const isActive = isPathActive(path);
@@ -69,26 +69,19 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
         <div key={index} className="mb-2">
           <div className="overflow-hidden">
             <div
-              className={classNames(
-                "flex items-center justify-between p-1 cursor-pointer transition-colors select-none",
-                {
-                  "text-[var(--color-primary)]": isActive,
-                  "": !isActive,
-                },
-              )}
+              className={`flex items-center justify-start p-1 cursor-pointer transition-colors select-none ${
+                isActive ? "text-[var(--color-primary)]" : "text-gray-500"
+              }`}
               onClick={() => handleCategoryClick(item.label)}
             >
-              <div className="flex items-center space-x-3 flex-1">
-                <IconComponent
-                  className={classNames("w-5 h-5", {
-                    "text-[var(--color-primary)]": isActive,
-                    "text-gray-500": !isActive,
-                  })}
-                />
+              <div className="flex items-center gap-2">
+                {isActive && (
+                  <IconComponent className="text-[var(--color-primary)]" />
+                )}
                 <span
                   className={classNames("transition-colors font-medium", {
                     "text-[var(--color-primary)]": isActive,
-                    "text-gray-700": !isActive,
+                    "text-[#282828]": !isActive,
                   })}
                 >
                   {item.label}
@@ -98,17 +91,11 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
               <div className="p-1 hover:bg-black/10 rounded">
                 {isExpanded ? (
                   <ChevronUp
-                    className={classNames("w-4 h-4", {
-                      "text-[var(--color-primary)]": isActive,
-                      "text-gray-400": !isActive,
-                    })}
+                    className={`w-4 h-4 ${isActive ? "text-[var(--color-primary)]" : "text-[#282828]"}`}
                   />
                 ) : (
                   <ChevronDown
-                    className={classNames("w-4 h-4", {
-                      "text-[var(--color-primary)]": isActive,
-                      "text-gray-400": !isActive,
-                    })}
+                    className={`w-4 h-4 ${isActive ? "text-[var(--color-primary)]" : "text-[#282828]"}`}
                   />
                 )}
               </div>
@@ -139,7 +126,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
       setSelectedResourceTypes,
       selectedTags,
       setSelectedTags,
-    ],
+    ]
   );
 
   return (
@@ -150,11 +137,11 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
           : "hidden sm:block"
       }
     >
-      <h2 className="text-[26px] font-bold mb-2">Filtros</h2>
+      <h2 className="text-[26px] text-[#282828] font-bold mb-8">Filtros</h2>
 
-      {/* Categories */}
+      {/* Languages */}
       <div className="mb-6">
-        <h3 className="text-lg font-bold mb-3">Categorías</h3>
+        <h3 className="text-[16px] text-[#282828] font-bold mb-6">Lenguaje</h3>
         <div className="space-y-2">
           {asideContent.map((item, index) => renderCategoryItem(item, index))}
         </div>
@@ -162,7 +149,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
 
       {/* Resource Types */}
       <div className="mb-6">
-        <h3 className="text-lg font-bold mb-3">Tipos de recursos</h3>
+        <h3 className="text-[16px] text-[#282828] font-bold mb-3">Tipo</h3>
         <div className="space-y-2">
           {resourceTypes.map((type) => {
             const isSelected = selectedResourceTypes.includes(type);
@@ -182,7 +169,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
                   className={`w-5 h-5 flex items-center justify-center rounded ${
                     isSelected
                       ? "bg-[#B91879] border-[#B91879]"
-                      : "border-gray-400"
+                      : "border-[1px] border-gray-400"
                   }`}
                 >
                   {isSelected && (
@@ -202,7 +189,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
                     </svg>
                   )}
                 </div>
-                <span className="text-sm text-gray-800">{type}</span>
+                <span className="text-[14px] text-[#282828]">{type}</span>
               </label>
             );
           })}
