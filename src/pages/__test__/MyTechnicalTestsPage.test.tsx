@@ -16,7 +16,9 @@ describe("MyTechnicalTestsPage", () => {
         <MyTechnicalTestsPage />
       </MemoryRouter>,
     );
-    expect(screen.getByText("Cargando tests técnicos...")).toBeInTheDocument();
+    expect(
+      screen.getByText("Cargando pruebas técnicas..."),
+    ).toBeInTheDocument();
   });
 
   it("fetches and displays tech test titles from mock data", async () => {
