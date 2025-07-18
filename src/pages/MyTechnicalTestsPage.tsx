@@ -4,7 +4,7 @@ function MyTechnicalTestsPage() {
   const { technicalTests, isLoading, error } = useTechnicalTests();
 
   if (isLoading) {
-    return <p className="m-4">Cargando tests técnicos...</p>;
+    return <p className="m-4">Cargando pruebas técnicas...</p>;
   }
 
   if (error) {
