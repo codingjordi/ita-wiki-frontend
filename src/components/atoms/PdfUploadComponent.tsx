@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import { FaCheck, FaSpinner } from "react-icons/fa";
+import FileUploadIcon from "../../icons/FileUploadIcon";
 
 function PdfUploadComponent() {
   const [fileName, setFileName] = useState<string | null>(null);
@@ -29,7 +30,14 @@ function PdfUploadComponent() {
   return (
     <div className="max-w-sm mx-auto">
       <div className="flex items-center justify-between border border-gray-300 rounded-[12px] p-2">
-        <span className={`truncate text-sm p-2 rounded-[12px] w-3/4 ${isLoading ? 'bg-primary text-white' : 'text-gray-700'}`}>
+        <span
+          className={`truncate text-sm p-2 rounded-[12px] w-3/4 flex items-center ${isLoading && "bg-primary text-white"} ${isUploaded && "text-black"}`}
+        >
+          {fileName && (
+            <FileUploadIcon
+              className={`${isLoading ? "text-white" : "text-primary"} mr-1`}
+            />
+          )}
           {fileName ? fileName : "No file selected"}
         </span>
 
@@ -37,7 +45,7 @@ function PdfUploadComponent() {
           {isLoading ? (
             <FaSpinner className="animate-spin text-primary" />
           ) : isUploaded ? (
-            <div className='bg-green-700 p-1 rounded-full'>
+            <div className="bg-green-700 p-1 rounded-full">
               <FaCheck className="text-white text-xs" />
             </div>
           ) : (
@@ -62,4 +70,4 @@ function PdfUploadComponent() {
   );
 }
 
-export default PdfUploadComponent
+export default PdfUploadComponent;
