@@ -4,6 +4,10 @@ import { createTechnicalTest } from "../../api/endPointTechnicalTests";
 import { API_URL, END_POINTS } from "../../config";
 import PdfUploadComponent from "../atoms/PdfUploadComponent";
 
+
+
+
+
 export const TechnicalTestForm = () => {
   const [title, setTitle] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
@@ -57,11 +61,10 @@ export const TechnicalTestForm = () => {
             <button
               key={cat.label}
               onClick={() => setSelectedLanguage(cat.label)}
-              className={`flex items-center gap-2 px-4 py-2 rounded border ${
-                selectedLanguage === cat.label
+              className={`flex items-center gap-2 px-4 py-2 rounded border ${selectedLanguage === cat.label
                   ? "border-2 border-[#B91879] bg-[#B91879] text-white"
                   : "border-gray-300 bg-white text-black"
-              }`}
+                }`}
             >
               <IconComponent className="w-5 h-5" />
               <span className="text-sm font-medium">{cat.label}</span>
@@ -72,22 +75,20 @@ export const TechnicalTestForm = () => {
 
       <label className="block mb-2 font-medium">Contenido de la prueba</label>
       <div className="flex gap-2 mb-4
-      border-2 border-black
+      border-2 border-gray-500
       shadow-sm w-fit
       rounded-full p-1
       ">
         <button
-          className={`px-8 py-2 rounded-full ${
-            contentType === "text" ? "bg-[#B91879] text-white" : "bg-white"
-          }`}
+          className={`px-8 py-2 rounded-full ${contentType === "text" ? "bg-[#B91879] text-white" : "bg-white"
+            }`}
           onClick={() => setContentType("text")}
         >
           Texto
         </button>
         <button
-          className={`px-6 py-2 rounded-full ${
-            contentType === "file" ? "bg-[#B91879] text-white" : "bg-white"
-          }`}
+          className={`px-6 py-2 rounded-full ${contentType === "file" ? "bg-[#B91879] text-white" : "bg-white"
+            }`}
           onClick={() => setContentType("file")}
         >
           Archivo
@@ -95,13 +96,18 @@ export const TechnicalTestForm = () => {
       </div>
 
       {contentType === "text" ? (
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          maxLength={1000}
-          className="w-full min-h-[200px] p-2 border border-[#B91879] rounded mb-4"
-          placeholder="Escribe la descripción de la prueba..."
-        />
+        <div className="flex flex-col">
+          <span className="w-full p-2 border border-gray-300 rounded-tl-lg rounded-tr-lg">
+            
+          </span>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            maxLength={1000}
+            className="w-full min-h-[200px] p-2 border border-gray-300 rounded-bl-lg rounded-br-lg border-t-0 mb-4"
+            placeholder="Escribe aquí el contenido..."
+          />
+        </div>
       ) : (
         <div className="my-3">
           <PdfUploadComponent onFileSelect={setFile} />
