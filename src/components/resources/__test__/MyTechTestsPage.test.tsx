@@ -8,7 +8,7 @@ import { MemoryRouter } from "react-router";
 const mockedNavigate = vi.fn();
 
 vi.mock("react-router", async () => {
-  const actual = await vi.importActual<any>("react-router");
+  const actual = await vi.importActual("react-router");
   return {
     ...actual,
     useNavigate: () => mockedNavigate,
