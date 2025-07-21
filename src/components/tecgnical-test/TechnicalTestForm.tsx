@@ -6,7 +6,6 @@ import { formatDocumentIcons } from "../../icons/formatDocumentIconsArray";
 import { ArrowLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 
-
 export const TechnicalTestForm = () => {
   const [title, setTitle] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState("");
@@ -40,7 +39,10 @@ export const TechnicalTestForm = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-md">
-      <a className="text-[#B91879]" onClick={() => navigate("/resources/technical-test/all-tech-tests")}>
+      <a
+        className="text-[#B91879]"
+        onClick={() => navigate("/resources/technical-test/all-tech-tests")}
+      >
         <ArrowLeftIcon className="inline text-[#B91879] mb-2 me-1"></ArrowLeftIcon>
         Volver a Pruebas técnicas
       </a>
@@ -65,10 +67,11 @@ export const TechnicalTestForm = () => {
             <button
               key={cat.label}
               onClick={() => setSelectedLanguage(cat.label)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${selectedLanguage === cat.label
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${
+                selectedLanguage === cat.label
                   ? "border-3 border-[#B91879] bg-white text-black"
                   : "border-gray-300 bg-white text-black"
-                }`}
+              }`}
             >
               <IconComponent className="w-5 h-5" />
               <span className="text-sm font-medium">{cat.label}</span>
@@ -78,21 +81,25 @@ export const TechnicalTestForm = () => {
       </div>
 
       <label className="block mb-2 font-medium">Contenido de la prueba</label>
-      <div className="flex gap-2 mb-4
+      <div
+        className="flex gap-2 mb-4
       border-2 border-gray-500
       shadow-sm w-fit
       rounded-full p-1
-      ">
+      "
+      >
         <button
-          className={`px-8 py-2 rounded-full ${contentType === "text" ? "bg-[#B91879] text-white" : "bg-white"
-            }`}
+          className={`px-8 py-2 rounded-full ${
+            contentType === "text" ? "bg-[#B91879] text-white" : "bg-white"
+          }`}
           onClick={() => setContentType("text")}
         >
           Texto
         </button>
         <button
-          className={`px-6 py-2 rounded-full ${contentType === "file" ? "bg-[#B91879] text-white" : "bg-white"
-            }`}
+          className={`px-6 py-2 rounded-full ${
+            contentType === "file" ? "bg-[#B91879] text-white" : "bg-white"
+          }`}
           onClick={() => setContentType("file")}
         >
           Archivo
@@ -102,14 +109,12 @@ export const TechnicalTestForm = () => {
       {contentType === "text" ? (
         <div className="flex flex-col">
           <span className="w-full flex gap-10 p-2 border border-gray-300 rounded-tl-lg rounded-tr-lg">
-            {
-              formatDocumentIcons.map((btn) => {
-                const IconComponent = btn.icon as unknown as React.FC<
-                  React.SVGProps<SVGSVGElement>
-                >;
-                return <IconComponent key={btn.label} className="w-5 h-5" />;
-              })
-            }
+            {formatDocumentIcons.map((btn) => {
+              const IconComponent = btn.icon as unknown as React.FC<
+                React.SVGProps<SVGSVGElement>
+              >;
+              return <IconComponent key={btn.label} className="w-5 h-5" />;
+            })}
           </span>
           <textarea
             value={content}
