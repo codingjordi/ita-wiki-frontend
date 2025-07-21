@@ -3,6 +3,8 @@ import { asideContent } from "../Layout/aside/asideContent";
 import { createTechnicalTest } from "../../api/endPointTechnicalTests";
 import { API_URL, END_POINTS } from "../../config";
 import { formatDocumentIcons } from "../../icons/formatDocumentIconsArray";
+import { ArrowLeftIcon } from "lucide-react";
+import { useNavigate } from "react-router";
 
 
 export const TechnicalTestForm = () => {
@@ -11,6 +13,7 @@ export const TechnicalTestForm = () => {
   const [contentType, setContentType] = useState("text"); // 'text' o 'file'
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -37,6 +40,10 @@ export const TechnicalTestForm = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-md">
+      <a className="text-[#B91879]" onClick={() => navigate("/resources/technical-test/all-tech-tests")}>
+        <ArrowLeftIcon className="inline text-[#B91879] mb-2 me-1"></ArrowLeftIcon>
+        Volver a Pruebas técnicas
+      </a>
       <h2 className="text-2xl font-semibold mb-4">Nueva prueba técnica</h2>
 
       <label className="block mb-2 font-medium">Título *</label>
@@ -44,7 +51,7 @@ export const TechnicalTestForm = () => {
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full p-2 border border-[#B91879] rounded mb-4"
+        className="w-full p-2 border border-[#B91879] rounded-lg mb-4"
         maxLength={65}
       />
 
