@@ -43,7 +43,7 @@ export type TypTechnologyResource =
   | "Angular"
   | "JavaScript"
   | "Java"
-  | "Fullstack PHP"
+  | "PHP"
   | "Data Science"
   | "BBDD";
 
