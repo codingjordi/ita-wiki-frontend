@@ -1,4 +1,4 @@
-export interface TechTest {
+export interface TechnicalTest {
   id: string;
   title: string;
   lanuage: string;

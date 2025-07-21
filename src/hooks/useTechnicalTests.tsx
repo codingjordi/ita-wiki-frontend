@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { TechTest } from "../types/TechTest";
+import { TechnicalTest } from "../types/TechnicalTest";
 
 const useTechnicalTests = () => {
-  const [technicalTests, setTechnicalTests] = useState<TechTest[]>([]);
+  const [technicalTests, setTechnicalTests] = useState<TechnicalTest[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
