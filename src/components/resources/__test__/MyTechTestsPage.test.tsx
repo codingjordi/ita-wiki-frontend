@@ -5,6 +5,16 @@ import MyTechTestsPage from "../../../pages/MyTechTestsPage";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router";
 
+const mockedNavigate = vi.fn();
+
+vi.mock("react-router", async () => {
+  const actual = await vi.importActual<any>("react-router");
+  return {
+    ...actual,
+    useNavigate: () => mockedNavigate,
+  };
+});
+
 describe("MyTechTestsPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -77,5 +87,20 @@ describe("MyTechTestsPage", () => {
     await waitFor(() => {
       expect(screen.queryByText("- Test A")).not.toBeInTheDocument();
     });
+  });
+
+  it("navigates to create tech test page when 'Crear prueba' button is clicked", async () => {
+    render(
+      <MemoryRouter initialEntries={["/resources/technical-test"]}>
+        <MyTechTestsPage />
+      </MemoryRouter>,
+    );
+
+    const button = screen.getByRole("button", { name: /crear prueba/i });
+    expect(button).toBeInTheDocument();
+
+    expect(mockedNavigate).toHaveBeenCalledWith(
+      "/resources/technical-test/create",
+    );
   });
 });
