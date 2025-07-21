@@ -71,18 +71,22 @@ export const TechnicalTestForm = () => {
       </div>
 
       <label className="block mb-2 font-medium">Contenido de la prueba</label>
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-4
+      border-2 border-black
+      shadow-sm w-fit
+      rounded-full p-1
+      ">
         <button
-          className={`px-4 py-2 rounded-full ${
-            contentType === "text" ? "bg-[#B91879] text-white" : "bg-gray-200"
+          className={`px-8 py-2 rounded-full ${
+            contentType === "text" ? "bg-[#B91879] text-white" : "bg-white"
           }`}
           onClick={() => setContentType("text")}
         >
           Texto
         </button>
         <button
-          className={`px-4 py-2 rounded-full ${
-            contentType === "file" ? "bg-[#B91879] text-white" : "bg-gray-200"
+          className={`px-6 py-2 rounded-full ${
+            contentType === "file" ? "bg-[#B91879] text-white" : "bg-white"
           }`}
           onClick={() => setContentType("file")}
         >
