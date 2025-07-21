@@ -93,3 +93,13 @@ export interface TagsByCategory {
 export interface TagsIdsByCategory {
   [category: string]: number[];
 }
+
+export type FormatDocumentCategory =  
+| "bold"
+| "italic"
+| "underline"
+| "align-left"
+| "align-center"
+| "ordered-list"
+| "unordered-list"
+
