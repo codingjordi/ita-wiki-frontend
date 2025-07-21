@@ -54,11 +54,11 @@ function MyTechTestsPage() {
           ))}
         </ul>
       </div>
-        <div className="bg-white w-fit p-2 m-4 rounded hover:border-2 hover:border-black">
-          <button
-          onClick={() => navigate("/resources/technical-test/create")}
-          >Crear prueba</button>
-        </div>
+      <div className="bg-white w-fit p-2 m-4 rounded hover:border-2 hover:border-black">
+        <button onClick={() => navigate("/resources/technical-test/create")}>
+          Crear prueba
+        </button>
+      </div>
     </div>
   );
 }
