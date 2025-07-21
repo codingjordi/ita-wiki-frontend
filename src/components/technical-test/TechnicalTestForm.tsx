@@ -6,6 +6,7 @@ import PdfUploadComponent from "../atoms/PdfUploadComponent";
 
 
 
+import { formatDocumentIcons } from "../../icons/formatDocumentIconsArray";
 
 
 export const TechnicalTestForm = () => {
@@ -61,8 +62,8 @@ export const TechnicalTestForm = () => {
             <button
               key={cat.label}
               onClick={() => setSelectedLanguage(cat.label)}
-              className={`flex items-center gap-2 px-4 py-2 rounded border ${selectedLanguage === cat.label
-                  ? "border-2 border-[#B91879] bg-[#B91879] text-white"
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${selectedLanguage === cat.label
+                  ? "border-3 border-[#B91879] bg-white text-black"
                   : "border-gray-300 bg-white text-black"
                 }`}
             >
@@ -97,15 +98,22 @@ export const TechnicalTestForm = () => {
 
       {contentType === "text" ? (
         <div className="flex flex-col">
-          <span className="w-full p-2 border border-gray-300 rounded-tl-lg rounded-tr-lg">
-            
+          <span className="w-full flex gap-10 p-2 border border-gray-300 rounded-tl-lg rounded-tr-lg">
+            {
+              formatDocumentIcons.map((btn) => {
+                const IconComponent = btn.icon as unknown as React.FC<
+                  React.SVGProps<SVGSVGElement>
+                >;
+                return <IconComponent key={btn.label} className="w-5 h-5" />;
+              })
+            }
           </span>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             maxLength={1000}
             className="w-full min-h-[200px] p-2 border border-gray-300 rounded-bl-lg rounded-br-lg border-t-0 mb-4"
-            placeholder="Escribe aquí el contenido..."
+            placeholder="Escribe aquí el contenido de la prueba..."
           />
         </div>
       ) : (

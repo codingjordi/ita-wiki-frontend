@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { categories } from "./data/categories";
 import { themes } from "./data/themes";
 import { resourceTypes } from "./data/resourceTypes";
+import { FC, SVGProps } from "react";
 
 export type Category = (typeof categories)[number];
 export type Theme = (typeof themes)[number] | null;
@@ -93,6 +94,9 @@ export interface TagsByCategory {
 export interface TagsIdsByCategory {
   [category: string]: number[];
 }
+
+export type SvgIcon = FC<SVGProps<SVGSVGElement>>;
+
 
 export type FormatDocumentCategory =  
 | "bold"
