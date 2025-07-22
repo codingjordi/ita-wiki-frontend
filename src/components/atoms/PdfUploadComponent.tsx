@@ -11,7 +11,7 @@ function PdfUploadComponent({ onFileSelect }: PdfUploadComponentProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const maxPdfSize = 5 * 1024 * 1024
+  const maxPdfSize = 5 * 1024 * 1024;
 
   const handleClick = () => {
     inputRef.current?.click();
@@ -33,7 +33,7 @@ function PdfUploadComponent({ onFileSelect }: PdfUploadComponentProps) {
       }, 2000);
     } else if (file && file.size > maxPdfSize) {
       alert(
-        `El archivo elegido es demasiado pesado. Puedes subir archivos de hasta 5MB.`
+        `El archivo elegido es demasiado pesado. Puedes subir archivos de hasta 5MB.`,
       );
       onFileSelect(null);
       setFileName(null);
