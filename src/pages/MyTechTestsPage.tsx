@@ -20,7 +20,7 @@ function MyTechTestsPage() {
     try {
       const response = await fetch("/technical-tests-mock.json");
 
-      if (!response) throw new Error(`could not fetch tech-tests mock data`);
+      if (!response) throw new Error("could not fetch tech-tests mock data");
 
       const data = await response.json();
       console.log(data);
@@ -39,15 +39,7 @@ function MyTechTestsPage() {
 
   return (
     <div>
-      <div
-        className="
-        flex
-        flex-col
-        m-4 p-4
-        w-fit bg-gray-50
-        rounded shadow-xl
-        "
-      >
+      <div className="flex flex-col m-4 p-4 w-fit bg-gray-50 rounded shadow-xl">
         <ul>
           {techTests.map((test: TechTest) => (
             <li key={test.id}>- {test.title}</li>
