@@ -7,7 +7,7 @@ beforeEach(() => {
   vi.spyOn(window, "alert").mockImplementation(() => {});
 });
 
-describe("PdfUploadComponent (súper simple)", () => {
+describe("PdfUploadComponent", () => {
   it("muestra el texto inicial", () => {
     render(<PdfUploadComponent />);
     expect(screen.getByText(/no file selected/i)).toBeInTheDocument();
