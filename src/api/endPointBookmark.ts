@@ -26,7 +26,7 @@ const getBookmarks = async (github_id: string): Promise<Bookmark[]> => {
 
 const createBookmark = async (
   github_id: number,
-  resource_id: number,
+  resource_id: number
 ): Promise<Bookmark> => {
   const controller = new AbortController();
   const signal = controller.signal;
@@ -49,7 +49,7 @@ const createBookmark = async (
       const errorData = await response.json().catch(() => null);
       console.error("Error data:", errorData);
       throw new Error(
-        `Failed to create bookmark: ${JSON.stringify(errorData)}`,
+        `Failed to create bookmark: ${JSON.stringify(errorData)}`
       );
     }
 
@@ -63,7 +63,7 @@ const createBookmark = async (
 
 const deleteBookmark = async (
   github_id: number,
-  resource_id: number,
+  resource_id: number
 ): Promise<boolean> => {
   const controller = new AbortController();
   const signal = controller.signal;

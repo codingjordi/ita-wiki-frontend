@@ -27,7 +27,7 @@ export const useLikeToggle = () => {
         return { success: false };
       }
     },
-    [user],
+    [user]
   );
 
   return { toggleLike };

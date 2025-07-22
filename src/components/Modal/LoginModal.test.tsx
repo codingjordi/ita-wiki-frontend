@@ -7,16 +7,14 @@ describe("LoginModal Component", () => {
   test("does not render when visible is false", () => {
     render(<LoginModal visible={false} onClose={vi.fn()} />);
     expect(
-      screen.queryByText(
-        "Para acceder a esta sección necesitas iniciar sesión",
-      ),
+      screen.queryByText("Para acceder a esta sección necesitas iniciar sesión")
     ).not.toBeInTheDocument();
   });
 
   test("renders when visible is true", () => {
     render(<LoginModal visible={true} onClose={vi.fn()} />);
     expect(
-      screen.getByText("Para acceder a esta sección necesitas iniciar sesión"),
+      screen.getByText("Para acceder a esta sección necesitas iniciar sesión")
     ).toBeInTheDocument();
   });
 
@@ -25,7 +23,7 @@ describe("LoginModal Component", () => {
     render(<LoginModal visible={true} onClose={handleClose} />);
 
     const overlay = screen.getByText(
-      "Para acceder a esta sección necesitas iniciar sesión",
+      "Para acceder a esta sección necesitas iniciar sesión"
     ).parentElement?.parentElement;
 
     if (overlay) {
@@ -59,7 +57,7 @@ describe("LoginModal Component", () => {
     render(<LoginModal visible={true} onClose={handleClose} />);
 
     const content = screen.getByText(
-      "Para acceder a esta sección necesitas iniciar sesión",
+      "Para acceder a esta sección necesitas iniciar sesión"
     ).parentElement;
 
     if (content) {

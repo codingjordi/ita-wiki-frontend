@@ -42,7 +42,7 @@ describe("getBookmarks", () => {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         signal: expect.any(AbortSignal),
-      },
+      }
     );
     expect(result).toEqual(mockBookmarks);
   });
@@ -103,7 +103,7 @@ describe("createBookmark", () => {
           resource_id: mockResourceId,
         }),
         signal: expect.any(AbortSignal),
-      },
+      }
     );
     expect(result).toEqual(mockNewBookmark);
   });
@@ -116,7 +116,7 @@ describe("createBookmark", () => {
     });
 
     await expect(createBookmark(mockGithubId, mockResourceId)).rejects.toThrow(
-      `Failed to create bookmark: ${JSON.stringify(errorData)}`,
+      `Failed to create bookmark: ${JSON.stringify(errorData)}`
     );
   });
 
@@ -127,7 +127,7 @@ describe("createBookmark", () => {
     });
 
     await expect(createBookmark(mockGithubId, mockResourceId)).rejects.toThrow(
-      "Failed to create bookmark: null",
+      "Failed to create bookmark: null"
     );
   });
 
@@ -135,7 +135,7 @@ describe("createBookmark", () => {
     global.fetch = vi.fn().mockRejectedValue(new Error("Network error"));
 
     await expect(createBookmark(mockGithubId, mockResourceId)).rejects.toThrow(
-      "Network error",
+      "Network error"
     );
   });
 });
@@ -161,7 +161,7 @@ describe("deleteBookmark", () => {
           resource_id: mockResourceId,
         }),
         signal: expect.any(AbortSignal),
-      },
+      }
     );
     expect(result).toBe(true);
   });
@@ -172,7 +172,7 @@ describe("deleteBookmark", () => {
     });
 
     await expect(deleteBookmark(mockGithubId, mockResourceId)).rejects.toThrow(
-      "Failed to delete bookmark",
+      "Failed to delete bookmark"
     );
   });
 
@@ -180,7 +180,7 @@ describe("deleteBookmark", () => {
     global.fetch = vi.fn().mockRejectedValue(new Error("Network error"));
 
     await expect(deleteBookmark(mockGithubId, mockResourceId)).rejects.toThrow(
-      "Network error",
+      "Network error"
     );
   });
 });

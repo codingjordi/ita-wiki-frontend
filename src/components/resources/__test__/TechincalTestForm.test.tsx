@@ -49,9 +49,22 @@ describe('TechnicalTestForm UI', () => {
         expect(screen.getByRole('textbox')).toBeInTheDocument();
     });
 
+<<<<<<< HEAD
     it('renders Cancel and Publicar buttons', () => {
         render(<TechnicalTestForm />);
         expect(screen.getByRole('button', { name: 'Cancelar' })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Publicar' })).toBeInTheDocument();
     });
 });
+=======
+  it("renders Cancel and Publicar buttons", () => {
+    render(<TechnicalTestForm />);
+    expect(
+      screen.getByRole("button", { name: "Cancelar" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Publicar" })
+    ).toBeInTheDocument();
+  });
+});
+>>>>>>> 73864108 (Fix Prettier formatting)

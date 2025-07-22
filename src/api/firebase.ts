@@ -33,8 +33,7 @@ export const signInWithGitHub = async (): Promise<IntUser> => {
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(
-        error.message ||
-          "Error during GitHub authentication. Please try again.",
+        error.message || "Error during GitHub authentication. Please try again."
       );
     }
     throw new Error("An unknown error occurred during GitHub authentication.");

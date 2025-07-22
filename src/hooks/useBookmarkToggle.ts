@@ -11,21 +11,21 @@ export function useBookmarkToggle() {
     bookmarkedResources: IntBookmarkElement[],
     setBookmarkedResources: React.Dispatch<
       React.SetStateAction<IntBookmarkElement[]>
-    >,
+    >
   ) => {
     if (!user || !canBookmark(user.role)) {
       return;
     }
 
     const isAlreadyBookmarked: boolean = bookmarkedResources.some(
-      (item: IntBookmarkElement) => item.id === resource.id,
+      (item: IntBookmarkElement) => item.id === resource.id
     );
 
     try {
       setBookmarkedResources((prev: IntBookmarkElement[]) => {
         if (isAlreadyBookmarked) {
           return prev.filter(
-            (item: IntBookmarkElement) => item.id !== resource.id,
+            (item: IntBookmarkElement) => item.id !== resource.id
           );
         } else {
           const newBookmark = {
@@ -41,7 +41,7 @@ export function useBookmarkToggle() {
           return updatedBookmarks.sort(
             (a, b) =>
               new Date(b.created_at).getTime() -
-              new Date(a.created_at).getTime(),
+              new Date(a.created_at).getTime()
           );
         }
       });

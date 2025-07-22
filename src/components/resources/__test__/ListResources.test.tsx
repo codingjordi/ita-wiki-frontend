@@ -44,7 +44,7 @@ const moockResources = moock.resources.map(
       ...resource,
       created_at: "2025-02-25 00:00:00",
       updated_at: "2025-02-25 00:00:00",
-    }) as IntResource,
+    }) as IntResource
 );
 
 const category = Object.keys(categories)[0] as keyof typeof categories;
@@ -59,7 +59,7 @@ describe("ResourcesLayout Component", () => {
             category={String(category)}
           />
         </ResourcesFiltersProvider>
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     const titleElement = screen.getByText(`Recursos ${String(category)}`);

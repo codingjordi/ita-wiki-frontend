@@ -71,7 +71,7 @@ describe("changeRole", () => {
     };
 
     (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce(
-      mockFetchResponse as Response,
+      mockFetchResponse as Response
     );
 
     const request = {

@@ -29,7 +29,7 @@ describe("createTechnicalTest", () => {
       expect.objectContaining({
         method: "POST",
         body: mockFormData,
-      }),
+      })
     );
 
     expect(result).toEqual(mockResponseData);
@@ -45,7 +45,7 @@ describe("createTechnicalTest", () => {
     });
 
     await expect(createTechnicalTest(mockFormData)).rejects.toThrow(
-      "Error de prueba",
+      "Error de prueba"
     );
   });
 });

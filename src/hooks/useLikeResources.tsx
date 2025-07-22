@@ -16,7 +16,7 @@ export function useLikeResources(resource: IntResource) {
   const resourceId = Number(resource.id);
 
   const [localCount, setLocalCount] = useState<number>(
-    resource.like_count ?? 0,
+    resource.like_count ?? 0
   );
 
   const [syncing, setSyncing] = useState(false);

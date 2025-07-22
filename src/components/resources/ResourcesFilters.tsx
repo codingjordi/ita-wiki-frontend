@@ -44,12 +44,12 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
         navigate(path, { replace: false });
       }
     },
-    [currentCategory, navigate, toggleCategory],
+    [currentCategory, navigate, toggleCategory]
   );
 
   const isPathActive = useCallback(
     (path: string) => currentPath === path,
-    [currentPath],
+    [currentPath]
   );
 
   const renderCategoryItem = useCallback(
@@ -58,7 +58,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
         label: string;
         icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
       },
-      index: number,
+      index: number
     ) => {
       const path = `/resources/${encodeURIComponent(item.label)}`;
       const isActive = isPathActive(path);
@@ -126,7 +126,7 @@ export const ResourcesFilters: FC<ResourcesFiltersProps> = ({
       setSelectedResourceTypes,
       selectedTags,
       setSelectedTags,
-    ],
+    ]
   );
 
   return (

@@ -96,8 +96,8 @@ export const ResourcesProvider = ({
       prev.map((resource) =>
         resource.id === resourceId
           ? { ...resource, like_count: newCount }
-          : resource,
-      ),
+          : resource
+      )
     );
   };
 
@@ -112,18 +112,18 @@ export const ResourcesProvider = ({
       try {
         setLoadingBookmarks(true);
         const fetchedBookmarks: Bookmark[] = await getBookmarks(
-          user.id.toString(),
+          user.id.toString()
         );
 
         const bookmarkedResources: IntBookmarkElement[] = resources
           .filter((resource) =>
             fetchedBookmarks.some(
-              (bookmark) => bookmark.resource_id === resource.id,
-            ),
+              (bookmark) => bookmark.resource_id === resource.id
+            )
           )
           .map((resource) => {
             const matchedBookmark = fetchedBookmarks.find(
-              (bookmark) => bookmark.resource_id === resource.id,
+              (bookmark) => bookmark.resource_id === resource.id
             );
 
             return {
@@ -139,7 +139,7 @@ export const ResourcesProvider = ({
 
         const sortedBookmarks = bookmarkedResources.sort(
           (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
 
         setBookmarkedResources(sortedBookmarks);
@@ -176,7 +176,7 @@ export const ResourcesProvider = ({
       await toggleBookmarkAction(
         resource,
         bookmarkedResources,
-        setBookmarkedResources,
+        setBookmarkedResources
       );
     } catch (error) {
       console.error("Error in toggleBookmark:", error);
@@ -195,13 +195,13 @@ export const ResourcesProvider = ({
       if (user && resources.length > 0) {
         try {
           const fetchedBookmarks: Bookmark[] = await getBookmarks(
-            user.id.toString(),
+            user.id.toString()
           );
           const revertedBookmarks = resources
             .filter((r) => fetchedBookmarks.some((b) => b.resource_id === r.id))
             .map((r) => {
               const match = fetchedBookmarks.find(
-                (b) => b.resource_id === r.id,
+                (b) => b.resource_id === r.id
               );
               return {
                 id: r.id!,
