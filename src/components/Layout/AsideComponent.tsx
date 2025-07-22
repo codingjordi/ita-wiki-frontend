@@ -104,10 +104,10 @@ const AsideComponent: React.FC = () => {
               to="/resources/technical-test/all-tech-tests"
               className={classNames("transition-colors", {
                 "!text-black !font-bold": isPathActive(
-                  "/resources/technical-test/all-tech-tests",
+                  "/resources/technical-test/all-tech-tests"
                 ),
                 "text-gray-400": !isPathActive(
-                  "/resources/technical-test/all-tech-tests",
+                  "/resources/technical-test/all-tech-tests"
                 ),
               })}
             >

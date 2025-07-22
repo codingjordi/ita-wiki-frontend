@@ -6,11 +6,11 @@ describe("FooterResource Component", () => {
     render(
       <FooterResource>
         <h1>Hola</h1>
-      </FooterResource>,
+      </FooterResource>
     );
     const footer = screen.getByTestId("footer-resource");
     expect(footer).toHaveClass(
-      "flex gap-2 items-center justify-between w-full px-10 py-4",
+      "flex gap-2 items-center justify-between w-full px-10 py-4"
     );
   });
 });

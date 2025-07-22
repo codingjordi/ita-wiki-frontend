@@ -90,13 +90,13 @@ describe("useResourceFilter", () => {
         resources: mockResources,
         selectedResourceTypes: [],
         selectedTags: [],
-      }),
+      })
     );
 
     // Should return only React resources since category is mocked to "React"
     expect(result.current.filteredResources.length).toBe(2);
     expect(
-      result.current.filteredResources.every((r) => r.category === "React"),
+      result.current.filteredResources.every((r) => r.category === "React")
     ).toBe(true);
   });
 
@@ -110,7 +110,7 @@ describe("useResourceFilter", () => {
         resources: mockResources,
         selectedResourceTypes: [],
         selectedTags: [],
-      }),
+      })
     );
 
     expect(result.current.filteredResources.length).toBe(1);
@@ -123,7 +123,7 @@ describe("useResourceFilter", () => {
         resources: mockResources,
         selectedResourceTypes: ["Video"],
         selectedTags: [],
-      }),
+      })
     );
 
     expect(result.current.filteredResources.length).toBe(1);
@@ -136,7 +136,7 @@ describe("useResourceFilter", () => {
         resources: mockResources,
         selectedResourceTypes: [],
         selectedTags: ["Componentes"],
-      }),
+      })
     );
 
     expect(result.current.filteredResources.length).toBe(1);
@@ -151,7 +151,7 @@ describe("useResourceFilter", () => {
         resources: mockResources,
         selectedResourceTypes: [],
         selectedTags: [],
-      }),
+      })
     );
 
     expect(result.current.filteredResources.length).toBe(1);

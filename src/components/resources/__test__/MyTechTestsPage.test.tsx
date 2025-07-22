@@ -24,7 +24,7 @@ describe("MyTechTestsPage", () => {
     render(
       <MemoryRouter>
         <MyTechTestsPage />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
     expect(screen.getByRole("list")).toBeInTheDocument();
   });
@@ -52,13 +52,13 @@ describe("MyTechTestsPage", () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve(mockData),
-      }),
+      })
     ) as unknown as typeof fetch;
 
     render(
       <MemoryRouter>
         <MyTechTestsPage />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -75,13 +75,13 @@ describe("MyTechTestsPage", () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve(emptyMockData),
-      }),
+      })
     ) as unknown as typeof fetch;
 
     render(
       <MemoryRouter>
         <MyTechTestsPage />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     await waitFor(() => {
@@ -93,14 +93,14 @@ describe("MyTechTestsPage", () => {
     render(
       <MemoryRouter initialEntries={["/resources/technical-test"]}>
         <MyTechTestsPage />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     const button = screen.getByRole("button", { name: /crear prueba/i });
     expect(button).toBeInTheDocument();
 
     expect(mockedNavigate).toHaveBeenCalledWith(
-      "/resources/technical-test/create",
+      "/resources/technical-test/create"
     );
   });
 });

@@ -14,7 +14,7 @@ describe("UiCard", () => {
     render(
       <UiCard className="custom-class" testId="custom-card">
         <>{}</>
-      </UiCard>,
+      </UiCard>
     );
     const card = screen.getByTestId("custom-card");
     expect(card).toHaveClass("custom-class");

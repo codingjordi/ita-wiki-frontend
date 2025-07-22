@@ -15,7 +15,7 @@ export const createTechnicalTest = async (formData: FormData) => {
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(
-        errorData.message || `Error ${response.status}: ${response.statusText}`,
+        errorData.message || `Error ${response.status}: ${response.statusText}`
       );
     }
 

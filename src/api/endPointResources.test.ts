@@ -21,11 +21,11 @@ describe("getResources", () => {
 
   it("debería lanzar un error si fetch falla", async () => {
     global.fetch = vi.fn(() =>
-      Promise.reject(new Error("Error al obtener los recursos")),
+      Promise.reject(new Error("Error al obtener los recursos"))
     );
 
     await expect(getResources()).rejects.toThrow(
-      "Error al obtener los recursos",
+      "Error al obtener los recursos"
     );
   });
 
@@ -34,7 +34,7 @@ describe("getResources", () => {
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve([]),
-      } as Response),
+      } as Response)
     );
 
     const resources = await getResources();
@@ -51,7 +51,7 @@ describe("getResources", () => {
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve(mockData),
-      } as Response),
+      } as Response)
     );
 
     const resources = await getResources();
@@ -60,7 +60,7 @@ describe("getResources", () => {
     expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining("resources/"),
-      expect.objectContaining({ signal: expect.any(AbortSignal) }),
+      expect.objectContaining({ signal: expect.any(AbortSignal) })
     );
   });
 
@@ -70,7 +70,7 @@ describe("getResources", () => {
         ok: false,
         status: 500,
         statusText: "Internal Server Error",
-      } as Response),
+      } as Response)
     );
 
     const resources = await getResources();

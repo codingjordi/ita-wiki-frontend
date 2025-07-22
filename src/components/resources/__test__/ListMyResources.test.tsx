@@ -44,7 +44,7 @@ describe("ListMyResources Component", () => {
     (resource) =>
       ({
         ...resource,
-      }) as IntResource,
+      }) as IntResource
   );
 
   test("renders correctly with my resources", () => {

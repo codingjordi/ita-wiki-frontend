@@ -27,7 +27,7 @@ describe("SearchComponent", () => {
   it("debe resetear el input cuando cambia resetTrigger", () => {
     const mockOnSearch = vi.fn();
     const { rerender } = render(
-      <SearchComponent onSearch={mockOnSearch} resetTrigger="initial" />,
+      <SearchComponent onSearch={mockOnSearch} resetTrigger="initial" />
     );
 
     const input = screen.getByPlaceholderText(/buscar recurso/i);

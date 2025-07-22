@@ -19,8 +19,7 @@ export const getUserRole = async (githubId: number): Promise<string> => {
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(
-        error.message ||
-          "Error during fetching user role. Please, try again 👾",
+        error.message || "Error during fetching user role. Please, try again 👾"
       );
     }
     throw new Error("Something went wrong, sis. Please, try again 👾");

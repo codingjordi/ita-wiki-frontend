@@ -7,7 +7,7 @@ describe("UiButton", () => {
   it("renders the button with children", () => {
     render(<UiButton>Click me</UiButton>);
     expect(
-      screen.getByRole("button", { name: "Click me" }),
+      screen.getByRole("button", { name: "Click me" })
     ).toBeInTheDocument();
   });
 
@@ -15,7 +15,7 @@ describe("UiButton", () => {
     render(
       <UiButton variant="secondary" size="lg">
         Test
-      </UiButton>,
+      </UiButton>
     );
     const button = screen.getByRole("button", { name: "Test" });
     expect(button.className).toMatch(/border/); // secondary
@@ -34,7 +34,7 @@ describe("UiButton", () => {
     render(
       <UiButton onClick={handleClick} disabled>
         Disabled
-      </UiButton>,
+      </UiButton>
     );
     const button = screen.getByRole("button", { name: "Disabled" });
     fireEvent.click(button);

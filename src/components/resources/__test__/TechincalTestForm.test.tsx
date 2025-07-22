@@ -26,7 +26,7 @@ describe("TechnicalTestForm UI", () => {
     render(<TechnicalTestForm />);
     expect(screen.getByLabelText("Lenguaje *")).toBeInTheDocument();
     expect(screen.getAllByRole("button")).toEqual(
-      expect.arrayContaining([expect.objectContaining({})]),
+      expect.arrayContaining([expect.objectContaining({})])
     );
   });
 
@@ -50,10 +50,10 @@ describe("TechnicalTestForm UI", () => {
   it("renders Cancel and Publicar buttons", () => {
     render(<TechnicalTestForm />);
     expect(
-      screen.getByRole("button", { name: "Cancelar" }),
+      screen.getByRole("button", { name: "Cancelar" })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Publicar" }),
+      screen.getByRole("button", { name: "Publicar" })
     ).toBeInTheDocument();
   });
 });
