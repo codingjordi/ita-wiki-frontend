@@ -1,9 +1,10 @@
 import useTechnicalTests from "../hooks/useTechnicalTests";
 import { useNavigate } from "react-router";
-const navigate = useNavigate();
 
 function MyTechnicalTestsPage() {
   const { technicalTests, isLoading, error } = useTechnicalTests();
+  const navigate = useNavigate();
+
 
   if (isLoading) {
     return <p className="m-4">Cargando pruebas técnicas...</p>;
