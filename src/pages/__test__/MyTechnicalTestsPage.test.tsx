@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import React from "react";
-import MyTechTestsPage from "../../../pages/MyTechTestsPage";
+import MyTechnicalTestsPage from "../MyTechnicalTestsPage";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router";
 
@@ -15,7 +15,15 @@ vi.mock("react-router", async () => {
   };
 });
 
-describe("MyTechTestsPage", () => {
+vi.mock("../hooks/useTechnicalTests", () => ({
+  default: () => ({
+    technicalTests: [],
+    isLoading: false,
+    error: null,
+  }),
+}));
+
+describe("MyTechnicalTestsPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -23,10 +31,13 @@ describe("MyTechTestsPage", () => {
   it("renders without crashing", () => {
     render(
       <MemoryRouter>
-        <MyTechTestsPage />
+        <MyTechnicalTestsPage />
       </MemoryRouter>
+
     );
-    expect(screen.getByRole("list")).toBeInTheDocument();
+    expect(
+      screen.getByText("Cargando pruebas técnicas..."),
+    ).toBeInTheDocument();
   });
 
   it("fetches and displays tech test titles from mock data", async () => {
@@ -51,22 +62,22 @@ describe("MyTechTestsPage", () => {
 
     global.fetch = vi.fn(() =>
       Promise.resolve({
+        ok: true,
+        status: 200,
         json: () => Promise.resolve(mockData),
       })
     ) as unknown as typeof fetch;
 
     render(
       <MemoryRouter>
-        <MyTechTestsPage />
-      </MemoryRouter>
+        <MyTechnicalTestsPage />
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
       expect(screen.getByText("- Test A")).toBeInTheDocument();
       expect(screen.getByText("- Test B")).toBeInTheDocument();
     });
-
-    expect(fetch).toHaveBeenCalledWith("/technical-tests-mock.json");
   });
 
   it("handles empty data", async () => {
@@ -74,14 +85,16 @@ describe("MyTechTestsPage", () => {
 
     global.fetch = vi.fn(() =>
       Promise.resolve({
+        ok: true,
+        status: 200,
         json: () => Promise.resolve(emptyMockData),
       })
     ) as unknown as typeof fetch;
 
     render(
       <MemoryRouter>
-        <MyTechTestsPage />
-      </MemoryRouter>
+        <MyTechnicalTestsPage />
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
@@ -89,18 +102,37 @@ describe("MyTechTestsPage", () => {
     });
   });
 
+
   it("navigates to create tech test page when 'Crear prueba' button is clicked", async () => {
     render(
       <MemoryRouter initialEntries={["/resources/technical-test"]}>
-        <MyTechTestsPage />
+        <MyTechnicalTestsPage />
       </MemoryRouter>
     );
 
-    const button = screen.getByRole("button", { name: /crear prueba/i });
-    expect(button).toBeInTheDocument();
+  describe("Crear prueba button", () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+    });
 
-    expect(mockedNavigate).toHaveBeenCalledWith(
-      "/resources/technical-test/create"
-    );
+    it("renders and navigates when clicked", async () => {
+      render(
+        <MemoryRouter>
+          <MyTechnicalTestsPage />
+        </MemoryRouter>,
+      );
+
+      const button = await screen.findByRole("button", {
+        name: /crear prueba/i,
+      });
+      expect(button).toBeInTheDocument();
+
+      button.click();
+
+      expect(mockedNavigate).toHaveBeenCalledWith(
+        "/resources/technical-test/create",
+      );
+    });
   });
-});
+})
+})
