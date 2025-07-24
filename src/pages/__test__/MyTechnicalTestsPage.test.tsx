@@ -4,7 +4,6 @@ import React from "react";
 import MyTechnicalTestsPage from "../MyTechnicalTestsPage";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router";
-import userEvent from "@testing-library/user-event";
 
 const mockedNavigate = vi.fn();
 
@@ -119,7 +118,6 @@ describe("MyTechnicalTestsPage", () => {
       });
       expect(button).toBeInTheDocument();
 
-      // await userEvent.click(button);
       button.click();
 
       expect(mockedNavigate).toHaveBeenCalledWith(
