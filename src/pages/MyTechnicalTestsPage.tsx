@@ -5,16 +5,10 @@ function MyTechnicalTestsPage() {
   const { technicalTests, isLoading, error } = useTechnicalTests();
   const navigate = useNavigate();
 
-  if (isLoading) {
-    return <p className="m-4">Cargando pruebas técnicas...</p>;
-  }
-
-  if (error) {
-    return <p className="m-4 text-red-500">Error: {error.message}</p>;
-  }
-
   return (
     <div>
+      {isLoading && <p className="m-4">Cargando pruebas técnicas...</p>}
+      {error && <p className="m-4 text-red-500">Error: {error.message}</p>}
       <div className="flex flex-col m-4 p-4 w-fit bg-gray-50 rounded shadow-xl">
         <ul>
           {technicalTests.map((test) => (

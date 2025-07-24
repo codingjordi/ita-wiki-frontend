@@ -4,6 +4,7 @@ import React from "react";
 import MyTechnicalTestsPage from "../MyTechnicalTestsPage";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router";
+import userEvent from "@testing-library/user-event";
 
 const mockedNavigate = vi.fn();
 
@@ -93,18 +94,50 @@ describe("MyTechnicalTestsPage", () => {
     });
   });
 
-  it("navigates to create tech test page when 'Crear prueba' button is clicked", async () => {
-    render(
-      <MemoryRouter initialEntries={["/resources/technical-test"]}>
-        <MyTechnicalTestsPage />
-      </MemoryRouter>,
-    );
+  vi.mock("react-router", async () => {
+    const actual = await vi.importActual("react-router");
+    return {
+      ...actual,
+      useNavigate: () => mockedNavigate,
+    };
+  });
 
-    const button = screen.getByRole("button", { name: /Crear prueba/i });
-    expect(button).toBeInTheDocument();
+  vi.mock("react-router", async () => {
+    const actual = await vi.importActual("react-router");
+    return {
+      ...actual,
+      useNavigate: () => mockedNavigate,
+    };
+  });
 
-    expect(mockedNavigate).toHaveBeenCalledWith(
-      "/resources/technical-test/create",
-    );
+  vi.mock("../hooks/useTechnicalTests", () => ({
+    default: () => ({
+      technicalTests: [],
+      isLoading: false,
+      error: null,
+    }),
+  }));
+
+  describe("Crear prueba button", () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+    });
+
+    it("renders and navigates when clicked", async () => {
+      render(
+        <MemoryRouter>
+          <MyTechnicalTestsPage />
+        </MemoryRouter>,
+      );
+
+      const button = screen.getByRole("button", { name: /crear prueba/i });
+      expect(button).toBeInTheDocument();
+
+      await userEvent.click(button);
+
+      expect(mockedNavigate).toHaveBeenCalledWith(
+        "/resources/technical-test/create",
+      );
+    });
   });
 });
