@@ -13,7 +13,7 @@ const BookmarksPage: FC = () => {
   } = useResources();
 
   const bookmarkedResources = resources.filter((resource) =>
-    isBookmarked(resource)
+    isBookmarked(resource),
   );
 
   return (

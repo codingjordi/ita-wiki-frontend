@@ -43,7 +43,7 @@ export default function CreateResourcePage() {
   });
 
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
+    null,
   );
   const [selectedTags, setselectedTags] = useState<Tag[]>([]);
 
@@ -52,7 +52,7 @@ export default function CreateResourcePage() {
       setselectedTags(tags);
       setValue("tags", tags);
     },
-    [setValue]
+    [setValue],
   );
 
   const handleCategorySelect = (category: Category) => {

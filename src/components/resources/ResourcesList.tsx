@@ -50,7 +50,7 @@ export const ResourcesList: FC<ResourcesListProps> = ({
 
     const lowerSearchTerm = searchTerm.toLowerCase();
     return sortedResources.filter((resource) =>
-      resource.title.toLowerCase().includes(lowerSearchTerm)
+      resource.title.toLowerCase().includes(lowerSearchTerm),
     );
   }, [sortedResources, searchTerm]);
 

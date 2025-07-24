@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { TechnicalTestForm } from '../../../components/tecgnical-test/TechnicalTestForm'
-import { vi } from 'vitest';
-import '@testing-library/jest-dom';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import { TechnicalTestForm } from "../../../components/technical-test/TechnicalTestForm";
+import { vi } from "vitest";
+import "@testing-library/jest-dom";
 
 // Mock useNavigate (required to render the back button)
 vi.mock('react-router', () => ({
@@ -44,27 +44,16 @@ describe('TechnicalTestForm UI', () => {
         expect(iconRow?.nodeName).toBe('SPAN');
     });
 
-    it('renders textarea by default', () => {
-        render(<TechnicalTestForm />);
-        expect(screen.getByRole('textbox')).toBeInTheDocument();
-    });
+  it("renders textarea by default", () => {
+    render(<TechnicalTestForm />);
+    expect(screen.getByRole("textbox")).toBeInTheDocument();
+  });
 
-<<<<<<< HEAD
+
     it('renders Cancel and Publicar buttons', () => {
         render(<TechnicalTestForm />);
         expect(screen.getByRole('button', { name: 'Cancelar' })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: 'Publicar' })).toBeInTheDocument();
     });
 });
-=======
-  it("renders Cancel and Publicar buttons", () => {
-    render(<TechnicalTestForm />);
-    expect(
-      screen.getByRole("button", { name: "Cancelar" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Publicar" })
-    ).toBeInTheDocument();
-  });
-});
->>>>>>> 73864108 (Fix Prettier formatting)
+

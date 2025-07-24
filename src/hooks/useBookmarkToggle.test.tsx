@@ -101,7 +101,7 @@ describe("useBookmarkToggle", () => {
         await result.current.toggleBookmark(
           mockResource,
           bookmarkedResources,
-          mockSetBookmarkedResources
+          mockSetBookmarkedResources,
         );
       });
 
@@ -153,7 +153,7 @@ describe("useBookmarkToggle", () => {
         await result.current.toggleBookmark(
           mockResource,
           bookmarkedResources,
-          mockSetBookmarkedResources
+          mockSetBookmarkedResources,
         );
       });
 
@@ -163,7 +163,7 @@ describe("useBookmarkToggle", () => {
       expect(updatedState).toHaveLength(1);
       expect(updatedState[0].id).toBe(999);
       expect(
-        updatedState.find((b: IntBookmarkElement) => b.id === mockResource.id)
+        updatedState.find((b: IntBookmarkElement) => b.id === mockResource.id),
       ).toBeUndefined();
 
       expect(deleteBookmark).toHaveBeenCalledWith(mockUser.id, mockResource.id);
@@ -195,7 +195,7 @@ describe("useBookmarkToggle", () => {
         await result.current.toggleBookmark(
           newResource,
           bookmarkedResources,
-          mockSetBookmarkedResources
+          mockSetBookmarkedResources,
         );
       });
 
@@ -225,7 +225,7 @@ describe("useBookmarkToggle", () => {
           await result.current.toggleBookmark(
             mockResource,
             bookmarkedResources,
-            mockSetBookmarkedResources
+            mockSetBookmarkedResources,
           );
         } catch (error) {
           caughtError = error as Error;
@@ -238,7 +238,7 @@ describe("useBookmarkToggle", () => {
       // Verify error was logged and thrown
       expect(consoleErrorSpy).toHaveBeenCalledWith(
         "Error toggling bookmark:",
-        expect.any(Error)
+        expect.any(Error),
       );
       expect(caughtError).not.toBeNull();
 
@@ -265,7 +265,7 @@ describe("useBookmarkToggle", () => {
         await result.current.toggleBookmark(
           mockResource,
           bookmarkedResources,
-          mockSetBookmarkedResources
+          mockSetBookmarkedResources,
         );
       });
 
@@ -295,7 +295,7 @@ describe("useBookmarkToggle", () => {
         await result.current.toggleBookmark(
           mockResource,
           bookmarkedResources,
-          mockSetBookmarkedResources
+          mockSetBookmarkedResources,
         );
       });
 

@@ -69,7 +69,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const searchInput = screen.getByRole("textbox");
@@ -96,7 +96,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Mis recursos")).toBeInTheDocument();
@@ -122,7 +122,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Mis recursos")).toBeInTheDocument();
@@ -146,7 +146,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const searchInput = screen.getByRole("textbox");
@@ -169,7 +169,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Inicio")).toBeInTheDocument();

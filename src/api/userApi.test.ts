@@ -12,7 +12,7 @@ describe("getUserRole", () => {
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve({ role: { role: "admin" } }),
-      })
+      }),
     ) as unknown as typeof fetch;
 
     const role = await getUserRole(1234567);

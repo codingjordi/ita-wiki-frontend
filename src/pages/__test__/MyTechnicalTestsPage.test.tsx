@@ -65,13 +65,25 @@ describe("MyTechnicalTestsPage", () => {
       const button = await screen.findByRole("button", {
         name: /crear prueba/i,
       });
-      expect(button).toBeInTheDocument();
 
-      button.click();
+      it("renders and navigates when clicked", async () => {
+        render(
+          <MemoryRouter>
+            <MyTechnicalTestsPage />
+          </MemoryRouter>,
+        );
 
-      expect(mockedNavigate).toHaveBeenCalledWith(
-        "/resources/technical-test/create",
-      );
+        const button = await screen.findByRole("button", {
+          name: /crear prueba/i,
+        });
+        expect(button).toBeInTheDocument();
+
+        button.click();
+
+        expect(mockedNavigate).toHaveBeenCalledWith(
+          "/resources/technical-test/create",
+        );
+      });
     });
   });
 });

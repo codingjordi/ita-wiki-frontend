@@ -18,7 +18,10 @@ describe("TermsAndConditionsModal", () => {
 
   it("renders the modal with the provided title", () => {
     render(
-      <TermsAndConditionsModal closeModal={mockCloseModal} title="Test Title" />
+      <TermsAndConditionsModal
+        closeModal={mockCloseModal}
+        title="Test Title"
+      />,
     );
 
     expect(screen.getByText("Test Title")).toBeInTheDocument();

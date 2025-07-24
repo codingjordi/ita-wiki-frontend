@@ -53,7 +53,7 @@ describe("ListBookmarks Component", () => {
     (resource) =>
       ({
         ...resource,
-      }) as IntResource
+      }) as IntResource,
   );
 
   test("renders correctly with bookmarked resources", () => {
@@ -63,7 +63,7 @@ describe("ListBookmarks Component", () => {
       <ListBookmarks
         bookmarkedResources={mockResources}
         toggleBookmark={toggleBookmarkMock}
-      />
+      />,
     );
 
     expect(screen.getByTestId("resource-card-1")).toBeInTheDocument();
@@ -74,11 +74,11 @@ describe("ListBookmarks Component", () => {
 
     expect(screen.getByTestId("toggle-bookmark-1")).toHaveAttribute(
       "data-bookmarked",
-      "true"
+      "true",
     );
     expect(screen.getByTestId("toggle-bookmark-2")).toHaveAttribute(
       "data-bookmarked",
-      "true"
+      "true",
     );
   });
 
@@ -90,7 +90,7 @@ describe("ListBookmarks Component", () => {
       <ListBookmarks
         bookmarkedResources={mockResources}
         toggleBookmark={toggleBookmarkMock}
-      />
+      />,
     );
 
     await user.click(screen.getByTestId("toggle-bookmark-1"));
@@ -111,7 +111,7 @@ describe("ListBookmarks Component", () => {
       <ListBookmarks
         bookmarkedResources={[]}
         toggleBookmark={toggleBookmarkMock}
-      />
+      />,
     );
 
     const list = screen.getByRole("list");

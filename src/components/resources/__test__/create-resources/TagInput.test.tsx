@@ -34,7 +34,7 @@ vi.mock("../../../../api/endPointTagsIdsByCategory", () => ({
   fetchTagsIdsByCategory: vi.fn(() =>
     Promise.resolve({
       Frontend: [1, 2, 3],
-    })
+    }),
   ),
 }));
 
@@ -49,7 +49,7 @@ describe("TagInput component", () => {
           setselectedTags={setSelectedTags}
           selectedCategory="Frontend"
         />
-      </TagsProvider>
+      </TagsProvider>,
     );
 
     const input = await screen.findByPlaceholderText("Escribe un tag...");
@@ -58,7 +58,7 @@ describe("TagInput component", () => {
     fireEvent.focus(input);
     expect(await screen.findByText(formatText("React"))).toBeInTheDocument();
     expect(
-      await screen.findByText(formatText("JavaScript"))
+      await screen.findByText(formatText("JavaScript")),
     ).toBeInTheDocument();
     expect(await screen.findByText(formatText("CSS"))).toBeInTheDocument();
   });
@@ -73,12 +73,12 @@ describe("TagInput component", () => {
           setselectedTags={setSelectedTags}
           selectedCategory="Frontend"
         />
-      </TagsProvider>
+      </TagsProvider>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByPlaceholderText("Escribe un tag...")
+        screen.getByPlaceholderText("Escribe un tag..."),
       ).toBeInTheDocument();
     });
 
@@ -106,7 +106,7 @@ describe("TagInput component", () => {
           setselectedTags={setSelectedTags}
           selectedCategory="Frontend"
         />
-      </TagsProvider>
+      </TagsProvider>,
     );
 
     const input = await screen.findByPlaceholderText("Escribe un tag...");

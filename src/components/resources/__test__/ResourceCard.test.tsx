@@ -41,12 +41,12 @@ interface RenderWithUserContextProps {
 
 const renderWithUserContext = (
   ui: RenderWithUserContextProps["ui"],
-  contextValue: RenderWithUserContextProps["contextValue"] = userContextMock
+  contextValue: RenderWithUserContextProps["contextValue"] = userContextMock,
 ): ReturnType<typeof render> => {
   return render(
     <MemoryRouter>
       <CtxUser.Provider value={contextValue}>{ui}</CtxUser.Provider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 };
 
@@ -80,7 +80,7 @@ test("renders title and description with zero counts", () => {
         bookmark_count: 0,
         comment_count: 0,
       }}
-    />
+    />,
   );
 
   expect(screen.getByText("React Basics")).toBeInTheDocument();
@@ -115,11 +115,11 @@ test("bookmark icon is not clickable when user role has no permission", () => {
       isBookmarked={false}
       toggleBookmark={toggleBookmarkMock}
     />,
-    noRoleUserPermission
+    noRoleUserPermission,
   );
 
   const bookmarkContainer = screen.getByTitle(
-    "No tienes permiso para guardar recursos. Contacta con un admin."
+    "No tienes permiso para guardar recursos. Contacta con un admin.",
   );
   expect(bookmarkContainer.className).toContain("cursor-not-allowed");
   bookmarkContainer.click();
@@ -141,7 +141,7 @@ test("bookmark icon is not clickable when user is not logged in", () => {
       isBookmarked={false}
       toggleBookmark={toggleBookmarkMock}
     />,
-    noUserContextMock
+    noUserContextMock,
   );
 
   const bookmarkContainer = screen.getByTestId("bookmarkIcon");
