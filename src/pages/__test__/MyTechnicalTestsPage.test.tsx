@@ -114,7 +114,9 @@ describe("MyTechnicalTestsPage", () => {
         </MemoryRouter>,
       );
 
-      const button = await screen.findByRole("button", { name: /crear prueba/i });
+      const button = await screen.findByRole("button", {
+        name: /crear prueba/i,
+      });
       expect(button).toBeInTheDocument();
 
       // await userEvent.click(button);
