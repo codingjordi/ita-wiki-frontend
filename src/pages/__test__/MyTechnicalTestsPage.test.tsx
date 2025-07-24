@@ -16,6 +16,14 @@ vi.mock("react-router", async () => {
   };
 });
 
+vi.mock("../hooks/useTechnicalTests", () => ({
+  default: () => ({
+    technicalTests: [],
+    isLoading: false,
+    error: null,
+  }),
+}));
+
 describe("MyTechnicalTestsPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -93,30 +101,6 @@ describe("MyTechnicalTestsPage", () => {
       expect(screen.queryByText("- Test A")).not.toBeInTheDocument();
     });
   });
-
-  vi.mock("react-router", async () => {
-    const actual = await vi.importActual("react-router");
-    return {
-      ...actual,
-      useNavigate: () => mockedNavigate,
-    };
-  });
-
-  vi.mock("react-router", async () => {
-    const actual = await vi.importActual("react-router");
-    return {
-      ...actual,
-      useNavigate: () => mockedNavigate,
-    };
-  });
-
-  vi.mock("../hooks/useTechnicalTests", () => ({
-    default: () => ({
-      technicalTests: [],
-      isLoading: false,
-      error: null,
-    }),
-  }));
 
   describe("Crear prueba button", () => {
     beforeEach(() => {
