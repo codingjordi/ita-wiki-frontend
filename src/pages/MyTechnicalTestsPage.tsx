@@ -1,3 +1,5 @@
+import TechnicalTestFilter from "../components/technical-test/TechnicalTestFilter";
+import TechnicalTestList from "../components/technical-test/TechnicalTestList";
 import useTechnicalTests from "../hooks/useTechnicalTests";
 
 function MyTechnicalTestsPage() {
@@ -12,12 +14,9 @@ function MyTechnicalTestsPage() {
   }
 
   return (
-    <div className="flex flex-col m-4 p-4 w-fit bg-gray-50 rounded shadow-xl">
-      <ul>
-        {technicalTests.map((test) => (
-          <li key={test.id}>- {test.title}</li>
-        ))}
-      </ul>
+    <div className="flex gap-4 bg-white rounded-lg p-4 m-4 shadow-xl justify-between">
+      <TechnicalTestFilter />
+      <TechnicalTestList technicalTests={technicalTests} />
     </div>
   );
 }
