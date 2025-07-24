@@ -130,10 +130,11 @@ describe("MyTechnicalTestsPage", () => {
         </MemoryRouter>,
       );
 
-      const button = screen.getByRole("button", { name: /crear prueba/i });
+      const button = await screen.findByRole("button", { name: /crear prueba/i });
       expect(button).toBeInTheDocument();
 
-      await userEvent.click(button);
+      // await userEvent.click(button);
+      button.click();
 
       expect(mockedNavigate).toHaveBeenCalledWith(
         "/resources/technical-test/create",
