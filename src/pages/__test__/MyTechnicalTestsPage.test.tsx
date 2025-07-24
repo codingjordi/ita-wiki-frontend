@@ -15,22 +15,6 @@ vi.mock("react-router", async () => {
   };
 });
 
-vi.mock("../hooks/useTechnicalTests", () => ({
-  default: () => ({
-    technicalTests: [
-      {
-        id: 1,
-        title: "Test A",
-        language: "JavaScript",
-        description: "Test description A",
-        tags: ["tag1"],
-      },
-    ],
-    isLoading: false,
-    error: null,
-  }),
-}));
-
 describe("MyTechnicalTestsPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -116,10 +100,9 @@ describe("MyTechnicalTestsPage", () => {
       </MemoryRouter>,
     );
 
-    const button = await screen.findByRole("button", { name: /Crear prueba/i });
+    const button = screen.getByRole("button", { name: /Crear prueba/i });
     expect(button).toBeInTheDocument();
 
-    button.click();
     expect(mockedNavigate).toHaveBeenCalledWith(
       "/resources/technical-test/create",
     );
