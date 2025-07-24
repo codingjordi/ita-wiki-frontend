@@ -1,7 +1,6 @@
 import useTechnicalTests from "../../hooks/useTechnicalTests";
 import TechnicalTestCard from "./TechnicalTestCard";
 
-
 const TechnicalTestList = () => {
   const { technicalTests, isLoading, error } = useTechnicalTests();
 
@@ -10,15 +9,12 @@ const TechnicalTestList = () => {
       <h2 className="text-2xl font-bold mb-8">Pruebas técnicas</h2>
       {isLoading && <p className="m-4">Cargando pruebas técnicas...</p>}
       {error && <p className="m-4 text-red-500">Error: {error.message}</p>}
-      {!isLoading && !error  && (
-        
-          
-          <ul className="flex flex-col gap-4">
-            {technicalTests.map((test) => (
-              <TechnicalTestCard key={test.id} test={test} />
-            ))}
-          </ul>
-        
+      {!isLoading && !error && (
+        <ul className="flex flex-col gap-4">
+          {technicalTests.map((test) => (
+            <TechnicalTestCard key={test.id} test={test} />
+          ))}
+        </ul>
       )}
     </div>
   );
