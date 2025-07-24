@@ -52,23 +52,23 @@ export const ResourcesFiltersProvider: React.FC<
     useState<string[]>(initialResourceTypes);
   const [selectedTags, setSelectedTags] = useState<string[]>(initialTags);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
-    new Set()
+    new Set(),
   );
   const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
 
   const toggleResourceType = useCallback((type: string) => {
     setSelectedResourceTypes((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
     );
   }, []);
 
   const toggleTag = useCallback(
     (tag: string) => {
       setSelectedTags((prev) =>
-        prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+        prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
       );
     },
-    [setSelectedTags]
+    [setSelectedTags],
   );
 
   const toggleCategory = useCallback((category: string) => {
@@ -141,7 +141,7 @@ export const useResourcesFilters = () => {
   const context = useContext(ResourcesFiltersContext);
   if (context === undefined) {
     throw new Error(
-      "useResourcesFilters must be used within a ResourcesFiltersProvider"
+      "useResourcesFilters must be used within a ResourcesFiltersProvider",
     );
   }
   return context;

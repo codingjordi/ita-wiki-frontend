@@ -25,7 +25,7 @@ export const useResourceFilter = ({
       const typeMatch =
         selectedResourceTypes.length === 0 ||
         selectedResourceTypes.some(
-          (selectedType) => resource.type === selectedType
+          (selectedType) => resource.type === selectedType,
         );
       const searchMatch =
         !searchQuery ||
@@ -37,7 +37,7 @@ export const useResourceFilter = ({
           resource.tags?.some((t) => {
             const tagName = typeof t === "string" ? t : t.name;
             return tagName === tag;
-          })
+          }),
         );
 
       return categoryMatch && typeMatch && searchMatch && tagMatch;

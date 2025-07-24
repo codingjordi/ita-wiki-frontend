@@ -32,8 +32,7 @@ describe("MyTechnicalTestsPage", () => {
     render(
       <MemoryRouter>
         <MyTechnicalTestsPage />
-      </MemoryRouter>
-
+      </MemoryRouter>,
     );
     expect(
       screen.getByText("Cargando pruebas técnicas..."),
@@ -65,7 +64,7 @@ describe("MyTechnicalTestsPage", () => {
         ok: true,
         status: 200,
         json: () => Promise.resolve(mockData),
-      })
+      }),
     ) as unknown as typeof fetch;
 
     render(
@@ -88,7 +87,7 @@ describe("MyTechnicalTestsPage", () => {
         ok: true,
         status: 200,
         json: () => Promise.resolve(emptyMockData),
-      })
+      }),
     ) as unknown as typeof fetch;
 
     render(
@@ -102,37 +101,36 @@ describe("MyTechnicalTestsPage", () => {
     });
   });
 
-
   it("navigates to create tech test page when 'Crear prueba' button is clicked", async () => {
     render(
       <MemoryRouter initialEntries={["/resources/technical-test"]}>
         <MyTechnicalTestsPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
-  describe("Crear prueba button", () => {
-    beforeEach(() => {
-      vi.clearAllMocks();
-    });
-
-    it("renders and navigates when clicked", async () => {
-      render(
-        <MemoryRouter>
-          <MyTechnicalTestsPage />
-        </MemoryRouter>,
-      );
-
-      const button = await screen.findByRole("button", {
-        name: /crear prueba/i,
+    describe("Crear prueba button", () => {
+      beforeEach(() => {
+        vi.clearAllMocks();
       });
-      expect(button).toBeInTheDocument();
 
-      button.click();
+      it("renders and navigates when clicked", async () => {
+        render(
+          <MemoryRouter>
+            <MyTechnicalTestsPage />
+          </MemoryRouter>,
+        );
 
-      expect(mockedNavigate).toHaveBeenCalledWith(
-        "/resources/technical-test/create",
-      );
+        const button = await screen.findByRole("button", {
+          name: /crear prueba/i,
+        });
+        expect(button).toBeInTheDocument();
+
+        button.click();
+
+        expect(mockedNavigate).toHaveBeenCalledWith(
+          "/resources/technical-test/create",
+        );
+      });
     });
   });
-})
-})
+});

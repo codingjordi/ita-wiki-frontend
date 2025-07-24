@@ -71,7 +71,7 @@ describe("UserContext", () => {
     const fullUser = { ...mockUser, role: "admin" };
 
     vi.spyOn(firebaseApi, "signInWithGitHub").mockResolvedValue(
-      userWithoutRole
+      userWithoutRole,
     );
     vi.spyOn(userApi, "getUserRole").mockResolvedValue("admin");
 
@@ -89,7 +89,7 @@ describe("UserContext", () => {
   test("should handle error during signIn", async () => {
     const errorMsg = "Sign in failed";
     vi.spyOn(firebaseApi, "signInWithGitHub").mockRejectedValue(
-      new Error(errorMsg)
+      new Error(errorMsg),
     );
 
     const { result } = renderHook(() => useUserContext(), { wrapper });
@@ -105,7 +105,7 @@ describe("UserContext", () => {
   test("should throw if used outside of provider", () => {
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     expect(() => renderHook(() => useUserContext())).toThrow(
-      "useUser must be used within a UserProvider"
+      "useUser must be used within a UserProvider",
     );
     errorSpy.mockRestore();
   });

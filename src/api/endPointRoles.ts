@@ -36,7 +36,7 @@ const getRole = async (github_id: number): Promise<IntRole> => {
 
     if (!response.ok) {
       console.warn(
-        `Error ${response.status}: ${response.statusText}, usaremos el mock`
+        `Error ${response.status}: ${response.statusText}, usaremos el mock`,
       );
       return mockRoles;
     }
@@ -67,7 +67,7 @@ const getRole = async (github_id: number): Promise<IntRole> => {
 };
 
 const createRole = async (
-  body: RoleCreationRequest
+  body: RoleCreationRequest,
 ): Promise<RoleCreationResponse> => {
   try {
     const response = await fetch(`${API_URL}${END_POINTS.roles.post}`, {
@@ -81,7 +81,7 @@ const createRole = async (
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(
-        errorData.message || `Error ${response.status}: ${response.statusText}`
+        errorData.message || `Error ${response.status}: ${response.statusText}`,
       );
     }
 

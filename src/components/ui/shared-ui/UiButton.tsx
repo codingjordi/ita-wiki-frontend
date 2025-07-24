@@ -54,7 +54,7 @@ export const UiButton: FC<UiButtonProps> = ({
         variantStyles[variant],
         sizeStyles[size],
         className,
-        disabled && "opacity-60 cursor-not-allowed"
+        disabled && "opacity-60 cursor-not-allowed",
       )}
       onClick={onClick}
       type={type}

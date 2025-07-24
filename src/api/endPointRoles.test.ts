@@ -36,7 +36,7 @@ describe("endPointRoles", () => {
         Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockRoleResponse),
-        } as Response)
+        } as Response),
       );
 
       const result = await getRole(mockGithubId);
@@ -45,7 +45,7 @@ describe("endPointRoles", () => {
       expect(fetch).toHaveBeenCalledTimes(1);
       expect(fetch).toHaveBeenCalledWith(
         `${API_URL}${END_POINTS.roles.lists}${mockGithubId}`,
-        expect.objectContaining({ signal: expect.any(AbortSignal) })
+        expect.objectContaining({ signal: expect.any(AbortSignal) }),
       );
     });
 
@@ -55,7 +55,7 @@ describe("endPointRoles", () => {
           ok: false,
           status: 404,
           statusText: "Not Found",
-        } as Response)
+        } as Response),
       );
 
       const result = await getRole(mockGithubId);
@@ -69,7 +69,7 @@ describe("endPointRoles", () => {
         Promise.resolve({
           ok: true,
           json: () => Promise.resolve({ error: "User not found" }),
-        } as Response)
+        } as Response),
       );
 
       const result = await getRole(mockGithubId);
@@ -81,7 +81,7 @@ describe("endPointRoles", () => {
     it("should handle AbortController errors", async () => {
       const abortError = new DOMException(
         "The operation was aborted",
-        "AbortError"
+        "AbortError",
       );
       global.fetch = vi.fn(() => Promise.reject(abortError));
 
@@ -95,7 +95,7 @@ describe("endPointRoles", () => {
       global.fetch = vi.fn(() => Promise.reject(new Error("Network error")));
 
       await expect(getRole(mockGithubId)).rejects.toThrow(
-        "Error al obtener los roles"
+        "Error al obtener los roles",
       );
       expect(console.error).toHaveBeenCalled();
     });
@@ -121,7 +121,7 @@ describe("endPointRoles", () => {
         Promise.resolve({
           ok: true,
           json: () => Promise.resolve(mockSuccessResponse),
-        } as Response)
+        } as Response),
       );
 
       const result = await createRole(mockRequestBody);
@@ -145,7 +145,7 @@ describe("endPointRoles", () => {
           status: 401,
           statusText: "Unauthorized",
           json: () => Promise.resolve({ message: errorMessage }),
-        } as Response)
+        } as Response),
       );
 
       await expect(createRole(mockRequestBody)).rejects.toThrow(errorMessage);
@@ -166,11 +166,11 @@ describe("endPointRoles", () => {
           status: 500,
           statusText: "Internal Server Error",
           json: () => Promise.resolve({}),
-        } as Response)
+        } as Response),
       );
 
       await expect(createRole(mockRequestBody)).rejects.toThrow(
-        "Error 500: Internal Server Error"
+        "Error 500: Internal Server Error",
       );
       expect(console.error).toHaveBeenCalled();
     });
