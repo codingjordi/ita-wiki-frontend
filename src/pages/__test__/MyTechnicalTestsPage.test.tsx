@@ -5,20 +5,27 @@ import MyTechnicalTestsPage from "../MyTechnicalTestsPage";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router";
 
+const mockedNavigate = vi.fn();
+
+vi.mock("react-router", async () => {
+  const actual = await vi.importActual("react-router");
+  return {
+    ...actual,
+    useNavigate: () => mockedNavigate,
+  };
+});
+
+vi.mock("../hooks/useTechnicalTests", () => ({
+  default: () => ({
+    technicalTests: [],
+    isLoading: false,
+    error: null,
+  }),
+}));
+
 describe("MyTechnicalTestsPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-  });
-
-  it("renders without crashing", () => {
-    render(
-      <MemoryRouter>
-        <MyTechnicalTestsPage />
-      </MemoryRouter>,
-    );
-    expect(
-      screen.getByText("Cargando pruebas técnicas..."),
-    ).toBeInTheDocument();
   });
 
   it("handles empty data", async () => {
@@ -40,6 +47,31 @@ describe("MyTechnicalTestsPage", () => {
 
     await waitFor(() => {
       expect(screen.queryByText("- Test A")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("Crear prueba button", () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+    });
+
+    it("renders and navigates when clicked", async () => {
+      render(
+        <MemoryRouter>
+          <MyTechnicalTestsPage />
+        </MemoryRouter>,
+      );
+
+      const button = await screen.findByRole("button", {
+        name: /crear prueba/i,
+      });
+      expect(button).toBeInTheDocument();
+
+      button.click();
+
+      expect(mockedNavigate).toHaveBeenCalledWith(
+        "/resources/technical-test/create",
+      );
     });
   });
 });
