@@ -100,7 +100,7 @@ describe("MyTechnicalTestsPage", () => {
       </MemoryRouter>,
     );
 
-    const button = screen.getByRole("button", { name: /crear prueba/i });
+    const button = screen.getByRole("button", { name: /Crear prueba/i });
     expect(button).toBeInTheDocument();
 
     expect(mockedNavigate).toHaveBeenCalledWith(
