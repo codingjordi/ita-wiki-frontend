@@ -67,4 +67,23 @@ describe("PdfUploadComponent", () => {
       "El archivo elegido es demasiado pesado. Puedes subir archivos de hasta 5MB.",
     );
   });
+  it("llama a onFileSelect cuando se selecciona un archivo PDF válido", async () => {
+    const mockOnFileSelect = vi.fn();
+
+    render(<PdfUploadComponent onFileSelect={mockOnFileSelect} />);
+
+    const file = new File(["contenido"], "documento.pdf", {
+      type: "application/pdf",
+    });
+
+    const input =
+      screen.getByRole("textbox", { hidden: true }) ||
+      (document.querySelector('input[type="file"]') as HTMLInputElement);
+
+    fireEvent.change(input, { target: { files: [file] } });
+
+    await waitFor(() => {
+      expect(mockOnFileSelect).toHaveBeenCalledWith(file);
+    });
+  });
 });
