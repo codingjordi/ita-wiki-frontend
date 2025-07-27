@@ -76,10 +76,9 @@ describe("PdfUploadComponent", () => {
       type: "application/pdf",
     });
 
-    const input =
-      screen.getByRole("textbox", { hidden: true }) ||
-      (document.querySelector('input[type="file"]') as HTMLInputElement);
-
+    const input = document.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
     fireEvent.change(input, { target: { files: [file] } });
 
     await waitFor(() => {
