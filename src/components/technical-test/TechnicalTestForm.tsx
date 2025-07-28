@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { asideContent } from "../Layout/aside/asideContent";
+import { asideContentForTechnicalTest } from "../Layout/aside/asideContent";
 import { createTechnicalTest } from "../../api/endPointTechnicalTests";
 import { API_URL, END_POINTS } from "../../config";
 import PdfUploadComponent from "../atoms/PdfUploadComponent";
@@ -62,7 +62,7 @@ export const TechnicalTestForm = () => {
 
       <label className="block mb-2 font-medium">Lenguaje *</label>
       <div className="flex flex-wrap gap-3 mb-4">
-        {asideContent.map((cat) => {
+        {asideContentForTechnicalTest.map((cat) => {
           const IconComponent = cat.icon as unknown as React.FC<
             React.SVGProps<SVGSVGElement>
           >;
