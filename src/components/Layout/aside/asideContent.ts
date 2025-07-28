@@ -16,12 +16,13 @@ export const asideContent: { icon: SvgIcon; label: Category }[] = [
   { icon: CircleIcon, label: "BBDD" },
 ];
 
-export const asideContentForTechnicalTest: { icon: SvgIcon; label: string }[] = [
-  { icon: CircleIcon, label: "PHP" },
-  { icon: CircleIcon, label: "JavaScript" },
-  { icon: CircleIcon, label: "Java" },
-  { icon: CircleIcon, label: "React" },
-  { icon: CircleIcon, label: "TypeScript" },
-  { icon: CircleIcon, label: "Python" },
-  { icon: CircleIcon, label: "SQL" },
-];
+export const asideContentForTechnicalTest: { icon: SvgIcon; label: string }[] =
+  [
+    { icon: CircleIcon, label: "PHP" },
+    { icon: CircleIcon, label: "JavaScript" },
+    { icon: CircleIcon, label: "Java" },
+    { icon: CircleIcon, label: "React" },
+    { icon: CircleIcon, label: "TypeScript" },
+    { icon: CircleIcon, label: "Python" },
+    { icon: CircleIcon, label: "SQL" },
+  ];
