@@ -12,13 +12,26 @@ export const TechnicalTestForm = () => {
   const [file, setFile] = useState<File | null>(null);
 
   const handleSubmit = async () => {
+    if (!title || !selectedLanguage) {
+      alert("Por favor, completá todos los campos obligatorios.");
+      return;
+    }
+
+    if (contentType === "text" && !content.trim()) {
+      alert("Por favor, completá la descripción de la prueba.");
+      return;
+    }
+
+    if (contentType === "file" && !file) {
+      alert("Por favor, seleccioná un archivo PDF.");
+      return;
+    }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("language", selectedLanguage);
-    formData.append("contentType", contentType);
 
     if (contentType === "text") {
-      formData.append("content", content);
+      formData.append("description", content);
     } else if (file) {
       formData.append("file", file);
     }
