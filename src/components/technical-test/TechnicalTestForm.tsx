@@ -52,7 +52,6 @@ export const TechnicalTestForm = () => {
         </div>
 
         <div className="flex items-center justify-end gap-4">
-
           <button className="px-4 py-2 border border-gray-400 rounded-lg w-1/2 h-fit hover:shadow-md">
             Cancelar
           </button>
@@ -90,10 +89,11 @@ export const TechnicalTestForm = () => {
             <button
               key={cat.label}
               onClick={() => setSelectedLanguage(cat.label)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 hover:shadow-md ${selectedLanguage === cat.label
-                ? "border-3 border-[#B91879] bg-white text-black"
-                : "border-gray-300 bg-white text-black"
-                }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 hover:shadow-md ${
+                selectedLanguage === cat.label
+                  ? "border-3 border-[#B91879] bg-white text-black"
+                  : "border-gray-300 bg-white text-black"
+              }`}
             >
               <IconComponent className="w-5 h-5" />
               <span className="text-sm font-medium">{cat.label}</span>
@@ -104,8 +104,9 @@ export const TechnicalTestForm = () => {
 
       <div className="mx-[-3.7rem] border-t border-gray-300 my-8"></div>
 
-
-      <label className="block my-4 mb-8 font-medium">Contenido de la prueba</label>
+      <label className="block my-4 mb-8 font-medium">
+        Contenido de la prueba
+      </label>
       <div
         className="flex gap-2 mb-10
       border-2 border-gray-500
@@ -114,15 +115,17 @@ export const TechnicalTestForm = () => {
       "
       >
         <button
-          className={`px-8 py-2 rounded-full ${contentType === "text" ? "bg-[#B91879] text-white" : "bg-white"
-            }`}
+          className={`px-8 py-2 rounded-full ${
+            contentType === "text" ? "bg-[#B91879] text-white" : "bg-white"
+          }`}
           onClick={() => setContentType("text")}
         >
           Texto
         </button>
         <button
-          className={`px-6 py-2 rounded-full ${contentType === "file" ? "bg-[#B91879] text-white" : "bg-white"
-            }`}
+          className={`px-6 py-2 rounded-full ${
+            contentType === "file" ? "bg-[#B91879] text-white" : "bg-white"
+          }`}
           onClick={() => setContentType("file")}
         >
           Archivo
@@ -156,7 +159,6 @@ export const TechnicalTestForm = () => {
           className="mb-4"
         />
       )}
-
     </div>
   );
 };
