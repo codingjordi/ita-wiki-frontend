@@ -25,7 +25,7 @@ describe("createTechnicalTest", () => {
     const result = await createTechnicalTest(mockFormData);
 
     expect(fetch).toHaveBeenCalledWith(
-      expect.stringContaining("/technicaltests"),
+      expect.stringContaining("/technical-tests"),
       expect.objectContaining({
         method: "POST",
         body: mockFormData,
