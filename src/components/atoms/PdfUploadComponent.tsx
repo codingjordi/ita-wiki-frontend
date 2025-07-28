@@ -2,29 +2,61 @@ import React, { useState, useRef } from "react";
 import { FaCheck, FaSpinner } from "react-icons/fa";
 import FileUploadIcon from "../../icons/FileUploadIcon";
 
-function PdfUploadComponent() {
+interface PdfUploadComponentProps {
+  onFileSelect: (file: File | null) => void;
+}
+
+function PdfUploadComponent({ onFileSelect }: PdfUploadComponentProps) {
   const [fileName, setFileName] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isUploaded, setIsUploaded] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const maxPdfSize = 5 * 1024 * 1024;
+
+  const resetState = () => {
+    onFileSelect(null);
+    setFileName(null);
+    setIsLoading(false);
+    setIsUploaded(false);
+  };
 
   const handleClick = () => {
     inputRef.current?.click();
   };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file && file.type === "application/pdf") {
-      setFileName(file.name);
-      setIsLoading(true);
-      setIsUploaded(false);
 
-      setTimeout(() => {
-        setIsLoading(false);
-        setIsUploaded(true);
-      }, 2000);
-    } else {
-      alert("Por favor selecciona un archivo PDF.");
+    if (!file) {
+      resetState();
+      return;
     }
+
+    const isPdf = file.type === "application/pdf";
+    const isSizeOk = file.size <= maxPdfSize;
+
+    if (!isPdf) {
+      alert("Por favor selecciona un archivo PDF.");
+      resetState();
+      return;
+    }
+
+    if (!isSizeOk) {
+      alert(
+        "El archivo elegido es demasiado pesado. Puedes subir archivos de hasta 5MB.",
+      );
+      resetState();
+      return;
+    }
+    setFileName(file.name);
+    setIsLoading(true);
+    setIsUploaded(false);
+    onFileSelect(file);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsUploaded(true);
+    }, 2000);
   };
 
   return (

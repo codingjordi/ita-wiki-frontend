@@ -5,6 +5,7 @@ import { API_URL, END_POINTS } from "../../config";
 import { formatDocumentIcons } from "../../icons/formatDocumentIconsArray";
 import { ArrowLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router";
+import PdfUploadComponent from "../atoms/PdfUploadComponent";
 
 export const TechnicalTestForm = () => {
   const [title, setTitle] = useState("");
@@ -153,11 +154,9 @@ export const TechnicalTestForm = () => {
           </div>
         </div>
       ) : (
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          className="mb-4"
-        />
+        <div className="my-3">
+          <PdfUploadComponent onFileSelect={setFile} />
+        </div>
       )}
     </div>
   );
