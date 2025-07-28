@@ -43,7 +43,7 @@ const END_POINTS = {
     roleChange: "feature-flags/role-self-assignment" as EndPoints,
   },
   technicaltests: {
-    create: "/technical-tests/" as EndPoints,
+    create: "technical-tests/" as EndPoints,
     get: "technical-tests/" as EndPoints,
   },
 };
