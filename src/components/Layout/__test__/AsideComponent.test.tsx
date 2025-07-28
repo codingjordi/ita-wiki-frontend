@@ -6,7 +6,6 @@ import AsideComponent from "../AsideComponent";
 import { useUserContext } from "../../../context/UserContext";
 import { asideContent } from "../aside/asideContent";
 
-
 import sql_vector from "../../../assets/sqlVector.svg?react";
 import python_vector from "../../../assets/pythonVector.svg?react";
 import ts_vector from "../../../assets/TypescriptVector.svg?react";
@@ -115,7 +114,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const searchInput = screen.getByRole("textbox");
@@ -141,7 +140,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Mis recursos")).toBeInTheDocument();
@@ -167,7 +166,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Mis recursos")).toBeInTheDocument();
@@ -191,7 +190,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const searchInput = screen.getByRole("textbox");
@@ -214,7 +213,7 @@ describe("AsideComponent Tests", () => {
     render(
       <MemoryRouter>
         <AsideComponent asideContent={asideContentMock} />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     expect(screen.getByText("Inicio")).toBeInTheDocument();
