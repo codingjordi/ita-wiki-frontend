@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { createTechnicalTest } from "../api/endPointTechnicalTests";
+import { API_URL, END_POINTS } from "../config";
 
 describe("createTechnicalTest", () => {
   const mockFormData = new FormData();
@@ -25,7 +26,7 @@ describe("createTechnicalTest", () => {
     const result = await createTechnicalTest(mockFormData);
 
     expect(fetch).toHaveBeenCalledWith(
-      expect.stringContaining("/technical-tests"),
+      `${API_URL}${END_POINTS.technicaltests.create}`,
       expect.objectContaining({
         method: "POST",
         body: mockFormData,
