@@ -7,12 +7,9 @@ import { ArrowLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 import PdfUploadComponent from "../atoms/PdfUploadComponent";
 
-
-
 import { formatDocumentIcons } from "../../icons/formatDocumentIconsArray";
 import { ArrowLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router";
-
 
 export const TechnicalTestForm = () => {
   const [title, setTitle] = useState("");

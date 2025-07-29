@@ -23,4 +23,3 @@ export const asideContent: { icon: SvgIcon; label: Category }[] = [
   { icon: sql_vector, label: "BBDD" },
   { icon: python_vector, label: "Python" },
 ];
-
