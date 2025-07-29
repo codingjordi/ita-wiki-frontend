@@ -113,7 +113,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContentForTechnicalTest={asideContentForTechnicalTestMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
@@ -139,7 +141,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContentForTechnicalTest={asideContentForTechnicalTestMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
@@ -165,7 +169,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContentForTechnicalTest={asideContentForTechnicalTestMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
@@ -189,7 +195,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContentForTechnicalTest={asideContentForTechnicalTestMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
@@ -212,7 +220,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContentForTechnicalTest={asideContentForTechnicalTestMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 

@@ -12,7 +12,10 @@ import angular_vector from "../../../assets/angular.svg?react";
 import dataScience_vector from "../../../assets/data-science.svg?react";
 import { CircleIcon } from "lucide-react";
 
-export const asideContentForTechnicalTest: { icon: SvgIcon; label: Category }[] = [
+export const asideContentForTechnicalTest: {
+  icon: SvgIcon;
+  label: Category;
+}[] = [
   { icon: node_vector, label: "Node" },
   { icon: react_vector, label: "React" },
   { icon: angular_vector, label: "Angular" },
@@ -25,13 +28,12 @@ export const asideContentForTechnicalTest: { icon: SvgIcon; label: Category }[] 
   { icon: python_vector, label: "Python" },
 ];
 
-export const asideContent: { icon: SvgIcon; label: string }[] =
-  [
-    { icon: CircleIcon, label: "PHP" },
-    { icon: CircleIcon, label: "JavaScript" },
-    { icon: CircleIcon, label: "Java" },
-    { icon: CircleIcon, label: "React" },
-    { icon: CircleIcon, label: "TypeScript" },
-    { icon: CircleIcon, label: "Python" },
-    { icon: CircleIcon, label: "SQL" },
-  ];
+export const asideContent: { icon: SvgIcon; label: string }[] = [
+  { icon: CircleIcon, label: "PHP" },
+  { icon: CircleIcon, label: "JavaScript" },
+  { icon: CircleIcon, label: "Java" },
+  { icon: CircleIcon, label: "React" },
+  { icon: CircleIcon, label: "TypeScript" },
+  { icon: CircleIcon, label: "Python" },
+  { icon: CircleIcon, label: "SQL" },
+];
