@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { asideContent } from "../Layout/aside/asideContent";
+import { asideContentForTechnicalTest } from "../Layout/aside/asideContent";
 import { createTechnicalTest } from "../../api/endPointTechnicalTests";
 import { API_URL, END_POINTS } from "../../config";
 import PdfUploadComponent from "../atoms/PdfUploadComponent";
@@ -12,13 +12,26 @@ export const TechnicalTestForm = () => {
   const [file, setFile] = useState<File | null>(null);
 
   const handleSubmit = async () => {
+    if (!title || !selectedLanguage) {
+      alert("Completa todos los campos obligatorios.");
+      return;
+    }
+
+    if (contentType === "text" && !content.trim()) {
+      alert("La descripción no puede estar vacía");
+      return;
+    }
+
+    if (contentType === "file" && !file) {
+      alert("Por favor, selecciona un archivo PDF.");
+      return;
+    }
     const formData = new FormData();
     formData.append("title", title);
     formData.append("language", selectedLanguage);
-    formData.append("contentType", contentType);
 
     if (contentType === "text") {
-      formData.append("content", content);
+      formData.append("description", content);
     } else if (file) {
       formData.append("file", file);
     }
@@ -49,7 +62,7 @@ export const TechnicalTestForm = () => {
 
       <label className="block mb-2 font-medium">Lenguaje *</label>
       <div className="flex flex-wrap gap-3 mb-4">
-        {asideContent.map((cat) => {
+        {asideContentForTechnicalTest.map((cat) => {
           const IconComponent = cat.icon as unknown as React.FC<
             React.SVGProps<SVGSVGElement>
           >;
