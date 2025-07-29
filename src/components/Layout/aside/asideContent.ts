@@ -10,8 +10,9 @@ import node_vector from "../../../assets/logo-node 1.svg?react";
 import react_vector from "../../../assets/react.svg?react";
 import angular_vector from "../../../assets/angular.svg?react";
 import dataScience_vector from "../../../assets/data-science.svg?react";
+import { CircleIcon } from "lucide-react";
 
-export const asideContent: { icon: SvgIcon; label: Category }[] = [
+export const asideContentForTechnicalTest: { icon: SvgIcon; label: Category }[] = [
   { icon: node_vector, label: "Node" },
   { icon: react_vector, label: "React" },
   { icon: angular_vector, label: "Angular" },
@@ -24,7 +25,7 @@ export const asideContent: { icon: SvgIcon; label: Category }[] = [
   { icon: python_vector, label: "Python" },
 ];
 
-export const asideContentForTechnicalTest: { icon: SvgIcon; label: string }[] =
+export const asideContent: { icon: SvgIcon; label: string }[] =
   [
     { icon: CircleIcon, label: "PHP" },
     { icon: CircleIcon, label: "JavaScript" },
