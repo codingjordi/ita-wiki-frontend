@@ -97,13 +97,11 @@ export interface TagsIdsByCategory {
 
 export type SvgIcon = FC<SVGProps<SVGSVGElement>>;
 
-
-export type FormatDocumentCategory =  
-| "bold"
-| "italic"
-| "underline"
-| "align-left"
-| "align-center"
-| "ordered-list"
-| "unordered-list"
-
+export type FormatDocumentCategory =
+  | "bold"
+  | "italic"
+  | "underline"
+  | "align-left"
+  | "align-center"
+  | "ordered-list"
+  | "unordered-list";

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { asideContent } from "../Layout/aside/asideContent";
 import { createTechnicalTest } from "../../api/endPointTechnicalTests";
 import { API_URL, END_POINTS } from "../../config";
+import { formatDocumentIcons } from "../../icons/formatDocumentIconsArray";
+import { ArrowLeftIcon } from "lucide-react";
+import { useNavigate } from "react-router";
 import PdfUploadComponent from "../atoms/PdfUploadComponent";
 
 
@@ -117,7 +120,8 @@ export const TechnicalTestForm = () => {
       border-2 border-gray-500
       shadow-sm w-fit
       rounded-full p-1
-      ">
+      "
+      >
         <button
           className={`px-8 py-2 rounded-full ${
             contentType === "text" ? "bg-[#B91879] text-white" : "bg-white"
