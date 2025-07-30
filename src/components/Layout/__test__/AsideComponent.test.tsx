@@ -1,9 +1,23 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import { vi, describe, test, expect, beforeEach } from "vitest";
 import AsideComponent from "../AsideComponent";
 import { useUserContext } from "../../../context/UserContext";
+import { asideContentForTechnicalTest } from "../aside/asideContent";
 
+import sql_vector from "../../../assets/sqlVector.svg?react";
+import python_vector from "../../../assets/pythonVector.svg?react";
+import ts_vector from "../../../assets/TypescriptVector.svg?react";
+import js_vector from "../../../assets/javascript.svg?react";
+import java_vector from "../../../assets/logo-java 1.svg?react";
+import php_vector from "../../../assets/logo-php 1.svg?react";
+import node_vector from "../../../assets/logo-node 1.svg?react";
+import react_vector from "../../../assets/react.svg?react";
+import angular_vector from "../../../assets/angular.svg?react";
+import dataScience_vector from "../../../assets/data-science.svg?react";
+
+// Mocks
 const MockIcon = () => <svg data-testid="mock-icon" />;
 
 const mockUseLocation = vi.fn();
@@ -23,6 +37,37 @@ vi.mock("../../../context/UserContext", () => ({
   }),
 }));
 
+vi.mock("../../../assets/sqlVector.svg?react", () => ({
+  default: () => <svg data-testid="sql-icon" />,
+}));
+vi.mock("../../../assets/pythonVector.svg?react", () => ({
+  default: () => <svg data-testid="python-icon" />,
+}));
+vi.mock("../../../assets/TypescriptVector.svg?react", () => ({
+  default: () => <svg data-testid="ts-icon" />,
+}));
+vi.mock("../../../assets/javascript.svg?react", () => ({
+  default: () => <svg data-testid="js-icon" />,
+}));
+vi.mock("../../../assets/logo-java 1.svg?react", () => ({
+  default: () => <svg data-testid="java-icon" />,
+}));
+vi.mock("../../../assets/logo-php 1.svg?react", () => ({
+  default: () => <svg data-testid="php-icon" />,
+}));
+vi.mock("../../../assets/logo-node 1.svg?react", () => ({
+  default: () => <svg data-testid="node-icon" />,
+}));
+vi.mock("../../../assets/react.svg?react", () => ({
+  default: () => <svg data-testid="react-icon" />,
+}));
+vi.mock("../../../assets/angular.svg?react", () => ({
+  default: () => <svg data-testid="angular-icon" />,
+}));
+vi.mock("../../../assets/data-science.svg?react", () => ({
+  default: () => <svg data-testid="datascience-icon" />,
+}));
+
 vi.mock("react-router-dom", () => {
   const actual = vi.importActual("react-router-dom");
   return {
@@ -33,7 +78,7 @@ vi.mock("react-router-dom", () => {
   };
 });
 
-const asideContentMock = [
+const asideContentForTechnicalTestMock = [
   { icon: MockIcon, label: "React" },
   { icon: MockIcon, label: "Node" },
 ];
@@ -68,7 +113,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContent={asideContentMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
@@ -76,7 +123,6 @@ describe("AsideComponent Tests", () => {
     expect(searchInput).toBeInTheDocument();
     expect(searchInput).toHaveAttribute("placeholder", "Buscar recurso");
 
-    // Las opciones de "Guardados" y "Creados" aparecen siempre
     expect(screen.queryByText("Mis recursos")).toBeInTheDocument();
     expect(screen.queryByText("Crear recurso")).toBeInTheDocument();
   });
@@ -95,7 +141,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContent={asideContentMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
@@ -121,7 +169,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContent={asideContentMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
@@ -145,7 +195,9 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContent={asideContentMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
@@ -168,10 +220,53 @@ describe("AsideComponent Tests", () => {
 
     render(
       <MemoryRouter>
-        <AsideComponent asideContent={asideContentMock} />
+        <AsideComponent
+          asideContentForTechnicalTest={asideContentForTechnicalTestMock}
+        />
       </MemoryRouter>,
     );
 
     expect(screen.getByText("Inicio")).toBeInTheDocument();
+  });
+
+  test("asideContentForTechnicalTest has correct labels and length", () => {
+    const expectedLabels = [
+      "Node",
+      "React",
+      "Angular",
+      "JavaScript",
+      "TypeScript",
+      "Java",
+      "PHP",
+      "Data Science",
+      "BBDD",
+      "Python",
+    ];
+
+    expect(asideContentForTechnicalTest).toHaveLength(expectedLabels.length);
+
+    expectedLabels.forEach((label, index) => {
+      expect(asideContentForTechnicalTest[index].label).toBe(label);
+      expect(typeof asideContentForTechnicalTest[index].icon).toBe("function");
+    });
+  });
+
+  test("asideContentForTechnicalTest icons are correctly assigned", () => {
+    const expectedIcons = [
+      node_vector,
+      react_vector,
+      angular_vector,
+      js_vector,
+      ts_vector,
+      java_vector,
+      php_vector,
+      dataScience_vector,
+      sql_vector,
+      python_vector,
+    ];
+
+    asideContentForTechnicalTest.forEach((item, index) => {
+      expect(item.icon).toBe(expectedIcons[index]);
+    });
   });
 });

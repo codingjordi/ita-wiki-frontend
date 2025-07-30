@@ -13,7 +13,7 @@ import { useState, useCallback } from "react";
 import arrowLeft from "../assets/arrow-left.svg";
 import { useNavigate } from "react-router";
 import Container from "../components/ui/Container";
-import { asideContent } from "../components/Layout/aside/asideContent";
+import { asideContentForTechnicalTest } from "../components/Layout/aside/asideContent";
 
 export default function CreateResourcePage() {
   const { user } = useUser();
@@ -173,7 +173,7 @@ export default function CreateResourcePage() {
 
             <h2 className="text-sm text-black font-medium mb-2">Lenguaje</h2>
             <div className="flex flex-wrap gap-3">
-              {asideContent.map((cat) => {
+              {asideContentForTechnicalTest.map((cat) => {
                 const IconComponent = cat.icon as unknown as React.FC<
                   React.SVGProps<SVGSVGElement>
                 >;
